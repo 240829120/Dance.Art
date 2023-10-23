@@ -1,0 +1,24 @@
+﻿<Window x:Class="Dance.Art.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dance.Art"
+        xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
+        mc:Ignorable="d"        
+        WindowStartupLocation="CenterScreen" WindowStyle="None" WindowState="Normal"
+        Title="Dance.Art" Height="1000" Width="1600" Background="White">
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome CaptionHeight="0" CornerRadius="0" GlassFrameThickness="0" UseAeroCaptionButtons="False" NonClientFrameEdges="None">
+                    </WindowChrome>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Style>
+    <Grid>
+        <module:MainView Margin="3"></module:MainView>
+    </Grid>
+</Window>

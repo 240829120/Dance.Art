@@ -1,0 +1,13 @@
+﻿<Window x:Class="Dance.Art.WelcomeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dance.Art"
+        xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" WindowState="Normal"
+        Title="Dance.Art" Height="400" Width="600" Background="Transparent">
+    <Grid Margin="7">
+        <module:WelcomeView></module:WelcomeView>
+    </Grid>
+</Window>

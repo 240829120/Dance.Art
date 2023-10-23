@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Themes\Resources\Icons\" />
+    <Folder Include="Themes\Resources\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance.Common\Dance.Common.csproj" />
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+    <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
+    <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
+    <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
+  </ItemGroup>
+
+</Project>

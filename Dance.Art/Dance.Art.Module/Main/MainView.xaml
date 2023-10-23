@@ -19,6 +19,7 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <!-- 标题 -->
         <Grid Background="#FFFAFAFA">
@@ -45,31 +46,50 @@
         </Grid>
 
         <!-- 菜单 -->
-        <Menu Grid.Row="1">
+        <Menu Grid.Row="1" Margin="5,0,5,0">
             <MenuItem Header="项目(_P)">
-                <MenuItem Header="打开(_O)"></MenuItem>
-                <MenuItem Header="保存(_S)"></MenuItem>
-                <MenuItem Header="关闭(_C)"></MenuItem>
+                <MenuItem Header="打开">
+                    <MenuItem.Icon>
+                        <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"></dance:DanceSvgImage>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="保存">
+                    <MenuItem.Icon>
+                        <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="关闭"></MenuItem>
             </MenuItem>
-            <MenuItem Header="视图"></MenuItem>
-            <MenuItem Header="布局">
-                <MenuItem Header="保存"></MenuItem>
-                <MenuItem Header="加载"></MenuItem>
+            <MenuItem Header="视图(_V)"></MenuItem>
+            <MenuItem Header="布局(_L)">
+                <MenuItem Header="保存">
+                    <MenuItem.Icon>
+                        <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="加载">
+                    <MenuItem.Icon>
+                        <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/layout.svg"></dance:DanceSvgImage>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
 
         <!-- 内容 -->
-        <docking:DockingManager x:Name="docking" Grid.Row="2" AnchorablesSource="{Binding Path=Panels}" Margin="10">
-            <docking:DockingManager.LayoutItemTemplate>
-                <DataTemplate>
-                    <ContentControl Content="{Binding Content.ViewType,Converter={StaticResource DanceTypeInstanceConverter}}"></ContentControl>
-                </DataTemplate>
-            </docking:DockingManager.LayoutItemTemplate>
-            <docking:DockingManager.LayoutItemContainerStyle>
-                <Style TargetType="LayoutItem">
-                    <Setter Property="Title" Value="{Binding Model.Name}"></Setter>
-                </Style>
-            </docking:DockingManager.LayoutItemContainerStyle>
-        </docking:DockingManager>
+        <Border Margin="5" BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"
+                BorderThickness="1" Grid.Row="2" Padding="5">
+            <docking:DockingManager x:Name="docking" AnchorablesSource="{Binding Path=Panels}">
+                <docking:DockingManager.LayoutItemTemplate>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding Content.ViewType,Converter={StaticResource DanceTypeInstanceConverter}}"></ContentControl>
+                    </DataTemplate>
+                </docking:DockingManager.LayoutItemTemplate>
+                <docking:DockingManager.LayoutItemContainerStyle>
+                    <Style TargetType="LayoutItem">
+                        <Setter Property="Title" Value="{Binding Model.Name}"></Setter>
+                    </Style>
+                </docking:DockingManager.LayoutItemContainerStyle>
+            </docking:DockingManager>
+        </Border>
     </Grid>
 </UserControl>

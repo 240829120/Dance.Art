@@ -7,7 +7,5 @@
         xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
         WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" WindowState="Normal"
         Title="Dance.Art" Height="400" Width="600" Background="Transparent">
-    <Grid Margin="7">
-        <module:WelcomeView></module:WelcomeView>
-    </Grid>
+    <module:WelcomeView></module:WelcomeView>
 </Window>

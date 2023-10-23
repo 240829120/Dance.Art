@@ -19,6 +19,6 @@
         </Style>
     </Window.Style>
     <Grid>
-        <module:MainView Margin="3"></module:MainView>
+        <module:MainView Margin="2"></module:MainView>
     </Grid>
 </Window>

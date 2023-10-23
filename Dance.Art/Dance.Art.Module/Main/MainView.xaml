@@ -17,6 +17,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <!-- 标题 -->
@@ -43,11 +44,25 @@
             </Grid>
         </Grid>
 
+        <!-- 菜单 -->
+        <Menu Grid.Row="1">
+            <MenuItem Header="项目(_P)">
+                <MenuItem Header="打开(_O)"></MenuItem>
+                <MenuItem Header="保存(_S)"></MenuItem>
+                <MenuItem Header="关闭(_C)"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="视图"></MenuItem>
+            <MenuItem Header="布局">
+                <MenuItem Header="保存"></MenuItem>
+                <MenuItem Header="加载"></MenuItem>
+            </MenuItem>
+        </Menu>
+
         <!-- 内容 -->
-        <docking:DockingManager Grid.Row="1" AnchorablesSource="{Binding Path=Panels}" Margin="10">
+        <docking:DockingManager x:Name="docking" Grid.Row="2" AnchorablesSource="{Binding Path=Panels}" Margin="10">
             <docking:DockingManager.LayoutItemTemplate>
                 <DataTemplate>
-                    <ContentControl Content="{Binding ViewType,Converter={StaticResource DanceTypeInstanceConverter}}"></ContentControl>
+                    <ContentControl Content="{Binding Content.ViewType,Converter={StaticResource DanceTypeInstanceConverter}}"></ContentControl>
                 </DataTemplate>
             </docking:DockingManager.LayoutItemTemplate>
             <docking:DockingManager.LayoutItemContainerStyle>

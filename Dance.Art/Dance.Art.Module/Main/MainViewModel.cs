@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using AvalonDock.Layout.Serialization;
+using CommunityToolkit.Mvvm.Input;
 using Dance.Art.Domain;
 using Dance.Wpf;
 using System;
@@ -19,6 +20,8 @@ namespace Dance.Art.Module
         public MainViewModel()
         {
             this.LoadedCommand = new(this.Loaded);
+            this.SaveLayoutCommand = new(this.SaveLayout);
+            this.LoadLayoutCommand = new(this.LoadLayout);
         }
 
         // ========================================================================================
@@ -59,6 +62,53 @@ namespace Dance.Art.Module
 
             this.Panels = domain.Panels;
 
+
+        }
+
+        #endregion
+
+        #region SaveLayoutCommand -- 保存布局命令
+
+        /// <summary>
+        /// 保存布局命令
+        /// </summary>
+        public RelayCommand SaveLayoutCommand { get; private set; }
+
+        /// <summary>
+        /// 保存布局
+        /// </summary>
+        private void SaveLayout()
+        {
+            if (this.View is not MainView view)
+                return;
+
+            string dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "layout");
+            string path = System.IO.Path.Combine(dir, "default.xml");
+            if (!System.IO.Directory.Exists(dir))
+                System.IO.Directory.CreateDirectory(dir);
+
+            var layoutSerializer = new XmlLayoutSerializer(view.docking);
+            layoutSerializer.Serialize(path);
+        }
+
+        #endregion
+
+        #region LoadLayoutCommand -- 加载布局命令
+
+        /// <summary>
+        /// 加载布局命令
+        /// </summary>
+        public RelayCommand LoadLayoutCommand { get; private set; }
+
+        /// <summary>
+        /// 加载布局
+        /// </summary>
+        private void LoadLayout()
+        {
+            if (this.View is not MainView view)
+                return;
+
+            var layoutSerializer = new XmlLayoutSerializer(view.docking);
 
         }
 

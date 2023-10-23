@@ -8,7 +8,7 @@
         xmlns:dance="http://schemas.dance.com/wpf"
         mc:Ignorable="d"        
         WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" WindowState="Normal"
-        Title="Dance.Art" Height="1000" Width="1600" Background="Gray">
+        Title="Dance.Art" Height="1000" Width="1600" Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_SELECTED}}">
     <Window.Style>
         <Style TargetType="Window">
             <Setter Property="WindowChrome.WindowChrome">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Dance.Art.Domain
 {
@@ -33,5 +34,10 @@ namespace Dance.Art.Domain
         /// 分类
         /// </summary>
         public PluginViewCategory Category { get; private set; }
+
+        /// <summary>
+        /// 视图
+        /// </summary>
+        public FrameworkElement? View { get; set; }
     }
 }

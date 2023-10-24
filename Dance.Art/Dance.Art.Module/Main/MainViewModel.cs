@@ -1,5 +1,6 @@
 ﻿using AvalonDock.Layout.Serialization;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Domain;
 using Dance.Wpf;
 using System;
@@ -23,7 +24,17 @@ namespace Dance.Art.Module
             this.LoadedCommand = new(this.Loaded);
             this.SaveLayoutCommand = new(this.SaveLayout);
             this.LoadLayoutCommand = new(this.LoadLayout);
+
+            this.OpenProjectCommand = new(this.OpenProject);
         }
+
+        // ========================================================================================
+        // Field
+
+        /// <summary>
+        /// 文件管理器
+        /// </summary>
+        private readonly IFileManager FileManager = DanceDomain.Current.LifeScope.Resolve<IFileManager>();
 
         // ========================================================================================
         // Property
@@ -137,5 +148,36 @@ namespace Dance.Art.Module
 
         #endregion
 
+        #region OpenProjectCommand -- 打开项目命令
+
+        /// <summary>
+        /// 打开项目命令
+        /// </summary>
+        public RelayCommand OpenProjectCommand { get; private set; }
+
+        /// <summary>
+        /// 打开项目
+        /// </summary>
+        private void OpenProject()
+        {
+            if (DanceDomain.Current is not ArtDomain artDomain)
+                return;
+
+            ProjectDomain domain = new(@"E:\test_project\test.art");
+
+            this.FileManager.Initialize(domain);
+
+            ProjectOpenMessage msg = new()
+            {
+                OldProject = artDomain.ProjectDomain,
+                NewProject = domain,
+            };
+
+            artDomain.ProjectDomain = domain;
+
+            artDomain.Messenger.Send(msg);
+        }
+
+        #endregion
     }
 }

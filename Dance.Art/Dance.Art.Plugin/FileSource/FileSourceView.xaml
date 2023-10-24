@@ -3,10 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+             xmlns:dance="http://schemas.dance.com/wpf"
+             xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
              xmlns:local="clr-namespace:Dance.Art.Plugin"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" d:Background="White" x:Name="uc"
+             d:DataContext="{d:DesignInstance local:FileSourceViewModel}"
+             d:DesignHeight="800" d:DesignWidth="400"
+             dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dance.Wpf;component/Share/Xaml/Widgets/TreeView/DanceTreeView.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+
+            <module:FileModelIconConverter x:Key="FileModelIconConverter"
+                                           Project="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"
+                                           Folder="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/folder.svg"
+                                           JavaScript="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/javascript.svg"
+                                           Txt="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/txt.svg">
+            </module:FileModelIconConverter>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-        <TextBlock Text="File Source" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="36"></TextBlock>
+        <dance:DanceTreeView ItemsSource="{Binding Path=Files}" BorderBrush="Transparent">
+            <dance:DanceTreeView.ItemContainerStyle>
+                <Style TargetType="dance:DanceTreeViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected,Mode=TwoWay}"></Setter>
+                </Style>
+            </dance:DanceTreeView.ItemContainerStyle>
+            <dance:DanceTreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
+                    <Grid Background="Transparent" ToolTip="{Binding Path=FileName}" Height="30" 
+                          dance:DanceCommandTrigger.DoubleClickCommand="{Binding ElementName=uc, Path=DataContext.FileDoubleClickCommand}"
+                          dance:DanceCommandTrigger.DoubleClickCommandParameter="{Binding .}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding ., Converter={StaticResource FileModelIconConverter}}" Width="12" Height="12" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Path=FileName}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
+                    </Grid>
+                </HierarchicalDataTemplate>
+            </dance:DanceTreeView.ItemTemplate>
+        </dance:DanceTreeView>
     </Grid>
 </UserControl>

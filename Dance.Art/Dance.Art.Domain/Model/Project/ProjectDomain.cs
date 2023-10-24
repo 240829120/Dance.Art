@@ -13,6 +13,23 @@ namespace Dance.Art.Domain
     /// </summary>
     public class ProjectDomain : DanceModel
     {
+        /// <summary>
+        /// 项目领域
+        /// </summary>
+        /// <param name="path">项目文件路径</param>
+        public ProjectDomain(string path)
+        {
+            ArgumentNullException.ThrowIfNullOrEmpty(path, nameof(path));
+
+            this.projectFilePath = path;
+            this.projectFolderPath = Path.GetDirectoryName(path);
+
+            ArgumentNullException.ThrowIfNullOrEmpty(projectFolderPath, nameof(ProjectFolderPath));
+
+            string cache = Path.Combine(this.projectFolderPath, $"{Path.GetFileNameWithoutExtension(path)}.{FileSuffixCategory.PROJECT_CACHE}");
+            this.cacheContext = new ProjectCacheContext(cache);
+        }
+
         // ===========================================================================
         // Project Property -- 项目属性
 
@@ -103,6 +120,47 @@ namespace Dance.Art.Domain
         // ===========================================================================
         // Expand Property -- 扩展属性
 
+        #region ProjectFilePath -- 项目文件路径
 
+        private string? projectFilePath;
+        /// <summary>
+        /// 项目文件路径
+        /// </summary>
+        public string? ProjectFilePath
+        {
+            get { return projectFilePath; }
+            set { projectFilePath = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region ProjectFolderPath -- 项目文件夹路径
+
+        private string? projectFolderPath;
+        /// <summary>
+        /// 项目文件夹路径
+        /// </summary>
+        public string? ProjectFolderPath
+        {
+            get { return projectFolderPath; }
+            set { projectFolderPath = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region CacheContext -- 缓存上下文
+
+        private ProjectCacheContext cacheContext;
+        /// <summary>
+        /// 缓存上下文
+        /// </summary>
+        public ProjectCacheContext CacheContext
+        {
+            get { return cacheContext; }
+            set { cacheContext = value; }
+        }
+
+
+        #endregion
     }
 }

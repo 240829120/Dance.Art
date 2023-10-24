@@ -27,5 +27,10 @@ namespace Dance.Art.Domain
         /// 设置集合
         /// </summary>
         public ObservableCollection<PluginViewModel> Settings { get; } = new();
+
+        /// <summary>
+        /// 项目领域
+        /// </summary>
+        public ProjectDomain? ProjectDomain { get; set; }
     }
 }

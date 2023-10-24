@@ -16,7 +16,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Dance.Wpf;component/Themes/Styles/Button.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <dance:DanceTypeInstanceConverter x:Key="DanceTypeInstanceConverter"></dance:DanceTypeInstanceConverter>
+            <local:ViewCacheConverter x:Key="ViewCacheConverter"></local:ViewCacheConverter>
             <!-- BooleanToVisibilityConverter -->
             <dance:DanceMappingConverter x:Key="BooleanToVisibilityConverter">
                 <!-- True ==== Visibile -->
@@ -66,7 +66,12 @@
                 <!-- 菜单 -->
                 <Menu Margin="10,0,5,0">
                     <MenuItem Header="项目(_P)">
-                        <MenuItem Header="打开">
+                        <MenuItem Header="新建">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="打开" Command="{Binding OpenProjectCommand}">
                             <MenuItem.Icon>
                                 <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
@@ -76,6 +81,7 @@
                                 <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
                         </MenuItem>
+                        <Separator></Separator>
                         <MenuItem Header="关闭"></MenuItem>
                     </MenuItem>
                     <MenuItem Header="视图(_V)" ItemsSource="{Binding Panels}">
@@ -118,19 +124,22 @@
         <!-- 工具栏 -->
         <Border Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.CHUNK_BAR_BACKGROUND}}" Grid.Row="1">
             <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
+                <Rectangle Width="1" Height="20" Margin="0,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
                 <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="保存">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
                 </Button>
                 <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="保存全部">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save_all.svg"></dance:DanceSvgImage>
                 </Button>
+                <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
                 <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="撤销">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/undo.svg"></dance:DanceSvgImage>
                 </Button>
                 <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="重做">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/redo.svg"></dance:DanceSvgImage>
                 </Button>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="重启引擎">
+                <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="重启脚本引擎">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/restart.svg"></dance:DanceSvgImage>
                 </Button>
             </StackPanel>
@@ -142,7 +151,7 @@
             <docking:DockingManager x:Name="docking" AnchorablesSource="{Binding Path=Panels}">
                 <docking:DockingManager.LayoutItemTemplate>
                     <DataTemplate>
-                        <ContentControl Content="{Binding Content.ViewType,Converter={StaticResource DanceTypeInstanceConverter}}"></ContentControl>
+                        <ContentControl Content="{Binding Content,Converter={StaticResource ViewCacheConverter}}"></ContentControl>
                     </DataTemplate>
                 </docking:DockingManager.LayoutItemTemplate>
                 <docking:DockingManager.LayoutItemContainerStyle>

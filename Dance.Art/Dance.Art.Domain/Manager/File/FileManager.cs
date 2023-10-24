@@ -26,7 +26,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 项目文件根路径
         /// </summary>
-        public FolderModel? Root { get; private set; }
+        public FileModel? Root { get; private set; }
 
         /// <summary>
         /// 文件系统监视器
@@ -60,6 +60,7 @@ namespace Dance.Art.Domain
                 return;
 
             this.Root.Category = FileModelCategory.Project;
+            this.Root.IsExpanded = true;
         }
 
         /// <summary>
@@ -80,9 +81,12 @@ namespace Dance.Art.Domain
         /// 构建文件树 -- 文件夹
         /// </summary>
         /// <param name="path">路径</param>
-        private FolderModel BuildFileTree_Folder(string path)
+        private FileModel BuildFileTree_Folder(string path)
         {
-            FolderModel folderModel = new(path);
+            FileModel folderModel = new(path)
+            {
+                Category = FileModelCategory.Folder
+            };
 
             foreach (string folder in Directory.GetDirectories(path))
             {

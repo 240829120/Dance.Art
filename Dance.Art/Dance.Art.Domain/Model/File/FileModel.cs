@@ -91,6 +91,20 @@ namespace Dance.Art.Domain
         // =============================================================================================
         // Expand Property
 
+        #region IsExpanded -- 是否展开
+
+        private bool isExpanded;
+        /// <summary>
+        /// 是否展开
+        /// </summary>
+        public bool IsExpanded
+        {
+            get { return isExpanded; }
+            set { isExpanded = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
         #region IsSelected -- 当前是否选中
 
         private bool isSelected;

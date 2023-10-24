@@ -14,7 +14,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 项目文件根路径
         /// </summary>
-        public FolderModel? Root { get; }
+        public FileModel? Root { get; }
 
         /// <summary>
         /// 初始化

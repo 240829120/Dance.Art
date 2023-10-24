@@ -30,13 +30,18 @@
 
     <Grid>
         <dance:DanceTreeView ItemsSource="{Binding Path=Files}" BorderBrush="Transparent">
+            <dance:DanceTreeView.ItemContainerStyle>
+                <Style TargetType="dance:DanceTreeViewItem">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}"></Setter>
+                    <Setter Property="IsMultiSelected" Value="{Binding IsSelected,Mode=TwoWay}"></Setter>
+                </Style>
+            </dance:DanceTreeView.ItemContainerStyle>
             <dance:DanceTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
                     <Grid x:Name="root" ToolTip="{Binding Path=FileName}" Height="30" 
-                          Background="Transparent"
+                          Background="Transparent" AllowDrop="True"
                           dance:DanceCommandTrigger.DoubleClickCommand="{Binding ElementName=uc, Path=DataContext.FileDoubleClickCommand}"
                           dance:DanceCommandTrigger.DoubleClickCommandParameter="{Binding .}"
-                          AllowDrop="True"
                           dance:DanceDragTrigger.DragBeginCommand="{Binding ElementName=uc, Path=DataContext.FileDragBeginCommand}"
                           dance:DanceDragTrigger.DropCommand="{Binding ElementName=uc, Path=DataContext.FileDropCommand}"
                           dance:DanceDragTrigger.DragEnterCommand="{Binding ElementName=uc,Path=DataContext.FileDragEnterCommand}"
@@ -50,6 +55,9 @@
                     </Grid>
                     <HierarchicalDataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Path=IsHighlight}" Value="True">
+                            <Setter TargetName="root" Property="Background" Value="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_MOUSE_OVER}}"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
                             <Setter TargetName="root" Property="Background" Value="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_MOUSE_OVER}}"></Setter>
                         </DataTrigger>
                     </HierarchicalDataTemplate.Triggers>

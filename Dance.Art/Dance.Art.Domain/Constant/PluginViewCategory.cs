@@ -17,6 +17,11 @@ namespace Dance.Art.Domain
         Panel,
 
         /// <summary>
+        /// 文档
+        /// </summary>
+        Document,
+
+        /// <summary>
         /// 设置
         /// </summary>
         Setting,

@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 namespace Dance.Art.Plugin
 {
     /// <summary>
-    /// 资源管理器插件生命周期
+    /// 输出插件生命周期
     /// </summary>
-    public class FileSourcePluginLifescope : DanceObject, IDancePluginLifescope
+    public class OutputPluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.Plugin]:FileSource";
+        public const string ID = "[Dance.Art.Plugin]:Output";
 
         /// <summary>
         /// 名称
         /// </summary>
-        public const string NAME = "资源管理器";
+        public const string NAME = "输出";
 
         /// <summary>
         /// 注册插件
@@ -28,7 +28,7 @@ namespace Dance.Art.Plugin
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new PluginViewModel(ID, NAME, typeof(FileSourceView), PluginViewCategory.Panel);
+            return new PluginViewModel(ID, NAME, typeof(OutputView), PluginViewCategory.Panel);
         }
 
         /// <summary>

@@ -19,6 +19,11 @@ namespace Dance.Art.Domain
         public ObservableCollection<PluginViewModel> Panels { get; } = new();
 
         /// <summary>
+        /// 文档集合
+        /// </summary>
+        public ObservableCollection<PluginViewModel> Documents { get; } = new();
+
+        /// <summary>
         /// 设置集合
         /// </summary>
         public ObservableCollection<PluginViewModel> Settings { get; } = new();

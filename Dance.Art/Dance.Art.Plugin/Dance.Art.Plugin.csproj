@@ -20,4 +20,19 @@
     <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Collection\CollectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Command\CommandView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Output\OutputView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Property\PropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

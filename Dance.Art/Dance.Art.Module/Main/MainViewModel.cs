@@ -5,6 +5,7 @@ using Dance.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,21 @@ namespace Dance.Art.Module
 
         #endregion
 
+        #region Documents -- 文档集合
+
+        private ObservableCollection<PluginViewModel>? documents;
+
+        /// <summary>
+        /// 面板集合
+        /// </summary>
+        public ObservableCollection<PluginViewModel>? Documents
+        {
+            get { return documents; }
+            private set { documents = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
         // ========================================================================================
         // Command
 
@@ -61,8 +77,9 @@ namespace Dance.Art.Module
                 return;
 
             this.Panels = domain.Panels;
+            this.Documents = domain.Documents;
 
-
+            this.LoadLayout();
         }
 
         #endregion
@@ -82,13 +99,15 @@ namespace Dance.Art.Module
             if (this.View is not MainView view)
                 return;
 
-            string dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "layout");
-            string path = System.IO.Path.Combine(dir, "default.xml");
-            if (!System.IO.Directory.Exists(dir))
-                System.IO.Directory.CreateDirectory(dir);
+            string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "layout");
+            string path = Path.Combine(dir, "default.xml");
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
 
             var layoutSerializer = new XmlLayoutSerializer(view.docking);
             layoutSerializer.Serialize(path);
+
+            DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Success, "布局保存成功", DanceMessageBoxAction.YES);
         }
 
         #endregion
@@ -108,8 +127,12 @@ namespace Dance.Art.Module
             if (this.View is not MainView view)
                 return;
 
-            var layoutSerializer = new XmlLayoutSerializer(view.docking);
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "layout", "default.xml");
+            if (!File.Exists(path))
+                return;
 
+            var layoutSerializer = new XmlLayoutSerializer(view.docking);
+            layoutSerializer.Deserialize(path);
         }
 
         #endregion

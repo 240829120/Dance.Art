@@ -6,12 +6,45 @@
              xmlns:local="clr-namespace:Dance.Art.Module"
              xmlns:dance="http://schemas.dance.com/wpf"
              xmlns:docking="https://github.com/Dirkster99/AvalonDock"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" d:Background="White"
              d:DataContext="{d:DesignInstance local:MainViewModel}"
              d:DesignHeight="1200" d:DesignWidth="1400"
              dance:DanceCommandTrigger.LoadedOnceCommand="{Binding LoadedCommand}">
     <UserControl.Resources>
-        <dance:DanceTypeInstanceConverter x:Key="DanceTypeInstanceConverter"></dance:DanceTypeInstanceConverter>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dance.Wpf;component/Themes/Styles/Button.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <dance:DanceTypeInstanceConverter x:Key="DanceTypeInstanceConverter"></dance:DanceTypeInstanceConverter>
+            <!-- BooleanToVisibilityConverter -->
+            <dance:DanceMappingConverter x:Key="BooleanToVisibilityConverter">
+                <!-- True ==== Visibile -->
+                <dance:DanceMappingConverterItem>
+                    <dance:DanceMappingConverterItem.From>
+                        <sys:Boolean>True</sys:Boolean>
+                    </dance:DanceMappingConverterItem.From>
+                    <dance:DanceMappingConverterItem.To>
+                        <Visibility>Visible</Visibility>
+                    </dance:DanceMappingConverterItem.To>
+                </dance:DanceMappingConverterItem>
+                <!-- False ==== Hidden -->
+                <dance:DanceMappingConverterItem>
+                    <dance:DanceMappingConverterItem.From>
+                        <sys:Boolean>False</sys:Boolean>
+                    </dance:DanceMappingConverterItem.From>
+                    <dance:DanceMappingConverterItem.To>
+                        <Visibility>Hidden</Visibility>
+                    </dance:DanceMappingConverterItem.To>
+                </dance:DanceMappingConverterItem>
+                <!-- Null ==== Hidden -->
+                <dance:DanceMappingConverterItem From="{x:Null}">
+                    <dance:DanceMappingConverterItem.To>
+                        <Visibility>Hidden</Visibility>
+                    </dance:DanceMappingConverterItem.To>
+                </dance:DanceMappingConverterItem>
+            </dance:DanceMappingConverter>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
@@ -30,7 +63,44 @@
             <dance:DanceWindowDragPart></dance:DanceWindowDragPart>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
                 <Image Width="20" Height="20" Source="/Dance.Art.Module;component/Themes/Resources/Icons/logo.png" VerticalAlignment="Center"></Image>
-                <TextBlock Text="Dance.Art" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold"></TextBlock>
+                <!-- 菜单 -->
+                <Menu Margin="10,0,5,0">
+                    <MenuItem Header="项目(_P)">
+                        <MenuItem Header="打开">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="保存">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="关闭"></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="视图(_V)" ItemsSource="{Binding Panels}">
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="MenuItem">
+                                <Setter Property="IsCheckable" Value="True"></Setter>
+                                <Setter Property="IsChecked" Value="{Binding Path=IsVisible,Mode=TwoWay}"></Setter>
+                                <Setter Property="Header" Value="{Binding Path=Name}"></Setter>
+                                <Setter Property="Height" Value="30"></Setter>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                    <MenuItem Header="布局(_L)">
+                        <MenuItem Header="保存" Command="{Binding Path=SaveLayoutCommand}">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="加载" Command="{Binding Path=LoadLayoutCommand}">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/layout.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
             </StackPanel>
 
             <Grid Grid.Column="1">
@@ -45,35 +115,26 @@
             </Grid>
         </Grid>
 
-        <!-- 菜单 -->
-        <Menu Grid.Row="1" Margin="5,0,5,0">
-            <MenuItem Header="项目(_P)">
-                <MenuItem Header="打开">
-                    <MenuItem.Icon>
-                        <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"></dance:DanceSvgImage>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="保存">
-                    <MenuItem.Icon>
-                        <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="关闭"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="视图(_V)"></MenuItem>
-            <MenuItem Header="布局(_L)">
-                <MenuItem Header="保存">
-                    <MenuItem.Icon>
-                        <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="加载">
-                    <MenuItem.Icon>
-                        <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/layout.svg"></dance:DanceSvgImage>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-        </Menu>
+        <!-- 工具栏 -->
+        <Border Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.CHUNK_BAR_BACKGROUND}}" Grid.Row="1">
+            <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="保存">
+                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
+                </Button>
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="保存全部">
+                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save_all.svg"></dance:DanceSvgImage>
+                </Button>
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="撤销">
+                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/undo.svg"></dance:DanceSvgImage>
+                </Button>
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="重做">
+                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/redo.svg"></dance:DanceSvgImage>
+                </Button>
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="重启引擎">
+                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/restart.svg"></dance:DanceSvgImage>
+                </Button>
+            </StackPanel>
+        </Border>
 
         <!-- 内容 -->
         <Border Margin="5" BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"
@@ -87,6 +148,8 @@
                 <docking:DockingManager.LayoutItemContainerStyle>
                     <Style TargetType="LayoutItem">
                         <Setter Property="Title" Value="{Binding Model.Name}"></Setter>
+                        <Setter Property="ContentId" Value="{Binding Model.ID}" />
+                        <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </Style>
                 </docking:DockingManager.LayoutItemContainerStyle>
             </docking:DockingManager>

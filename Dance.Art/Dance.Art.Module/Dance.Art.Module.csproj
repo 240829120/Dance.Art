@@ -7,10 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Themes\Resources\Icons\debug.svg" />
     <None Remove="Themes\Resources\Icons\layout.svg" />
     <None Remove="Themes\Resources\Icons\logo.png" />
     <None Remove="Themes\Resources\Icons\project.svg" />
+    <None Remove="Themes\Resources\Icons\redo.svg" />
+    <None Remove="Themes\Resources\Icons\restart.svg" />
+    <None Remove="Themes\Resources\Icons\run.svg" />
     <None Remove="Themes\Resources\Icons\save.svg" />
+    <None Remove="Themes\Resources\Icons\save_all.svg" />
+    <None Remove="Themes\Resources\Icons\stop.svg" />
+    <None Remove="Themes\Resources\Icons\undo.svg" />
     <None Remove="Themes\Resources\Images\bg.png" />
   </ItemGroup>
 
@@ -23,10 +30,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Themes\Resources\Icons\debug.svg" />
     <Resource Include="Themes\Resources\Icons\layout.svg" />
     <Resource Include="Themes\Resources\Icons\logo.png" />
     <Resource Include="Themes\Resources\Icons\project.svg" />
+    <Resource Include="Themes\Resources\Icons\redo.svg" />
+    <Resource Include="Themes\Resources\Icons\restart.svg" />
+    <Resource Include="Themes\Resources\Icons\run.svg" />
     <Resource Include="Themes\Resources\Icons\save.svg" />
+    <Resource Include="Themes\Resources\Icons\save_all.svg" />
+    <Resource Include="Themes\Resources\Icons\stop.svg" />
+    <Resource Include="Themes\Resources\Icons\undo.svg" />
     <Resource Include="Themes\Resources\Images\bg.png" />
   </ItemGroup>
 

@@ -14,10 +14,10 @@
         <Grid VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"></RowDefinition>
-                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="12"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Foreground="White" Text="{Binding Path=ProgressMessage}" Margin="10,0,10,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
-            <ProgressBar Height="20" VerticalAlignment="Bottom" Grid.Row="1"
+            <ProgressBar Height="12" VerticalAlignment="Bottom" Grid.Row="1"
                          Minimum="0" Maximum="1" Value="{Binding Path=ProgressValue}"></ProgressBar>
         </Grid>
     </Grid>

@@ -31,5 +31,19 @@ namespace Dance.Art.Domain
         /// 名称
         /// </summary>
         public string Name { get; private set; }
+
+        #region IsVisible -- 是否可见
+
+        private bool isVisible = true;
+        /// <summary>
+        /// 是否可见
+        /// </summary>
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set { isVisible = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
     }
 }

@@ -23,6 +23,10 @@ namespace Dance.Art.Plugin
             // 初始化命令
             this.LoadedCommand = new(this.Loaded);
             this.FileDoubleClickCommand = new(this.FileDoubleClick);
+            this.FileDragBeginCommand = new(this.FileDragBegin);
+            this.FileDragEnterCommand = new(this.FileDragEnter);
+            this.FileDragLeaveCommand = new(this.FileDragLeave);
+            this.FileDropCommand = new(this.FileDrop);
 
             // 初始化消息
             DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
@@ -104,6 +108,86 @@ namespace Dance.Art.Plugin
                 return;
 
 
+        }
+
+        #endregion
+
+        #region FileDragBeginCommand -- 文件拖拽开始命令
+
+        /// <summary>
+        /// 文件拖拽开始命令
+        /// </summary>
+        public RelayCommand<DanceDragBeginEventArgs> FileDragBeginCommand { get; private set; }
+
+        /// <summary>
+        /// 文件拖拽开始
+        /// </summary>
+        private void FileDragBegin(DanceDragBeginEventArgs? e)
+        {
+            if (e == null || e.Element.DataContext is not FileModel fileModel)
+                return;
+
+            e.Data = fileModel;
+        }
+
+        #endregion
+
+        #region FileDragEnterCommand -- 文件拖拽进入命令
+
+        /// <summary>
+        /// 文件拖拽进入命令
+        /// </summary>
+        public RelayCommand<DanceDragEventArgs> FileDragEnterCommand { get; private set; }
+
+        /// <summary>
+        /// 文件拖拽进入
+        /// </summary>
+        private void FileDragEnter(DanceDragEventArgs? e)
+        {
+            if (e == null || e.Element.DataContext is not FileModel fileModel)
+                return;
+
+            fileModel.IsHighlight = true;
+        }
+
+        #endregion
+
+        #region FileDragLeaveCommand -- 文件拖拽离开命令
+
+        /// <summary>
+        /// 文件拖拽离开命令
+        /// </summary>
+        public RelayCommand<DanceDragEventArgs> FileDragLeaveCommand { get; private set; }
+
+        /// <summary>
+        /// 文件拖拽离开
+        /// </summary>
+        private void FileDragLeave(DanceDragEventArgs? e)
+        {
+            if (e == null || e.Element.DataContext is not FileModel fileModel)
+                return;
+
+            fileModel.IsHighlight = false;
+        }
+
+        #endregion
+
+        #region FileDropCommand -- 文件放置命令
+
+        /// <summary>
+        /// 文件放置命令
+        /// </summary>
+        public RelayCommand<DanceDragEventArgs> FileDropCommand { get; private set; }
+
+        /// <summary>
+        /// 文件放置
+        /// </summary>
+        private void FileDrop(DanceDragEventArgs? e)
+        {
+            if (e == null || e.Element.DataContext is not FileModel fileModel)
+                return;
+
+            fileModel.IsHighlight = false;
         }
 
         #endregion

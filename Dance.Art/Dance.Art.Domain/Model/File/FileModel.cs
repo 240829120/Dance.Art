@@ -24,6 +24,9 @@ namespace Dance.Art.Domain
             this.extension = System.IO.Path.GetExtension(path);
         }
 
+        // =============================================================================================
+        // Property
+
         /// <summary>
         /// 分类
         /// </summary>
@@ -71,6 +74,23 @@ namespace Dance.Art.Domain
 
         #endregion
 
+        #region Items -- 子项集合
+
+        private ObservableCollection<FileModel> items = new();
+        /// <summary>
+        /// 子项集合
+        /// </summary>
+        public ObservableCollection<FileModel> Items
+        {
+            get { return items; }
+            private set { items = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        // =============================================================================================
+        // Expand Property
+
         #region IsSelected -- 当前是否选中
 
         private bool isSelected;
@@ -85,16 +105,16 @@ namespace Dance.Art.Domain
 
         #endregion
 
-        #region Items -- 子项集合
+        #region IsHighlight -- 是否高亮
 
-        private ObservableCollection<FileModel> items = new();
+        private bool isHighlight;
         /// <summary>
-        /// 子项集合
+        /// 是否高亮
         /// </summary>
-        public ObservableCollection<FileModel> Items
+        public bool IsHighlight
         {
-            get { return items; }
-            private set { items = value; this.OnPropertyChanged(); }
+            get { return isHighlight; }
+            set { isHighlight = value; this.OnPropertyChanged(); }
         }
 
         #endregion

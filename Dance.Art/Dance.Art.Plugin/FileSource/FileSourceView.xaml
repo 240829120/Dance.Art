@@ -7,6 +7,7 @@
              xmlns:dance="http://schemas.dance.com/wpf"
              xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
              xmlns:local="clr-namespace:Dance.Art.Plugin"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" d:Background="White" x:Name="uc"
              d:DataContext="{d:DesignInstance local:FileSourceViewModel}"
              d:DesignHeight="800" d:DesignWidth="400"
@@ -29,16 +30,17 @@
 
     <Grid>
         <dance:DanceTreeView ItemsSource="{Binding Path=Files}" BorderBrush="Transparent">
-            <dance:DanceTreeView.ItemContainerStyle>
-                <Style TargetType="dance:DanceTreeViewItem">
-                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected,Mode=TwoWay}"></Setter>
-                </Style>
-            </dance:DanceTreeView.ItemContainerStyle>
             <dance:DanceTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
-                    <Grid Background="Transparent" ToolTip="{Binding Path=FileName}" Height="30" 
+                    <Grid x:Name="root" ToolTip="{Binding Path=FileName}" Height="30" 
+                          Background="Transparent"
                           dance:DanceCommandTrigger.DoubleClickCommand="{Binding ElementName=uc, Path=DataContext.FileDoubleClickCommand}"
-                          dance:DanceCommandTrigger.DoubleClickCommandParameter="{Binding .}">
+                          dance:DanceCommandTrigger.DoubleClickCommandParameter="{Binding .}"
+                          AllowDrop="True"
+                          dance:DanceDragTrigger.DragBeginCommand="{Binding ElementName=uc, Path=DataContext.FileDragBeginCommand}"
+                          dance:DanceDragTrigger.DropCommand="{Binding ElementName=uc, Path=DataContext.FileDropCommand}"
+                          dance:DanceDragTrigger.DragEnterCommand="{Binding ElementName=uc,Path=DataContext.FileDragEnterCommand}"
+                          dance:DanceDragTrigger.DragLeaveCommand="{Binding ElementName=uc,Path=DataContext.FileDragLeaveCommand}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -46,6 +48,11 @@
                         <Image Source="{Binding ., Converter={StaticResource FileModelIconConverter}}" Width="12" Height="12" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding Path=FileName}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
                     </Grid>
+                    <HierarchicalDataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsHighlight}" Value="True">
+                            <Setter TargetName="root" Property="Background" Value="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_MOUSE_OVER}}"></Setter>
+                        </DataTrigger>
+                    </HierarchicalDataTemplate.Triggers>
                 </HierarchicalDataTemplate>
             </dance:DanceTreeView.ItemTemplate>
         </dance:DanceTreeView>

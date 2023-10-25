@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Dance.Art.Module"
              xmlns:dance="http://schemas.dance.com/wpf"
              xmlns:docking="https://github.com/Dirkster99/AvalonDock"
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" d:Background="White"
              d:DataContext="{d:DesignInstance local:MainViewModel}"
@@ -157,6 +158,16 @@
             <docking:DockingManager x:Name="docking"
                                     AnchorablesSource="{Binding Path=Panels}"
                                     DocumentsSource="{Binding Path=Documents}">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="DocumentClosing">
+                        <behaviors:InvokeCommandAction Command="{Binding Path=ClosingCommand}" PassEventArgsToCommand="True"></behaviors:InvokeCommandAction>
+                    </behaviors:EventTrigger>
+                    <behaviors:EventTrigger EventName="DocumentClosed">
+                        <behaviors:InvokeCommandAction Command="{Binding Path=ClosedCommand}" PassEventArgsToCommand="True"></behaviors:InvokeCommandAction>
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+
+
                 <docking:DockingManager.LayoutItemTemplate>
                     <DataTemplate>
                         <ContentControl Content="{Binding .,Converter={StaticResource ViewCacheConverter}}"></ContentControl>
@@ -171,6 +182,14 @@
                     </Style>
                 </docking:DockingManager.LayoutItemContainerStyle>
 
+                <docking:DockingManager.DocumentHeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="*" Visibility="{Binding Path=Content.View.DataContext.IsModify,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </docking:DockingManager.DocumentHeaderTemplate>
             </docking:DockingManager>
         </Border>
     </Grid>

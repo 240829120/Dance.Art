@@ -31,6 +31,8 @@ namespace Dance.Art.Module
             this.SaveAllCommand = new(this.SaveAll);
             this.RedoCommand = new(this.Redo);
             this.UndoCommand = new(this.Undo);
+            this.ClosingCommand = new(this.Closing);
+            this.ClosedCommand = new(this.Closed);
 
             DanceDomain.Current.Messenger.Register<FileOpenMessage>(this, this.OnFileOpen);
         }
@@ -285,6 +287,56 @@ namespace Dance.Art.Module
                 return;
 
             dockingDocument.Undo();
+        }
+
+        #endregion
+
+        #region ClosingCommand -- 文档关闭之前命令
+
+        /// <summary>
+        /// 文档关闭之前命令
+        /// </summary>
+        public RelayCommand<AvalonDock.DocumentClosingEventArgs> ClosingCommand { get; private set; }
+
+        /// <summary>
+        /// 文档关闭之前
+        /// </summary>
+        /// <param name="e"></param>
+        private void Closing(AvalonDock.DocumentClosingEventArgs? e)
+        {
+            if (e == null || e.Document.Content is not DocumentViewModel document)
+                return;
+
+            if (document.View is not FrameworkElement view || view.DataContext is not IDockingDocument dockingDocument)
+                return;
+
+            if (!dockingDocument.IsModify)
+                return;
+
+            if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否保存文件: {document.File}", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) == DanceMessageBoxAction.YES)
+            {
+                dockingDocument.Save();
+            }
+        }
+
+        #endregion
+
+        #region ClosedCommand -- 文档关闭命令
+
+        /// <summary>
+        /// 文档关闭命令
+        /// </summary>
+        public RelayCommand<AvalonDock.DocumentClosedEventArgs> ClosedCommand { get; private set; }
+
+        /// <summary>
+        /// 文档关闭之后命令
+        /// </summary>
+        private void Closed(AvalonDock.DocumentClosedEventArgs? e)
+        {
+            if (e == null || e.Document.Content is not DocumentViewModel document)
+                return;
+
+            this.Documents?.Remove(document);
         }
 
         #endregion

@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Themes\Resources\Icons\" />
+    <None Remove="Themes\Resources\Icons\javascript.svg" />
+    <None Remove="Themes\Resources\Icons\json.svg" />
+    <None Remove="Themes\Resources\Icons\txt.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Themes\Resources\Images\" />
     <Folder Include="Setting\" />
   </ItemGroup>
@@ -23,6 +28,12 @@
     <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
     <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
     <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Icons\javascript.svg" />
+    <Resource Include="Themes\Resources\Icons\json.svg" />
+    <Resource Include="Themes\Resources\Icons\txt.svg" />
   </ItemGroup>
 
   <ItemGroup>

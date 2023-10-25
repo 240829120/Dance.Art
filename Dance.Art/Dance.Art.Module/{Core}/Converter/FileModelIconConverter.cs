@@ -44,21 +44,6 @@ namespace Dance.Art.Module
         public string? Folder { get; set; }
 
         /// <summary>
-        /// JavaScript脚本
-        /// </summary>
-        public string? JavaScript { get; set; }
-
-        /// <summary>
-        /// txt文件
-        /// </summary>
-        public string? Txt { get; set; }
-
-        /// <summary>
-        /// json文件
-        /// </summary>
-        public string? Json { get; set; }
-
-        /// <summary>
         /// 转化
         /// </summary>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -72,13 +57,19 @@ namespace Dance.Art.Module
             if (fileModel.Category == FileModelCategory.Folder)
                 return this.GetImageSource(this.Folder);
 
-            switch (fileModel.Extension?.ToLower())
+            if (DanceDomain.Current is not ArtDomain domain)
+                return null;
+
+            foreach (DocumentPluginInfo pluginInfo in domain.DocumentPlugins)
             {
-                case ".js": return this.GetImageSource(this.JavaScript);
-                case ".txt": return this.GetImageSource(this.Txt);
-                case ".json": return this.GetImageSource(this.Json);
-                default: return null;
+                DocumentFileInfo? fileInfo = pluginInfo.FileInfos.FirstOrDefault(p => string.Equals(p.Extension, fileModel.Extension, StringComparison.OrdinalIgnoreCase));
+                if (fileInfo == null)
+                    continue;
+
+                return this.GetImageSource(fileInfo.Icon);
             }
+
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

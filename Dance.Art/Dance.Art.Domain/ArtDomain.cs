@@ -19,17 +19,17 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 面板插件集合
         /// </summary>
-        public ObservableCollection<PluginInfoBase> PanelPlugins { get; } = new();
+        public ObservableCollection<PanelPluginInfo> PanelPlugins { get; } = new();
 
         /// <summary>
         /// 文档插件集合
         /// </summary>
-        public ObservableCollection<PluginInfoBase> DocumentPlugins { get; } = new();
+        public ObservableCollection<DocumentPluginInfo> DocumentPlugins { get; } = new();
 
         /// <summary>
         /// 设置插件集合
         /// </summary>
-        public ObservableCollection<PluginInfoBase> SettingPlugins { get; } = new();
+        public ObservableCollection<SettingPluginInfo> SettingPlugins { get; } = new();
 
         // ----------------------------------------------------------------------------------------------------
         // Views

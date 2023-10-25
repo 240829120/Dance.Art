@@ -21,10 +21,7 @@
 
             <module:FileModelIconConverter x:Key="FileModelIconConverter"
                                            Project="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"
-                                           Folder="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/folder.svg"
-                                           JavaScript="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/javascript.svg"
-                                           Txt="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/txt.svg"
-                                           Json="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/json.svg">
+                                           Folder="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/folder.svg">
             </module:FileModelIconConverter>
         </ResourceDictionary>
     </UserControl.Resources>

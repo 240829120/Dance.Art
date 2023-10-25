@@ -17,15 +17,15 @@ namespace Dance.Art.Domain
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
         /// <param name="viewType">视图类型</param>
-        /// <param name="extensions">能处理文件的扩展名</param>
-        public DocumentPluginInfo(string id, string name, Type viewType, params string[] extensions) : base(id, name, viewType)
+        /// <param name="fileInfos">文件信息</param>
+        public DocumentPluginInfo(string id, string name, Type viewType, params DocumentFileInfo[] fileInfos) : base(id, name, viewType)
         {
-            this.Extensions = extensions;
+            this.FileInfos = fileInfos ?? Array.Empty<DocumentFileInfo>();
         }
 
         /// <summary>
         /// 能处理文件的扩展名
         /// </summary>
-        public string[] Extensions { get; private set; }
+        public DocumentFileInfo[] FileInfos { get; private set; }
     }
 }

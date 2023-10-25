@@ -26,24 +26,7 @@ namespace Dance.Art.Plugin.Document
             this.CutCommand = new(this.Cut, this.CanCut);
             this.PasteCommand = new(this.Paste);
             this.LoadedCommand = new(this.Load);
-
-            // 注册状态更新
-            this.LoopKey = $"DocumentViewModelBase_{this.GetHashCode()}";
-            this.LoopManager.Register(this.LoopKey, 1, this.ExecuteUdateDocumentStatus);
         }
-
-        // ==========================================================================================
-        // Field
-
-        /// <summary>
-        /// 循环键
-        /// </summary>
-        private readonly string LoopKey;
-
-        /// <summary>
-        /// 循环管理器
-        /// </summary>
-        private readonly IDanceLoopManager LoopManager = DanceDomain.Current.LifeScope.Resolve<IDanceLoopManager>();
 
         // ==========================================================================================
         // Property
@@ -64,43 +47,28 @@ namespace Dance.Art.Plugin.Document
 
         #region IsModify -- 是否修改
 
-        private bool isModify;
         /// <summary>
         /// 是否修改
         /// </summary>
-        public bool IsModify
-        {
-            get { return isModify; }
-            set { isModify = value; this.OnPropertyChanged(); }
-        }
+        public abstract bool IsModify { get; }
 
         #endregion
 
         #region CanRedo -- 是否可以重做
 
-        private bool canRedo;
         /// <summary>
         /// 是否可以重做
         /// </summary>
-        public bool CanRedo
-        {
-            get { return canRedo; }
-            set { canRedo = value; this.OnPropertyChanged(); }
-        }
+        public abstract bool CanRedo { get; }
 
         #endregion
 
         #region CanUndo -- 是否可以撤销
 
-        private bool canUndo;
         /// <summary>
         /// 是否可以撤销
         /// </summary>
-        public bool CanUndo
-        {
-            get { return canUndo; }
-            set { canUndo = value; this.OnPropertyChanged(); }
-        }
+        public abstract bool CanUndo { get; }
 
         #endregion
 
@@ -197,35 +165,18 @@ namespace Dance.Art.Plugin.Document
         // Override Function
 
         /// <summary>
-        /// 销毁
-        /// </summary>
-        protected override void Destroy()
-        {
-            this.LoopManager.UnRegister(this.LoopKey);
-        }
-
-        // ==========================================================================================
-        // Protected Function
-
-        /// <summary>
-        /// 更新文档状态
-        /// </summary>
-        protected abstract void UpdateDocumentStatus();
-
-        // ==========================================================================================
-        // Private Function
-
-        /// <summary>
         /// 执行更新文档状态
         /// </summary>
-        private void ExecuteUdateDocumentStatus()
+        protected void UdateDocumentStatus()
         {
             if (this.View is not FrameworkElement view)
                 return;
 
             view.Dispatcher.BeginInvoke(() =>
             {
-                this.UpdateDocumentStatus();
+                this.OnPropertyChanged(nameof(IsModify));
+                this.OnPropertyChanged(nameof(CanRedo));
+                this.OnPropertyChanged(nameof(CanUndo));
             });
         }
     }

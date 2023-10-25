@@ -23,17 +23,12 @@ namespace Dance.Art.Plugin
         public const string NAME = "文本文件";
 
         /// <summary>
-        /// 支持的文件后缀
-        /// </summary>
-        public readonly static string[] Extensions = new string[] { ".txt" };
-
-        /// <summary>
         /// 注册插件
         /// </summary>
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, typeof(TxtView), Extensions);
+            return new DocumentPluginInfo(ID, NAME, typeof(TxtView), new DocumentFileInfo(".txt", "pack://application:,,,/Dance.Art.Plugin;component/Themes/Resources/Icons/txt.svg"));
         }
 
         /// <summary>

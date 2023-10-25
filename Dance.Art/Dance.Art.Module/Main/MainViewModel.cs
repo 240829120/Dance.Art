@@ -363,10 +363,10 @@ namespace Dance.Art.Module
 
             DocumentPluginInfo? pluginModel = domain.DocumentPlugins.FirstOrDefault(p =>
             {
-                if (p is not DocumentPluginInfo documentPlugin || documentPlugin.Extensions == null)
+                if (p is not DocumentPluginInfo documentPlugin || documentPlugin.FileInfos == null)
                     return false;
 
-                return documentPlugin.Extensions.Contains(msg.FileModel.Extension);
+                return documentPlugin.FileInfos.Any(p => string.Equals(p.Extension, msg.FileModel.Extension, StringComparison.OrdinalIgnoreCase));
             }) as DocumentPluginInfo;
 
             if (pluginModel == null)

@@ -23,17 +23,12 @@ namespace Dance.Art.Plugin
         public const string NAME = "json文件";
 
         /// <summary>
-        /// 支持的文件后缀
-        /// </summary>
-        public readonly static string[] Extensions = new string[] { ".json" };
-
-        /// <summary>
         /// 注册插件
         /// </summary>
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, typeof(JsonView), Extensions);
+            return new DocumentPluginInfo(ID, NAME, typeof(JsonView), new DocumentFileInfo(".json", "pack://application:,,,/Dance.Art.Plugin;component/Themes/Resources/Icons/json.svg"));
         }
 
         /// <summary>

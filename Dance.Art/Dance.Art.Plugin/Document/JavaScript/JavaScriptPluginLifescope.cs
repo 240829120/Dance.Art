@@ -23,17 +23,12 @@ namespace Dance.Art.Plugin
         public const string NAME = "JavaScript文件";
 
         /// <summary>
-        /// 支持的文件后缀
-        /// </summary>
-        public readonly static string[] Extensions = new string[] { ".js" };
-
-        /// <summary>
         /// 注册插件
         /// </summary>
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, typeof(JavaScriptView), Extensions);
+            return new DocumentPluginInfo(ID, NAME, typeof(JavaScriptView), new DocumentFileInfo(".js", "pack://application:,,,/Dance.Art.Plugin;component/Themes/Resources/Icons/javascript.svg"));
         }
 
         /// <summary>

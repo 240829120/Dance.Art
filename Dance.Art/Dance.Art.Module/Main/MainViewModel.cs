@@ -3,9 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Domain;
 using Dance.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,6 +27,7 @@ namespace Dance.Art.Module
             this.LoadedCommand = new(this.Loaded);
             this.SaveLayoutCommand = new(this.SaveLayout);
             this.LoadLayoutCommand = new(this.LoadLayout);
+            this.OpenInVSCodeCommand = new(this.OpenInVSCode);
 
             this.OpenProjectCommand = new(this.OpenProject);
             this.SaveCommand = new(this.Save);
@@ -74,6 +77,20 @@ namespace Dance.Art.Module
         {
             get { return documents; }
             private set { documents = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region ProjectDomain -- 项目领域
+
+        private ProjectDomain? projectDomain;
+        /// <summary>
+        /// 项目领域
+        /// </summary>
+        public ProjectDomain? ProjectDomain
+        {
+            get { return projectDomain; }
+            set { projectDomain = value; this.OnPropertyChanged(); }
         }
 
         #endregion
@@ -190,6 +207,7 @@ namespace Dance.Art.Module
             };
 
             artDomain.ProjectDomain = domain;
+            this.ProjectDomain = domain;
 
             artDomain.Messenger.Send(msg);
         }
@@ -338,6 +356,44 @@ namespace Dance.Art.Module
 
             this.Documents?.Remove(document);
         }
+
+        #endregion
+
+        #region OpenInVSCodeCommand -- 使用VSCode打开项目命令
+
+        /// <summary>
+        /// 使用VSCode打开项目命令
+        /// </summary>
+        public RelayCommand OpenInVSCodeCommand { get; private set; }
+
+        /// <summary>
+        /// 使用VSCode打开项目
+        /// </summary>
+        private void OpenInVSCode()
+        {
+            try
+            {
+                if (this.ProjectDomain == null || string.IsNullOrWhiteSpace(this.ProjectDomain.ProjectFolderPath))
+                    return;
+
+                string? setupPath = Registry.ClassesRoot.OpenSubKey("Applications\\Code.exe\\shell\\open")?.GetValue("Icon")?.ToString();
+                if (string.IsNullOrWhiteSpace(setupPath))
+                {
+                    DanceMessageExpansion.ShowMessageBox("错误", DanceMessageBoxIcon.Warning, "未找到VSCode安装路径", DanceMessageBoxAction.YES);
+                    return;
+                }
+                Process.Start(setupPath, $"\"{this.ProjectDomain.ProjectFolderPath}\"");
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                DanceMessageExpansion.ShowMessageBox("错误", DanceMessageBoxIcon.Warning, ex.Message, DanceMessageBoxAction.YES);
+            }
+        }
+
+        #endregion
+
+        #region RunCommand -- 
 
         #endregion
 

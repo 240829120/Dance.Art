@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Dance.Art.Module"
              xmlns:dance="http://schemas.dance.com/wpf"
+             xmlns:domain="clr-namespace:Dance.Art.Domain;assembly=Dance.Art.Domain"
              xmlns:docking="https://github.com/Dirkster99/AvalonDock"
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -16,35 +17,20 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Dance.Wpf;component/Themes/Styles/Button.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Dance.Wpf;component/Themes/Converters.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <local:ViewCacheConverter x:Key="ViewCacheConverter"></local:ViewCacheConverter>
-            <!-- BooleanToVisibilityConverter -->
-            <dance:DanceMappingConverter x:Key="BooleanToVisibilityConverter">
-                <!-- True ==== Visibile -->
-                <dance:DanceMappingConverterItem>
-                    <dance:DanceMappingConverterItem.From>
-                        <sys:Boolean>True</sys:Boolean>
-                    </dance:DanceMappingConverterItem.From>
-                    <dance:DanceMappingConverterItem.To>
-                        <Visibility>Visible</Visibility>
-                    </dance:DanceMappingConverterItem.To>
-                </dance:DanceMappingConverterItem>
-                <!-- False ==== Hidden -->
-                <dance:DanceMappingConverterItem>
-                    <dance:DanceMappingConverterItem.From>
-                        <sys:Boolean>False</sys:Boolean>
-                    </dance:DanceMappingConverterItem.From>
-                    <dance:DanceMappingConverterItem.To>
-                        <Visibility>Hidden</Visibility>
-                    </dance:DanceMappingConverterItem.To>
-                </dance:DanceMappingConverterItem>
-                <!-- Null ==== Hidden -->
-                <dance:DanceMappingConverterItem From="{x:Null}">
-                    <dance:DanceMappingConverterItem.To>
-                        <Visibility>Hidden</Visibility>
-                    </dance:DanceMappingConverterItem.To>
-                </dance:DanceMappingConverterItem>
-            </dance:DanceMappingConverter>
+
+            <!-- IsNullConverter -->
+            <dance:DanceIsNullConverter x:Key="IsNullConverter">
+                <dance:DanceIsNullConverter.DefaultValue>
+                    <sys:Boolean>True</sys:Boolean>
+                </dance:DanceIsNullConverter.DefaultValue>
+                <dance:DanceIsNullConverter.NullValue>
+                    <sys:Boolean>False</sys:Boolean>
+                </dance:DanceIsNullConverter.NullValue>
+            </dance:DanceIsNullConverter>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -146,9 +132,23 @@
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/redo.svg"></dance:DanceSvgImage>
                 </Button>
                 <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="重启脚本引擎">
-                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/restart.svg"></dance:DanceSvgImage>
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="使用VSCode打开"
+                        IsEnabled="{Binding Path=ProjectDomain,Converter={StaticResource IsNullConverter}}"
+                        Command="{Binding Path=OpenInVSCodeCommand,Mode=OneWay}">
+                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/vscode.svg"></dance:DanceSvgImage>
                 </Button>
+                <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
+                <Grid>
+                    <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="运行脚本"
+                            Visibility="{Binding Path=ProjectDomain.IsScriptRunning,Converter={StaticResource BooleanToVisibilityConverter_Collapsed_Visible_Visible},ConverterParameter=123}">
+                        <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/run.svg"></dance:DanceSvgImage>
+                    </Button>
+                    <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="停止脚本"
+                            Visibility="{Binding Path=ProjectDomain.IsScriptRunning,Converter={StaticResource BooleanToVisibilityConverter_Visible_Collapsed_Collapsed},ConverterParameter=321}">
+                        <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/stop.svg"></dance:DanceSvgImage>
+                    </Button>
+                </Grid>
+
             </StackPanel>
         </Border>
 
@@ -177,7 +177,7 @@
                     <Style TargetType="LayoutItem">
                         <Setter Property="Title" Value="{Binding Model.Name}"></Setter>
                         <Setter Property="ContentId" Value="{Binding Model.ID}" />
-                        <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter_Visible_Hidden_Hidden}}" />
                         <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
                     </Style>
                 </docking:DockingManager.LayoutItemContainerStyle>
@@ -186,7 +186,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
-                            <TextBlock Text="*" Visibility="{Binding Path=Content.View.DataContext.IsModify,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>
+                            <TextBlock Text="*" Visibility="{Binding Path=Content.View.DataContext.IsModify,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter_Visible_Hidden_Hidden}}"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </docking:DockingManager.DocumentHeaderTemplate>

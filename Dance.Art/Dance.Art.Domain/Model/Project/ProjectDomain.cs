@@ -162,5 +162,19 @@ namespace Dance.Art.Domain
 
 
         #endregion
+
+        #region IsScriptRunning -- 脚本是否正在运行
+
+        private bool isScriptRunning;
+        /// <summary>
+        /// 脚本是否正在运行
+        /// </summary>
+        public bool IsScriptRunning
+        {
+            get { return isScriptRunning; }
+            set { isScriptRunning = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
     }
 }

@@ -50,11 +50,11 @@ namespace Dance.Art.Plugin.Document
 
         #region DocumentViewModel -- 文档模型
 
-        private DocumentViewModel? documentModel;
+        private DocumentPluginModel? documentModel;
         /// <summary>
         /// 文档模型
         /// </summary>
-        public DocumentViewModel? DocumentModel
+        public DocumentPluginModel? DocumentModel
         {
             get { return documentModel; }
             set { documentModel = value; this.OnPropertyChanged(); }

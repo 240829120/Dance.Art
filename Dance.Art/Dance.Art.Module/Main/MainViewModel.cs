@@ -50,12 +50,12 @@ namespace Dance.Art.Module
 
         #region Panels -- 面板集合
 
-        private ObservableCollection<PanelViewModel>? panels;
+        private ObservableCollection<PanelPluginModel>? panels;
 
         /// <summary>
         /// 面板集合
         /// </summary>
-        public ObservableCollection<PanelViewModel>? Panels
+        public ObservableCollection<PanelPluginModel>? Panels
         {
             get { return panels; }
             private set { panels = value; this.OnPropertyChanged(); }
@@ -65,12 +65,12 @@ namespace Dance.Art.Module
 
         #region Documents -- 文档集合
 
-        private ObservableCollection<DocumentViewModel>? documents;
+        private ObservableCollection<DocumentPluginModel>? documents;
 
         /// <summary>
         /// 面板集合
         /// </summary>
-        public ObservableCollection<DocumentViewModel>? Documents
+        public ObservableCollection<DocumentPluginModel>? Documents
         {
             get { return documents; }
             private set { documents = value; this.OnPropertyChanged(); }
@@ -96,9 +96,9 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain domain)
                 return;
 
-            foreach (PanelPluginModel plugin in domain.PanelPlugins)
+            foreach (PanelPluginInfo plugin in domain.PanelPlugins)
             {
-                PanelViewModel vm = new(plugin.ID, plugin.Name, plugin);
+                PanelPluginModel vm = new(plugin.ID, plugin.Name, plugin);
 
                 domain.Panels.Add(vm);
             }
@@ -208,7 +208,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void Save()
         {
-            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentViewModel document)
+            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
                 return;
 
             if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
@@ -234,7 +234,7 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain domain)
                 return;
 
-            foreach (DocumentViewModel document in domain.Documents)
+            foreach (DocumentPluginModel document in domain.Documents)
             {
                 if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
                     continue;
@@ -257,7 +257,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void Redo()
         {
-            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentViewModel document)
+            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
                 return;
 
             if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
@@ -280,7 +280,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void Undo()
         {
-            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentViewModel document)
+            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
                 return;
 
             if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
@@ -304,7 +304,7 @@ namespace Dance.Art.Module
         /// <param name="e"></param>
         private void Closing(AvalonDock.DocumentClosingEventArgs? e)
         {
-            if (e == null || e.Document.Content is not DocumentViewModel document)
+            if (e == null || e.Document.Content is not DocumentPluginModel document)
                 return;
 
             if (document.View is not FrameworkElement view || view.DataContext is not IDockingDocument dockingDocument)
@@ -333,7 +333,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void Closed(AvalonDock.DocumentClosedEventArgs? e)
         {
-            if (e == null || e.Document.Content is not DocumentViewModel document)
+            if (e == null || e.Document.Content is not DocumentPluginModel document)
                 return;
 
             this.Documents?.Remove(document);
@@ -354,25 +354,25 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain domain)
                 return;
 
-            DocumentViewModel? vm = domain.Documents.FirstOrDefault(p => p.File == msg.FileModel.Path);
+            DocumentPluginModel? vm = domain.Documents.FirstOrDefault(p => p.File == msg.FileModel.Path);
             if (vm != null)
             {
                 vm.IsActive = true;
                 return;
             }
 
-            DocumentPluginModel? pluginModel = domain.DocumentPlugins.FirstOrDefault(p =>
+            DocumentPluginInfo? pluginModel = domain.DocumentPlugins.FirstOrDefault(p =>
             {
-                if (p is not DocumentPluginModel documentPlugin || documentPlugin.Extensions == null)
+                if (p is not DocumentPluginInfo documentPlugin || documentPlugin.Extensions == null)
                     return false;
 
                 return documentPlugin.Extensions.Contains(msg.FileModel.Extension);
-            }) as DocumentPluginModel;
+            }) as DocumentPluginInfo;
 
             if (pluginModel == null)
                 return;
 
-            vm = new DocumentViewModel(msg.FileModel.Path, msg.FileModel.FileName, pluginModel, msg.FileModel.Path);
+            vm = new DocumentPluginModel(msg.FileModel.Path, msg.FileModel.FileName, pluginModel, msg.FileModel.Path);
             domain.Documents.Add(vm);
             vm.IsActive = true;
         }

@@ -18,35 +18,26 @@ namespace Dance.Art.Module
     {
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ViewPluginViewModelBase? vm = null;
+            ViewPluginModelBase? pluginModel = value is ContentPresenter control ? control.Content as ViewPluginModelBase : value as ViewPluginModelBase;
 
-            if (value is ContentPresenter control)
-            {
-                vm = control.Content as ViewPluginViewModelBase;
-            }
-            else if (value is ViewPluginViewModelBase)
-            {
-                vm = value as ViewPluginViewModelBase;
-            }
-
-            if (vm == null || vm.PluginModel is not ViewPluginModelBase plugin)
+            if (pluginModel == null || pluginModel.PluginInfo is not ViewPluginInfoBase pluginInfo)
                 return null;
 
-            if (vm.View != null)
+            if (pluginModel.View != null)
             {
-                return vm.View;
+                return pluginModel.View;
             }
 
-            if (plugin.ViewType == null || string.IsNullOrWhiteSpace(plugin.ViewType.FullName))
+            if (pluginInfo.ViewType == null || string.IsNullOrWhiteSpace(pluginInfo.ViewType.FullName))
                 return null;
 
-            vm.View = plugin.ViewType.Assembly.CreateInstance(plugin.ViewType.FullName) as FrameworkElement;
-            if (vm.View is FrameworkElement view && view.DataContext is IDockingDocument dockingDocument)
+            pluginModel.View = pluginInfo.ViewType.Assembly.CreateInstance(pluginInfo.ViewType.FullName) as FrameworkElement;
+            if (pluginModel.View is FrameworkElement view && view.DataContext is IDockingDocument dockingDocument)
             {
-                dockingDocument.DocumentModel = vm as DocumentViewModel;
+                dockingDocument.DocumentModel = pluginModel as DocumentPluginModel;
             }
 
-            return vm.View;
+            return pluginModel.View;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

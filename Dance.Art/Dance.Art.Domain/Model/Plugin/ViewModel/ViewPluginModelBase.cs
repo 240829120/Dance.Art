@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 namespace Dance.Art.Domain
 {
     /// <summary>
-    /// 视图插件视图模型基类
+    /// 视图插件模型基类
     /// </summary>
-    public class ViewPluginViewModelBase : DanceViewModel
+    public class ViewPluginModelBase : DanceViewModel
     {
         /// <summary>
-        /// 视图插件视图模型基类
+        /// 视图插件模型基类
         /// </summary>
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
-        /// <param name="pluginModel">插件模型</param>
-        public ViewPluginViewModelBase(string id, string name, PluginModelBase pluginModel)
+        /// <param name="pluginInfo">插件信息</param>
+        public ViewPluginModelBase(string id, string name, PluginInfoBase pluginInfo)
         {
             this.id = id;
             this.name = name;
-            this.pluginModel = pluginModel;
+            this.pluginInfo = pluginInfo;
         }
 
         #region ID -- 编号
@@ -52,16 +52,16 @@ namespace Dance.Art.Domain
 
         #endregion
 
-        #region PluginModel -- 插件
+        #region PluginInfo -- 插件信息
 
-        private PluginModelBase pluginModel;
+        private PluginInfoBase pluginInfo;
         /// <summary>
-        /// 插件模型
+        /// 插件信息
         /// </summary>
-        public PluginModelBase PluginModel
+        public PluginInfoBase PluginInfo
         {
-            get { return pluginModel; }
-            private set { pluginModel = value; this.OnPropertyChanged(); }
+            get { return pluginInfo; }
+            private set { pluginInfo = value; this.OnPropertyChanged(); }
         }
 
         #endregion

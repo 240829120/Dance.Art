@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace Dance.Art.Domain
 {
     /// <summary>
-    /// 视图插件模型基类
+    /// 视图插件信息基类
     /// </summary>
-    public class ViewPluginModelBase : PluginModelBase
+    public class ViewPluginInfoBase : PluginInfoBase
     {
         /// <summary>
-        /// 视图插件模型
+        /// 视图插件信息基类
         /// </summary>
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
         /// <param name="viewType">视图类型</param>
-        public ViewPluginModelBase(string id, string name, Type viewType) : base(id, name)
+        public ViewPluginInfoBase(string id, string name, Type viewType) : base(id, name)
         {
             this.ViewType = viewType;
         }

@@ -19,17 +19,17 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 面板插件集合
         /// </summary>
-        public ObservableCollection<PluginModelBase> PanelPlugins { get; } = new();
+        public ObservableCollection<PluginInfoBase> PanelPlugins { get; } = new();
 
         /// <summary>
         /// 文档插件集合
         /// </summary>
-        public ObservableCollection<PluginModelBase> DocumentPlugins { get; } = new();
+        public ObservableCollection<PluginInfoBase> DocumentPlugins { get; } = new();
 
         /// <summary>
         /// 设置插件集合
         /// </summary>
-        public ObservableCollection<PluginModelBase> SettingPlugins { get; } = new();
+        public ObservableCollection<PluginInfoBase> SettingPlugins { get; } = new();
 
         // ----------------------------------------------------------------------------------------------------
         // Views
@@ -37,12 +37,12 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 面板集合
         /// </summary>
-        public ObservableCollection<PanelViewModel> Panels { get; } = new();
+        public ObservableCollection<PanelPluginModel> Panels { get; } = new();
 
         /// <summary>
         /// 文档集合
         /// </summary>
-        public ObservableCollection<DocumentViewModel> Documents { get; } = new();
+        public ObservableCollection<DocumentPluginModel> Documents { get; } = new();
 
         // ----------------------------------------------------------------------------------------------------
         // Domain

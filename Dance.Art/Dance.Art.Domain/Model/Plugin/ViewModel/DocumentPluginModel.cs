@@ -8,18 +8,18 @@ using System.Windows;
 namespace Dance.Art.Domain
 {
     /// <summary>
-    /// 文档视图模型
+    /// 文档插件模型
     /// </summary>
-    public class DocumentViewModel : ViewPluginViewModelBase
+    public class DocumentPluginModel : ViewPluginModelBase
     {
         /// <summary>
-        /// 面板视图模型
+        /// 文档插件模型
         /// </summary>
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
-        /// <param name="pluginModel">插件模型</param>
+        /// <param name="pluginInfo">插件信息</param>
         /// <param name="file">文件</param>
-        public DocumentViewModel(string id, string name, DocumentPluginModel pluginModel, string file) : base(id, name, pluginModel)
+        public DocumentPluginModel(string id, string name, DocumentPluginInfo pluginInfo, string file) : base(id, name, pluginInfo)
         {
             this.file = file;
         }

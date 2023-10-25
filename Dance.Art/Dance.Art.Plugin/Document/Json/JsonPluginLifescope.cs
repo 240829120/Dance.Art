@@ -33,7 +33,7 @@ namespace Dance.Art.Plugin
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginModel(ID, NAME, typeof(JsonView), Extensions);
+            return new DocumentPluginInfo(ID, NAME, typeof(JsonView), Extensions);
         }
 
         /// <summary>

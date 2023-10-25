@@ -15,7 +15,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 文档模型
         /// </summary>
-        DocumentViewModel? DocumentModel { get; set; }
+        DocumentPluginModel? DocumentModel { get; set; }
 
         /// <summary>
         /// 是否修改

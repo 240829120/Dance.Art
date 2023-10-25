@@ -97,12 +97,12 @@ namespace Dance.Art.Module
                 PluginManager.InitializePlugin(info.ID);
 
                 // 面板插件
-                if (info is PanelPluginModel panel)
+                if (info is PanelPluginInfo panel)
                 {
                     domain.PanelPlugins.Add(panel);
                 }
                 // 文档插件
-                else if (info is DocumentPluginModel document)
+                else if (info is DocumentPluginInfo document)
                 {
                     domain.DocumentPlugins.Add(document);
                 }

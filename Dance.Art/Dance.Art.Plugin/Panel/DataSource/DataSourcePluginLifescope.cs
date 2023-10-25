@@ -28,7 +28,7 @@ namespace Dance.Art.Plugin
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new PanelPluginModel(ID, NAME, typeof(DataSourceView));
+            return new PanelPluginInfo(ID, NAME, typeof(DataSourceView));
         }
 
         /// <summary>

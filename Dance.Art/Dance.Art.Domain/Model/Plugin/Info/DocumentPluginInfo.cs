@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace Dance.Art.Domain
 {
     /// <summary>
-    /// 文档插件模型
+    /// 文档插件信息
     /// </summary>
-    public class DocumentPluginModel : ViewPluginModelBase
+    public class DocumentPluginInfo : ViewPluginInfoBase
     {
         /// <summary>
-        /// 文档插件模型
+        /// 文档插件信息
         /// </summary>
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
         /// <param name="viewType">视图类型</param>
         /// <param name="extensions">能处理文件的扩展名</param>
-        public DocumentPluginModel(string id, string name, Type viewType, params string[] extensions) : base(id, name, viewType)
+        public DocumentPluginInfo(string id, string name, Type viewType, params string[] extensions) : base(id, name, viewType)
         {
             this.Extensions = extensions;
         }

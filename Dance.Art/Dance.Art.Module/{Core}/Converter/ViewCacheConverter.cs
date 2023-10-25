@@ -41,6 +41,10 @@ namespace Dance.Art.Module
                 return null;
 
             vm.View = plugin.ViewType.Assembly.CreateInstance(plugin.ViewType.FullName) as FrameworkElement;
+            if (vm.View is FrameworkElement view && view.DataContext is IDockingDocument dockingDocument)
+            {
+                dockingDocument.DocumentModel = vm as DocumentViewModel;
+            }
 
             return vm.View;
         }

@@ -13,6 +13,11 @@ namespace Dance.Art.Domain
     public interface IDockingDocument : IDisposable
     {
         /// <summary>
+        /// 文档模型
+        /// </summary>
+        DocumentViewModel? DocumentModel { get; set; }
+
+        /// <summary>
         /// 是否修改
         /// </summary>
         bool IsModify { get; }
@@ -26,6 +31,11 @@ namespace Dance.Art.Domain
         /// 是否可以撤销
         /// </summary>
         bool CanUndo { get; }
+
+        /// <summary>
+        /// 加载
+        /// </summary>
+        void Load();
 
         /// <summary>
         /// 保存命令

@@ -54,6 +54,11 @@ namespace Dance.Art.Module
         public string? Txt { get; set; }
 
         /// <summary>
+        /// json文件
+        /// </summary>
+        public string? Json { get; set; }
+
+        /// <summary>
         /// 转化
         /// </summary>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -71,6 +76,7 @@ namespace Dance.Art.Module
             {
                 case ".js": return this.GetImageSource(this.JavaScript);
                 case ".txt": return this.GetImageSource(this.Txt);
+                case ".json": return this.GetImageSource(this.Json);
                 default: return null;
             }
         }

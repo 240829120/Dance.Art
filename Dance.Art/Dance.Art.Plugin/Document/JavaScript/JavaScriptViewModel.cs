@@ -12,9 +12,9 @@ using System.Windows;
 namespace Dance.Art.Plugin
 {
     /// <summary>
-    /// 文本视图模型
+    /// JavaScript视图模型
     /// </summary>
-    public class TxtViewModel : DocumentViewModelBase
+    public class JavaScriptViewModel : DocumentViewModelBase
     {
         // ==========================================================================================
         // Public Function
@@ -24,7 +24,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Load()
         {
-            if (this.View is not TxtView view || this.DocumentModel == null)
+            if (this.View is not JavaScriptView view || this.DocumentModel == null)
                 return;
 
             view.edit.Load(this.DocumentModel.File);
@@ -35,7 +35,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Save()
         {
-            if (this.View is not TxtView view || this.DocumentModel == null)
+            if (this.View is not JavaScriptView view || this.DocumentModel == null)
                 return;
 
             if (!view.edit.IsModified)
@@ -49,7 +49,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Redo()
         {
-            if (this.View is not TxtView view)
+            if (this.View is not JavaScriptView view)
                 return;
 
             view.edit.Redo();
@@ -60,7 +60,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Undo()
         {
-            if (this.View is not TxtView view)
+            if (this.View is not JavaScriptView view)
                 return;
 
             view.edit.Undo();
@@ -74,7 +74,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         protected override void UpdateDocumentStatus()
         {
-            if (this.View is not TxtView view)
+            if (this.View is not JavaScriptView view)
                 return;
 
             this.IsModify = view.edit.IsModified;
@@ -88,7 +88,7 @@ namespace Dance.Art.Plugin
         /// <returns>是否可以拷贝</returns>
         protected override bool CanCopy()
         {
-            if (this.View is not TxtView view)
+            if (this.View is not JavaScriptView view)
                 return false;
 
             return view.edit.SelectionLength != 0;
@@ -99,7 +99,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         protected override void Copy()
         {
-            if (this.View is not TxtView view)
+            if (this.View is not JavaScriptView view)
                 return;
 
             view.edit.Copy();
@@ -110,7 +110,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         protected override bool CanCut()
         {
-            if (this.View is not TxtView view)
+            if (this.View is not JavaScriptView view)
                 return false;
 
             return view.edit.SelectionLength != 0;
@@ -121,7 +121,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         protected override void Cut()
         {
-            if (this.View is not TxtView view)
+            if (this.View is not JavaScriptView view)
                 return;
 
             view.edit.Cut();
@@ -132,7 +132,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         protected override void Paste()
         {
-            if (this.View is not TxtView view)
+            if (this.View is not JavaScriptView view)
                 return;
 
             view.edit.Paste();

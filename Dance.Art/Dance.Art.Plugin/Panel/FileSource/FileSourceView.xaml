@@ -23,7 +23,8 @@
                                            Project="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"
                                            Folder="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/folder.svg"
                                            JavaScript="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/javascript.svg"
-                                           Txt="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/txt.svg">
+                                           Txt="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/txt.svg"
+                                           Json="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/json.svg">
             </module:FileModelIconConverter>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -45,7 +46,7 @@
                             <ColumnDefinition Width="20"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding ., Converter={StaticResource FileModelIconConverter}}" Width="12" Height="12" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Image Source="{Binding ., Converter={StaticResource FileModelIconConverter}}" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding Path=FileName}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
                     </Grid>
                     <HierarchicalDataTemplate.Triggers>

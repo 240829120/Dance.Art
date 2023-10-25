@@ -10,6 +10,7 @@
 		<None Remove="Themes\Resources\Icons\debug.svg" />
 		<None Remove="Themes\Resources\Icons\folder.svg" />
 		<None Remove="Themes\Resources\Icons\javascript.svg" />
+		<None Remove="Themes\Resources\Icons\json.svg" />
 		<None Remove="Themes\Resources\Icons\layout.svg" />
 		<None Remove="Themes\Resources\Icons\logo.png" />
 		<None Remove="Themes\Resources\Icons\project.svg" />
@@ -36,6 +37,7 @@
 		<Resource Include="Themes\Resources\Icons\debug.svg" />
 		<Resource Include="Themes\Resources\Icons\folder.svg" />
 		<Resource Include="Themes\Resources\Icons\javascript.svg" />
+		<Resource Include="Themes\Resources\Icons\json.svg" />
 		<Resource Include="Themes\Resources\Icons\layout.svg" />
 		<Resource Include="Themes\Resources\Icons\logo.png" />
 		<Resource Include="Themes\Resources\Icons\project.svg" />

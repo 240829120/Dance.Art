@@ -96,15 +96,17 @@ namespace Dance.Art.Module
 
                 PluginManager.InitializePlugin(info.ID);
 
-                // 视图插件
-                if (info is PluginViewModel pluginView)
+                // 面板插件
+                if (info is PanelPluginModel panel)
                 {
-                    switch (pluginView.Category)
-                    {
-                        case PluginViewCategory.Panel: domain.Panels.Add(pluginView); break;
-                        case PluginViewCategory.Setting: domain.Settings.Add(pluginView); break;
-                    }
+                    domain.PanelPlugins.Add(panel);
                 }
+                // 文档插件
+                else if (info is DocumentPluginModel document)
+                {
+                    domain.DocumentPlugins.Add(document);
+                }
+                // 设置插件
 
                 await Task.Delay(100);
             }

@@ -1,0 +1,45 @@
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dance.Art.Domain
+{
+    /// <summary>
+    /// Docking文档
+    /// </summary>
+    public interface IDockingDocument : IDisposable
+    {
+        /// <summary>
+        /// 是否修改
+        /// </summary>
+        bool IsModify { get; }
+
+        /// <summary>
+        /// 是否可以重做
+        /// </summary>
+        bool CanRedo { get; }
+
+        /// <summary>
+        /// 是否可以撤销
+        /// </summary>
+        bool CanUndo { get; }
+
+        /// <summary>
+        /// 保存命令
+        /// </summary>
+        void Save();
+
+        /// <summary>
+        /// 重做
+        /// </summary>
+        void Redo();
+
+        /// <summary>
+        /// 撤销
+        /// </summary>
+        void Undo();
+    }
+}

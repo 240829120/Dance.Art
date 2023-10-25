@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Dance.Art.Module
 {
@@ -26,6 +27,12 @@ namespace Dance.Art.Module
             this.LoadLayoutCommand = new(this.LoadLayout);
 
             this.OpenProjectCommand = new(this.OpenProject);
+            this.SaveCommand = new(this.Save);
+            this.SaveAllCommand = new(this.SaveAll);
+            this.RedoCommand = new(this.Redo);
+            this.UndoCommand = new(this.Undo);
+
+            DanceDomain.Current.Messenger.Register<FileOpenMessage>(this, this.OnFileOpen);
         }
 
         // ========================================================================================
@@ -41,12 +48,12 @@ namespace Dance.Art.Module
 
         #region Panels -- 面板集合
 
-        private ObservableCollection<PluginViewModel>? panels;
+        private ObservableCollection<PanelViewModel>? panels;
 
         /// <summary>
         /// 面板集合
         /// </summary>
-        public ObservableCollection<PluginViewModel>? Panels
+        public ObservableCollection<PanelViewModel>? Panels
         {
             get { return panels; }
             private set { panels = value; this.OnPropertyChanged(); }
@@ -56,12 +63,12 @@ namespace Dance.Art.Module
 
         #region Documents -- 文档集合
 
-        private ObservableCollection<PluginViewModel>? documents;
+        private ObservableCollection<DocumentViewModel>? documents;
 
         /// <summary>
         /// 面板集合
         /// </summary>
-        public ObservableCollection<PluginViewModel>? Documents
+        public ObservableCollection<DocumentViewModel>? Documents
         {
             get { return documents; }
             private set { documents = value; this.OnPropertyChanged(); }
@@ -86,6 +93,13 @@ namespace Dance.Art.Module
         {
             if (DanceDomain.Current is not ArtDomain domain)
                 return;
+
+            foreach (PanelPluginModel plugin in domain.PanelPlugins)
+            {
+                PanelViewModel vm = new(plugin.ID, plugin.Name, plugin);
+
+                domain.Panels.Add(vm);
+            }
 
             this.Panels = domain.Panels;
             this.Documents = domain.Documents;
@@ -176,6 +190,139 @@ namespace Dance.Art.Module
             artDomain.ProjectDomain = domain;
 
             artDomain.Messenger.Send(msg);
+        }
+
+        #endregion
+
+        #region SaveCommand -- 保存当前激活的文档
+
+        /// <summary>
+        /// 保存当前激活的文档
+        /// </summary>
+        public RelayCommand SaveCommand { get; private set; }
+
+        /// <summary>
+        /// 保存当前激活的文档命令
+        /// </summary>
+        private void Save()
+        {
+            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentViewModel document)
+                return;
+
+            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
+                return;
+
+            dockingDocument.Save();
+        }
+
+        #endregion
+
+        #region SaveAllCommand -- 保存全部文档命令
+
+        /// <summary>
+        /// 保存全部文档命令
+        /// </summary>
+        public RelayCommand SaveAllCommand { get; private set; }
+
+        /// <summary>
+        /// 保存全部文档
+        /// </summary>
+        private void SaveAll()
+        {
+            if (DanceDomain.Current is not ArtDomain domain)
+                return;
+
+            foreach (DocumentViewModel document in domain.Documents)
+            {
+                if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
+                    continue;
+
+                dockingDocument.Save();
+            }
+        }
+
+        #endregion
+
+        #region RedoCommand -- 重做命令
+
+        /// <summary>
+        /// 重做命令
+        /// </summary>
+        public RelayCommand RedoCommand { get; private set; }
+
+        /// <summary>
+        /// 重做
+        /// </summary>
+        private void Redo()
+        {
+            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentViewModel document)
+                return;
+
+            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
+                return;
+
+            dockingDocument.Redo();
+        }
+
+        #endregion
+
+        #region UndoCommand -- 撤销命令
+
+        /// <summary>
+        /// 撤销命令
+        /// </summary>
+        public RelayCommand UndoCommand { get; private set; }
+
+        /// <summary>
+        /// 撤销
+        /// </summary>
+        private void Undo()
+        {
+            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentViewModel document)
+                return;
+
+            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
+                return;
+
+            dockingDocument.Undo();
+        }
+
+        #endregion
+
+        // ========================================================================================
+        // Message
+
+        #region FileOpenMessage -- 文件打开消息
+
+        /// <summary>
+        /// 文件打开
+        /// </summary>
+        private void OnFileOpen(object sender, FileOpenMessage msg)
+        {
+            if (DanceDomain.Current is not ArtDomain domain)
+                return;
+
+            DocumentViewModel? vm = domain.Documents.FirstOrDefault(p => p.File == msg.FileModel.Path);
+            if (vm != null)
+            {
+                vm.IsActive = true;
+                return;
+            }
+
+            DocumentPluginModel? pluginModel = domain.DocumentPlugins.FirstOrDefault(p =>
+            {
+                if (p is not DocumentPluginModel documentPlugin || documentPlugin.Extensions == null)
+                    return false;
+
+                return documentPlugin.Extensions.Contains(msg.FileModel.Extension);
+            }) as DocumentPluginModel;
+
+            if (pluginModel == null)
+                return;
+
+            vm = new DocumentViewModel(msg.FileModel.Path, msg.FileModel.FileName, pluginModel, msg.FileModel.Path);
+            domain.Documents.Add(vm);
+            vm.IsActive = true;
         }
 
         #endregion

@@ -13,20 +13,39 @@ namespace Dance.Art.Domain
     /// </summary>
     public class ArtDomain : DanceDomain
     {
+        // ----------------------------------------------------------------------------------------------------
+        // Plugins
+
+        /// <summary>
+        /// 面板插件集合
+        /// </summary>
+        public ObservableCollection<PluginModelBase> PanelPlugins { get; } = new();
+
+        /// <summary>
+        /// 文档插件集合
+        /// </summary>
+        public ObservableCollection<PluginModelBase> DocumentPlugins { get; } = new();
+
+        /// <summary>
+        /// 设置插件集合
+        /// </summary>
+        public ObservableCollection<PluginModelBase> SettingPlugins { get; } = new();
+
+        // ----------------------------------------------------------------------------------------------------
+        // Views
+
         /// <summary>
         /// 面板集合
         /// </summary>
-        public ObservableCollection<PluginViewModel> Panels { get; } = new();
+        public ObservableCollection<PanelViewModel> Panels { get; } = new();
 
         /// <summary>
         /// 文档集合
         /// </summary>
-        public ObservableCollection<PluginViewModel> Documents { get; } = new();
+        public ObservableCollection<DocumentViewModel> Documents { get; } = new();
 
-        /// <summary>
-        /// 设置集合
-        /// </summary>
-        public ObservableCollection<PluginViewModel> Settings { get; } = new();
+        // ----------------------------------------------------------------------------------------------------
+        // Domain
 
         /// <summary>
         /// 项目领域

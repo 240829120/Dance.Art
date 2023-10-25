@@ -9,6 +9,11 @@
   <ItemGroup>
     <Folder Include="Themes\Resources\Icons\" />
     <Folder Include="Themes\Resources\Images\" />
+    <Folder Include="Setting\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,16 +26,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Collection\CollectionView.xaml.cs">
+    <Compile Update="Document\Txt\TxtView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Command\CommandView.xaml.cs">
+    <Compile Update="Panel\Collection\CollectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Output\OutputView.xaml.cs">
+    <Compile Update="Panel\Command\CommandView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Property\PropertyView.xaml.cs">
+    <Compile Update="Panel\Output\OutputView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Panel\Property\PropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

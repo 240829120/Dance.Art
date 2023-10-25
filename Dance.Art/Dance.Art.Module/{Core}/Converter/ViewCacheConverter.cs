@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace Dance.Art.Module
@@ -17,7 +18,18 @@ namespace Dance.Art.Module
     {
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is not PluginViewModel vm)
+            ViewPluginViewModelBase? vm = null;
+
+            if (value is ContentPresenter control)
+            {
+                vm = control.Content as ViewPluginViewModelBase;
+            }
+            else if (value is ViewPluginViewModelBase)
+            {
+                vm = value as ViewPluginViewModelBase;
+            }
+
+            if (vm == null || vm.PluginModel is not ViewPluginModelBase plugin)
                 return null;
 
             if (vm.View != null)
@@ -25,10 +37,10 @@ namespace Dance.Art.Module
                 return vm.View;
             }
 
-            if (vm.ViewType == null || string.IsNullOrWhiteSpace(vm.ViewType.FullName))
+            if (plugin.ViewType == null || string.IsNullOrWhiteSpace(plugin.ViewType.FullName))
                 return null;
 
-            vm.View = vm.ViewType.Assembly.CreateInstance(vm.ViewType.FullName) as FrameworkElement;
+            vm.View = plugin.ViewType.Assembly.CreateInstance(plugin.ViewType.FullName) as FrameworkElement;
 
             return vm.View;
         }

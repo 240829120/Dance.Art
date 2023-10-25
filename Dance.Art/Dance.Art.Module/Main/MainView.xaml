@@ -125,17 +125,23 @@
         <Border Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.CHUNK_BAR_BACKGROUND}}" Grid.Row="1">
             <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
                 <Rectangle Width="1" Height="20" Margin="0,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="保存">
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="保存"
+                        IsEnabled="{Binding ElementName=docking,Path=ActiveContent.View.DataContext.IsModify,Mode=OneWay}"
+                        Command="{Binding Path=SaveCommand,Mode=OneWay}">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
                 </Button>
                 <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="保存全部">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save_all.svg"></dance:DanceSvgImage>
                 </Button>
                 <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="撤销">
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="撤销"
+                        IsEnabled="{Binding ElementName=docking,Path=ActiveContent.View.DataContext.CanUndo,Mode=OneWay}"
+                        Command="{Binding Path=UndoCommand,Mode=OneWay}">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/undo.svg"></dance:DanceSvgImage>
                 </Button>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="重做">
+                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="重做"
+                        IsEnabled="{Binding ElementName=docking,Path=ActiveContent.View.DataContext.CanRedo,Mode=OneWay}"
+                        Command="{Binding Path=RedoCommand,Mode=OneWay}">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/redo.svg"></dance:DanceSvgImage>
                 </Button>
                 <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
@@ -148,10 +154,12 @@
         <!-- 内容 -->
         <Border Margin="5" BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"
                 BorderThickness="1" Grid.Row="2" Padding="5">
-            <docking:DockingManager x:Name="docking" AnchorablesSource="{Binding Path=Panels}">
+            <docking:DockingManager x:Name="docking"
+                                    AnchorablesSource="{Binding Path=Panels}"
+                                    DocumentsSource="{Binding Path=Documents}">
                 <docking:DockingManager.LayoutItemTemplate>
                     <DataTemplate>
-                        <ContentControl Content="{Binding Content,Converter={StaticResource ViewCacheConverter}}"></ContentControl>
+                        <ContentControl Content="{Binding .,Converter={StaticResource ViewCacheConverter}}"></ContentControl>
                     </DataTemplate>
                 </docking:DockingManager.LayoutItemTemplate>
                 <docking:DockingManager.LayoutItemContainerStyle>
@@ -159,8 +167,10 @@
                         <Setter Property="Title" Value="{Binding Model.Name}"></Setter>
                         <Setter Property="ContentId" Value="{Binding Model.ID}" />
                         <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
                     </Style>
                 </docking:DockingManager.LayoutItemContainerStyle>
+
             </docking:DockingManager>
         </Border>
     </Grid>

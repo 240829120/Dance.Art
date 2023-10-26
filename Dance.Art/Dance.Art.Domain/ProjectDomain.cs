@@ -61,20 +61,6 @@ namespace Dance.Art.Domain
 
         #endregion
 
-        #region Type -- 类型
-
-        private ProjectType type;
-        /// <summary>
-        /// 类型
-        /// </summary>
-        public ProjectType Type
-        {
-            get { return type; }
-            set { type = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
-
         #region CollectionGroups -- 连接集合
 
         private ObservableCollection<CollectionGroup> collectionGroups = new();

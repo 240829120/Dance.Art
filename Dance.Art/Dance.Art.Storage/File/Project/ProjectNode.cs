@@ -23,9 +23,9 @@ namespace Dance.Art.Storage
         public string? Description { get; set; }
 
         /// <summary>
-        /// 类型
+        /// 项目模板
         /// </summary>
-        public ProjectType Type { get; set; }
+        public string? ProjectTemplate { get; set; }
 
         /// <summary>
         /// 连接

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Dance.Art.Module
 {
@@ -82,10 +83,14 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain domain)
                 return;
 
+            this.WindowManager.WelcomeWindow.Closed -= WelcomeWindow_Closed;
+            this.WindowManager.WelcomeWindow.Closed += WelcomeWindow_Closed;
+
             this.ProgressValue = 0;
             this.ProgressMessage = "准备初始化";
 
             PluginManager.LoadPlugin("Dance.Art.Plugin");
+            PluginManager.LoadPlugin("Dance.Art.Template");
 
             for (int i = 0; i < PluginManager.PluginDomains.Count; ++i)
             {
@@ -107,6 +112,15 @@ namespace Dance.Art.Module
                     domain.DocumentPlugins.Add(document);
                 }
                 // 设置插件
+                else if (info is SettingPluginInfo setting)
+                {
+                    domain.SettingPlugins.Add(setting);
+                }
+                // 模板插件
+                else if (info is TemplatePluginInfo template)
+                {
+                    domain.TemplatePlugins.Add(template);
+                }
 
                 await Task.Delay(100);
             }
@@ -114,13 +128,20 @@ namespace Dance.Art.Module
             this.ProgressValue = 1;
             this.ProgressMessage = "准备启动";
 
-
-
             await Task.Delay(2000);
 
-            WindowManager.WelcomeWindow.ShowInTaskbar = false;
-            WindowManager.WelcomeWindow.Visibility = System.Windows.Visibility.Collapsed;
+            this.WindowManager.WelcomeWindow.Closed -= WelcomeWindow_Closed;
+            WindowManager.WelcomeWindow.Close();
             WindowManager.MainWindow.Show();
+        }
+
+        /// <summary>
+        /// 欢迎窗口关闭
+        /// </summary>
+        private void WelcomeWindow_Closed(object? sender, EventArgs e)
+        {
+            DanceDomain.Current?.Dispose();
+            Application.Current.Shutdown();
         }
 
         #endregion

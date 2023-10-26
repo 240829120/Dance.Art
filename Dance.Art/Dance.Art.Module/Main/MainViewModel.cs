@@ -214,6 +214,21 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain domain)
                 return;
 
+            if (domain.ProjectDomain != null)
+            {
+                if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "是否关闭当前项目?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) == DanceMessageBoxAction.NO)
+                    return;
+
+                this.CloseProject();
+            }
+
+            CreateProjectWindow window = new()
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (window.ShowDialog() != true)
+                return;
+
 
         }
 
@@ -234,7 +249,16 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain artDomain)
                 return;
 
-            ProjectDomain domain = new(@"E:\test_project\test.art");
+            OpenFileDialog ofd = new()
+            {
+                Filter = "项目文件|*.art",
+                Multiselect = false
+            };
+
+            if (ofd.ShowDialog() != true || string.IsNullOrWhiteSpace(ofd.FileName) || !File.Exists(ofd.FileName))
+                return;
+
+            ProjectDomain domain = new(ofd.FileName);
             ProjectOpenMessage msg = new(artDomain.ProjectDomain, domain);
             this.ProjectDomain = domain;
             artDomain.ProjectDomain = domain;

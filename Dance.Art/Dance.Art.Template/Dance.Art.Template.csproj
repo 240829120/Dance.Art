@@ -1,21 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="ProjectTemplate\Console\.vscode\launch.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="ProjectTemplate\Console\.vscode\launch.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="ProjectTemplate\Console\index.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+		<ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="ProjectTemplate\Console\index.js">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

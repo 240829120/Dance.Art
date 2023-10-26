@@ -1,5 +1,4 @@
-﻿using Dance.Wpf;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Dance.Art
+namespace Dance.Art.Module
 {
     /// <summary>
-    /// WelcomeWindow.xaml 的交互逻辑
+    /// CreateProjectWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class WelcomeWindow : Window
+    public partial class CreateProjectWindow : Window
     {
-        public WelcomeWindow()
+        public CreateProjectWindow()
         {
             InitializeComponent();
+
+            CreateProjectWindowModel vm = new()
+            {
+                View = this
+            };
+            this.DataContext = vm;
         }
     }
 }

@@ -17,14 +17,21 @@ namespace Dance.Art.Domain
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
         /// <param name="templateFolder">模板文件夹</param>
-        public TemplatePluginInfo(string id, string name, string templateFolder) : base(id, name)
+        /// <param name="icon">图标</param>
+        public TemplatePluginInfo(string id, string name, string templateFolder, string icon) : base(id, name)
         {
             this.TemplateFolder = templateFolder;
+            this.Icon = icon;
         }
 
         /// <summary>
         /// 模板文件夹
         /// </summary>
         public string TemplateFolder { get; private set; }
+
+        /// <summary>
+        /// 图标
+        /// </summary>
+        public string Icon { get; private set; }
     }
 }

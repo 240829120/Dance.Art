@@ -1,13 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0-windows</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Themes\Resources\Images\**" />
+	  <EmbeddedResource Remove="Themes\Resources\Images\**" />
+	  <None Remove="Themes\Resources\Images\**" />
+	  <Page Remove="Themes\Resources\Images\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Themes\Resources\Icons\console.svg" />
+	  <None Remove="Themes\Resources\Icons\empty.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Include="ProjectTemplate\Console\.vscode\launch.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="ProjectTemplate\Empty\.vscode\launch.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
@@ -18,7 +33,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Themes\Resources\Icons\console.svg" />
+	  <Resource Include="Themes\Resources\Icons\empty.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Update="ProjectTemplate\Console\index.js">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="ProjectTemplate\Empty\index.js">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 namespace Dance.Art.Template
 {
     /// <summary>
-    /// 控制台插件生命周期
+    /// 空项目插件生命周期
     /// </summary>
-    public class ConsolePluginLifescope : DanceObject, IDancePluginLifescope
+    public class EmptyPluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.Template]:Console";
+        public const string ID = "[Dance.Art.Template]:Empty";
 
         /// <summary>
         /// 名称
         /// </summary>
-        public const string NAME = "控制台";
+        public const string NAME = "空项目";
 
         /// <summary>
         /// 注册插件
@@ -29,8 +29,8 @@ namespace Dance.Art.Template
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new TemplatePluginInfo(ID, NAME, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProjectTemplate", "Console")
-                                                  , "pack://application:,,,/Dance.Art.Template;component/Themes/Resources/Icons/console.svg");
+            return new TemplatePluginInfo(ID, NAME, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProjectTemplate", "Empty")
+                                                  , "pack://application:,,,/Dance.Art.Template;component/Themes/Resources/Icons/empty.svg");
         }
 
         /// <summary>

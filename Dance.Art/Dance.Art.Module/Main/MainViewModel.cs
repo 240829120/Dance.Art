@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -211,10 +212,10 @@ namespace Dance.Art.Module
         /// </summary>
         private void CreateProject()
         {
-            if (DanceDomain.Current is not ArtDomain domain)
+            if (DanceDomain.Current is not ArtDomain artDomain)
                 return;
 
-            if (domain.ProjectDomain != null)
+            if (artDomain.ProjectDomain != null)
             {
                 if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "是否关闭当前项目?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) == DanceMessageBoxAction.NO)
                     return;
@@ -226,10 +227,19 @@ namespace Dance.Art.Module
             {
                 Owner = Application.Current.MainWindow
             };
-            if (window.ShowDialog() != true)
+
+            if (window.ShowDialog() != true || window.DataContext is not CreateProjectWindowModel vm)
                 return;
 
+            if (string.IsNullOrWhiteSpace(vm.ProjectPath) || !File.Exists(vm.ProjectPath))
+                return;
 
+            ProjectDomain domain = new(vm.ProjectPath);
+            ProjectOpenMessage msg = new(artDomain.ProjectDomain, domain);
+            this.ProjectDomain = domain;
+            artDomain.ProjectDomain = domain;
+
+            artDomain.Messenger.Send(msg);
         }
 
         #endregion

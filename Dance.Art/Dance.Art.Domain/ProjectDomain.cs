@@ -26,7 +26,7 @@ namespace Dance.Art.Domain
 
             ArgumentNullException.ThrowIfNullOrEmpty(projectFolderPath, nameof(ProjectFolderPath));
 
-            string cache = Path.Combine(this.projectFolderPath, $"{Path.GetFileNameWithoutExtension(path)}.{FileSuffixCategory.PROJECT_CACHE}");
+            string cache = Path.Combine(this.projectFolderPath, $"{Path.GetFileNameWithoutExtension(path)}{FileSuffixCategory.PROJECT_CACHE}");
             this.cacheContext = new ProjectCacheContext(cache);
         }
 

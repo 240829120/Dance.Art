@@ -6,96 +6,91 @@
         xmlns:dance="http://schemas.dance.com/wpf"
         xmlns:local="clr-namespace:Dance.Art.Module" mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:CreateProjectWindowModel}"
-        WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" WindowState="Normal" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="False" WindowState="Normal" WindowStyle="None" Background="{x:Null}"
+        AllowsTransparency="True"
         Title="新建项目" Height="600" Width="700" 
         IsEnabled="{Binding Path=IsEnabled,Mode=OneWay}"
-        dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}"
-        Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_SELECTED}}">
-    <Window.Style>
-        <Style TargetType="Window">
-            <Setter Property="WindowChrome.WindowChrome">
-                <Setter.Value>
-                    <WindowChrome CaptionHeight="0" CornerRadius="0" GlassFrameThickness="0" UseAeroCaptionButtons="False" NonClientFrameEdges="None">
-                    </WindowChrome>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="WindowState" Value="Normal">
-                    <Setter Property="Padding" Value="1"></Setter>
-                </Trigger>
-                <Trigger Property="WindowState" Value="Maximized">
-                    <Setter Property="Padding" Value="6"></Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Style>
-    <Grid Margin="{Binding Padding,RelativeSource={RelativeSource AncestorType=Window,Mode=FindAncestor}}" Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-        </Grid.RowDefinitions>
-        <!-- 标题 -->
-        <Grid Background="#FFFAFAFA">
-            <dance:DanceWindowDragPart></dance:DanceWindowDragPart>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
-                <Image Width="20" Height="20" Source="/Dance.Art.Module;component/Themes/Resources/Icons/logo.png" VerticalAlignment="Center"></Image>
-                <TextBlock Text="新建项目" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
-            </StackPanel>
-        </Grid>
-        <!-- 内容 -->
-        <Grid Grid.Row="1" Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="80"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <!-- 位置 -->
-            <TextBlock Text="位置:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBlock>
-            <TextBox Grid.Column="1" Text="{Binding Path=ProjectRoot,Mode=TwoWay}"></TextBox>
-            <Button Grid.Column="2" Style="{StaticResource Button_Secondary}" Width="60" Content="..." 
+        dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}">
+
+    <Grid>
+        <Border Background="White" Margin="10">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Direction="-20" ShadowDepth="5" BlurRadius="10" Opacity="0.3"></DropShadowEffect>
+            </Border.Effect>
+        </Border>
+        <Border Margin="10"
+                BorderThickness="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_THICKNESS}}"
+                BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}">
+            <Grid Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!-- 标题 -->
+                <Grid Background="#FFFAFAFA">
+                    <dance:DanceWindowDragPart></dance:DanceWindowDragPart>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <Image Width="20" Height="20" Source="/Dance.Art.Module;component/Themes/Resources/Icons/logo.png" VerticalAlignment="Center"></Image>
+                        <TextBlock Text="新建项目" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    </StackPanel>
+                </Grid>
+                <!-- 内容 -->
+                <Grid Grid.Row="1" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="80"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!-- 位置 -->
+                    <TextBlock Text="位置:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBlock>
+                    <TextBox Grid.Column="1" Text="{Binding Path=ProjectRoot,Mode=TwoWay}"></TextBox>
+                    <Button Grid.Column="2" Style="{StaticResource Button_Secondary}" Width="60" Content="..." 
                     Command="{Binding Path=SelectFolderCommand,Mode=OneWay}"></Button>
-            <!-- 名称 -->
-            <TextBlock Text="名称:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="1"></TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=ProjectName,Mode=TwoWay}"></TextBox>
-            <!-- 项目描述 -->
-            <TextBlock Text="描述:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="2"></TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Height="125" VerticalContentAlignment="Top" AcceptsReturn="True" Padding="5"
+                    <!-- 名称 -->
+                    <TextBlock Text="名称:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="1"></TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=ProjectName,Mode=TwoWay}"></TextBox>
+                    <!-- 项目描述 -->
+                    <TextBlock Text="描述:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="2"></TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Height="125" VerticalContentAlignment="Top" AcceptsReturn="True" Padding="5"
                      VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                      Text="{Binding Path=ProjectDescription,Mode=TwoWay}"></TextBox>
-            <!-- 项目类型 -->
-            <TextBlock Text="项目类型:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="4"></TextBlock>
-            <ListBox Grid.Row="4" Grid.Column="1" Grid.RowSpan="2" Margin="0,15,0,10"
+                    <!-- 项目类型 -->
+                    <TextBlock Text="项目类型:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="4"></TextBlock>
+                    <ListBox Grid.Row="4" Grid.Column="1" Grid.RowSpan="2" Margin="0,15,0,10"
                      ItemsSource="{Binding Path=Templates,Mode=OneWay}"
                      SelectedValue="{Binding Path=SelectedTemplate,Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Background="Transparent" ToolTip="{Binding Path=TemplateFolder,Mode=OneWay}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <dance:DanceSvgImage Width="16" Height="16"
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Background="Transparent" ToolTip="{Binding Path=TemplateFolder,Mode=OneWay}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <dance:DanceSvgImage Width="16" Height="16"
                                                  Source="{Binding Path=Icon,Mode=OneWay}"></dance:DanceSvgImage>
-                            <TextBlock Text="{Binding Path=Name,Mode=OneWay}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0"
+                                    <TextBlock Text="{Binding Path=Name,Mode=OneWay}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0"
                                        TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
-        <!-- 按钮组 -->
-        <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-            <Button Style="{StaticResource Button_Master}" Content="新建" Margin="0,0,20,0" Command="{Binding Path=CreateCommand,Mode=OneWay}"></Button>
-            <Button Style="{StaticResource Button_Secondary}" Content="取消" Command="{Binding Path=CancelCommand,Mode=OneWay}"></Button>
-        </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                <!-- 按钮组 -->
+                <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,20">
+                    <Button Style="{StaticResource Button_Master}" Content="新建" Margin="0,0,20,0" Command="{Binding Path=CreateCommand,Mode=OneWay}"></Button>
+                    <Button Style="{StaticResource Button_Secondary}" Content="取消" Command="{Binding Path=CancelCommand,Mode=OneWay}"></Button>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

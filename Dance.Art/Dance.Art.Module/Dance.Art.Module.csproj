@@ -9,8 +9,11 @@
 	<ItemGroup>
 		<None Remove="Themes\Resources\Icons\folder.svg" />
 		<None Remove="Themes\Resources\Icons\layout.svg" />
+		<None Remove="Themes\Resources\Icons\layout_save.svg" />
 		<None Remove="Themes\Resources\Icons\logo.png" />
-		<None Remove="Themes\Resources\Icons\project.svg" />
+		<None Remove="Themes\Resources\Icons\project_new.svg" />
+		<None Remove="Themes\Resources\Icons\project_open.svg" />
+		<None Remove="Themes\Resources\Icons\project_save.svg" />
 		<None Remove="Themes\Resources\Icons\redo.svg" />
 		<None Remove="Themes\Resources\Icons\restart.svg" />
 		<None Remove="Themes\Resources\Icons\run.svg" />
@@ -31,11 +34,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Resource Include="Themes\Resources\Icons\layout_save.svg" />
+		<Resource Include="Themes\Resources\Icons\project_new.svg" />
+		<Resource Include="Themes\Resources\Icons\project_open.svg" />
+		<Resource Include="Themes\Resources\Icons\project_save.svg" />
 		<Resource Include="Themes\Resources\Icons\run.svg" />
 		<Resource Include="Themes\Resources\Icons\folder.svg" />
 		<Resource Include="Themes\Resources\Icons\layout.svg" />
 		<Resource Include="Themes\Resources\Icons\logo.png" />
-		<Resource Include="Themes\Resources\Icons\project.svg" />
 		<Resource Include="Themes\Resources\Icons\redo.svg" />
 		<Resource Include="Themes\Resources\Icons\restart.svg" />
 		<Resource Include="Themes\Resources\Icons\save.svg" />

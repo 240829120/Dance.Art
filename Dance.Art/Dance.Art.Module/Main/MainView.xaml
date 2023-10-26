@@ -59,17 +59,17 @@
                     <MenuItem Header="项目(_P)" dance:DanceMenuTrigger.IsSubmenuOpenedUpdateStatus="True">
                         <MenuItem Header="新建" Command="{Binding Path=CreateProjectCommand,Mode=OneWay}">
                             <MenuItem.Icon>
-                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"></dance:DanceSvgImage>
+                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project_new.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="打开" Command="{Binding Path=OpenProjectCommand,Mode=OneWay}">
                             <MenuItem.Icon>
-                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"></dance:DanceSvgImage>
+                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project_open.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="保存" Command="{Binding Path=SaveProjectCommand,Mode=OneWay}">
                             <MenuItem.Icon>
-                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
+                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project_save.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
                         </MenuItem>
                         <Separator></Separator>
@@ -88,7 +88,7 @@
                     <MenuItem Header="布局(_L)">
                         <MenuItem Header="保存" Command="{Binding Path=SaveLayoutCommand}">
                             <MenuItem.Icon>
-                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
+                                <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/layout_save.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="加载" Command="{Binding Path=LoadLayoutCommand}">

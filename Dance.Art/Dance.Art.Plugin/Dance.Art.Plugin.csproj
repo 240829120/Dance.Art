@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Themes\Resources\Icons\csv.svg" />
     <None Remove="Themes\Resources\Icons\javascript.svg" />
     <None Remove="Themes\Resources\Icons\json.svg" />
     <None Remove="Themes\Resources\Icons\txt.svg" />
+    <None Remove="Themes\Resources\Icons\xls.svg" />
+    <None Remove="Themes\Resources\Icons\xlsx.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,9 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Themes\Resources\Icons\csv.svg" />
     <Resource Include="Themes\Resources\Icons\javascript.svg" />
     <Resource Include="Themes\Resources\Icons\json.svg" />
     <Resource Include="Themes\Resources\Icons\txt.svg" />
+    <Resource Include="Themes\Resources\Icons\xls.svg" />
+    <Resource Include="Themes\Resources\Icons\xlsx.svg" />
   </ItemGroup>
 
   <ItemGroup>

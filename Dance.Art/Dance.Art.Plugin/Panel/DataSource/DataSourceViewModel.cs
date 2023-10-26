@@ -9,7 +9,7 @@ namespace Dance.Art.Plugin
     /// <summary>
     /// 数据源视图模型
     /// </summary>
-    public class DataSourceViewModel : DanceViewModel
+    public class DataSourceViewModel : PanelViewModelBase
     {
     }
 }

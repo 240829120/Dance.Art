@@ -18,7 +18,7 @@ namespace Dance.Art.Domain
         /// <param name="name">名称</param>
         /// <param name="viewType">视图类型</param>
         /// <param name="fileInfos">文件信息</param>
-        public DocumentPluginInfo(string id, string name, Type viewType, params DocumentFileInfo[] fileInfos) : base(id, name, viewType)
+        public DocumentPluginInfo(string id, string name, Type? viewType, params DocumentFileInfo[] fileInfos) : base(id, name, viewType)
         {
             this.FileInfos = fileInfos ?? Array.Empty<DocumentFileInfo>();
         }

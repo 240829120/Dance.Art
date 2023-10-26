@@ -15,7 +15,7 @@ namespace Dance.Art.Plugin
     /// <summary>
     /// 文件源视图模型
     /// </summary>
-    public class FileSourceViewModel : DanceViewModel
+    public class FileSourceViewModel : PanelViewModelBase
     {
         public FileSourceViewModel()
         {

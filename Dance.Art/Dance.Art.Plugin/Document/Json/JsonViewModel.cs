@@ -21,7 +21,7 @@ namespace Dance.Art.Plugin
         /// 获取编辑器
         /// </summary>
         /// <returns>编辑器</returns>
-        protected override TextEditor? GetTextEditor()
+        protected override TextEditor? GetEditor()
         {
             if (this.View is not JsonView view)
                 return null;

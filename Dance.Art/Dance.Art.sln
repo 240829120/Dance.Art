@@ -25,17 +25,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "40-Storage", "40-Storage", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "70-Plugin", "70-Plugin", "{ECFDB010-B5BB-4833-942A-A20F4CD27259}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.Module", "Dance.Art.Module\Dance.Art.Module.csproj", "{26AC15DF-1E19-40F5-835F-6C410FB3B431}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.Module", "Dance.Art.Module\Dance.Art.Module.csproj", "{26AC15DF-1E19-40F5-835F-6C410FB3B431}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art", "Dance.Art\Dance.Art.csproj", "{7B2F9EAE-4D44-4277-B742-51A307BB7459}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art", "Dance.Art\Dance.Art.csproj", "{7B2F9EAE-4D44-4277-B742-51A307BB7459}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.Plugin", "Dance.Art.Plugin\Dance.Art.Plugin.csproj", "{62EE01EB-398E-4D6E-97B9-A1AA70A12B62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.Plugin", "Dance.Art.Plugin\Dance.Art.Plugin.csproj", "{62EE01EB-398E-4D6E-97B9-A1AA70A12B62}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "50-Domain", "50-Domain", "{F823504D-205A-4046-8C1C-C579CD4C07CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.Storage", "Dance.Art.Storage\Dance.Art.Storage.csproj", "{80F256AC-8F90-4814-94A5-24A34AAA8E5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.Storage", "Dance.Art.Storage\Dance.Art.Storage.csproj", "{80F256AC-8F90-4814-94A5-24A34AAA8E5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.Domain", "Dance.Art.Domain\Dance.Art.Domain.csproj", "{E6A9697A-354C-4F94-B084-593CC17E9432}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.Domain", "Dance.Art.Domain\Dance.Art.Domain.csproj", "{E6A9697A-354C-4F94-B084-593CC17E9432}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.Template", "Dance.Art.Template\Dance.Art.Template.csproj", "{F7B440BC-78EF-44F6-8653-4748604163A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{E6A9697A-354C-4F94-B084-593CC17E9432}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6A9697A-354C-4F94-B084-593CC17E9432}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6A9697A-354C-4F94-B084-593CC17E9432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B440BC-78EF-44F6-8653-4748604163A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B440BC-78EF-44F6-8653-4748604163A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B440BC-78EF-44F6-8653-4748604163A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B440BC-78EF-44F6-8653-4748604163A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{62EE01EB-398E-4D6E-97B9-A1AA70A12B62} = {ECFDB010-B5BB-4833-942A-A20F4CD27259}
 		{80F256AC-8F90-4814-94A5-24A34AAA8E5B} = {754A9B95-229B-47A4-B74A-4F4179D27946}
 		{E6A9697A-354C-4F94-B084-593CC17E9432} = {F823504D-205A-4046-8C1C-C579CD4C07CE}
+		{F7B440BC-78EF-44F6-8653-4748604163A5} = {ECFDB010-B5BB-4833-942A-A20F4CD27259}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {924F5453-D98B-4C15-9FBA-9141CEE70FE3}

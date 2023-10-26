@@ -425,8 +425,12 @@ namespace Dance.Art.Module
                 return documentPlugin.FileInfos.Any(p => string.Equals(p.Extension, msg.FileModel.Extension, StringComparison.OrdinalIgnoreCase));
             }) as DocumentPluginInfo;
 
-            if (pluginModel == null)
+            if (pluginModel == null || pluginModel.ViewType == null)
+            {
+                Process.Start("explorer", msg.FileModel.Path);
+
                 return;
+            }
 
             vm = new DocumentPluginModel(msg.FileModel.Path, msg.FileModel.FileName, pluginModel, msg.FileModel.Path);
             domain.Documents.Add(vm);

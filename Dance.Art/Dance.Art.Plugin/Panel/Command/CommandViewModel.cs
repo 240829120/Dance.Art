@@ -9,7 +9,7 @@ namespace Dance.Art.Plugin
     /// <summary>
     /// 命令视图模型
     /// </summary>
-    public class CommandViewModel : DanceViewModel
+    public class CommandViewModel : PanelViewModelBase
     {
     }
 }

@@ -17,7 +17,7 @@ namespace Dance.Art.Domain
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
         /// <param name="viewType">视图类型</param>
-        public ViewPluginInfoBase(string id, string name, Type viewType) : base(id, name)
+        public ViewPluginInfoBase(string id, string name, Type? viewType) : base(id, name)
         {
             this.ViewType = viewType;
         }
@@ -25,6 +25,6 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 视图类型
         /// </summary>
-        public Type ViewType { get; private set; }
+        public Type? ViewType { get; private set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Dance.Art.Plugin
     /// <summary>
     /// 输出视图模型
     /// </summary>
-    public class OutputViewModel : DanceViewModel
+    public class OutputViewModel : PanelViewModelBase
     {
         /// <summary>
         /// 输出视图模型

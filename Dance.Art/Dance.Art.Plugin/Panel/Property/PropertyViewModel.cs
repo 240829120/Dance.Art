@@ -9,7 +9,7 @@ namespace Dance.Art.Plugin
     /// <summary>
     /// 属性视图模型
     /// </summary>
-    public class PropertyViewModel : DanceViewModel
+    public class PropertyViewModel : PanelViewModelBase
     {
     }
 }

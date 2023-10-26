@@ -16,18 +16,20 @@ namespace Dance.Art.Plugin
         // ==========================================================================================
         // Property
 
+        /// <summary>
         /// 是否修改
         /// </summary>
-        public override bool IsModify { get { return this.GetTextEditor()?.IsModified ?? false; } }
+        public override bool IsModify { get { return this.GetEditor()?.IsModified ?? false; } }
 
+        /// <summary>
         /// 是否可以重做
         /// </summary>
-        public override bool CanRedo { get { return this.GetTextEditor()?.CanRedo ?? false; } }
+        public override bool CanRedo { get { return this.GetEditor()?.CanRedo ?? false; } }
 
         /// <summary>
         /// 是否可以撤销
         /// </summary>
-        public override bool CanUndo { get { return this.GetTextEditor()?.CanUndo ?? false; } }
+        public override bool CanUndo { get { return this.GetEditor()?.CanUndo ?? false; } }
 
         // ==========================================================================================
         // Public Function
@@ -40,7 +42,7 @@ namespace Dance.Art.Plugin
             if (this.DocumentModel == null)
                 return;
 
-            TextEditor? edit = this.GetTextEditor();
+            TextEditor? edit = this.GetEditor();
             if (edit == null)
                 return;
 
@@ -58,7 +60,7 @@ namespace Dance.Art.Plugin
             if (this.DocumentModel == null)
                 return;
 
-            this.GetTextEditor()?.Save(this.DocumentModel.File);
+            this.GetEditor()?.Save(this.DocumentModel.File);
         }
 
         /// <summary>
@@ -66,7 +68,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Redo()
         {
-            this.GetTextEditor()?.Redo();
+            this.GetEditor()?.Redo();
         }
 
         /// <summary>
@@ -74,7 +76,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Undo()
         {
-            this.GetTextEditor()?.Undo();
+            this.GetEditor()?.Undo();
         }
 
         // ==========================================================================================
@@ -86,7 +88,7 @@ namespace Dance.Art.Plugin
         /// <returns>是否可以拷贝</returns>
         protected override bool CanCopy()
         {
-            return this.GetTextEditor()?.SelectionLength != 0;
+            return this.GetEditor()?.SelectionLength != 0;
         }
 
         /// <summary>
@@ -94,7 +96,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         protected override void Copy()
         {
-            this.GetTextEditor()?.Copy();
+            this.GetEditor()?.Copy();
         }
 
         /// <summary>
@@ -102,7 +104,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         protected override bool CanCut()
         {
-            return this.GetTextEditor()?.SelectionLength != 0;
+            return this.GetEditor()?.SelectionLength != 0;
         }
 
         /// <summary>
@@ -110,7 +112,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         protected override void Cut()
         {
-            this.GetTextEditor()?.Cut();
+            this.GetEditor()?.Cut();
         }
 
         /// <summary>
@@ -118,14 +120,14 @@ namespace Dance.Art.Plugin
         /// </summary>
         protected override void Paste()
         {
-            this.GetTextEditor()?.Paste();
+            this.GetEditor()?.Paste();
         }
 
         /// <summary>
-        /// 获取文本编辑器
+        /// 获取编辑器
         /// </summary>
-        /// <returns>文本编辑器</returns>
-        protected abstract TextEditor? GetTextEditor();
+        /// <returns>编辑器</returns>
+        protected abstract TextEditor? GetEditor();
 
         /// <summary>
         /// 文本更新

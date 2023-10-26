@@ -121,6 +121,11 @@ namespace Dance.Art.Module
                 {
                     domain.TemplatePlugins.Add(template);
                 }
+                // 脚本插件
+                else if (info is ScriptPluginInfo script)
+                {
+                    domain.ScriptPlugins.Add(script);
+                }
 
                 await Task.Delay(100);
             }

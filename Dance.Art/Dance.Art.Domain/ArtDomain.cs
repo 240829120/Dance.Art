@@ -36,6 +36,11 @@ namespace Dance.Art.Domain
         /// </summary>
         public ObservableCollection<TemplatePluginInfo> TemplatePlugins { get; } = new();
 
+        /// <summary>
+        /// 脚本插件集合
+        /// </summary>
+        public ObservableCollection<ScriptPluginInfo> ScriptPlugins { get; } = new();
+
         // ----------------------------------------------------------------------------------------------------
         // Views
 

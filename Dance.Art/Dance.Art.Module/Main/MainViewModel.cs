@@ -259,6 +259,14 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain artDomain)
                 return;
 
+            if (artDomain.ProjectDomain != null)
+            {
+                if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "是否关闭当前项目?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) == DanceMessageBoxAction.NO)
+                    return;
+
+                this.CloseProject();
+            }
+
             OpenFileDialog ofd = new()
             {
                 Filter = "项目文件|*.art",

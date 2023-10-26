@@ -47,6 +47,17 @@ namespace Dance.Art.Domain
         }
 
         /// <summary>
+        /// 清理
+        /// </summary>
+        public void Clear()
+        {
+            this.FileSystemWatcher?.Dispose();
+            this.FileSystemWatcher = null;
+
+            this.Root = null;
+        }
+
+        /// <summary>
         /// 构建文件树
         /// </summary>
         /// <param name="domain">项目领域</param>

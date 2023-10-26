@@ -21,5 +21,10 @@ namespace Dance.Art.Domain
         /// </summary>
         /// <param name="domain">项目领域</param>
         void Initialize(ProjectDomain domain);
+
+        /// <summary>
+        /// 清理
+        /// </summary>
+        void Clear();
     }
 }

@@ -31,7 +31,7 @@ namespace Dance.Art.Domain
         }
 
         // ===========================================================================
-        // Project Property -- 项目属性
+        // Project Property
 
         #region Name -- 名称
 
@@ -118,7 +118,21 @@ namespace Dance.Art.Domain
         #endregion
 
         // ===========================================================================
-        // Expand Property -- 扩展属性
+        // Expand Property
+
+        #region IsModify -- 是否修改
+
+        private bool isModify;
+        /// <summary>
+        /// 是否修改
+        /// </summary>
+        public bool IsModify
+        {
+            get { return isModify; }
+            set { isModify = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
 
         #region ProjectFilePath -- 项目文件路径
 
@@ -176,5 +190,16 @@ namespace Dance.Art.Domain
         }
 
         #endregion
+
+        // ===========================================================================
+        // Public Function
+
+        /// <summary>
+        /// 销毁
+        /// </summary>
+        protected override void Destroy()
+        {
+            this.CacheContext?.Dispose();
+        }
     }
 }

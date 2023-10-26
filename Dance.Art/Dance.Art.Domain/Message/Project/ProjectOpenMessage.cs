@@ -12,13 +12,24 @@ namespace Dance.Art.Domain
     public class ProjectOpenMessage
     {
         /// <summary>
+        /// 项目打开消息
+        /// </summary>
+        /// <param name="oldProject">老项目</param>
+        /// <param name="newProject">新项目</param>
+        public ProjectOpenMessage(ProjectDomain? oldProject, ProjectDomain newProject)
+        {
+            this.OldProject = oldProject;
+            this.NewProject = newProject;
+        }
+
+        /// <summary>
         /// 老项目
         /// </summary>
-        public ProjectDomain? OldProject { get; set; }
+        public ProjectDomain? OldProject { get; private set; }
 
         /// <summary>
         /// 新项目
         /// </summary>
-        public ProjectDomain? NewProject { get; set; }
+        public ProjectDomain NewProject { get; private set; }
     }
 }

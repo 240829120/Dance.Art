@@ -25,18 +25,30 @@ namespace Dance.Art.Module
         public MainViewModel()
         {
             this.LoadedCommand = new(this.Loaded);
+            // -----------------------------------------------------
+            // Layout
             this.SaveLayoutCommand = new(this.SaveLayout);
             this.LoadLayoutCommand = new(this.LoadLayout);
-            this.OpenInVSCodeCommand = new(this.OpenInVSCode);
-
+            // -----------------------------------------------------
+            // Project
+            this.CreateProjectCommand = new(this.CreateProject);
             this.OpenProjectCommand = new(this.OpenProject);
+            this.SaveProjectCommand = new(this.SaveProject, this.CanSaveProject);
+            this.CloseProjectCommand = new(this.CloseProject, this.CanCloseProject);
+            // -----------------------------------------------------
+            // Edit
             this.SaveCommand = new(this.Save);
             this.SaveAllCommand = new(this.SaveAll);
             this.RedoCommand = new(this.Redo);
             this.UndoCommand = new(this.Undo);
             this.ClosingCommand = new(this.Closing);
             this.ClosedCommand = new(this.Closed);
+            // -----------------------------------------------------
+            // Script
+            this.OpenInVSCodeCommand = new(this.OpenInVSCode);
 
+            // -----------------------------------------------------
+            // Message
             DanceDomain.Current.Messenger.Register<FileOpenMessage>(this, this.OnFileOpen);
         }
 
@@ -128,6 +140,9 @@ namespace Dance.Art.Module
 
         #endregion
 
+        // ------------------------------------------------------------------------------------------
+        // Layout
+
         #region SaveLayoutCommand -- 保存布局命令
 
         /// <summary>
@@ -181,6 +196,29 @@ namespace Dance.Art.Module
 
         #endregion
 
+        // ------------------------------------------------------------------------------------------
+        // Project
+
+        #region CreateProjectCommand -- 创建项目命令
+
+        /// <summary>
+        /// 创建项目命令
+        /// </summary>
+        public RelayCommand CreateProjectCommand { get; private set; }
+
+        /// <summary>
+        /// 创建项目
+        /// </summary>
+        private void CreateProject()
+        {
+            if (DanceDomain.Current is not ArtDomain domain)
+                return;
+
+
+        }
+
+        #endregion
+
         #region OpenProjectCommand -- 打开项目命令
 
         /// <summary>
@@ -197,22 +235,106 @@ namespace Dance.Art.Module
                 return;
 
             ProjectDomain domain = new(@"E:\test_project\test.art");
-
-            this.FileManager.Initialize(domain);
-
-            ProjectOpenMessage msg = new()
-            {
-                OldProject = artDomain.ProjectDomain,
-                NewProject = domain,
-            };
-
-            artDomain.ProjectDomain = domain;
+            ProjectOpenMessage msg = new(artDomain.ProjectDomain, domain);
             this.ProjectDomain = domain;
+            artDomain.ProjectDomain = domain;
 
             artDomain.Messenger.Send(msg);
         }
 
         #endregion
+
+        #region SaveProjectCommand -- 保存项目命令
+
+        /// <summary>
+        /// 保存项目命令
+        /// </summary>
+        public RelayCommand SaveProjectCommand { get; private set; }
+
+        /// <summary>
+        /// 是否可以保存项目
+        /// </summary>
+        /// <returns>是否可以保存项目</returns>
+        private bool CanSaveProject()
+        {
+            return this.ProjectDomain != null && this.ProjectDomain.IsModify;
+        }
+
+        /// <summary>
+        /// 保存项目
+        /// </summary>
+        private void SaveProject()
+        {
+
+        }
+
+        #endregion
+
+        #region CloseProjectCommand -- 关闭项目命令
+
+        /// <summary>
+        /// 关闭项目命令
+        /// </summary>
+        public RelayCommand CloseProjectCommand { get; private set; }
+
+        /// <summary>
+        /// 是否可以关闭项目
+        /// </summary>
+        /// <returns>是否可以关闭项目</returns>
+        private bool CanCloseProject()
+        {
+            return this.ProjectDomain != null;
+        }
+
+        /// <summary>
+        /// 关闭项目
+        /// </summary>
+        private void CloseProject()
+        {
+            if (DanceDomain.Current is not ArtDomain domain || domain.ProjectDomain == null)
+                return;
+
+            List<IDockingDocument> unSavedDockingDocuments = new();
+            foreach (DocumentPluginModel document in domain.Documents)
+            {
+                if (document.View is not FrameworkElement view || view.DataContext is not IDockingDocument dockingDocument)
+                    continue;
+
+                if (dockingDocument.IsModify)
+                {
+                    unSavedDockingDocuments.Add(dockingDocument);
+                }
+            }
+
+            if (unSavedDockingDocuments.Count > 0)
+            {
+                if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "保存未保存的文档?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) == DanceMessageBoxAction.YES)
+                {
+                    unSavedDockingDocuments.ForEach(p => p.Save());
+                }
+            }
+
+            foreach (DocumentPluginModel document in domain.Documents)
+            {
+                if (document.View is not FrameworkElement view || view.DataContext is not IDockingDocument dockingDocument)
+                    continue;
+
+                dockingDocument.Dispose();
+            }
+
+            domain.Documents.Clear();
+
+            ProjectCloseMessage msg = new(domain.ProjectDomain);
+            domain.Messenger.Send(msg);
+            domain.ProjectDomain?.Dispose();
+            domain.ProjectDomain = null;
+            this.ProjectDomain = null;
+        }
+
+        #endregion
+
+        // ------------------------------------------------------------------------------------------
+        // Edit
 
         #region SaveCommand -- 保存当前激活的文档
 
@@ -335,6 +457,8 @@ namespace Dance.Art.Module
             {
                 dockingDocument.Save();
             }
+
+            dockingDocument.Dispose();
         }
 
         #endregion
@@ -358,6 +482,9 @@ namespace Dance.Art.Module
         }
 
         #endregion
+
+        // ------------------------------------------------------------------------------------------
+        // Script
 
         #region OpenInVSCodeCommand -- 使用VSCode打开项目命令
 

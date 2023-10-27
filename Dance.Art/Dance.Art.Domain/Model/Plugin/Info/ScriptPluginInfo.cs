@@ -17,14 +17,14 @@ namespace Dance.Art.Domain
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
         /// <param name="services">脚本服务</param>
-        public ScriptPluginInfo(string id, string name, params IScriptService[] services) : base(id, name)
+        public ScriptPluginInfo(string id, string name, params ScriptServiceInfo[] services) : base(id, name)
         {
             this.Services = services;
         }
 
         /// <summary>
-        /// 脚本服务
+        /// 脚本服务信息
         /// </summary>
-        public IScriptService[] Services { get; private set; }
+        public ScriptServiceInfo[] Services { get; private set; }
     }
 }

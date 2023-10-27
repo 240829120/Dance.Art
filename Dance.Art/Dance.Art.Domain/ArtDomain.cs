@@ -61,5 +61,10 @@ namespace Dance.Art.Domain
         /// 项目领域
         /// </summary>
         public ProjectDomain? ProjectDomain { get; set; }
+
+        /// <summary>
+        /// 脚本领域
+        /// </summary>
+        public ScriptDomain? ScriptDomain { get; set; }
     }
 }

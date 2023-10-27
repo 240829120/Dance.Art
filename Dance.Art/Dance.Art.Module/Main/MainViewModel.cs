@@ -3,6 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Domain;
 using Dance.Wpf;
+using Microsoft.ClearScript;
+using Microsoft.ClearScript.JavaScript;
+using Microsoft.ClearScript.V8;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -47,6 +50,9 @@ namespace Dance.Art.Module
             // -----------------------------------------------------
             // Script
             this.OpenInVSCodeCommand = new(this.OpenInVSCode);
+            this.RunScriptCommand = new(this.RunScript);
+            this.DebugScriptCommand = new(this.DebugScript);
+            this.StopScriptCommand = new(this.StopScript);
 
             // -----------------------------------------------------
             // Message
@@ -104,6 +110,20 @@ namespace Dance.Art.Module
         {
             get { return projectDomain; }
             set { projectDomain = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region ScriptDomain -- 脚本领域
+
+        private ScriptDomain? scriptDomain;
+        /// <summary>
+        /// 脚本领域
+        /// </summary>
+        public ScriptDomain? ScriptDomain
+        {
+            get { return scriptDomain; }
+            set { scriptDomain = value; this.OnPropertyChanged(); }
         }
 
         #endregion
@@ -562,7 +582,67 @@ namespace Dance.Art.Module
 
         #endregion
 
-        #region RunCommand -- 
+        #region RunScriptCommand -- 启动脚本命令
+
+        /// <summary>
+        /// 启动脚本命令
+        /// </summary>
+        public AsyncRelayCommand RunScriptCommand { get; private set; }
+
+        /// <summary>
+        /// 启动脚本
+        /// </summary>
+        private async Task RunScript()
+        {
+            await this.CreateAndRunScriptDomain(V8ScriptEngineFlags.EnableDynamicModuleImports);
+        }
+
+        #endregion
+
+        #region DebugScriptCommand -- 调试脚本命令
+
+        /// <summary>
+        /// 调试脚本命令
+        /// </summary>
+        public AsyncRelayCommand DebugScriptCommand { get; private set; }
+
+        /// <summary>
+        /// 调试脚本
+        /// </summary>
+        /// <returns></returns>
+        private async Task DebugScript()
+        {
+            await this.CreateAndRunScriptDomain(V8ScriptEngineFlags.EnableDynamicModuleImports | V8ScriptEngineFlags.EnableDebugging |
+                                                V8ScriptEngineFlags.EnableRemoteDebugging | V8ScriptEngineFlags.AwaitDebuggerAndPauseOnStart);
+        }
+
+        #endregion
+
+        #region StopScriptCommand -- 停止脚本命令
+
+        /// <summary>
+        /// 停止脚本命令
+        /// </summary>
+        public AsyncRelayCommand StopScriptCommand { get; private set; }
+
+        /// <summary>
+        /// 停止脚本
+        /// </summary>
+        private async Task StopScript()
+        {
+            if (DanceDomain.Current is not ArtDomain artDomain)
+                return;
+
+            await Task.Run(() =>
+            {
+                if (this.ScriptDomain == null)
+                    return;
+
+                this.ScriptDomain.Dispose();
+                this.ScriptDomain = null;
+                artDomain.ScriptDomain = null;
+            });
+        }
 
         #endregion
 
@@ -607,5 +687,46 @@ namespace Dance.Art.Module
         }
 
         #endregion
+
+        // ========================================================================================
+        // Private Function
+
+        /// <summary>
+        /// 创建并运行脚本
+        /// </summary>
+        /// <param name="flags">引擎标志</param>
+        private async Task CreateAndRunScriptDomain(V8ScriptEngineFlags flags)
+        {
+            if (DanceDomain.Current is not ArtDomain artDomain)
+                return;
+
+            await Task.Run(async () =>
+            {
+                try
+                {
+                    if (this.ProjectDomain == null || string.IsNullOrWhiteSpace(this.ProjectDomain.ProjectFolderPath))
+                        return;
+
+                    await this.StopScript();
+
+                    string indexFile = Path.Combine(this.ProjectDomain.ProjectFolderPath, "index.js");
+                    this.ScriptDomain = new(indexFile)
+                    {
+                        Engine = new(flags)
+                    };
+                    artDomain.ScriptDomain = this.ScriptDomain;
+
+                    this.ScriptDomain.Engine.DocumentSettings.AccessFlags = DocumentAccessFlags.EnableFileLoading;
+                    this.ScriptDomain.Engine.DocumentSettings.SearchPath = string.Join(";", this.ProjectDomain.ProjectFolderPath, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Script"));
+                    this.ScriptDomain.Engine.AddHostObject("DANCE_ART_HOST", this.ScriptDomain.Host);
+                    this.ScriptDomain.Engine.EvaluateDocument(indexFile, ModuleCategory.Standard);
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                    DanceMessageExpansion.ShowMessageBox("错误", DanceMessageBoxIcon.Failure, $"{ex.Message}", DanceMessageBoxAction.YES);
+                }
+            });
+        }
     }
 }

@@ -35,7 +35,6 @@
                 </dance:DanceMultiMappingConverterItem>
             </dance:DanceMultiMappingConverter>
 
-
             <!-- ScriptIsRunningConverter -->
             <dance:DanceMappingConverter x:Key="ScriptIsRunningConverter">
                 <dance:DanceMappingConverter.DefaultConvertValue>
@@ -167,7 +166,7 @@
             <StackPanel Orientation="Horizontal" Margin="5,0,5,0"
                         IsEnabled="{Binding Path=ProjectDomain,Converter={StaticResource IsNotNullConverter}}">
                 <Rectangle Width="1" Height="20" Margin="0,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="保存"
+                <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="保存"
                         Command="{Binding Path=SaveCommand,Mode=OneWay}">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource ToolIsEnabledConverter}" Mode="OneWay">
@@ -177,11 +176,11 @@
                     </Button.IsEnabled>
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save.svg"></dance:DanceSvgImage>
                 </Button>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="保存全部">
+                <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="保存全部">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/save_all.svg"></dance:DanceSvgImage>
                 </Button>
                 <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="撤销"
+                <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="撤销"
                         Command="{Binding Path=UndoCommand,Mode=OneWay}">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource ToolIsEnabledConverter}" Mode="OneWay">
@@ -191,7 +190,7 @@
                     </Button.IsEnabled>
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/undo.svg"></dance:DanceSvgImage>
                 </Button>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="重做"
+                <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="重做"
                         Command="{Binding Path=RedoCommand,Mode=OneWay}">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource ToolIsEnabledConverter}" Mode="OneWay">
@@ -202,23 +201,33 @@
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/redo.svg"></dance:DanceSvgImage>
                 </Button>
                 <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="使用VSCode打开"
+                <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="使用VSCode打开"
                         IsEnabled="{Binding Path=ProjectDomain,Converter={StaticResource IsNotNullConverter}}"
                         Command="{Binding Path=OpenInVSCodeCommand,Mode=OneWay}">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/vscode.svg"></dance:DanceSvgImage>
                 </Button>
                 <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="运行脚本"
-                        IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsStopConverter}}"
-                        Command="{Binding Path=RunScriptCommand,Mode=OneWay}">
-                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/run.svg"></dance:DanceSvgImage>
-                </Button>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="调试脚本"
-                        IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsStopConverter}}"
-                        Command="{Binding Path=DebugScriptCommand,Mode=OneWay}">
-                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/debug.svg"></dance:DanceSvgImage>
-                </Button>
-                <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="停止脚本"
+                <Grid Width="22" Height="20">
+                    <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="运行脚本"
+                            IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsStopConverter}}"
+                            Command="{Binding Path=RunScriptCommand,Mode=OneWay}">
+                        <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/run.svg"></dance:DanceSvgImage>
+                    </Button>
+                    <dance:DancePathAnimation Width="22" Height="20" Data="M0,0 22,0 22,20 0,20 0,0"
+                                              Stroke="Green" StrokeThickness="1"
+                                              IsPlaying="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsRunningConverter}}"></dance:DancePathAnimation>
+                </Grid>
+                <Grid Width="22" Height="20">
+                    <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="调试脚本"
+                            IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsStopConverter}}"
+                            Command="{Binding Path=DebugScriptCommand,Mode=OneWay}">
+                        <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/debug.svg"></dance:DanceSvgImage>
+                    </Button>
+                    <dance:DancePathAnimation Width="22" Height="20" Data="M0,0 22,0 22,20 0,20 0,0"
+                                              Stroke="Green" StrokeThickness="1"
+                                              IsPlaying="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsDebugingConverter}}"></dance:DancePathAnimation>
+                </Grid>
+                <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="停止脚本"
                         IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsRunningOrDebuggingConverter}}"
                         Command="{Binding Path=StopScriptCommand,Mode=OneWay}">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/stop.svg"></dance:DanceSvgImage>

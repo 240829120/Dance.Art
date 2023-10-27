@@ -111,15 +111,17 @@ namespace Dance.Art.Plugin
         /// <param name="e"></param>
         private void OutputManager_OnOutput(object? sender, OutputEventArgs e)
         {
+            string msg = $"{DateTime.Now:HH:mm:ss.fff} ===> {e.Message}\r\n";
+
             if (this.View == null || this.View is not OutputView view)
             {
-                this.OutputCache.Append(e.Message);
+                this.OutputCache.Append(msg);
                 return;
             }
 
             view.Dispatcher.BeginInvoke(() =>
             {
-                view.tb.AppendText(e.Message);
+                view.tb.AppendText(msg);
             });
         }
 

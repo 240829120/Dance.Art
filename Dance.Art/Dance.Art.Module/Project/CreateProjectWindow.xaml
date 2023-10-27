@@ -55,20 +55,20 @@
                     <TextBlock Text="位置:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBlock>
                     <TextBox Grid.Column="1" Text="{Binding Path=ProjectRoot,Mode=TwoWay}"></TextBox>
                     <Button Grid.Column="2" Style="{StaticResource Button_Secondary}" Width="60" Content="..." 
-                    Command="{Binding Path=SelectFolderCommand,Mode=OneWay}"></Button>
+                            Command="{Binding Path=SelectFolderCommand,Mode=OneWay}"></Button>
                     <!-- 名称 -->
                     <TextBlock Text="名称:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="1"></TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=ProjectName,Mode=TwoWay}"></TextBox>
                     <!-- 项目描述 -->
                     <TextBlock Text="描述:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="2"></TextBlock>
                     <TextBox Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Height="125" VerticalContentAlignment="Top" AcceptsReturn="True" Padding="5"
-                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                     Text="{Binding Path=ProjectDescription,Mode=TwoWay}"></TextBox>
+                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                             Text="{Binding Path=ProjectDescription,Mode=TwoWay}"></TextBox>
                     <!-- 项目类型 -->
                     <TextBlock Text="项目类型:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="4"></TextBlock>
                     <ListBox Grid.Row="4" Grid.Column="1" Grid.RowSpan="2" Margin="0,15,0,10"
-                     ItemsSource="{Binding Path=Templates,Mode=OneWay}"
-                     SelectedValue="{Binding Path=SelectedTemplate,Mode=TwoWay}">
+                             ItemsSource="{Binding Path=Templates,Mode=OneWay}"
+                             SelectedValue="{Binding Path=SelectedTemplate,Mode=TwoWay}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Background="Transparent" ToolTip="{Binding Path=TemplateFolder,Mode=OneWay}">
@@ -77,9 +77,9 @@
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <dance:DanceSvgImage Width="16" Height="16"
-                                                 Source="{Binding Path=Icon,Mode=OneWay}"></dance:DanceSvgImage>
-                                    <TextBlock Text="{Binding Path=Name,Mode=OneWay}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0"
-                                       TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
+                                                         Source="{Binding Path=Icon,Mode=OneWay}"></dance:DanceSvgImage>
+                                    <TextBlock Text="{Binding Path=TemplateName,Mode=OneWay}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0"
+                                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

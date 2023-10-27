@@ -236,6 +236,9 @@ namespace Dance.Art.Module
                     Directory.CreateDirectory(folder);
                 }
 
+                // 拷贝基础脚本
+                DanceFileHelper.CopyDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DANCE_ART"), Path.Combine(folder, "DANCE_ART"));
+
                 // 拷贝项目模板
                 DanceFileHelper.CopyDirectory(this.SelectedTemplate.TemplateFolder, folder);
 

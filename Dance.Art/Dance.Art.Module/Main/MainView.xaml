@@ -35,6 +35,56 @@
                 </dance:DanceMultiMappingConverterItem>
             </dance:DanceMultiMappingConverter>
 
+
+            <!-- ScriptIsRunningConverter -->
+            <dance:DanceMappingConverter x:Key="ScriptIsRunningConverter">
+                <dance:DanceMappingConverter.DefaultConvertValue>
+                    <sys:Boolean>False</sys:Boolean>
+                </dance:DanceMappingConverter.DefaultConvertValue>
+                <dance:DanceMappingConverterItem From="{x:Static Member=domain:ScriptStatus.Running}">
+                    <dance:DanceMappingConverterItem.To>
+                        <sys:Boolean>True</sys:Boolean>
+                    </dance:DanceMappingConverterItem.To>
+                </dance:DanceMappingConverterItem>
+            </dance:DanceMappingConverter>
+            <!-- ScriptIsDebugingConverter -->
+            <dance:DanceMappingConverter x:Key="ScriptIsDebugingConverter">
+                <dance:DanceMappingConverter.DefaultConvertValue>
+                    <sys:Boolean>False</sys:Boolean>
+                </dance:DanceMappingConverter.DefaultConvertValue>
+                <dance:DanceMappingConverterItem From="{x:Static Member=domain:ScriptStatus.Debugging}">
+                    <dance:DanceMappingConverterItem.To>
+                        <sys:Boolean>True</sys:Boolean>
+                    </dance:DanceMappingConverterItem.To>
+                </dance:DanceMappingConverterItem>
+            </dance:DanceMappingConverter>
+            <!-- ScriptIsRunningOrDebuggingConverter -->
+            <dance:DanceMappingConverter x:Key="ScriptIsRunningOrDebuggingConverter">
+                <dance:DanceMappingConverter.DefaultConvertValue>
+                    <sys:Boolean>False</sys:Boolean>
+                </dance:DanceMappingConverter.DefaultConvertValue>
+                <dance:DanceMappingConverterItem From="{x:Static Member=domain:ScriptStatus.Running}">
+                    <dance:DanceMappingConverterItem.To>
+                        <sys:Boolean>True</sys:Boolean>
+                    </dance:DanceMappingConverterItem.To>
+                </dance:DanceMappingConverterItem>
+                <dance:DanceMappingConverterItem From="{x:Static Member=domain:ScriptStatus.Debugging}">
+                    <dance:DanceMappingConverterItem.To>
+                        <sys:Boolean>True</sys:Boolean>
+                    </dance:DanceMappingConverterItem.To>
+                </dance:DanceMappingConverterItem>
+            </dance:DanceMappingConverter>
+            <!-- ScriptIsStopConverter -->
+            <dance:DanceMappingConverter x:Key="ScriptIsStopConverter">
+                <dance:DanceMappingConverter.DefaultConvertValue>
+                    <sys:Boolean>False</sys:Boolean>
+                </dance:DanceMappingConverter.DefaultConvertValue>
+                <dance:DanceMappingConverterItem From="{x:Static Member=domain:ScriptStatus.None}">
+                    <dance:DanceMappingConverterItem.To>
+                        <sys:Boolean>True</sys:Boolean>
+                    </dance:DanceMappingConverterItem.To>
+                </dance:DanceMappingConverterItem>
+            </dance:DanceMappingConverter>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -159,17 +209,17 @@
                 </Button>
                 <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
                 <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="运行脚本"
-                        IsEnabled="{Binding Path=ScriptDomain,Converter={StaticResource IsNullConverter}}"
+                        IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsStopConverter}}"
                         Command="{Binding Path=RunScriptCommand,Mode=OneWay}">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/run.svg"></dance:DanceSvgImage>
                 </Button>
                 <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="调试脚本"
-                        IsEnabled="{Binding Path=ScriptDomain,Converter={StaticResource IsNullConverter}}"
+                        IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsStopConverter}}"
                         Command="{Binding Path=DebugScriptCommand,Mode=OneWay}">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/debug.svg"></dance:DanceSvgImage>
                 </Button>
                 <Button Style="{StaticResource Button_Tool}" Height="20" ToolTip="停止脚本"
-                        IsEnabled="{Binding Path=ScriptDomain,Converter={StaticResource IsNotNullConverter}}"
+                        IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsRunningOrDebuggingConverter}}"
                         Command="{Binding Path=StopScriptCommand,Mode=OneWay}">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/stop.svg"></dance:DanceSvgImage>
                 </Button>

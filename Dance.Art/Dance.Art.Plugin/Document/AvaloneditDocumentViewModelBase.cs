@@ -50,6 +50,7 @@ namespace Dance.Art.Plugin
             edit.TextChanged += Edit_TextChanged;
 
             edit.Load(this.DocumentModel.File);
+            this.UdateDocumentStatus();
         }
 
         /// <summary>
@@ -61,6 +62,7 @@ namespace Dance.Art.Plugin
                 return;
 
             this.GetEditor()?.Save(this.DocumentModel.File);
+            this.UdateDocumentStatus();
         }
 
         /// <summary>

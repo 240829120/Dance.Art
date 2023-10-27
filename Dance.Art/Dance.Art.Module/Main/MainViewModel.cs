@@ -63,6 +63,11 @@ namespace Dance.Art.Module
         // Field
 
         /// <summary>
+        /// 输出管理器
+        /// </summary>
+        private readonly IOutputManager OutputManager = DanceDomain.Current.LifeScope.Resolve<IOutputManager>();
+
+        /// <summary>
         /// 文件管理器
         /// </summary>
         private readonly IFileManager FileManager = DanceDomain.Current.LifeScope.Resolve<IFileManager>();
@@ -124,6 +129,20 @@ namespace Dance.Art.Module
         {
             get { return scriptDomain; }
             set { scriptDomain = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region ScriptStatus -- 脚本状态
+
+        private ScriptStatus scriptStatus = ScriptStatus.None;
+        /// <summary>
+        /// 脚本状态
+        /// </summary>
+        public ScriptStatus ScriptStatus
+        {
+            get { return scriptStatus; }
+            set { scriptStatus = value; this.OnPropertyChanged(); }
         }
 
         #endregion
@@ -582,19 +601,27 @@ namespace Dance.Art.Module
 
         #endregion
 
-        #region RunScriptCommand -- 启动脚本命令
+        #region RunScriptCommand -- 运行脚本命令
 
         /// <summary>
-        /// 启动脚本命令
+        /// 运行脚本命令
         /// </summary>
         public AsyncRelayCommand RunScriptCommand { get; private set; }
 
         /// <summary>
-        /// 启动脚本
+        /// 运行脚本
         /// </summary>
         private async Task RunScript()
         {
-            await this.CreateAndRunScriptDomain(V8ScriptEngineFlags.EnableDynamicModuleImports);
+            if (this.ProjectDomain == null || string.IsNullOrWhiteSpace(this.ProjectDomain.ProjectFolderPath) || !Directory.Exists(this.ProjectDomain.ProjectFolderPath))
+                return;
+
+            this.ScriptStatus = ScriptStatus.Running;
+            string file = Path.Combine(this.ProjectDomain.ProjectFolderPath, "index.js");
+
+            this.OutputManager.WriteLine($"运行脚本 ----- {file}");
+
+            await this.CreateAndRunScriptDomain(file, V8ScriptEngineFlags.EnableDynamicModuleImports);
         }
 
         #endregion
@@ -612,8 +639,17 @@ namespace Dance.Art.Module
         /// <returns></returns>
         private async Task DebugScript()
         {
-            await this.CreateAndRunScriptDomain(V8ScriptEngineFlags.EnableDynamicModuleImports | V8ScriptEngineFlags.EnableDebugging |
-                                                V8ScriptEngineFlags.EnableRemoteDebugging | V8ScriptEngineFlags.AwaitDebuggerAndPauseOnStart);
+            if (this.ProjectDomain == null || string.IsNullOrWhiteSpace(this.ProjectDomain.ProjectFolderPath) || !Directory.Exists(this.ProjectDomain.ProjectFolderPath))
+                return;
+
+            this.ScriptStatus = ScriptStatus.Debugging;
+            string file = Path.Combine(this.ProjectDomain.ProjectFolderPath, "index.js");
+
+            this.OutputManager.WriteLine($"调试脚本 ----- {file}");
+            this.OutputManager.WriteLine($"调试脚本 ----- 正在等待调试器连接......");
+
+            await this.CreateAndRunScriptDomain(file, V8ScriptEngineFlags.EnableDynamicModuleImports | V8ScriptEngineFlags.EnableDebugging |
+                                                      V8ScriptEngineFlags.EnableRemoteDebugging | V8ScriptEngineFlags.AwaitDebuggerAndPauseOnStart);
         }
 
         #endregion
@@ -641,6 +677,8 @@ namespace Dance.Art.Module
                 this.ScriptDomain.Dispose();
                 this.ScriptDomain = null;
                 artDomain.ScriptDomain = null;
+                this.ScriptStatus = ScriptStatus.None;
+                this.OutputManager.WriteLine($"正在停止脚本......");
             });
         }
 
@@ -694,8 +732,9 @@ namespace Dance.Art.Module
         /// <summary>
         /// 创建并运行脚本
         /// </summary>
+        /// <param name="file">入口文件</param>
         /// <param name="flags">引擎标志</param>
-        private async Task CreateAndRunScriptDomain(V8ScriptEngineFlags flags)
+        private async Task CreateAndRunScriptDomain(string file, V8ScriptEngineFlags flags)
         {
             if (DanceDomain.Current is not ArtDomain artDomain)
                 return;
@@ -709,21 +748,21 @@ namespace Dance.Art.Module
 
                     await this.StopScript();
 
-                    string indexFile = Path.Combine(this.ProjectDomain.ProjectFolderPath, "index.js");
-                    this.ScriptDomain = new(indexFile)
+                    this.ScriptDomain = new(file)
                     {
                         Engine = new(flags)
                     };
                     artDomain.ScriptDomain = this.ScriptDomain;
 
                     this.ScriptDomain.Engine.DocumentSettings.AccessFlags = DocumentAccessFlags.EnableFileLoading;
-                    this.ScriptDomain.Engine.DocumentSettings.SearchPath = string.Join(";", this.ProjectDomain.ProjectFolderPath, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Script"));
+                    this.ScriptDomain.Engine.DocumentSettings.SearchPath = this.ProjectDomain.ProjectFolderPath;
                     this.ScriptDomain.Engine.AddHostObject("DANCE_ART_HOST", this.ScriptDomain.Host);
-                    this.ScriptDomain.Engine.EvaluateDocument(indexFile, ModuleCategory.Standard);
+                    this.ScriptDomain.Engine.EvaluateDocument(file, ModuleCategory.Standard);
                 }
                 catch (Exception ex)
                 {
                     log.Error(ex);
+                    this.ScriptStatus = ScriptStatus.None;
                     DanceMessageExpansion.ShowMessageBox("错误", DanceMessageBoxIcon.Failure, $"{ex.Message}", DanceMessageBoxAction.YES);
                 }
             });

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -13,7 +13,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Script\" />
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+    <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
+    <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DANCE_ART\Message\index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DANCE_ART\Output\index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

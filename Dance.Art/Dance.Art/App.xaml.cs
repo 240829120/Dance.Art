@@ -24,6 +24,7 @@ namespace Dance.Art
             DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Domain");
             DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Plugin");
             DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Template");
+            DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Script");
             DanceDomain.Current.Build();
 
             IDanceMonitorManager monitorManager = DanceDomain.Current.LifeScope.Resolve<IDanceMonitorManager>();

@@ -12,6 +12,7 @@
 		<None Remove="Themes\Resources\Icons\layout.svg" />
 		<None Remove="Themes\Resources\Icons\layout_save.svg" />
 		<None Remove="Themes\Resources\Icons\logo.png" />
+		<None Remove="Themes\Resources\Icons\project.svg" />
 		<None Remove="Themes\Resources\Icons\project_new.svg" />
 		<None Remove="Themes\Resources\Icons\project_open.svg" />
 		<None Remove="Themes\Resources\Icons\project_save.svg" />
@@ -37,6 +38,7 @@
 	<ItemGroup>
 		<Resource Include="Themes\Resources\Icons\debug.svg" />
 		<Resource Include="Themes\Resources\Icons\layout_save.svg" />
+		<Resource Include="Themes\Resources\Icons\project.svg" />
 		<Resource Include="Themes\Resources\Icons\project_new.svg" />
 		<Resource Include="Themes\Resources\Icons\project_open.svg" />
 		<Resource Include="Themes\Resources\Icons\project_save.svg" />

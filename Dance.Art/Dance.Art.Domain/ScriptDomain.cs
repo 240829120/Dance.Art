@@ -29,11 +29,6 @@ namespace Dance.Art
         public string IndexFile { get; private set; }
 
         /// <summary>
-        /// 服务集合
-        /// </summary>
-        public List<object> Services { get; } = new();
-
-        /// <summary>
         /// 脚本引擎
         /// </summary>
         public V8ScriptEngine? Engine { get; set; }

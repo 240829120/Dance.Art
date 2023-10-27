@@ -1,27 +1,31 @@
 ﻿using Dance.Art.Domain;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Art.Template
+namespace Dance.Art.Script
 {
     /// <summary>
-    /// 空项目插件生命周期
+    /// 输出脚本插件生命周期
     /// </summary>
-    public class EmptyPluginLifescope : DanceObject, IDancePluginLifescope
+    public class OutputScriptPluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.Template]:Empty";
+        public const string ID = "[Dance.Art.Script]:Output";
 
         /// <summary>
         /// 名称
         /// </summary>
-        public const string NAME = "空项目";
+        public const string NAME = "输出脚本";
+
+        /// <summary>
+        /// 命名空间
+        /// </summary>
+        public const string NAME_SPACE = ScriptNameSpace.DANCE_ART_SCRIPT;
 
         /// <summary>
         /// 注册插件
@@ -29,8 +33,7 @@ namespace Dance.Art.Template
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new TemplatePluginInfo(ID, NAME, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProjectTemplate", "Empty")
-                                                  , "pack://application:,,,/Dance.Art.Template;component/Themes/Resources/Icons/empty.svg");
+            return new ScriptPluginInfo(ID, NAME, new ScriptServiceInfo(NAME_SPACE, "OutputService", typeof(OutputScriptService)));
         }
 
         /// <summary>

@@ -1,27 +1,31 @@
 ﻿using Dance.Art.Domain;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Art.Template
+namespace Dance.Art.Script
 {
     /// <summary>
-    /// 控制台插件生命周期
+    /// 消息脚本插件生命周期
     /// </summary>
-    public class ConsolePluginLifescope : DanceObject, IDancePluginLifescope
+    public class MessageScriptPluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.Template]:Console";
+        public const string ID = "[Dance.Art.Script]:Message";
 
         /// <summary>
         /// 名称
         /// </summary>
-        public const string NAME = "控制台";
+        public const string NAME = "消息脚本";
+
+        /// <summary>
+        /// 命名空间
+        /// </summary>
+        public const string NAME_SPACE = ScriptNameSpace.DANCE_ART_SCRIPT;
 
         /// <summary>
         /// 注册插件
@@ -29,8 +33,7 @@ namespace Dance.Art.Template
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new TemplatePluginInfo(ID, NAME, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProjectTemplate", "Console")
-                                                  , "pack://application:,,,/Dance.Art.Template;component/Themes/Resources/Icons/console.svg");
+            return new ScriptPluginInfo(ID, NAME, new ScriptServiceInfo(NAME_SPACE, "MessageService", typeof(MessageScriptService)));
         }
 
         /// <summary>

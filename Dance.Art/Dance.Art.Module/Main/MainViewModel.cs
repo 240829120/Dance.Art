@@ -619,6 +619,7 @@ namespace Dance.Art.Module
             this.ScriptStatus = ScriptStatus.Running;
             string file = Path.Combine(this.ProjectDomain.ProjectFolderPath, "index.js");
 
+            this.OutputManager.Clear();
             this.OutputManager.WriteLine($"运行脚本 ----- {file}");
 
             await this.CreateAndRunScriptDomain(file, V8ScriptEngineFlags.EnableDynamicModuleImports);
@@ -645,6 +646,7 @@ namespace Dance.Art.Module
             this.ScriptStatus = ScriptStatus.Debugging;
             string file = Path.Combine(this.ProjectDomain.ProjectFolderPath, "index.js");
 
+            this.OutputManager.Clear();
             this.OutputManager.WriteLine($"调试脚本 ----- {file}");
             this.OutputManager.WriteLine($"调试脚本 ----- 正在等待调试器连接......");
 
@@ -678,7 +680,7 @@ namespace Dance.Art.Module
                 this.ScriptDomain = null;
                 artDomain.ScriptDomain = null;
                 this.ScriptStatus = ScriptStatus.None;
-                this.OutputManager.WriteLine($"正在停止脚本......");
+                this.OutputManager.WriteLine($"正在停止脚本");
             });
         }
 
@@ -753,11 +755,11 @@ namespace Dance.Art.Module
                         Engine = new(flags)
                     };
                     artDomain.ScriptDomain = this.ScriptDomain;
-
                     this.ScriptDomain.Engine.DocumentSettings.AccessFlags = DocumentAccessFlags.EnableFileLoading;
                     this.ScriptDomain.Engine.DocumentSettings.SearchPath = this.ProjectDomain.ProjectFolderPath;
+                    this.ScriptDomain.Engine.DocumentSettings.Loader.DiscardCachedDocuments();
                     this.ScriptDomain.Engine.AddHostObject("DANCE_ART_HOST", this.ScriptDomain.Host);
-                    this.ScriptDomain.Engine.EvaluateDocument(file, ModuleCategory.Standard);
+                    this.ScriptDomain.Engine.ExecuteDocument(file, ModuleCategory.Standard);
                 }
                 catch (Exception ex)
                 {

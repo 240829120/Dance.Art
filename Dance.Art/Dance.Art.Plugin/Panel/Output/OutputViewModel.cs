@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Interop;
 
 namespace Dance.Art.Plugin
 {
@@ -25,6 +26,9 @@ namespace Dance.Art.Plugin
 
             this.OutputManager.OnOutput -= OutputManager_OnOutput;
             this.OutputManager.OnOutput += OutputManager_OnOutput;
+
+            this.OutputManager.OnClear -= OutputManager_OnClear;
+            this.OutputManager.OnClear += OutputManager_OnClear;
         }
 
         // ============================================================================================
@@ -125,5 +129,20 @@ namespace Dance.Art.Plugin
             });
         }
 
+        /// <summary>
+        /// 清理消息
+        /// </summary>
+        private void OutputManager_OnClear(object? sender, EventArgs e)
+        {
+            if (this.View == null || this.View is not OutputView view)
+            {
+                return;
+            }
+
+            view.Dispatcher.BeginInvoke(() =>
+            {
+                view.tb.Clear();
+            });
+        }
     }
 }

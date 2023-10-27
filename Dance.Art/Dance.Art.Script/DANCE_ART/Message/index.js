@@ -7,27 +7,27 @@ const MESSAGE_BOX_ICON = {
     /**
      * 空
      */
-    None = "None",
+    None: "None",
 
     /**
      * 失败
      */
-    Failure = "Failure",
+    Failure: "Failure",
 
     /**
      * 成功
      */
-    Success = "Success",
+    Success: "Success",
 
     /**
      * 警告
      */
-    Warning = "Warning",
+    Warning: "Warning",
 
     /**
      * 信息
      */
-    Info = "Info"
+    Info: "Info"
 };
 
 /**
@@ -38,17 +38,17 @@ const MESSAGE_BOX_ACTION = {
     /**
      * 确定
      */
-    YES = "YES",
+    YES: "YES",
 
     /**
      * 否定
      */
-    NO = "NO",
+    NO: "NO",
 
     /**
      * 取消
      */
-    CANCEL = "CANCEL"
+    CANCEL: "CANCEL"
 }
 
 /**
@@ -59,22 +59,22 @@ const NOTIFY_ICON = {
     /**
      * 空
      */
-    None = "None",
+    None: "None",
 
     /**
      * 信息
      */
-    Info = "Info",
+    Info: "Info",
 
     /**
      * 警告
      */
-    Warning ="Warning",
+    Warning: "Warning",
 
     /**
      * 错误
      */
-    _Error = "Error"
+    _Error: "Error"
 }
 
 /**

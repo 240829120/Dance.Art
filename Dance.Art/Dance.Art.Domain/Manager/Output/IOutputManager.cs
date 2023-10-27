@@ -18,9 +18,19 @@ namespace Dance.Art.Domain
         event EventHandler<OutputEventArgs>? OnOutput;
 
         /// <summary>
+        /// 清理消息时触发
+        /// </summary>
+        event EventHandler<EventArgs>? OnClear;
+
+        /// <summary>
         /// 写入行
         /// </summary>
         /// <param name="msg">消息</param>
         void WriteLine(string msg);
+
+        /// <summary>
+        /// 清理
+        /// </summary>
+        void Clear();
     }
 }

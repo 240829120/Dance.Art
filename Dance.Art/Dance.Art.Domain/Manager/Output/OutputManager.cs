@@ -18,12 +18,25 @@ namespace Dance.Art.Domain
         public event EventHandler<OutputEventArgs>? OnOutput;
 
         /// <summary>
+        /// 清理消息时触发
+        /// </summary>
+        public event EventHandler<EventArgs>? OnClear;
+
+        /// <summary>
         /// 写入行
         /// </summary>
         /// <param name="msg">消息</param>
         public void WriteLine(string msg)
         {
             this.OnOutput?.Invoke(this, new OutputEventArgs() { Message = msg });
+        }
+
+        /// <summary>
+        /// 清理
+        /// </summary>
+        public void Clear()
+        {
+            this.OnClear?.Invoke(this, new EventArgs());
         }
     }
 }

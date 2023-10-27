@@ -43,6 +43,8 @@ namespace Dance.Art
         /// </summary>
         protected override void Destroy()
         {
+            this.Engine?.DocumentSettings?.Loader?.DiscardCachedDocuments();
+            this.Engine?.CancelInterrupt();
             this.Engine?.CancelAwaitDebugger();
             this.Engine?.Dispose();
             this.Host?.Dispose();

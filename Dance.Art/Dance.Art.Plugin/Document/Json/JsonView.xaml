@@ -11,7 +11,7 @@
              dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <edit:TextEditor x:Name="edit" FontFamily="Consolas" FontSize="12pt" SyntaxHighlighting="Json" ShowLineNumbers="True" WordWrap="True" Grid.Row="1">
+        <edit:TextEditor x:Name="edit" FontFamily="Consolas" FontSize="12pt" SyntaxHighlighting="Json" ShowLineNumbers="True" WordWrap="False" Grid.Row="1">
             <edit:TextEditor.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="复制" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.CopyCommand}"></MenuItem>

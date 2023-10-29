@@ -267,7 +267,8 @@
 
                 <docking:DockingManager.DocumentHeaderTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Background="Transparent"
+                                    ToolTip="{Binding Content.File}">
                             <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
                             <TextBlock Text="*" Visibility="{Binding Path=Content.View.DataContext.IsModify,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter_Visible_Hidden_Hidden}}"></TextBlock>
                         </StackPanel>

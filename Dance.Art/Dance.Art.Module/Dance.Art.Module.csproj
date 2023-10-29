@@ -24,7 +24,7 @@
 		<None Remove="Themes\Resources\Icons\stop.svg" />
 		<None Remove="Themes\Resources\Icons\undo.svg" />
 		<None Remove="Themes\Resources\Icons\vscode.svg" />
-		<None Remove="Themes\Resources\Images\bg.png" />
+		<None Remove="Themes\Resources\Images\bg.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -53,7 +53,7 @@
 		<Resource Include="Themes\Resources\Icons\stop.svg" />
 		<Resource Include="Themes\Resources\Icons\undo.svg" />
 		<Resource Include="Themes\Resources\Icons\vscode.svg" />
-		<Resource Include="Themes\Resources\Images\bg.png" />
+		<Resource Include="Themes\Resources\Images\bg.jpg" />
 	</ItemGroup>
 
 </Project>

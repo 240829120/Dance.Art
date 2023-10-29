@@ -10,15 +10,22 @@
              d:DataContext="{d:DesignInstance local:WelcomeViewModel}"
              dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}">
     <Grid>
-        <Image Source="/Dance.Art.Module;component/Themes/Resources/Images/bg.png" Stretch="UniformToFill"></Image>
-        <Grid VerticalAlignment="Bottom">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"></RowDefinition>
-                <RowDefinition Height="12"></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBlock Foreground="White" Text="{Binding Path=ProgressMessage}" Margin="10,0,10,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
-            <ProgressBar Height="12" VerticalAlignment="Bottom" Grid.Row="1"
-                         Minimum="0" Maximum="1" Value="{Binding Path=ProgressValue}"></ProgressBar>
+        <Border Background="White" Margin="10">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Direction="-20" ShadowDepth="5" BlurRadius="10" Opacity="0.3"></DropShadowEffect>
+            </Border.Effect>
+        </Border>
+        <Grid Margin="10">
+            <Image Source="/Dance.Art.Module;component/Themes/Resources/Images/bg.jpg" Stretch="UniformToFill"></Image>
+            <Grid VerticalAlignment="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="12"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Foreground="Black" Text="{Binding Path=ProgressMessage}" Margin="10,0,10,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
+                <ProgressBar Height="12" VerticalAlignment="Bottom" Grid.Row="1"
+                             Minimum="0" Maximum="1" Value="{Binding Path=ProgressValue}"></ProgressBar>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

@@ -30,6 +30,7 @@ namespace Dance.Art.Plugin
             // 初始化消息
             DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
             DanceDomain.Current.Messenger.Register<ProjectCloseMessage>(this, this.OnProjectClose);
+
         }
 
         // ==================================================================================
@@ -220,8 +221,6 @@ namespace Dance.Art.Plugin
         /// <summary>
         /// 执行项目关闭消息
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="msg"></param>
         private void OnProjectClose(object sender, ProjectCloseMessage msg)
         {
             this.FileManager.Clear();
@@ -229,5 +228,6 @@ namespace Dance.Art.Plugin
         }
 
         #endregion
+
     }
 }

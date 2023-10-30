@@ -16,9 +16,11 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 文件模型
         /// </summary>
+        /// <param name="parent">父基元素</param>
         /// <param name="path">路径</param>
-        public FileModel(string path)
+        public FileModel(FileModel? parent, string path)
         {
+            this.parent = parent;
             this.path = path;
             this.fileName = System.IO.Path.GetFileName(path);
             this.extension = System.IO.Path.GetExtension(path);
@@ -31,6 +33,20 @@ namespace Dance.Art.Domain
         /// 分类
         /// </summary>
         public virtual FileModelCategory Category { get; internal set; } = FileModelCategory.File;
+
+        #region Parent -- 父级元素
+
+        private FileModel? parent;
+        /// <summary>
+        /// 父级元素
+        /// </summary>
+        public FileModel? Parent
+        {
+            get { return parent; }
+            set { parent = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
 
         #region FileName -- 文件名称
 

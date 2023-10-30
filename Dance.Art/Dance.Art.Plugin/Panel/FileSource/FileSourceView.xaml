@@ -27,7 +27,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <dance:DanceTreeView ItemsSource="{Binding Path=Files}" BorderBrush="Transparent" IsMultiSelection="True">
+        <dance:DanceTreeView x:Name="tree" ItemsSource="{Binding Path=Files}" BorderBrush="Transparent" IsMultiSelection="True">
             <dance:DanceTreeView.ItemContainerStyle>
                 <Style TargetType="dance:DanceTreeViewItem">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}"></Setter>
@@ -37,6 +37,7 @@
                     <Setter Property="dance:DanceCommandTrigger.DoubleClickCommandParameter" Value="{Binding .}"></Setter>
                     <!-- 拖拽 -->
                     <Setter Property="AllowDrop" Value="True"></Setter>
+                    <Setter Property="dance:DanceDragTrigger.IsUseDragAdorner" Value="False"></Setter>
                     <Setter Property="dance:DanceDragTrigger.DragTriggerKind" Value="MouseLeave"></Setter>
                     <Setter Property="dance:DanceDragTrigger.DragBeginCommand" Value="{Binding ElementName=uc, Path=DataContext.FileDragBeginCommand}"></Setter>
                     <Setter Property="dance:DanceDragTrigger.DragEnterCommand" Value="{Binding ElementName=uc, Path=DataContext.FileDragEnterCommand}"></Setter>

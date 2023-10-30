@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,20 +55,6 @@ namespace Dance.Art.Plugin
         {
             get { return files; }
             set { files = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
-
-        #region SelectedFile -- 当前选中的文件
-
-        private FileModel? selectedFile;
-        /// <summary>
-        /// 当前选中的文件
-        /// </summary>
-        public FileModel? SelectedFile
-        {
-            get { return selectedFile; }
-            set { selectedFile = value; this.OnPropertyChanged(); }
         }
 
         #endregion
@@ -134,7 +121,7 @@ namespace Dance.Art.Plugin
                 return;
             }
 
-            e.Data = fileModel;
+            e.Data = this.FileManager.Root;
         }
 
         #endregion
@@ -191,10 +178,43 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void FileDrop(DanceDragEventArgs? e)
         {
-            if (e == null || e.Element.DataContext is not FileModel fileModel)
-                return;
+            try
+            {
+                if (e == null)
+                    return;
 
+                e.EventArgs.Handled = true;
 
+                if (e.EventArgs.Data.GetData(typeof(FileModel)) is not FileModel dragData || dragData != this.FileManager.Root)
+                    return;
+
+                if (this.View is not FileSourceView view || e.Element.DataContext is not FileModel target || target.Category == FileModelCategory.File)
+                    return;
+
+                List<FileModel> sources = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
+                if (sources.Count == 0 || sources.Contains(target))
+                    return;
+
+                foreach (FileModel source in sources)
+                {
+                    string targetPath = Path.Combine(target.Path, source.FileName);
+
+                    if (source.Category == FileModelCategory.Folder)
+                    {
+                        Directory.Move(source.Path, targetPath);
+                    }
+                    else if (source.Category == FileModelCategory.File)
+                    {
+                        File.Move(source.Path, targetPath);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+
+                DanceMessageExpansion.ShowMessageBox("错误", DanceMessageBoxIcon.Failure, ex.Message, DanceMessageBoxAction.YES);
+            }
         }
 
         #endregion
@@ -229,5 +249,16 @@ namespace Dance.Art.Plugin
 
         #endregion
 
+        // ==================================================================================
+        // Private Function
+
+        /// <summary>
+        /// 获取选中的节点
+        /// </summary>
+        /// <returns>选中的节点</returns>
+        //private List<FileModel> GetSelectedFileModel(FileModel root)
+        //{
+
+        //}
     }
 }

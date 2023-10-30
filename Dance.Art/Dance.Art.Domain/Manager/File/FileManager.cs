@@ -251,10 +251,19 @@ namespace Dance.Art.Domain
             if (parent == null)
                 return;
 
-            FileModel model = new(parent, path)
+            FileModel? model = null;
+
+            if (Directory.Exists(path))
             {
-                Category = Directory.Exists(path) ? FileModelCategory.Folder : FileModelCategory.File
-            };
+                model = this.BuildFileTree_Folder(parent, path);
+            }
+            else
+            {
+                model = this.BuildFileTree_File(parent, path);
+            }
+
+            if (model == null)
+                return;
 
             Application.Current.Dispatcher.Invoke(() =>
             {

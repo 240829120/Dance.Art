@@ -73,8 +73,19 @@
                     </dance:DanceMappingConverterItem.To>
                 </dance:DanceMappingConverterItem>
             </dance:DanceMappingConverter>
-            <!-- ScriptIsStopConverter -->
-            <dance:DanceMappingConverter x:Key="ScriptIsStopConverter">
+            <!-- ScriptIsWaitingStopConverter -->
+            <dance:DanceMappingConverter x:Key="ScriptIsWaitingStopConverter">
+                <dance:DanceMappingConverter.DefaultConvertValue>
+                    <sys:Boolean>False</sys:Boolean>
+                </dance:DanceMappingConverter.DefaultConvertValue>
+                <dance:DanceMappingConverterItem From="{x:Static Member=domain:ScriptStatus.WaitingStop}">
+                    <dance:DanceMappingConverterItem.To>
+                        <sys:Boolean>True</sys:Boolean>
+                    </dance:DanceMappingConverterItem.To>
+                </dance:DanceMappingConverterItem>
+            </dance:DanceMappingConverter>
+            <!-- ScriptIsNoneConverter -->
+            <dance:DanceMappingConverter x:Key="ScriptIsNoneConverter">
                 <dance:DanceMappingConverter.DefaultConvertValue>
                     <sys:Boolean>False</sys:Boolean>
                 </dance:DanceMappingConverter.DefaultConvertValue>
@@ -209,7 +220,7 @@
                 <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
                 <Grid Width="22" Height="20">
                     <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="运行脚本"
-                            IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsStopConverter}}"
+                            IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsNoneConverter}}"
                             Command="{Binding Path=RunScriptCommand,Mode=OneWay}">
                         <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/run.svg"></dance:DanceSvgImage>
                     </Button>
@@ -219,7 +230,7 @@
                 </Grid>
                 <Grid Width="22" Height="20">
                     <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="调试脚本"
-                            IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsStopConverter}}"
+                            IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsNoneConverter}}"
                             Command="{Binding Path=DebugScriptCommand,Mode=OneWay}">
                         <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/debug.svg"></dance:DanceSvgImage>
                     </Button>
@@ -227,11 +238,16 @@
                                               Stroke="Green" StrokeThickness="1"
                                               IsPlaying="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsDebugingConverter}}"></dance:DancePathAnimation>
                 </Grid>
-                <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="停止脚本"
-                        IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsRunningOrDebuggingConverter}}"
-                        Command="{Binding Path=StopScriptCommand,Mode=OneWay}">
-                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/stop.svg"></dance:DanceSvgImage>
-                </Button>
+                <Grid Width="22" Height="20">
+                    <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="停止脚本"
+                            IsEnabled="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsRunningOrDebuggingConverter}}"
+                            Command="{Binding Path=StopScriptCommand,Mode=OneWay}">
+                        <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/stop.svg"></dance:DanceSvgImage>
+                    </Button>
+                    <dance:DancePathAnimation Width="22" Height="20" Data="M0,0 22,0 22,20 0,20 0,0"
+                                              Stroke="Red" StrokeThickness="1"
+                                              IsPlaying="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsWaitingStopConverter}}"></dance:DancePathAnimation>
+                </Grid>
             </StackPanel>
         </Border>
 

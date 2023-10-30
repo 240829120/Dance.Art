@@ -24,6 +24,11 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 调试
         /// </summary>
-        Debugging
+        Debugging,
+
+        /// <summary>
+        /// 等待停止
+        /// </summary>
+        WaitingStop
     }
 }

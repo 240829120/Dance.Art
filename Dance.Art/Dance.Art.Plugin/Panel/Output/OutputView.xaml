@@ -5,19 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Dance.Art.Plugin"
              xmlns:dance="http://schemas.dance.com/wpf"
+             xmlns:edit="http://icsharpcode.net/sharpdevelop/avalonedit"
              d:DataContext="{d:DesignInstance local:OutputViewModel}"
              dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBox x:Name="tb" IsReadOnly="True" AcceptsReturn="True" Height="Auto" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
-                 BorderBrush="Transparent" Padding="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <TextBox.ContextMenu>
+        <edit:TextEditor x:Name="edit" FontFamily="Consolas" FontSize="12pt" SyntaxHighlighting="Txt" ShowLineNumbers="False" WordWrap="False"
+                         IsReadOnly="True">
+            <edit:TextEditor.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="复制" InputGestureText="Ctrl+C" Command="{Binding Path=DataContext.CopyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"></MenuItem>
                     <MenuItem Header="清除" Command="{Binding Path=DataContext.ClearCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"></MenuItem>
                 </ContextMenu>
-            </TextBox.ContextMenu>
-        </TextBox>
+            </edit:TextEditor.ContextMenu>
+        </edit:TextEditor>
     </Grid>
 </UserControl>

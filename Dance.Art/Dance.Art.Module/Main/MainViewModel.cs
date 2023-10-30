@@ -671,6 +671,9 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain artDomain)
                 return;
 
+            this.OutputManager.WriteLine($"正在停止脚本");
+            this.ScriptStatus = ScriptStatus.WaitingStop;
+
             await Task.Run(() =>
             {
                 if (this.ScriptDomain == null)
@@ -680,7 +683,7 @@ namespace Dance.Art.Module
                 this.ScriptDomain = null;
                 artDomain.ScriptDomain = null;
                 this.ScriptStatus = ScriptStatus.None;
-                this.OutputManager.WriteLine($"正在停止脚本");
+                this.OutputManager.WriteLine($"停止脚本");
             });
         }
 
@@ -741,14 +744,12 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain artDomain)
                 return;
 
-            await Task.Run(async () =>
+            await Task.Run(() =>
             {
                 try
                 {
                     if (this.ProjectDomain == null || string.IsNullOrWhiteSpace(this.ProjectDomain.ProjectFolderPath))
                         return;
-
-                    await this.StopScript();
 
                     this.ScriptDomain = new(file)
                     {

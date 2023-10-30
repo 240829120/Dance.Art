@@ -62,7 +62,7 @@ namespace Dance.Art.Plugin
             if (this.View is not OutputView view)
                 return;
 
-            view.tb.AppendText(this.OutputCache.ToString());
+            view.edit.AppendText(this.OutputCache.ToString());
             this.OutputCache.Clear();
         }
 
@@ -83,7 +83,7 @@ namespace Dance.Art.Plugin
             if (this.View is not OutputView view)
                 return;
 
-            view.tb.Copy();
+            view.edit.Copy();
         }
 
         #endregion
@@ -103,7 +103,7 @@ namespace Dance.Art.Plugin
             if (this.View is not OutputView view)
                 return;
 
-            view.tb.Clear();
+            view.edit.Clear();
         }
 
         #endregion
@@ -125,7 +125,7 @@ namespace Dance.Art.Plugin
 
             view.Dispatcher.BeginInvoke(() =>
             {
-                view.tb.AppendText(msg);
+                view.edit.AppendText(msg);
             });
         }
 
@@ -141,7 +141,7 @@ namespace Dance.Art.Plugin
 
             view.Dispatcher.BeginInvoke(() =>
             {
-                view.tb.Clear();
+                view.edit.Clear();
             });
         }
     }

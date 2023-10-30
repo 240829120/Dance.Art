@@ -126,6 +126,7 @@ namespace Dance.Art.Plugin
             view.Dispatcher.BeginInvoke(() =>
             {
                 view.edit.AppendText(msg);
+                view.edit.ScrollToEnd();
             });
         }
 

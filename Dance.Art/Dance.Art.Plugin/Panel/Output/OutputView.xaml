@@ -15,8 +15,16 @@
                          IsReadOnly="True">
             <edit:TextEditor.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="复制" InputGestureText="Ctrl+C" Command="{Binding Path=DataContext.CopyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"></MenuItem>
-                    <MenuItem Header="清除" Command="{Binding Path=DataContext.ClearCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"></MenuItem>
+                    <MenuItem Header="复制" InputGestureText="Ctrl+C" Command="{Binding Path=DataContext.CopyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/copy.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="清除" Command="{Binding Path=DataContext.ClearCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </ContextMenu>
             </edit:TextEditor.ContextMenu>
         </edit:TextEditor>

@@ -118,19 +118,5 @@ namespace Dance.Art.Domain
         }
 
         #endregion
-
-        #region IsHighlight -- 是否高亮
-
-        private bool isHighlight;
-        /// <summary>
-        /// 是否高亮
-        /// </summary>
-        public bool IsHighlight
-        {
-            get { return isHighlight; }
-            set { isHighlight = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
     }
 }

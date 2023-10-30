@@ -160,7 +160,7 @@ namespace Dance.Art.Plugin
 
             try
             {
-                object? result = vm.ScriptDomain.Engine.Evaluate(new DocumentInfo { Category = ModuleCategory.Standard }, view.edit.Text);
+                object? result = vm.ScriptDomain.Engine.Evaluate(new DocumentInfo() { Category = ModuleCategory.Standard }, view.edit.Text);
                 this.OutputManager.WriteLine(result?.ToString() ?? string.Empty);
             }
             catch (Exception ex)

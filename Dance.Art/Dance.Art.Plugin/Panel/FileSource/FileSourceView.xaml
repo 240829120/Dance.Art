@@ -27,13 +27,21 @@
     </UserControl.Resources>
 
     <Grid>
-        <dance:DanceTreeView ItemsSource="{Binding Path=Files}" BorderBrush="Transparent">
+        <dance:DanceTreeView ItemsSource="{Binding Path=Files}" BorderBrush="Transparent" IsMultiSelection="True">
             <dance:DanceTreeView.ItemContainerStyle>
                 <Style TargetType="dance:DanceTreeViewItem">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}"></Setter>
                     <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=TwoWay}"></Setter>
+                    <!-- 双击 -->
                     <Setter Property="dance:DanceCommandTrigger.DoubleClickCommand" Value="{Binding ElementName=uc, Path=DataContext.FileDoubleClickCommand}"></Setter>
                     <Setter Property="dance:DanceCommandTrigger.DoubleClickCommandParameter" Value="{Binding .}"></Setter>
+                    <!-- 拖拽 -->
+                    <Setter Property="AllowDrop" Value="True"></Setter>
+                    <Setter Property="dance:DanceDragTrigger.DragTriggerKind" Value="MouseLeave"></Setter>
+                    <Setter Property="dance:DanceDragTrigger.DragBeginCommand" Value="{Binding ElementName=uc, Path=DataContext.FileDragBeginCommand}"></Setter>
+                    <Setter Property="dance:DanceDragTrigger.DragEnterCommand" Value="{Binding ElementName=uc, Path=DataContext.FileDragEnterCommand}"></Setter>
+                    <Setter Property="dance:DanceDragTrigger.DragLeaveCommand" Value="{Binding ElementName=uc, Path=DataContext.FileDragLeaveCommand}"></Setter>
+                    <Setter Property="dance:DanceDragTrigger.DropCommand" Value="{Binding ElementName=uc, Path=DataContext.FileDropCommand}"></Setter>
                 </Style>
             </dance:DanceTreeView.ItemContainerStyle>
             <dance:DanceTreeView.ItemTemplate>

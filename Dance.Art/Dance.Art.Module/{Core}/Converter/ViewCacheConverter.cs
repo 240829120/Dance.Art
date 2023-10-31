@@ -32,9 +32,9 @@ namespace Dance.Art.Module
                 return null;
 
             pluginModel.View = pluginInfo.ViewType.Assembly.CreateInstance(pluginInfo.ViewType.FullName) as FrameworkElement;
-            if (pluginModel.View is FrameworkElement view && view.DataContext is IDockingDocument dockingDocument)
+            if (pluginModel.View is FrameworkElement view && view.DataContext is IDockingPanel panel)
             {
-                dockingDocument.DocumentModel = pluginModel as DocumentPluginModel;
+                panel.ViewPluginModel = pluginModel;
             }
 
             return pluginModel.View;

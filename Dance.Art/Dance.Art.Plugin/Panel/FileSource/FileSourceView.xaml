@@ -27,7 +27,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <dance:DanceTreeView x:Name="tree" ItemsSource="{Binding Path=Files}" BorderBrush="Transparent" IsMultiSelection="True">
+        <dance:DanceTreeView x:Name="tree" ItemsSource="{Binding Path=Files}" BorderBrush="Transparent" IsMultiSelection="True" Focusable="True" KeyboardNavigation.IsTabStop="True">
             <dance:DanceTreeView.ItemContainerStyle>
                 <Style TargetType="dance:DanceTreeViewItem">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}"></Setter>
@@ -45,6 +45,14 @@
                     <Setter Property="dance:DanceDragTrigger.DropCommand" Value="{Binding ElementName=uc, Path=DataContext.FileDropCommand}"></Setter>
                 </Style>
             </dance:DanceTreeView.ItemContainerStyle>
+            <dance:DanceHotkeyTrigger.HotkeyBindings>
+                <dance:DanceHotkeyCollection>
+                    <dance:DanceHotkeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Path=FileCopyCommand}"></dance:DanceHotkeyBinding>
+                    <dance:DanceHotkeyBinding Modifiers="Ctrl" Key="X" Command="{Binding Path=FileCutCommand}"></dance:DanceHotkeyBinding>
+                    <dance:DanceHotkeyBinding Modifiers="Ctrl" Key="V" Command="{Binding Path=FilePasteCommand}"></dance:DanceHotkeyBinding>
+                    <dance:DanceHotkeyBinding Key="Delete" Command="{Binding Path=FileDeleteCommand}"></dance:DanceHotkeyBinding>
+                </dance:DanceHotkeyCollection>
+            </dance:DanceHotkeyTrigger.HotkeyBindings>
 
             <dance:DanceTreeView.ContextMenu>
                 <ContextMenu>

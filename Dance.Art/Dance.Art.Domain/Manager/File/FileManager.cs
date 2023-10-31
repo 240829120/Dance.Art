@@ -151,9 +151,9 @@ namespace Dance.Art.Domain
         {
             for (int i = 0; i < files.Count - 1; i++)
             {
-                for (int j = 0; j < files.Count - 1; j++)
+                for (int j = 0; j < files.Count - i - 1; j++)
                 {
-                    if (IsFileLargeThan(files[j], files[j + 1]))
+                    if (IsFileNameLargeThan(files[j], files[j + 1]))
                     {
                         (files[j + 1], files[j]) = (files[j], files[j + 1]);
                     }
@@ -364,7 +364,7 @@ namespace Dance.Art.Domain
         /// <param name="file1">文件1</param>
         /// <param name="file2">文件2</param>
         /// <returns>是否大于</returns>
-        private static bool IsFileLargeThan(FileModel file1, FileModel file2)
+        private static bool IsFileNameLargeThan(FileModel file1, FileModel file2)
         {
             if (file1.Category != FileModelCategory.File && file2.Category == FileModelCategory.File)
                 return false;

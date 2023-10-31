@@ -45,5 +45,10 @@ namespace Dance.Art.Domain
         /// 撤销
         /// </summary>
         void Undo();
+
+        /// <summary>
+        /// 视图插件模型
+        /// </summary>
+        ViewPluginModelBase? ViewPluginModel { get; set; }
     }
 }

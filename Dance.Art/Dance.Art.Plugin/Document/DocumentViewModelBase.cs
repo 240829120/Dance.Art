@@ -14,7 +14,7 @@ namespace Dance.Art.Plugin.Document
     /// <summary>
     /// 文档视图模型基类
     /// </summary>
-    public abstract class DocumentViewModelBase : DanceViewModel, IDockingDocument
+    public abstract class DocumentViewModelBase : PanelViewModelBase, IDockingDocument
     {
         /// <summary>
         /// 文本视图模型
@@ -30,47 +30,6 @@ namespace Dance.Art.Plugin.Document
 
         // ==========================================================================================
         // Property
-
-        #region DocumentViewModel -- 文档模型
-
-        private DocumentPluginModel? documentModel;
-        /// <summary>
-        /// 文档模型
-        /// </summary>
-        public DocumentPluginModel? DocumentModel
-        {
-            get { return documentModel; }
-            set { documentModel = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
-
-        #region IsModify -- 是否修改
-
-        /// <summary>
-        /// 是否修改
-        /// </summary>
-        public abstract bool IsModify { get; }
-
-        #endregion
-
-        #region CanRedo -- 是否可以重做
-
-        /// <summary>
-        /// 是否可以重做
-        /// </summary>
-        public abstract bool CanRedo { get; }
-
-        #endregion
-
-        #region CanUndo -- 是否可以撤销
-
-        /// <summary>
-        /// 是否可以撤销
-        /// </summary>
-        public abstract bool CanUndo { get; }
-
-        #endregion
 
         // ==========================================================================================
         // Command
@@ -140,26 +99,6 @@ namespace Dance.Art.Plugin.Document
 
         // ==========================================================================================
         // Public Function
-
-        /// <summary>
-        /// 加载
-        /// </summary>
-        public abstract void Load();
-
-        /// <summary>
-        /// 保存
-        /// </summary>
-        public abstract void Save();
-
-        /// <summary>
-        /// 重做
-        /// </summary>
-        public abstract void Redo();
-
-        /// <summary>
-        /// 撤销
-        /// </summary>
-        public abstract void Undo();
 
         // ==========================================================================================
         // Override Function

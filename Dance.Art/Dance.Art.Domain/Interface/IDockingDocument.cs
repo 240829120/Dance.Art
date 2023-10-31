@@ -12,9 +12,6 @@ namespace Dance.Art.Domain
     /// </summary>
     public interface IDockingDocument : IDockingPanel
     {
-        /// <summary>
-        /// 文档模型
-        /// </summary>
-        DocumentPluginModel? DocumentModel { get; set; }
+
     }
 }

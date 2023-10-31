@@ -1,4 +1,5 @@
-﻿using Dance.Art.Plugin.Document;
+﻿using Dance.Art.Domain;
+using Dance.Art.Plugin.Document;
 using ICSharpCode.AvalonEdit;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Load()
         {
-            if (this.DocumentModel == null)
+            if (this.ViewPluginModel is not DocumentPluginModel document)
                 return;
 
             TextEditor? edit = this.GetEditor();
@@ -49,7 +50,7 @@ namespace Dance.Art.Plugin
             edit.TextChanged -= Edit_TextChanged;
             edit.TextChanged += Edit_TextChanged;
 
-            edit.Load(this.DocumentModel.File);
+            edit.Load(document.File);
             this.UdateDocumentStatus();
         }
 
@@ -58,10 +59,10 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Save()
         {
-            if (this.DocumentModel == null)
+            if (this.ViewPluginModel is not DocumentPluginModel document)
                 return;
 
-            this.GetEditor()?.Save(this.DocumentModel.File);
+            this.GetEditor()?.Save(document.File);
             this.UdateDocumentStatus();
         }
 

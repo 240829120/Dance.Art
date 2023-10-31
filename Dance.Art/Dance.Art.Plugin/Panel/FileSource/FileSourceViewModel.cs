@@ -38,7 +38,6 @@ namespace Dance.Art.Plugin
             // 初始化消息
             DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
             DanceDomain.Current.Messenger.Register<ProjectCloseMessage>(this, this.OnProjectClose);
-
         }
 
         // ==================================================================================
@@ -254,8 +253,7 @@ namespace Dance.Art.Plugin
                 if (this.View is not FileSourceView view)
                     return;
 
-                FileModel? file = view.tree.GetSelectedValues().FirstOrDefault() as FileModel;
-                if (file == null)
+                if (view.tree.GetSelectedValues().FirstOrDefault() is not FileModel file)
                     return;
 
                 Process.Start("explorer.exe", $"/select,{file.Path}");
@@ -281,7 +279,7 @@ namespace Dance.Art.Plugin
         /// <returns></returns>
         private bool CanFileCopy()
         {
-            if (this.FileManager.Root == null || this.View is not FileSourceView view)
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
                 return false;
 
             List<FileModel> sources = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
@@ -296,7 +294,7 @@ namespace Dance.Art.Plugin
         {
             try
             {
-                if (this.View is not FileSourceView view)
+                if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.View is not FileSourceView view)
                     return;
 
                 this.WaitForCutFiles.ForEach(p => p.IsWaitForCut = false);
@@ -334,7 +332,7 @@ namespace Dance.Art.Plugin
         /// <returns></returns>
         private bool CanFileCut()
         {
-            if (this.FileManager.Root == null || this.View is not FileSourceView view)
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
                 return false;
 
             List<FileModel> sources = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
@@ -349,7 +347,7 @@ namespace Dance.Art.Plugin
         {
             try
             {
-                if (this.View is not FileSourceView view)
+                if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.View is not FileSourceView view)
                     return;
 
                 List<FileModel> surces = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
@@ -389,7 +387,7 @@ namespace Dance.Art.Plugin
         /// <returns></returns>
         private bool CanFilePaste()
         {
-            if (this.View is not FileSourceView view)
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.View is not FileSourceView view)
                 return false;
 
             if (view.tree.GetSelectedValues().Count != 1)
@@ -405,11 +403,10 @@ namespace Dance.Art.Plugin
         {
             try
             {
-                if (this.View is not FileSourceView view)
+                if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.View is not FileSourceView view)
                     return;
 
-                FileModel? file = view.tree.GetSelectedValues().FirstOrDefault() as FileModel;
-                if (file == null)
+                if (view.tree.GetSelectedValues().FirstOrDefault() is not FileModel file)
                     return;
 
                 StringCollection fileDropList = Clipboard.GetFileDropList();
@@ -478,7 +475,7 @@ namespace Dance.Art.Plugin
         /// <returns></returns>
         private bool CanFileDelete()
         {
-            if (this.FileManager.Root == null || this.View is not FileSourceView view)
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
                 return false;
 
             List<FileModel> sources = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
@@ -493,6 +490,9 @@ namespace Dance.Art.Plugin
         {
             try
             {
+                if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive)
+                    return;
+
                 this.WaitForCutFiles.ForEach(p => p.IsWaitForCut = false);
                 this.WaitForCutFiles.Clear();
 

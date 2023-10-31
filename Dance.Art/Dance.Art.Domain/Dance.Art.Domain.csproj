@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ClearScript" Version="7.4.4" />
+    <PackageReference Include="MouseKeyHook" Version="5.7.1" />
   </ItemGroup>
 
   <ItemGroup>

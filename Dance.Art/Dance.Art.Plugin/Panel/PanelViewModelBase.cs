@@ -1,9 +1,11 @@
 ﻿using Dance.Art.Domain;
+using Dance.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Dance.Art.Plugin
 {
@@ -46,5 +48,10 @@ namespace Dance.Art.Plugin
         /// 撤销
         /// </summary>
         public virtual void Undo() { }
+
+        /// <summary>
+        /// 视图插件模型
+        /// </summary>
+        public ViewPluginModelBase? ViewPluginModel { get; set; }
     }
 }

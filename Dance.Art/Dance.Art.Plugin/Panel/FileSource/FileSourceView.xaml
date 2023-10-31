@@ -21,7 +21,8 @@
 
             <module:FileModelIconConverter x:Key="FileModelIconConverter"
                                            Project="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"
-                                           Folder="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/folder.svg">
+                                           Folder="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/folder.svg"
+                                           Unknow="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/file.svg">
             </module:FileModelIconConverter>
         </ResourceDictionary>
     </UserControl.Resources>

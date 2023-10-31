@@ -5,6 +5,7 @@ using SharpVectors.Converters;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,11 +45,16 @@ namespace Dance.Art.Module
         public string? Folder { get; set; }
 
         /// <summary>
+        /// 未知
+        /// </summary>
+        public string? Unknow { get; set; }
+
+        /// <summary>
         /// 转化
         /// </summary>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is not FileModel fileModel)
+            if (DanceDomain.Current is not ArtDomain domain || value is not FileModel fileModel)
                 return null;
 
             if (fileModel.Category == FileModelCategory.Project)
@@ -56,9 +62,6 @@ namespace Dance.Art.Module
 
             if (fileModel.Category == FileModelCategory.Folder)
                 return this.GetImageSource(this.Folder);
-
-            if (DanceDomain.Current is not ArtDomain domain)
-                return null;
 
             foreach (DocumentPluginInfo pluginInfo in domain.DocumentPlugins)
             {
@@ -69,7 +72,7 @@ namespace Dance.Art.Module
                 return this.GetImageSource(fileInfo.Icon);
             }
 
-            return null;
+            return this.GetImageSource(this.Unknow);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

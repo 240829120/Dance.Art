@@ -719,6 +719,9 @@ namespace Dance.Art.Module
 
             if (pluginModel == null || pluginModel.ViewType == null)
             {
+                if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否使用默认程序打开: {msg.FileModel.Path}", DanceMessageBoxAction.YES | DanceMessageBoxAction.CANCEL) != DanceMessageBoxAction.YES)
+                    return;
+
                 Process.Start("explorer", msg.FileModel.Path);
 
                 return;

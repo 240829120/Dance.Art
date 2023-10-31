@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<SyntaxDefinition name="Output Highlighting" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+	<Color name="LogTime" foreground="#ADADAD" exampleText="[21:22:52.123] ===>"/>
+	<RuleSet>
+		<Span color="LogTime" multiline="false" begin="\[" end="===>"  />
+	</RuleSet>
+</SyntaxDefinition>

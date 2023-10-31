@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Domain;
+using Dance.Art.Module;
 using Dance.Wpf;
 using System;
 using System.Collections.Generic;
@@ -116,6 +118,11 @@ namespace Dance.Art.Plugin.Document
                 this.OnPropertyChanged(nameof(IsModify));
                 this.OnPropertyChanged(nameof(CanRedo));
                 this.OnPropertyChanged(nameof(CanUndo));
+
+                if (this.ViewPluginModel is not DocumentPluginModel document)
+                    return;
+
+                DanceDomain.Current.Messenger.Send(new FileStatusChangeMessage(document.File));
             });
         }
     }

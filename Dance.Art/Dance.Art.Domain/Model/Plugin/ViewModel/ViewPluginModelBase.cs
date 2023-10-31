@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Dance.Art.Domain
 {
@@ -90,6 +91,20 @@ namespace Dance.Art.Domain
         {
             get { return isActive; }
             set { isActive = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region PluginView -- 插件视图
+
+        private FrameworkElement? pluginView;
+        /// <summary>
+        /// 插件视图
+        /// </summary>
+        public FrameworkElement? PluginView
+        {
+            get { return pluginView; }
+            set { pluginView = value; this.OnPropertyChanged(); }
         }
 
         #endregion

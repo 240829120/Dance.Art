@@ -57,6 +57,7 @@ namespace Dance.Art.Module
             // -----------------------------------------------------
             // Message
             DanceDomain.Current.Messenger.Register<FileOpenMessage>(this, this.OnFileOpen);
+            DanceDomain.Current.Messenger.Register<FileStatusChangeMessage>(this, this.OnFileStatusChange);
         }
 
         // ========================================================================================
@@ -101,6 +102,20 @@ namespace Dance.Art.Module
         {
             get { return documents; }
             private set { documents = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region IsSaveAllEnabled -- 保存全部是否可用
+
+        private bool isSaveAllEnabled;
+        /// <summary>
+        /// 保存全部是否可用
+        /// </summary>
+        public bool IsSaveAllEnabled
+        {
+            get { return isSaveAllEnabled; }
+            set { isSaveAllEnabled = value; this.OnPropertyChanged(); }
         }
 
         #endregion
@@ -429,13 +444,21 @@ namespace Dance.Art.Module
         /// </summary>
         private void Save()
         {
-            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
-                return;
+            try
+            {
+                if (this.View is not MainView view || view.docking.ActiveContent is not ViewPluginModelBase pluginModel)
+                    return;
 
-            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
-                return;
+                if (pluginModel.View is not FrameworkElement pluginView || pluginView.DataContext is not IDockingPanel panel)
+                    return;
 
-            dockingDocument.Save();
+                panel.Save();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                DanceMessageExpansion.ShowMessageBox("错误", DanceMessageBoxIcon.Failure, ex.Message, DanceMessageBoxAction.YES);
+            }
         }
 
         #endregion
@@ -452,15 +475,23 @@ namespace Dance.Art.Module
         /// </summary>
         private void SaveAll()
         {
-            if (DanceDomain.Current is not ArtDomain domain)
-                return;
-
-            foreach (DocumentPluginModel document in domain.Documents)
+            try
             {
-                if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
-                    continue;
+                if (DanceDomain.Current is not ArtDomain domain)
+                    return;
 
-                dockingDocument.Save();
+                foreach (DocumentPluginModel document in domain.Documents)
+                {
+                    if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
+                        continue;
+
+                    dockingDocument.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                DanceMessageExpansion.ShowMessageBox("错误", DanceMessageBoxIcon.Failure, ex.Message, DanceMessageBoxAction.YES);
             }
         }
 
@@ -730,6 +761,18 @@ namespace Dance.Art.Module
             vm = new DocumentPluginModel(msg.FileModel.Path, msg.FileModel.FileName, pluginModel, msg.FileModel.Path);
             domain.Documents.Add(vm);
             vm.IsActive = true;
+        }
+
+        #endregion
+
+        #region FileStatusChangeMessage -- 文件状态改变消息
+
+        /// <summary>
+        /// 文件状态改变
+        /// </summary>
+        private void OnFileStatusChange(object sender, FileStatusChangeMessage msg)
+        {
+            this.IsSaveAllEnabled = this.Documents?.Any(p => p.View is FrameworkElement view && view.DataContext is IDockingDocument document && document.IsModify) ?? false;
         }
 
         #endregion

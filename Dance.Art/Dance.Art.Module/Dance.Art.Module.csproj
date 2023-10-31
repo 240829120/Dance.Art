@@ -16,6 +16,8 @@
 		<None Remove="Themes\Resources\Icons\layout.svg" />
 		<None Remove="Themes\Resources\Icons\layout_save.svg" />
 		<None Remove="Themes\Resources\Icons\logo.png" />
+		<None Remove="Themes\Resources\Icons\newFile.svg" />
+		<None Remove="Themes\Resources\Icons\newFolder.svg" />
 		<None Remove="Themes\Resources\Icons\openInBrowser.svg" />
 		<None Remove="Themes\Resources\Icons\paste.svg" />
 		<None Remove="Themes\Resources\Icons\project.svg" />
@@ -49,6 +51,8 @@
 		<Resource Include="Themes\Resources\Icons\delete.svg" />
 		<Resource Include="Themes\Resources\Icons\file.svg" />
 		<Resource Include="Themes\Resources\Icons\layout_save.svg" />
+		<Resource Include="Themes\Resources\Icons\newFile.svg" />
+		<Resource Include="Themes\Resources\Icons\newFolder.svg" />
 		<Resource Include="Themes\Resources\Icons\openInBrowser.svg" />
 		<Resource Include="Themes\Resources\Icons\paste.svg" />
 		<Resource Include="Themes\Resources\Icons\project.svg" />

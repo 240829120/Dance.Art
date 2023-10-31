@@ -16,24 +16,24 @@ using System.Windows.Shapes;
 namespace Dance.Art.Plugin
 {
     /// <summary>
-    /// FileSourceRenameWindow.xaml 的交互逻辑
+    /// FileSourceNewFolderWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class FileSourceRenameWindow : Window
+    public partial class FileSourceNewFolderWindow : Window
     {
-        public FileSourceRenameWindow()
+        public FileSourceNewFolderWindow()
         {
             InitializeComponent();
         }
 
-        public FileSourceRenameWindow(FileModel fileModel) : this()
+        public FileSourceNewFolderWindow(FileModel fileModel) : this()
         {
-            FileSourceRenameWindowModel vm = new()
+            FileSourceNewFolderWindowModel vm = new()
             {
                 View = this,
                 FileModel = fileModel,
-                FileName = fileModel.FileName,
-                NewFileName = fileModel.FileName
+                FileName = "新建文件夹"
             };
+
             this.DataContext = vm;
         }
     }

@@ -1,15 +1,15 @@
-﻿<Window x:Class="Dance.Art.Plugin.FileSourceRenameWindow"
+﻿<Window x:Class="Dance.Art.Plugin.FileSourceNewFolderWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dance="http://schemas.dance.com/wpf"
         xmlns:local="clr-namespace:Dance.Art.Plugin" mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance local:FileSourceRenameWindowModel}"
+        d:DataContext="{d:DesignInstance local:FileSourceNewFolderWindowModel}"
         WindowStartupLocation="CenterScreen"
         ShowInTaskbar="False" WindowState="Normal" WindowStyle="None" Background="{x:Null}"
         AllowsTransparency="True"
-        Title="重命名" Height="240" Width="600">
+        Title="新建文件夹" Height="200" Width="600">
     <Grid>
         <Border Background="White" Margin="10">
             <Border.Effect>
@@ -30,13 +30,12 @@
                     <dance:DanceWindowDragPart></dance:DanceWindowDragPart>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
                         <Image Width="20" Height="20" Source="/Dance.Art.Module;component/Themes/Resources/Icons/logo.png" VerticalAlignment="Center"></Image>
-                        <TextBlock Text="重命名" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                        <TextBlock Text="新建文件夹" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
                     </StackPanel>
                 </Grid>
                 <!-- 内容 -->
                 <Grid Grid.Row="1" Margin="10">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -44,11 +43,8 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <!-- 位置 -->
-                    <TextBlock Text="文件名:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBlock>
-                    <TextBox Grid.Column="1" Text="{Binding Path=FileName,Mode=OneWay}" IsReadOnly="True"></TextBox>
-                    <!-- 名称 -->
-                    <TextBlock Text="新文件名:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="1"></TextBlock>
-                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=NewFileName,Mode=TwoWay}"></TextBox>
+                    <TextBlock Text="文件夹名:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBlock>
+                    <TextBox Grid.Column="1" Text="{Binding Path=FileName,Mode=OneWay}" AcceptsReturn="False"></TextBox>
                 </Grid>
                 <!-- 按钮组 -->
                 <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,10,20">

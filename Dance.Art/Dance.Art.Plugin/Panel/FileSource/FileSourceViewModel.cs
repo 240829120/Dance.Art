@@ -35,6 +35,8 @@ namespace Dance.Art.Plugin
             this.FilePasteCommand = new(this.FilePaste, this.CanFilePaste);
             this.FileDeleteCommand = new(this.FileDelete, this.CanFileDelete);
             this.FileRenameCommand = new(this.FileRename, this.CanFileRename);
+            this.FileNewFolderCommand = new(this.FileNewFolder, this.CanFileNewFolder);
+            this.FileNewCommand = new(this.FileNew, this.CanFileNew);
 
             // 初始化消息
             DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
@@ -556,18 +558,90 @@ namespace Dance.Art.Plugin
             if (view.tree.GetSelectedValues().FirstOrDefault() is not FileModel file)
                 return;
 
-            FileSourceRenameWindow window = new()
+            FileSourceRenameWindow window = new(file)
             {
                 Owner = this.WindowManager.MainWindow
             };
-            if (window.DataContext is not FileSourceRenameWindowModel vm)
-                return;
-
-            vm.FileModel = file;
-            vm.FileName = file.FileName;
-            vm.NewFileName = file.FileName;
 
             window.ShowDialog();
+        }
+
+        #endregion
+
+        #region FileNewFolderCommand -- 新建文件夹命令
+
+        /// <summary>
+        /// 新建文件夹命令
+        /// </summary>
+        public RelayCommand FileNewFolderCommand { get; private set; }
+
+        /// <summary>
+        /// 是否可以新建文件夹
+        /// </summary>
+        /// <returns></returns>
+        private bool CanFileNewFolder()
+        {
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
+                return false;
+
+            List<FileModel> sources = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
+
+            return sources.Count == 1 && sources[0].Category != FileModelCategory.File;
+        }
+
+        /// <summary>
+        /// 新建文件夹
+        /// </summary>
+        private void FileNewFolder()
+        {
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
+                return;
+
+            List<FileModel> sources = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
+            if (sources.Count != 1)
+                return;
+
+            FileModel file = sources[0];
+            if (file.Category == FileModelCategory.File)
+                return;
+
+            FileSourceNewFolderWindow window = new(file)
+            {
+                Owner = this.WindowManager.MainWindow
+            };
+
+            window.ShowDialog();
+        }
+
+        #endregion
+
+        #region FileNewCommand -- 新建文件命令
+
+        /// <summary>
+        /// 新建文件命令
+        /// </summary>
+        public RelayCommand FileNewCommand { get; private set; }
+
+        /// <summary>
+        /// 是否可以新建文件
+        /// </summary>
+        /// <returns></returns>
+        private bool CanFileNew()
+        {
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
+                return false;
+
+            List<FileModel> sources = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
+
+            return sources.Count == 1 && sources[0].Category != FileModelCategory.File;
+        }
+
+        /// <summary>
+        /// 新建文件命令
+        /// </summary>
+        private void FileNew()
+        {
+
         }
 
         #endregion

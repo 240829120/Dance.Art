@@ -63,6 +63,16 @@
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/openInBrowser.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="新建文件夹" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileNewFolderCommand}">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/folder.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="新建文件" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileNewCommand}">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/newFile.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator></Separator>
                     <MenuItem Header="复制" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileCopyCommand}"
                               InputGestureText="Ctrl+C">

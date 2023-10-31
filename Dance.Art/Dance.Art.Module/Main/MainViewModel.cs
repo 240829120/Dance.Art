@@ -57,6 +57,7 @@ namespace Dance.Art.Module
             // -----------------------------------------------------
             // Message
             DanceDomain.Current.Messenger.Register<FileOpenMessage>(this, this.OnFileOpen);
+            DanceDomain.Current.Messenger.Register<FileRenameMessage>(this, this.OnFileRename);
             DanceDomain.Current.Messenger.Register<FileStatusChangeMessage>(this, this.OnFileStatusChange);
         }
 
@@ -761,6 +762,23 @@ namespace Dance.Art.Module
             vm = new DocumentPluginModel(msg.FileModel.Path, msg.FileModel.FileName, pluginModel, msg.FileModel.Path);
             domain.Documents.Add(vm);
             vm.IsActive = true;
+        }
+
+        #endregion
+
+        #region FileRenameMessage -- 文件改名消息
+
+        /// <summary>
+        /// 文件改名消息
+        /// </summary>
+        private void OnFileRename(object sender, FileRenameMessage msg)
+        {
+            DocumentPluginModel? documentModel = this.Documents?.FirstOrDefault(p => string.Equals(p.File, msg.OldPath, StringComparison.OrdinalIgnoreCase));
+            if (documentModel == null)
+                return;
+
+            documentModel.File = msg.Path;
+            documentModel.Name = Path.GetFileName(msg.Path);
         }
 
         #endregion

@@ -23,6 +23,7 @@
 		<None Remove="Themes\Resources\Icons\project_open.svg" />
 		<None Remove="Themes\Resources\Icons\project_save.svg" />
 		<None Remove="Themes\Resources\Icons\redo.svg" />
+		<None Remove="Themes\Resources\Icons\rename.svg" />
 		<None Remove="Themes\Resources\Icons\restart.svg" />
 		<None Remove="Themes\Resources\Icons\run.svg" />
 		<None Remove="Themes\Resources\Icons\save.svg" />
@@ -54,6 +55,7 @@
 		<Resource Include="Themes\Resources\Icons\project_new.svg" />
 		<Resource Include="Themes\Resources\Icons\project_open.svg" />
 		<Resource Include="Themes\Resources\Icons\project_save.svg" />
+		<Resource Include="Themes\Resources\Icons\rename.svg" />
 		<Resource Include="Themes\Resources\Icons\run.svg" />
 		<Resource Include="Themes\Resources\Icons\folder.svg" />
 		<Resource Include="Themes\Resources\Icons\layout.svg" />

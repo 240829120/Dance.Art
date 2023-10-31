@@ -58,6 +58,9 @@
     <Compile Update="Panel\Command\CommandView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Panel\FileSource\FileSourceRenameWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Panel\Output\OutputView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -34,6 +34,7 @@ namespace Dance.Art.Plugin
             this.FileCutCommand = new(this.FileCut, this.CanFileCut);
             this.FilePasteCommand = new(this.FilePaste, this.CanFilePaste);
             this.FileDeleteCommand = new(this.FileDelete, this.CanFileDelete);
+            this.FileRenameCommand = new(this.FileRename, this.CanFileRename);
 
             // 初始化消息
             DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
@@ -47,6 +48,11 @@ namespace Dance.Art.Plugin
         /// 文件管理器
         /// </summary>
         private readonly IFileManager FileManager = DanceDomain.Current.LifeScope.Resolve<IFileManager>();
+
+        /// <summary>
+        /// 窗口管理器
+        /// </summary>
+        private readonly IWindowManager WindowManager = DanceDomain.Current.LifeScope.Resolve<IWindowManager>();
 
         /// <summary>
         /// 等待剪切的文件集合
@@ -516,6 +522,52 @@ namespace Dance.Art.Plugin
                 log.Error(ex);
                 DanceMessageExpansion.ShowMessageBox("错误", DanceMessageBoxIcon.Failure, ex.Message, DanceMessageBoxAction.YES);
             }
+        }
+
+        #endregion
+
+        #region FileRenameCommand -- 文件重命名命令
+
+        /// <summary>
+        /// 文件重命名命令
+        /// </summary>
+        public RelayCommand FileRenameCommand { get; private set; }
+
+        /// <summary>
+        /// 是否可以文件重命名
+        /// </summary>
+        /// <returns></returns>
+        private bool CanFileRename()
+        {
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
+                return false;
+
+            return view.tree.GetSelectedValues().Count == 1;
+        }
+
+        /// <summary>
+        /// 文件重命名
+        /// </summary>
+        private void FileRename()
+        {
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
+                return;
+
+            if (view.tree.GetSelectedValues().FirstOrDefault() is not FileModel file)
+                return;
+
+            FileSourceRenameWindow window = new()
+            {
+                Owner = this.WindowManager.MainWindow
+            };
+            if (window.DataContext is not FileSourceRenameWindowModel vm)
+                return;
+
+            vm.FileModel = file;
+            vm.FileName = file.FileName;
+            vm.NewFileName = file.FileName;
+
+            window.ShowDialog();
         }
 
         #endregion

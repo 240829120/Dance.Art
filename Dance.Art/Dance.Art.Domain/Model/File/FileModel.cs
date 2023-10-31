@@ -134,5 +134,19 @@ namespace Dance.Art.Domain
         }
 
         #endregion
+
+        #region IsWaitForCut -- 是否等待剪切
+
+        private bool isWaitForCut;
+        /// <summary>
+        /// 是否等待剪切
+        /// </summary>
+        public bool IsWaitForCut
+        {
+            get { return isWaitForCut; }
+            set { isWaitForCut = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
     }
 }

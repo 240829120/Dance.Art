@@ -23,6 +23,19 @@ namespace Dance.Art.Domain
         void Initialize(ProjectDomain domain);
 
         /// <summary>
+        /// 为文件操作过滤模型
+        /// </summary>
+        /// <param name="files">待过滤的文件模型</param>
+        /// <returns>过滤后的文件模型</returns>
+        List<FileModel> FilterFileModelForOperate(List<FileModel> files);
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <param name="files">文件集合</param>
+        void Sort(IList<FileModel> files);
+
+        /// <summary>
         /// 清理
         /// </summary>
         void Clear();

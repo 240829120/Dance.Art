@@ -45,6 +45,43 @@
                     <Setter Property="dance:DanceDragTrigger.DropCommand" Value="{Binding ElementName=uc, Path=DataContext.FileDropCommand}"></Setter>
                 </Style>
             </dance:DanceTreeView.ItemContainerStyle>
+
+            <dance:DanceTreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="在资源管理器中打开" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileOpenInBrowserCommand}">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/openInBrowser.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="复制" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileCopyCommand}"
+                              InputGestureText="Ctrl+C">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/copy.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="剪切" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileCutCommand}"
+                              InputGestureText="Ctrl+X">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/cut.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="粘贴" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FilePasteCommand}"
+                              InputGestureText="Ctrl+V">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/paste.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="删除" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileDeleteCommand}"
+                              InputGestureText="Delete">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </dance:DanceTreeView.ContextMenu>
+
             <dance:DanceTreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
                     <Grid x:Name="root" ToolTip="{Binding Path=FileName}" Height="30" Background="Transparent">
@@ -52,10 +89,13 @@
                             <ColumnDefinition Width="20"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding ., Converter={StaticResource FileModelIconConverter}}" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Image x:Name="img" Source="{Binding ., Converter={StaticResource FileModelIconConverter}}" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <TextBlock Text="{Binding Path=FileName}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"></TextBlock>
                     </Grid>
                     <HierarchicalDataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsWaitForCut}" Value="True">
+                            <Setter Property="Opacity" Value="0.5"></Setter>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding Path=IsSelected}" Value="True">
                             <Setter TargetName="root" Property="Background" Value="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_MOUSE_OVER}}"></Setter>
                         </DataTrigger>

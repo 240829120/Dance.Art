@@ -123,6 +123,44 @@ namespace Dance.Art.Domain
             return FindFileModel(next, path);
         }
 
+        /// <summary>
+        /// 为文件操作过滤模型
+        /// </summary>
+        /// <param name="files">待过滤的文件模型</param>
+        /// <returns>过滤后的文件模型</returns>
+        public List<FileModel> FilterFileModelForOperate(List<FileModel> files)
+        {
+            List<FileModel> result = files.ToList();
+
+            foreach (var file in files)
+            {
+                if (file.Category == FileModelCategory.File)
+                    continue;
+
+                RemoveChildrenItemsForOperate(result, file);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        /// <param name="files">文件集合</param>
+        public void Sort(IList<FileModel> files)
+        {
+            for (int i = 0; i < files.Count - 1; i++)
+            {
+                for (int j = 0; j < files.Count - 1; j++)
+                {
+                    if (IsFileLargeThan(files[j], files[j + 1]))
+                    {
+                        (files[j + 1], files[j]) = (files[j], files[j + 1]);
+                    }
+                }
+            }
+        }
+
         // ===============================================================================================
         // Private Function
 
@@ -268,6 +306,7 @@ namespace Dance.Art.Domain
             Application.Current.Dispatcher.Invoke(() =>
             {
                 parent.Items.Add(model);
+                this.Sort(parent.Items);
             });
         }
 
@@ -296,6 +335,44 @@ namespace Dance.Art.Domain
             {
                 parent.Items.Remove(model);
             });
+        }
+
+        /// <summary>
+        /// 移除子项节点
+        /// </summary>
+        /// <param name="files">文件集合</param>
+        /// <param name="folder">文件夹</param>
+        private void RemoveChildrenItemsForOperate(List<FileModel> files, FileModel folder)
+        {
+            foreach (FileModel file in folder.Items)
+            {
+                if (file.Category != FileModelCategory.File)
+                {
+                    RemoveChildrenItemsForOperate(files, file);
+                }
+
+                if (files.Contains(file))
+                {
+                    files.Remove(file);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 比较文件名大小
+        /// </summary>
+        /// <param name="file1">文件1</param>
+        /// <param name="file2">文件2</param>
+        /// <returns>是否大于</returns>
+        private static bool IsFileLargeThan(FileModel file1, FileModel file2)
+        {
+            if (file1.Category != FileModelCategory.File && file2.Category == FileModelCategory.File)
+                return false;
+
+            if (file1.Category == FileModelCategory.File && file2.Category != FileModelCategory.File)
+                return true;
+
+            return string.Compare(file1.FileName, file2.FileName, StringComparison.OrdinalIgnoreCase) == 1;
         }
     }
 }

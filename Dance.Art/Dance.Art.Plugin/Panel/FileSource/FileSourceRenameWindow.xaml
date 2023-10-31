@@ -42,6 +42,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <!-- 位置 -->
                     <TextBlock Text="文件名:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBlock>
@@ -51,7 +52,7 @@
                     <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=NewFileName,Mode=TwoWay}"></TextBox>
                 </Grid>
                 <!-- 按钮组 -->
-                <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,10,20">
+                <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,20">
                     <Button Style="{StaticResource Button_Master}" Content="确定" Margin="0,0,20,0" Command="{Binding Path=EnterCommand,Mode=OneWay}"></Button>
                     <Button Style="{StaticResource Button_Secondary}" Content="取消" Command="{Binding Path=CancelCommand,Mode=OneWay}"></Button>
                 </StackPanel>

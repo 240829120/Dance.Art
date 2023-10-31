@@ -12,6 +12,11 @@ namespace Dance.Art.Domain
     public interface IFileManager
     {
         /// <summary>
+        /// 文件系统监视器
+        /// </summary>
+        FileSystemWatcher? FileSystemWatcher { get; }
+
+        /// <summary>
         /// 项目文件根路径
         /// </summary>
         public FileModel? Root { get; }

@@ -94,19 +94,5 @@ namespace Dance.Art.Domain
         }
 
         #endregion
-
-        #region PluginView -- 插件视图
-
-        private FrameworkElement? pluginView;
-        /// <summary>
-        /// 插件视图
-        /// </summary>
-        public FrameworkElement? PluginView
-        {
-            get { return pluginView; }
-            set { pluginView = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
     }
 }

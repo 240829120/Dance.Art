@@ -32,6 +32,14 @@ namespace Dance.Art.Domain
         };
 
         // ===============================================================================================
+        // Field
+
+        /// <summary>
+        /// 延时管理器
+        /// </summary>
+        private readonly IDanceDelayManager DelayManager = DanceDomain.Current.LifeScope.Resolve<IDanceDelayManager>();
+
+        // ===============================================================================================
         // Property
 
         /// <summary>
@@ -65,14 +73,10 @@ namespace Dance.Art.Domain
                 {
                     IncludeSubdirectories = true,
                     EnableRaisingEvents = true,
-                    NotifyFilter = NotifyFilters.Attributes
-                                 | NotifyFilters.CreationTime
+                    NotifyFilter = NotifyFilters.CreationTime
                                  | NotifyFilters.DirectoryName
                                  | NotifyFilters.FileName
-                                 | NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite
-                                 | NotifyFilters.Security
-                                 | NotifyFilters.Size
                 };
                 this.FileSystemWatcher.Created += FileSystemWatcher_Created;
                 this.FileSystemWatcher.Deleted += FileSystemWatcher_Deleted;
@@ -237,8 +241,12 @@ namespace Dance.Art.Domain
         /// </summary>
         private void FileSystemWatcher_Created(object sender, FileSystemEventArgs e)
         {
-            this.CreateFileModel(e.FullPath);
-            DanceDomain.Current.Messenger.Send(new FileCreateMessage(e.FullPath));
+            Application.Current?.Dispatcher.BeginInvoke(() =>
+            {
+                this.CreateFileModel(e.FullPath);
+
+                DanceDomain.Current.Messenger.Send(new FileCreateMessage(e.FullPath));
+            });
         }
 
         /// <summary>
@@ -246,8 +254,12 @@ namespace Dance.Art.Domain
         /// </summary>
         private void FileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            this.RemoveFileModel(e.FullPath);
-            DanceDomain.Current.Messenger.Send(new FileDeleteMessage(e.FullPath));
+            Application.Current?.Dispatcher.BeginInvoke(() =>
+            {
+                this.RemoveFileModel(e.FullPath);
+
+                DanceDomain.Current.Messenger.Send(new FileDeleteMessage(e.FullPath));
+            });
         }
 
         /// <summary>
@@ -255,10 +267,13 @@ namespace Dance.Art.Domain
         /// </summary>
         private void FileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
         {
-            this.RemoveFileModel(e.OldFullPath);
-            this.CreateFileModel(e.FullPath);
+            Application.Current?.Dispatcher.BeginInvoke(() =>
+            {
+                this.RemoveFileModel(e.OldFullPath);
+                this.CreateFileModel(e.FullPath);
 
-            DanceDomain.Current.Messenger.Send(new FileRenameMessage(e.OldFullPath, e.FullPath));
+                DanceDomain.Current.Messenger.Send(new FileRenameMessage(e.OldFullPath, e.FullPath));
+            });
         }
 
         /// <summary>
@@ -269,7 +284,13 @@ namespace Dance.Art.Domain
             if (e.ChangeType != WatcherChangeTypes.Changed)
                 return;
 
-            DanceDomain.Current.Messenger.Send(new FileChangeMessage(e.FullPath));
+            this.DelayManager.Wait($"FileManager__{e.FullPath}", 0.5, () =>
+            {
+                Application.Current?.Dispatcher.BeginInvoke(() =>
+                {
+                    DanceDomain.Current.Messenger.Send(new FileChangeMessage(e.FullPath));
+                });
+            });
         }
 
         /// <summary>
@@ -303,11 +324,8 @@ namespace Dance.Art.Domain
             if (model == null)
                 return;
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                parent.Items.Add(model);
-                this.Sort(parent.Items);
-            });
+            parent.Items.Add(model);
+            this.Sort(parent.Items);
         }
 
         /// <summary>
@@ -331,10 +349,7 @@ namespace Dance.Art.Domain
             if (model == null)
                 return;
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                parent.Items.Remove(model);
-            });
+            parent.Items.Remove(model);
         }
 
         /// <summary>

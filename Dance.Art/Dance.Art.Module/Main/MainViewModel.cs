@@ -58,7 +58,9 @@ namespace Dance.Art.Module
             // Message
             DanceDomain.Current.Messenger.Register<FileOpenMessage>(this, this.OnFileOpen);
             DanceDomain.Current.Messenger.Register<FileRenameMessage>(this, this.OnFileRename);
+            DanceDomain.Current.Messenger.Register<FileChangeMessage>(this, this.OnFileChange);
             DanceDomain.Current.Messenger.Register<FileStatusChangeMessage>(this, this.OnFileStatusChange);
+
         }
 
         // ========================================================================================
@@ -703,7 +705,6 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain artDomain)
                 return;
 
-            this.OutputManager.WriteLine($"正在停止脚本");
             this.ScriptStatus = ScriptStatus.WaitingStop;
 
             await Task.Run(() =>
@@ -779,6 +780,25 @@ namespace Dance.Art.Module
 
             documentModel.File = msg.Path;
             documentModel.Name = Path.GetFileName(msg.Path);
+        }
+
+        #endregion
+
+        #region FileChangeMessage -- 文件改变消息
+
+        /// <summary>
+        /// 文件改变
+        /// </summary>
+        private void OnFileChange(object sender, FileChangeMessage msg)
+        {
+            DocumentPluginModel? documentModel = this.Documents?.FirstOrDefault(p => string.Equals(p.File, msg.Path, StringComparison.OrdinalIgnoreCase));
+            if (documentModel == null || documentModel.View is not FrameworkElement documentView || documentView.DataContext is not IDockingPanel panel)
+                return;
+
+            if (DanceMessageExpansion.ShowMessageBox("提升", DanceMessageBoxIcon.Info, $"文件: {documentModel.File} 发生改变，是否重新加载?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) != DanceMessageBoxAction.YES)
+                return;
+
+            panel.Load();
         }
 
         #endregion

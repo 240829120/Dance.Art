@@ -1,5 +1,6 @@
 ﻿using Dance.Art.Domain;
 using Dance.Art.Plugin.Document;
+using Dance.Wpf;
 using ICSharpCode.AvalonEdit;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,14 @@ namespace Dance.Art.Plugin
     /// </summary>
     public abstract class AvaloneditDocumentViewModelBase : DocumentViewModelBase
     {
+        // ==========================================================================================
+        // Field
+
+        /// <summary>
+        /// 文件管理器
+        /// </summary>
+        protected readonly IFileManager FileManager = DanceDomain.Current.LifeScope.Resolve<IFileManager>();
+
         // ==========================================================================================
         // Property
 
@@ -62,8 +71,18 @@ namespace Dance.Art.Plugin
             if (this.ViewPluginModel is not DocumentPluginModel document)
                 return;
 
+            if (this.FileManager.FileSystemWatcher != null)
+            {
+                this.FileManager.FileSystemWatcher.EnableRaisingEvents = false;
+            }
+
             this.GetEditor()?.Save(document.File);
             this.UdateDocumentStatus();
+
+            if (this.FileManager.FileSystemWatcher != null)
+            {
+                this.FileManager.FileSystemWatcher.EnableRaisingEvents = true;
+            }
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace Dance.Art.Domain
         void Load();
 
         /// <summary>
-        /// 保存命令
+        /// 保存命令 注意，在保存时应该停止文件监控
         /// </summary>
         void Save();
 

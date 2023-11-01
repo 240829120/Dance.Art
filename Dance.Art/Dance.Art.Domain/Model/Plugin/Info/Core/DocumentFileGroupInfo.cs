@@ -16,10 +16,12 @@ namespace Dance.Art.Domain
         /// </summary>
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
-        public DocumentFileGroupInfo(string id, string name)
+        /// <param name="isPublic">是否公开</param>
+        public DocumentFileGroupInfo(string id, string name, bool isPublic)
         {
             this.ID = id;
             this.Name = name;
+            this.IsPublic = isPublic;
         }
 
         /// <summary>
@@ -36,5 +38,10 @@ namespace Dance.Art.Domain
         /// 文件信息
         /// </summary>
         public List<DocumentFileInfo> FileInfos { get; private set; } = new();
+
+        /// <summary>
+        /// 是否公开
+        /// </summary>
+        public bool IsPublic { get; private set; }
     }
 }

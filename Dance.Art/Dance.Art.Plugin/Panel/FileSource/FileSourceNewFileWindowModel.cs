@@ -161,7 +161,7 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void Loaded()
         {
-            this.GroupInfos = this.DocumentFileInfoManager.DocumentFileGroupInfos;
+            this.GroupInfos = this.DocumentFileInfoManager.DocumentFileGroupInfos?.Where(p => p.IsPublic).ToList();
             this.SelectedGroupInfo = this.GroupInfos?.FirstOrDefault();
         }
 

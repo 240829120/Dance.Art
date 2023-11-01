@@ -63,6 +63,12 @@
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/openInBrowser.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="使用默认程序打开" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileOpenInDefaultCommand}">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/openInDefault.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator></Separator>
                     <MenuItem Header="新建文件夹" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileNewFolderCommand}">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/folder.svg"></dance:DanceSvgImage>
@@ -105,6 +111,13 @@
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="项目设置" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.ProjectSettingCommand}">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
                 </ContextMenu>
             </dance:DanceTreeView.ContextMenu>
 

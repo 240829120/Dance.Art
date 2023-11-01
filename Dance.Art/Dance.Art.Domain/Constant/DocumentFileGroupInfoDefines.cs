@@ -12,18 +12,23 @@ namespace Dance.Art.Domain
     public static class DocumentFileGroupInfoDefines
     {
         /// <summary>
+        /// 非公开文件
+        /// </summary>
+        public readonly static DocumentFileGroupInfo PRIVATE_FILE = new("PRIVATE_FILE", "非公开文件", false);
+
+        /// <summary>
         /// 常规文件
         /// </summary>
-        public readonly static DocumentFileGroupInfo NORMAL_FILE = new("NORMAL_FILE", "常规");
+        public readonly static DocumentFileGroupInfo NORMAL_FILE = new("NORMAL_FILE", "常规", true);
 
         /// <summary>
         /// 数据
         /// </summary>
-        public readonly static DocumentFileGroupInfo DATA_FILE = new("DATA_FILE", "数据");
+        public readonly static DocumentFileGroupInfo DATA_FILE = new("DATA_FILE", "数据", true);
 
         /// <summary>
         /// 脚本
         /// </summary>
-        public readonly static DocumentFileGroupInfo SCRIPT_FILE = new("SCRIPT_FILE", "脚本");
+        public readonly static DocumentFileGroupInfo SCRIPT_FILE = new("SCRIPT_FILE", "脚本", true);
     }
 }

@@ -136,7 +136,7 @@
                 <Image Width="20" Height="20" Source="/Dance.Art.Module;component/Themes/Resources/Icons/logo.png" VerticalAlignment="Center"></Image>
                 <!-- 菜单 -->
                 <Menu Margin="10,0,5,0">
-                    <MenuItem Header="项目(_P)" dance:DanceMenuTrigger.IsSubmenuOpenedUpdateStatus="True">
+                    <MenuItem Header="项目(_P)">
                         <MenuItem Header="新建" Command="{Binding Path=CreateProjectCommand,Mode=OneWay}">
                             <MenuItem.Icon>
                                 <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project_new.svg"></dance:DanceSvgImage>

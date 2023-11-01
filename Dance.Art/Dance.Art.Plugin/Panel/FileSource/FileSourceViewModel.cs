@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace Dance.Art.Plugin
 {
@@ -30,6 +31,7 @@ namespace Dance.Art.Plugin
             this.FileDragLeaveCommand = new(this.FileDragLeave);
             this.FileDropCommand = new(this.FileDrop);
             this.FileOpenInBrowserCommand = new(this.FileOpenInBrowser, this.CanFileOpenInBrowser);
+            this.FileOpenInDefaultCommand = new(this.FileOpenInDefault, this.CanFileOpenInDefault);
             this.FileCopyCommand = new(this.FileCopy, this.CanFileCopy);
             this.FileCutCommand = new(this.FileCut, this.CanFileCut);
             this.FilePasteCommand = new(this.FilePaste, this.CanFilePaste);
@@ -37,6 +39,7 @@ namespace Dance.Art.Plugin
             this.FileRenameCommand = new(this.FileRename, this.CanFileRename);
             this.FileNewFolderCommand = new(this.FileNewFolder, this.CanFileNewFolder);
             this.FileNewCommand = new(this.FileNew, this.CanFileNew);
+            this.ProjectSettingCommand = new(this.ProjectSetting, this.CanProjectSetting);
 
             // 初始化消息
             DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
@@ -265,6 +268,50 @@ namespace Dance.Art.Plugin
                     return;
 
                 Process.Start("explorer.exe", $"/select,{file.Path}");
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
+        #endregion
+
+        #region FileOpenInDefaultCommand -- 使用默认程序打开文件命令
+
+        /// <summary>
+        /// 使用默认程序打开文件命令
+        /// </summary>
+        public RelayCommand FileOpenInDefaultCommand { get; private set; }
+
+        /// <summary>
+        /// 是否可以使用默认程序打开文件
+        /// </summary>
+        /// <returns></returns>
+        private bool CanFileOpenInDefault()
+        {
+            if (this.View is not FileSourceView view)
+                return false;
+
+            List<FileModel> files = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
+
+            return files.Count == 1 && files.First().Category == FileModelCategory.File;
+        }
+
+        /// <summary>
+        /// 使用默认程序打开文件
+        /// </summary>
+        private void FileOpenInDefault()
+        {
+            try
+            {
+                if (this.View is not FileSourceView view)
+                    return;
+
+                if (view.tree.GetSelectedValues().FirstOrDefault() is not FileModel file || file.Category != FileModelCategory.File)
+                    return;
+
+                Process.Start("explorer", file.Path);
             }
             catch (Exception ex)
             {
@@ -652,6 +699,35 @@ namespace Dance.Art.Plugin
                 Owner = this.WindowManager.MainWindow
             };
             window.ShowDialog();
+        }
+
+        #endregion
+
+        #region ProjectSettingCommand -- 项目设置命令
+
+        /// <summary>
+        /// 项目设置命令
+        /// </summary>
+        public RelayCommand ProjectSettingCommand { get; private set; }
+
+        /// <summary>
+        /// 是否可以项目设置
+        /// </summary>
+        /// <returns></returns>
+        private bool CanProjectSetting()
+        {
+            return DanceDomain.Current is ArtDomain artDomain && artDomain.ProjectDomain != null;
+        }
+
+        /// <summary>
+        /// 项目设置
+        /// </summary>
+        private void ProjectSetting()
+        {
+            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null || string.IsNullOrWhiteSpace(artDomain.ProjectDomain.ProjectFilePath) || !File.Exists(artDomain.ProjectDomain.ProjectFilePath))
+                return;
+
+            DanceDomain.Current.Messenger.Send(new FileOpenMessage(artDomain.ProjectDomain.ProjectFilePath));
         }
 
         #endregion

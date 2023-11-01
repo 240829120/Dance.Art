@@ -19,6 +19,7 @@
 		<None Remove="Themes\Resources\Icons\newFile.svg" />
 		<None Remove="Themes\Resources\Icons\newFolder.svg" />
 		<None Remove="Themes\Resources\Icons\openInBrowser.svg" />
+		<None Remove="Themes\Resources\Icons\openInDefault.svg" />
 		<None Remove="Themes\Resources\Icons\paste.svg" />
 		<None Remove="Themes\Resources\Icons\project.svg" />
 		<None Remove="Themes\Resources\Icons\project_new.svg" />
@@ -54,6 +55,7 @@
 		<Resource Include="Themes\Resources\Icons\newFile.svg" />
 		<Resource Include="Themes\Resources\Icons\newFolder.svg" />
 		<Resource Include="Themes\Resources\Icons\openInBrowser.svg" />
+		<Resource Include="Themes\Resources\Icons\openInDefault.svg" />
 		<Resource Include="Themes\Resources\Icons\paste.svg" />
 		<Resource Include="Themes\Resources\Icons\project.svg" />
 		<Resource Include="Themes\Resources\Icons\project_new.svg" />

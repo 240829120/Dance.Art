@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Panel\Output\OutputHighlighting.xml" />
+    <None Remove="Themes\Resources\Icons\cs.svg" />
     <None Remove="Themes\Resources\Icons\csv.svg" />
     <None Remove="Themes\Resources\Icons\javascript.svg" />
     <None Remove="Themes\Resources\Icons\json.svg" />
@@ -37,6 +38,7 @@
 
   <ItemGroup>
     <Resource Include="Panel\Output\OutputHighlighting.xml" />
+    <Resource Include="Themes\Resources\Icons\cs.svg" />
     <Resource Include="Themes\Resources\Icons\csv.svg" />
     <Resource Include="Themes\Resources\Icons\javascript.svg" />
     <Resource Include="Themes\Resources\Icons\json.svg" />
@@ -47,6 +49,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Document\Art\ArtView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Document\CS\CSView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Document\JavaScript\JavaScriptView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

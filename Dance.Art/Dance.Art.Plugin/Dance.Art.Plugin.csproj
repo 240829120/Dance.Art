@@ -65,6 +65,9 @@
     <Compile Update="Panel\Command\CommandView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Panel\FileSource\FileSourceNewFileWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Panel\FileSource\FileSourceNewFolderWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

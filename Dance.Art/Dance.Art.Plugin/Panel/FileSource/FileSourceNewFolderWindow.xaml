@@ -4,55 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dance="http://schemas.dance.com/wpf"
+        xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
         xmlns:local="clr-namespace:Dance.Art.Plugin" mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:FileSourceNewFolderWindowModel}"
         WindowStartupLocation="CenterScreen"
         ShowInTaskbar="False" WindowState="Normal" WindowStyle="None" Background="{x:Null}"
         AllowsTransparency="True"
         Title="新建文件夹" Height="200" Width="600">
-    <Grid>
-        <Border Background="White" Margin="10">
-            <Border.Effect>
-                <DropShadowEffect Color="Black" Direction="-20" ShadowDepth="5" BlurRadius="10" Opacity="0.3"></DropShadowEffect>
-            </Border.Effect>
-        </Border>
-        <Border Margin="10"
-                BorderThickness="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_THICKNESS}}"
-                BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}">
-            <Grid Background="White">
+
+    <module:TemplateDialog>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!-- 内容 -->
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
                 </Grid.RowDefinitions>
-                <!-- 标题 -->
-                <Grid Background="#FFFAFAFA">
-                    <dance:DanceWindowDragPart></dance:DanceWindowDragPart>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
-                        <Image Width="20" Height="20" Source="/Dance.Art.Module;component/Themes/Resources/Icons/logo.png" VerticalAlignment="Center"></Image>
-                        <TextBlock Text="新建文件夹" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
-                    </StackPanel>
-                </Grid>
-                <!-- 内容 -->
-                <Grid Grid.Row="1" Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="10"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <!-- 位置 -->
-                    <TextBlock Text="文件夹名:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBlock>
-                    <TextBox Grid.Column="1" Text="{Binding Path=FileName,Mode=OneWay}" AcceptsReturn="False"></TextBox>
-                </Grid>
-                <!-- 按钮组 -->
-                <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,20">
-                    <Button Style="{StaticResource Button_Master}" Content="确定" Margin="0,0,20,0" Command="{Binding Path=EnterCommand,Mode=OneWay}"></Button>
-                    <Button Style="{StaticResource Button_Secondary}" Content="取消" Command="{Binding Path=CancelCommand,Mode=OneWay}"></Button>
-                </StackPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!-- 位置 -->
+                <TextBlock Text="文件夹名:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBlock>
+                <TextBox Grid.Column="1" Text="{Binding Path=FileName,Mode=OneWay}" AcceptsReturn="False"></TextBox>
             </Grid>
-        </Border>
-    </Grid>
+            <!-- 按钮组 -->
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,0,0">
+                <Button Style="{StaticResource Button_Master}" Width="80" Height="26" Content="确定" Margin="0,0,20,0" Command="{Binding Path=EnterCommand,Mode=OneWay}"></Button>
+                <Button Style="{StaticResource Button_Secondary}" Width="80" Height="26" Content="取消" Command="{Binding Path=CancelCommand,Mode=OneWay}"></Button>
+            </StackPanel>
+        </Grid>
+    </module:TemplateDialog>
+
 </Window>

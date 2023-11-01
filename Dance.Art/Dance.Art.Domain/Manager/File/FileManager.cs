@@ -8,7 +8,6 @@ using System.IO;
 using Dance.Wpf;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Diagnostics;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using System.Windows;
 
 namespace Dance.Art.Domain
@@ -17,7 +16,7 @@ namespace Dance.Art.Domain
     /// 文件管理器
     /// </summary>
     [DanceSingleton(typeof(IFileManager))]
-    public class FileManager : IFileManager
+    public class FileManager : DanceObject, IFileManager
     {
         // ===============================================================================================
         // Field
@@ -39,6 +38,11 @@ namespace Dance.Art.Domain
         /// </summary>
         private readonly IDanceDelayManager DelayManager = DanceDomain.Current.LifeScope.Resolve<IDanceDelayManager>();
 
+        /// <summary>
+        /// 文件系统监视器
+        /// </summary>
+        private FileSystemWatcher? FileSystemWatcher;
+
         // ===============================================================================================
         // Property
 
@@ -46,11 +50,6 @@ namespace Dance.Art.Domain
         /// 项目文件根路径
         /// </summary>
         public FileModel? Root { get; private set; }
-
-        /// <summary>
-        /// 文件系统监视器
-        /// </summary>
-        public FileSystemWatcher? FileSystemWatcher { get; private set; }
 
         // ===============================================================================================
         // Public Function
@@ -161,6 +160,35 @@ namespace Dance.Art.Domain
                     {
                         (files[j + 1], files[j]) = (files[j], files[j + 1]);
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        /// <param name="path">文件路径</param>
+        /// <param name="action">保存行为</param>
+        public void SaveFile(string path, Action action)
+        {
+            try
+            {
+                if (this.FileSystemWatcher != null)
+                {
+                    this.FileSystemWatcher.EnableRaisingEvents = false;
+                }
+
+                action();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+            finally
+            {
+                if (this.FileSystemWatcher != null)
+                {
+                    this.FileSystemWatcher.EnableRaisingEvents = true;
                 }
             }
         }

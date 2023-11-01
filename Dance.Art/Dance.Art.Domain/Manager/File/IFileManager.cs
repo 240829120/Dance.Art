@@ -12,11 +12,6 @@ namespace Dance.Art.Domain
     public interface IFileManager
     {
         /// <summary>
-        /// 文件系统监视器
-        /// </summary>
-        FileSystemWatcher? FileSystemWatcher { get; }
-
-        /// <summary>
         /// 项目文件根路径
         /// </summary>
         public FileModel? Root { get; }
@@ -44,5 +39,12 @@ namespace Dance.Art.Domain
         /// 清理
         /// </summary>
         void Clear();
+
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        /// <param name="path">文件路径</param>
+        /// <param name="action">保存行为</param>
+        void SaveFile(string path, Action action);
     }
 }

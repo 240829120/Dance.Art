@@ -49,6 +49,9 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Load()
         {
+            if (DanceXamlExpansion.IsInDesignMode)
+                return;
+
             if (this.ViewPluginModel is not DocumentPluginModel document)
                 return;
 
@@ -71,18 +74,11 @@ namespace Dance.Art.Plugin
             if (this.ViewPluginModel is not DocumentPluginModel document)
                 return;
 
-            if (this.FileManager.FileSystemWatcher != null)
+            this.FileManager.SaveFile(document.File, () =>
             {
-                this.FileManager.FileSystemWatcher.EnableRaisingEvents = false;
-            }
-
-            this.GetEditor()?.Save(document.File);
-            this.UdateDocumentStatus();
-
-            if (this.FileManager.FileSystemWatcher != null)
-            {
-                this.FileManager.FileSystemWatcher.EnableRaisingEvents = true;
-            }
+                this.GetEditor()?.Save(document.File);
+                this.UdateDocumentStatus();
+            });
         }
 
         /// <summary>

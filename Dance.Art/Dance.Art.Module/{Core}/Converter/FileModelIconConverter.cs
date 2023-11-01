@@ -20,21 +20,6 @@ namespace Dance.Art.Module
     public class FileModelIconConverter : IValueConverter
     {
         /// <summary>
-        /// 日志
-        /// </summary>
-        private readonly ILog log = LogManager.GetLogger(typeof(FileModelIconConverter));
-
-        /// <summary>
-        /// 缓存
-        /// </summary>
-        private readonly Dictionary<string, ImageSource> CACHE = new();
-
-        /// <summary>
-        /// 转化器
-        /// </summary>
-        private readonly SvgImageConverterExtension SvgImageConverterExtension = new();
-
-        /// <summary>
         /// 项目
         /// </summary>
         public string? Project { get; set; }
@@ -58,10 +43,10 @@ namespace Dance.Art.Module
                 return null;
 
             if (fileModel.Category == FileModelCategory.Project)
-                return this.GetImageSource(this.Project);
+                return IconCacheConverter.GetImageSource(this.Project);
 
             if (fileModel.Category == FileModelCategory.Folder)
-                return this.GetImageSource(this.Folder);
+                return IconCacheConverter.GetImageSource(this.Folder);
 
             foreach (DocumentPluginInfo pluginInfo in domain.DocumentPlugins)
             {
@@ -69,49 +54,15 @@ namespace Dance.Art.Module
                 if (fileInfo == null)
                     continue;
 
-                return this.GetImageSource(fileInfo.Icon);
+                return IconCacheConverter.GetImageSource(fileInfo.Icon);
             }
 
-            return this.GetImageSource(this.Unknow);
+            return IconCacheConverter.GetImageSource(this.Unknow);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 获取图片源
-        /// </summary>
-        /// <param name="uri">地址</param>
-        /// <returns>图片源</returns>
-        private ImageSource? GetImageSource(string? uri)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(uri))
-                    return null;
-
-                lock (CACHE)
-                {
-                    if (CACHE.TryGetValue(uri, out ImageSource? source))
-                        return source;
-
-                    source = SvgImageConverterExtension.Convert(uri, null, null, null) as ImageSource;
-
-                    if (source == null)
-                        return null;
-
-                    CACHE[uri] = source;
-
-                    return source;
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-                return null;
-            }
         }
     }
 }

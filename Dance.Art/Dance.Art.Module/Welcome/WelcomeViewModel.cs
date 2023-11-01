@@ -34,6 +34,11 @@ namespace Dance.Art.Module
         /// </summary>
         private readonly IWindowManager WindowManager = DanceDomain.Current.LifeScope.Resolve<IWindowManager>();
 
+        /// <summary>
+        /// 文档文件信息管理器
+        /// </summary>
+        private readonly IDocumentFileInfoManager DocumentFileInfoManager = DanceDomain.Current.LifeScope.Resolve<IDocumentFileInfoManager>();
+
         // =========================================================================================
         // Property 
 
@@ -111,6 +116,19 @@ namespace Dance.Art.Module
                 else if (info is DocumentPluginInfo document)
                 {
                     domain.DocumentPlugins.Add(document);
+                    if (document.FileInfos != null && document.FileInfos.Length > 0)
+                    {
+                        foreach (DocumentFileInfo fileInfo in document.FileInfos)
+                        {
+                            if (!this.DocumentFileInfoManager.DocumentFileGroupInfos.Contains(fileInfo.Group))
+                            {
+                                this.DocumentFileInfoManager.DocumentFileGroupInfos.Add(fileInfo.Group);
+                                fileInfo.Group.FileInfos.Clear();
+                            }
+
+                            fileInfo.Group.FileInfos.Add(fileInfo);
+                        }
+                    }
                 }
                 // 设置插件
                 else if (info is SettingPluginInfo setting)

@@ -28,7 +28,8 @@ namespace Dance.Art.Plugin
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, typeof(JavaScriptView), new DocumentFileInfo(".js", "pack://application:,,,/Dance.Art.Plugin;component/Themes/Resources/Icons/javascript.svg"));
+            return new DocumentPluginInfo(ID, NAME, typeof(JavaScriptView), new DocumentFileInfo(DocumentFileGroupInfoDefines.SCRIPT_FILE, ".js", "pack://application:,,,/Dance.Art.Plugin;component/Themes/Resources/Icons/javascript.svg",
+                                                                                                 "javascript 脚本文件"));
         }
 
         /// <summary>

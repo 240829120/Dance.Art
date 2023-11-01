@@ -27,10 +27,11 @@ namespace Dance.Art.Plugin
 
         public FileSourceNewFileWindow(FileModel fileModel) : this()
         {
-            FileSourceNewFolderWindowModel vm = new()
+            FileSourceNewFileWindowModel vm = new()
             {
                 View = this,
                 FileModel = fileModel,
+                Folder = fileModel.Path,
                 FileName = "新建文件"
             };
 

@@ -641,7 +641,17 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void FileNew()
         {
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
+                return;
 
+            if (view.tree.GetSelectedValues().FirstOrDefault() is not FileModel file || file.Category == FileModelCategory.File)
+                return;
+
+            FileSourceNewFileWindow window = new(file)
+            {
+                Owner = this.WindowManager.MainWindow
+            };
+            window.ShowDialog();
         }
 
         #endregion

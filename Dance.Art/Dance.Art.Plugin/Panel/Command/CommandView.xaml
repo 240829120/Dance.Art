@@ -51,12 +51,6 @@
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/paste.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <Separator></Separator>
-                    <MenuItem Header="运行" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.RunCommand}">
-                        <MenuItem.Icon>
-                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/run.svg"></dance:DanceSvgImage>
-                        </MenuItem.Icon>
-                    </MenuItem>
                 </ContextMenu>
             </edit:TextEditor.ContextMenu>
         </edit:TextEditor>

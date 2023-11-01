@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Domain;
+using Dance.Art.Domain.Message;
 using Dance.Art.Module;
 using Dance.Art.Storage;
 using Dance.Wpf;
@@ -28,9 +29,12 @@ namespace Dance.Art.Plugin
             this.CutCommand = new(this.Cut, this.CanCut);
             this.PasteCommand = new(this.Paste);
             this.RunCommand = new(this.Run, this.CanRun);
+            this.ClearCommand = new(this.Clear);
 
             DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
             DanceDomain.Current.Messenger.Register<ProjectClosedMessage>(this, this.OnProjectClosed);
+            DanceDomain.Current.Messenger.Register<ScriptRunningMessage>(this, this.OnScriptRunning);
+            DanceDomain.Current.Messenger.Register<ScriptStopMessage>(this, this.OnScriptStop);
         }
 
         // ==========================================================================================
@@ -141,7 +145,7 @@ namespace Dance.Art.Plugin
         /// <returns>是否可以运行</returns>
         private bool CanRun()
         {
-            if (this.View is not CommandView view || string.IsNullOrWhiteSpace(view.edit.Text))
+            if (this.View is not CommandView view)
                 return false;
 
             MainViewModel vm = DanceDomain.Current.LifeScope.Resolve<MainViewModel>();
@@ -174,6 +178,26 @@ namespace Dance.Art.Plugin
 
         #endregion
 
+        #region ClearCommand -- 清理命令
+
+        /// <summary>
+        /// 清理命令
+        /// </summary>
+        public RelayCommand ClearCommand { get; private set; }
+
+        /// <summary>
+        /// 清理
+        /// </summary>
+        private void Clear()
+        {
+            if (this.View is not CommandView view)
+                return;
+
+            view.edit.Clear();
+        }
+
+        #endregion
+
         // ==========================================================================================
         // Message
 
@@ -192,6 +216,8 @@ namespace Dance.Art.Plugin
                 return;
 
             view.edit.Text = entity.Command;
+
+            this.UpdateToolStatus();
         }
 
         #endregion
@@ -211,8 +237,45 @@ namespace Dance.Art.Plugin
             msg.ProjectDomain.CacheContext.CommandCaches.Upsert(entity);
 
             view.edit.Clear();
+
+            this.UpdateToolStatus();
         }
 
         #endregion
+
+        #region ScriptRunningMessage -- 脚本运行消息
+
+        /// <summary>
+        /// 脚本运行消息
+        /// </summary>
+        private void OnScriptRunning(object sender, ScriptRunningMessage msg)
+        {
+            this.UpdateToolStatus();
+        }
+
+        #endregion
+
+        #region ScriptStopMessage -- 脚本停止消息
+
+        /// <summary>
+        /// 脚本停止消息
+        /// </summary>
+        private void OnScriptStop(object sender, ScriptStopMessage msg)
+        {
+            this.UpdateToolStatus();
+        }
+
+        #endregion
+
+        // ==========================================================================================
+        // Private Function
+
+        /// <summary>
+        /// 更新工具状态
+        /// </summary>
+        private void UpdateToolStatus()
+        {
+            this.RunCommand?.NotifyCanExecuteChanged();
+        }
     }
 }

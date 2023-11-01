@@ -7,9 +7,29 @@
              xmlns:dance="http://schemas.dance.com/wpf"
              xmlns:local="clr-namespace:Dance.Art.Plugin"
              d:DataContext="{d:DesignInstance local:CommandViewModel}"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" d:Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.CHUNK_BAR_BACKGROUND}}">
+            <StackPanel Orientation="Horizontal" Margin="20,0,5,0">
+                <Rectangle Width="1" Height="20" Margin="0,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
+                <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="运行脚本"
+                        Command="{Binding Path=RunCommand,Mode=OneWay}">
+                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/run.svg"></dance:DanceSvgImage>
+                </Button>
+                <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="清理" IsEnabled="True"
+                        Command="{Binding Path=ClearCommand,Mode=OneWay}">
+                    <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/clear.svg"></dance:DanceSvgImage>
+                </Button>
+            </StackPanel>
+        </Border>
+
         <edit:TextEditor x:Name="edit" FontFamily="Consolas" FontSize="12pt" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" WordWrap="False" Grid.Row="1">
             <edit:TextEditor.ContextMenu>
                 <ContextMenu>

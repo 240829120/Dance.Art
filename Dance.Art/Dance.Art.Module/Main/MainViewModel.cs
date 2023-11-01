@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Domain;
+using Dance.Art.Domain.Message;
 using Dance.Art.Storage;
 using Dance.Wpf;
 using Microsoft.ClearScript;
@@ -633,6 +634,11 @@ namespace Dance.Art.Module
             this.OutputManager.WriteLine($"运行脚本 ----- {file}");
 
             await this.CreateAndRunScriptDomain(file, V8ScriptEngineFlags.EnableDynamicModuleImports);
+
+            if (this.ScriptDomain == null)
+                return;
+
+            DanceDomain.Current.Messenger.Send(new ScriptRunningMessage(this.ProjectDomain, this.ScriptDomain, false));
         }
 
         #endregion
@@ -662,6 +668,11 @@ namespace Dance.Art.Module
 
             await this.CreateAndRunScriptDomain(file, V8ScriptEngineFlags.EnableDynamicModuleImports | V8ScriptEngineFlags.EnableDebugging |
                                                       V8ScriptEngineFlags.EnableRemoteDebugging | V8ScriptEngineFlags.AwaitDebuggerAndPauseOnStart);
+
+            if (this.ScriptDomain == null)
+                return;
+
+            DanceDomain.Current.Messenger.Send(new ScriptRunningMessage(this.ProjectDomain, this.ScriptDomain, false));
         }
 
         #endregion
@@ -694,6 +705,11 @@ namespace Dance.Art.Module
                 this.ScriptStatus = ScriptStatus.None;
                 this.OutputManager.WriteLine($"停止脚本");
             });
+
+            if (this.ProjectDomain == null)
+                return;
+
+            DanceDomain.Current.Messenger.Send(new ScriptStopMessage(this.ProjectDomain));
         }
 
         #endregion

@@ -310,7 +310,7 @@ namespace Dance.Art.Domain
             if (parent == null)
                 return;
 
-            FileModel? model = null;
+            FileModel? model;
 
             if (Directory.Exists(path))
             {

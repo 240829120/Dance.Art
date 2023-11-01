@@ -737,23 +737,30 @@ namespace Dance.Art.Module
         /// </summary>
         private void OnProjectOpen(object sender, ProjectOpenMessage msg)
         {
+            if (string.IsNullOrWhiteSpace(msg.ProjectDomain.ProjectFolderPath) || !Directory.Exists(msg.ProjectDomain.ProjectFolderPath))
+                return;
+
             List<OpendDocumentEntity> documents = msg.ProjectDomain.CacheContext.OpendDocuments.FindAll().ToList();
             if (documents.Count == 0)
                 return;
 
             foreach (OpendDocumentEntity document in documents)
             {
-                if (document == null || string.IsNullOrWhiteSpace(document.Path) || !File.Exists(document.Path))
+                if (document == null || string.IsNullOrWhiteSpace(document.Path))
                     continue;
 
-                DanceDomain.Current.Messenger.Send(new FileOpenMessage(document.Path));
+                string path = Path.Combine(msg.ProjectDomain.ProjectFolderPath, document.Path);
+                if (!File.Exists(path))
+                    continue;
+
+                DanceDomain.Current.Messenger.Send(new FileOpenMessage(path));
             }
 
             OpendDocumentEntity? first = documents.FirstOrDefault();
             if (first == null || string.IsNullOrWhiteSpace(first.Path))
                 return;
 
-            DanceDomain.Current.Messenger.Send(new FileOpenMessage(first.Path));
+            DanceDomain.Current.Messenger.Send(new FileOpenMessage(Path.Combine(msg.ProjectDomain.ProjectFolderPath, first.Path)));
         }
 
         #endregion
@@ -815,8 +822,11 @@ namespace Dance.Art.Module
             });
 
             // 保存打开的文档
-            msg.ProjectDomain.CacheContext.OpendDocuments.DeleteAll();
-            msg.ProjectDomain.CacheContext.OpendDocuments.InsertBulk(this.Documents.Select(p => new OpendDocumentEntity() { Path = p.File }));
+            if (!string.IsNullOrWhiteSpace(msg.ProjectDomain.ProjectFolderPath) && Directory.Exists(msg.ProjectDomain.ProjectFolderPath))
+            {
+                msg.ProjectDomain.CacheContext.OpendDocuments.DeleteAll();
+                msg.ProjectDomain.CacheContext.OpendDocuments.InsertBulk(this.Documents.Select(p => new OpendDocumentEntity() { Path = Path.GetRelativePath(msg.ProjectDomain.ProjectFolderPath, p.File) }));
+            }
 
             this.Documents.Clear();
         }

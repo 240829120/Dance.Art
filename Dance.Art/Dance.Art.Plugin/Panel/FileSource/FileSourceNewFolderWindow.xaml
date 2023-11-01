@@ -29,7 +29,7 @@
                 </Grid.ColumnDefinitions>
                 <!-- 位置 -->
                 <TextBlock Text="文件夹名:" VerticalAlignment="Center" Opacity="0.7" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBlock>
-                <TextBox Grid.Column="1" Text="{Binding Path=FileName,Mode=OneWay}" AcceptsReturn="False"></TextBox>
+                <TextBox Grid.Column="1" Text="{Binding Path=FileName,Mode=TwoWay}" AcceptsReturn="False"></TextBox>
             </Grid>
             <!-- 按钮组 -->
             <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,0,0">

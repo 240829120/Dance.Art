@@ -46,6 +46,23 @@ namespace Dance.Art.Plugin
         private readonly IOutputManager OutputManager = DanceDomain.Current.LifeScope.Resolve<IOutputManager>();
 
         // ==========================================================================================
+        // Property
+
+        #region IsEnabled -- 是否启用
+
+        private bool isEnabled;
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set { isEnabled = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        // ==========================================================================================
         // Command
 
         #region CopyCommand -- 复制命令
@@ -150,7 +167,7 @@ namespace Dance.Art.Plugin
 
             MainViewModel vm = DanceDomain.Current.LifeScope.Resolve<MainViewModel>();
 
-            return vm != null && vm.ScriptDomain != null && vm.ScriptDomain.Engine != null && (vm.ScriptStatus == ScriptStatus.Running || vm.ScriptStatus == ScriptStatus.Debugging) && !string.IsNullOrWhiteSpace(view.edit.Text);
+            return vm != null && vm.ScriptDomain != null && vm.ScriptDomain.Engine != null && (vm.ScriptStatus == ScriptStatus.Running || vm.ScriptStatus == ScriptStatus.Debugging);
         }
 
         /// <summary>
@@ -216,6 +233,7 @@ namespace Dance.Art.Plugin
                 return;
 
             view.edit.Text = entity.Command;
+            this.IsEnabled = true;
 
             this.UpdateToolStatus();
         }
@@ -237,6 +255,7 @@ namespace Dance.Art.Plugin
             msg.ProjectDomain.CacheContext.CommandCaches.Upsert(entity);
 
             view.edit.Clear();
+            this.IsEnabled = false;
 
             this.UpdateToolStatus();
         }

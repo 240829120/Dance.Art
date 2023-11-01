@@ -28,7 +28,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <dance:DanceTreeView x:Name="tree" ItemsSource="{Binding Path=Files}" BorderBrush="Transparent" IsMultiSelection="True" Focusable="True" KeyboardNavigation.IsTabStop="True">
+        <dance:DanceTreeView x:Name="tree" ItemsSource="{Binding Path=Files}" BorderBrush="Transparent" IsMultiSelection="True">
             <dance:DanceTreeView.ItemContainerStyle>
                 <Style TargetType="dance:DanceTreeViewItem">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}"></Setter>

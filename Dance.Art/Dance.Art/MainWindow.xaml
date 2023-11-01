@@ -7,7 +7,7 @@
         xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
         xmlns:dance="http://schemas.dance.com/wpf"
         mc:Ignorable="d"        
-        WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" WindowState="Normal"
+        WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" WindowState="Normal" Icon="logo.ico"
         Title="Dance.Art" Height="1000" Width="1600" Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_SELECTED}}">
     <Window.Style>
         <Style TargetType="Window">

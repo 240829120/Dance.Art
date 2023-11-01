@@ -25,6 +25,11 @@ namespace Dance.Art.Module
 
             if (pluginModel.View != null)
             {
+                if (pluginModel.View is FrameworkElement pluginView && pluginView.Parent is ContentControl parentView)
+                {
+                    parentView.Content = null;
+                }
+
                 return pluginModel.View;
             }
 

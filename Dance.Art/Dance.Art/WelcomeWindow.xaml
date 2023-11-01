@@ -6,6 +6,6 @@
         xmlns:local="clr-namespace:Dance.Art"
         xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
         WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" WindowState="Normal"
-        Title="Dance.Art" Height="400" Width="600" Background="Transparent">
+        Title="Dance.Art" Height="400" Width="600" Background="Transparent" Icon="logo.ico">
     <module:WelcomeView></module:WelcomeView>
 </Window>

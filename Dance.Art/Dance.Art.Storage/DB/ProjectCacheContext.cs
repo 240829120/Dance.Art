@@ -22,6 +22,7 @@ namespace Dance.Art.Storage
             this.Database = new LiteDatabase(path);
 
             this.OpendDocuments = this.Database.GetCollection<OpendDocumentEntity>();
+            this.CommandCaches = this.Database.GetCollection<CommandCacheEntity>();
         }
 
         /// <summary>
@@ -38,6 +39,11 @@ namespace Dance.Art.Storage
         /// 打开的文档
         /// </summary>
         public ILiteCollection<OpendDocumentEntity> OpendDocuments { get; private set; }
+
+        /// <summary>
+        /// 命令缓存
+        /// </summary>
+        public ILiteCollection<CommandCacheEntity> CommandCaches { get; private set; }
 
         /// <summary>
         /// 销毁

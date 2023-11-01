@@ -35,6 +35,20 @@
                 </dance:DanceMultiMappingConverterItem>
             </dance:DanceMultiMappingConverter>
 
+            <!-- DocumentIsModifyConverter -->
+            <dance:DanceMultiMappingConverter x:Key="DocumentIsModifyConverter">
+                <dance:DanceMultiMappingConverter.DefaultConvertValue>
+                    <Visibility>Hidden</Visibility>
+                </dance:DanceMultiMappingConverter.DefaultConvertValue>
+                <dance:DanceMultiMappingConverterItem>
+                    <sys:Boolean>True</sys:Boolean>
+                    <sys:Boolean>True</sys:Boolean>
+                    <dance:DanceMultiMappingConverterItem.To>
+                        <Visibility>Visible</Visibility>
+                    </dance:DanceMultiMappingConverterItem.To>
+                </dance:DanceMultiMappingConverterItem>
+            </dance:DanceMultiMappingConverter>
+
             <!-- ScriptIsRunningConverter -->
             <dance:DanceMappingConverter x:Key="ScriptIsRunningConverter">
                 <dance:DanceMappingConverter.DefaultConvertValue>
@@ -293,7 +307,14 @@
                         <StackPanel Orientation="Horizontal" Background="Transparent"
                                     ToolTip="{Binding Content.File}">
                             <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
-                            <TextBlock Text="*" Visibility="{Binding Path=Content.View.DataContext.IsModify,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter_Visible_Hidden_Hidden}}"></TextBlock>
+                            <TextBlock Text="*">
+                                <TextBlock.Visibility>
+                                    <MultiBinding Converter="{StaticResource DocumentIsModifyConverter}">
+                                        <Binding Path="Content.View" Mode="OneWay" Converter="{StaticResource IsNotNullConverter}"></Binding>
+                                        <Binding Path="Content.View.DataContext.IsModify" Mode="OneWay"></Binding>
+                                    </MultiBinding>
+                                </TextBlock.Visibility>
+                            </TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </docking:DockingManager.DocumentHeaderTemplate>

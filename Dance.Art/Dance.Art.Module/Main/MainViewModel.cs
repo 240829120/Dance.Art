@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Domain;
+using Dance.Art.Storage;
 using Dance.Wpf;
 using Microsoft.ClearScript;
 using Microsoft.ClearScript.JavaScript;
@@ -56,6 +57,9 @@ namespace Dance.Art.Module
 
             // -----------------------------------------------------
             // Message
+            DanceDomain.Current.Messenger.Register<ApplicationClosingMessage>(this, this.OnApplicationClosing);
+            DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
+            DanceDomain.Current.Messenger.Register<ProjectClosingMessage>(this, this.OnProjectClosing);
             DanceDomain.Current.Messenger.Register<FileOpenMessage>(this, this.OnFileOpen);
             DanceDomain.Current.Messenger.Register<FileRenameMessage>(this, this.OnFileRename);
             DanceDomain.Current.Messenger.Register<FileChangeMessage>(this, this.OnFileChange);
@@ -70,11 +74,6 @@ namespace Dance.Art.Module
         /// 输出管理器
         /// </summary>
         private readonly IOutputManager OutputManager = DanceDomain.Current.LifeScope.Resolve<IOutputManager>();
-
-        /// <summary>
-        /// 文件管理器
-        /// </summary>
-        private readonly IFileManager FileManager = DanceDomain.Current.LifeScope.Resolve<IFileManager>();
 
         // ========================================================================================
         // Property
@@ -292,7 +291,7 @@ namespace Dance.Art.Module
                 return;
 
             ProjectDomain domain = new(vm.ProjectPath);
-            ProjectOpenMessage msg = new(artDomain.ProjectDomain, domain);
+            ProjectOpenMessage msg = new(domain);
             this.ProjectDomain = domain;
             artDomain.ProjectDomain = domain;
 
@@ -334,7 +333,7 @@ namespace Dance.Art.Module
                 return;
 
             ProjectDomain domain = new(ofd.FileName);
-            ProjectOpenMessage msg = new(artDomain.ProjectDomain, domain);
+            ProjectOpenMessage msg = new(domain);
             this.ProjectDomain = domain;
             artDomain.ProjectDomain = domain;
 
@@ -390,43 +389,20 @@ namespace Dance.Art.Module
         /// </summary>
         private void CloseProject()
         {
-            if (DanceDomain.Current is not ArtDomain domain || domain.ProjectDomain == null)
+            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
                 return;
 
-            List<IDockingDocument> unSavedDockingDocuments = new();
-            foreach (DocumentPluginModel document in domain.Documents)
-            {
-                if (document.View is not FrameworkElement view || view.DataContext is not IDockingDocument dockingDocument)
-                    continue;
+            ProjectClosingMessage closingMsg = new(artDomain.ProjectDomain);
+            DanceDomain.Current.Messenger.Send(closingMsg);
 
-                if (dockingDocument.IsModify)
-                {
-                    unSavedDockingDocuments.Add(dockingDocument);
-                }
-            }
+            if (closingMsg.IsCancel)
+                return;
 
-            if (unSavedDockingDocuments.Count > 0)
-            {
-                if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "保存未保存的文档?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) == DanceMessageBoxAction.YES)
-                {
-                    unSavedDockingDocuments.ForEach(p => p.Save());
-                }
-            }
+            ProjectClosedMessage closedMsg = new(artDomain.ProjectDomain);
+            DanceDomain.Current.Messenger.Send(closedMsg);
 
-            foreach (DocumentPluginModel document in domain.Documents)
-            {
-                if (document.View is not FrameworkElement view || view.DataContext is not IDockingDocument dockingDocument)
-                    continue;
-
-                dockingDocument.Dispose();
-            }
-
-            domain.Documents.Clear();
-
-            ProjectCloseMessage msg = new(domain.ProjectDomain);
-            domain.Messenger.Send(msg);
-            domain.ProjectDomain?.Dispose();
-            domain.ProjectDomain = null;
+            artDomain.ProjectDomain.Dispose();
+            artDomain.ProjectDomain = null;
             this.ProjectDomain = null;
         }
 
@@ -725,6 +701,128 @@ namespace Dance.Art.Module
         // ========================================================================================
         // Message
 
+        #region ApplicationClosingMessage -- 应用程序关闭消息
+
+        /// <summary>
+        /// 应用程序关闭
+        /// </summary>
+        private void OnApplicationClosing(object sender, ApplicationClosingMessage msg)
+        {
+            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
+                return;
+
+            ProjectClosingMessage closingMsg = new(artDomain.ProjectDomain);
+            DanceDomain.Current.Messenger.Send(closingMsg);
+
+            if (closingMsg.IsCancel)
+            {
+                msg.IsCancel = true;
+                return;
+            }
+
+            ProjectClosedMessage closedMsg = new(artDomain.ProjectDomain);
+            DanceDomain.Current.Messenger.Send(closedMsg);
+
+            artDomain.ProjectDomain.Dispose();
+            artDomain.ProjectDomain = null;
+            this.ProjectDomain = null;
+        }
+
+        #endregion
+
+        #region ProjectOpenMessage -- 项目打开消息
+
+        /// <summary>
+        /// 项目打开消息
+        /// </summary>
+        private void OnProjectOpen(object sender, ProjectOpenMessage msg)
+        {
+            List<OpendDocumentEntity> documents = msg.ProjectDomain.CacheContext.OpendDocuments.FindAll().ToList();
+            if (documents.Count == 0)
+                return;
+
+            foreach (OpendDocumentEntity document in documents)
+            {
+                if (document == null || string.IsNullOrWhiteSpace(document.Path) || !File.Exists(document.Path))
+                    continue;
+
+                DanceDomain.Current.Messenger.Send(new FileOpenMessage(document.Path));
+            }
+
+            OpendDocumentEntity? first = documents.FirstOrDefault();
+            if (first == null || string.IsNullOrWhiteSpace(first.Path))
+                return;
+
+            DanceDomain.Current.Messenger.Send(new FileOpenMessage(first.Path));
+        }
+
+        #endregion
+
+        #region ProjectClosingMessage -- 项目关闭前消息
+
+        /// <summary>
+        /// 项目关闭前
+        /// </summary>
+        private void OnProjectClosing(object sender, ProjectClosingMessage msg)
+        {
+            if (DanceDomain.Current is not ArtDomain artDomain)
+                return;
+
+            // 停止脚本
+            if (artDomain.ScriptDomain != null && this.ScriptStatus != ScriptStatus.None)
+            {
+                artDomain.ScriptDomain.Dispose();
+                artDomain.ScriptDomain = null;
+
+                this.ScriptDomain = null;
+                this.ScriptStatus = ScriptStatus.None;
+            }
+
+            // 关闭文档
+            if (this.Documents == null)
+                return;
+
+            List<IDockingPanel> unSaveDocuments = new();
+            foreach (DocumentPluginModel document in this.Documents)
+            {
+                if (document.View is FrameworkElement view && view.DataContext is IDockingPanel panel && panel.IsModify)
+                {
+                    unSaveDocuments.Add(panel);
+                }
+            }
+
+            if (unSaveDocuments.Count > 0)
+            {
+                DanceMessageBoxAction result = DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "是否保存未保存的文件?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO | DanceMessageBoxAction.CANCEL);
+                if (result == DanceMessageBoxAction.CANCEL)
+                {
+                    msg.IsCancel = true;
+                    return;
+                }
+
+                if (result == DanceMessageBoxAction.YES)
+                {
+                    unSaveDocuments.ForEach(p => p.Save());
+                }
+            }
+
+            this.Documents.ForEach(p =>
+            {
+                if (p.View is FrameworkElement view && view.DataContext is IDockingPanel panel && panel.IsModify)
+                {
+                    panel.Dispose();
+                }
+            });
+
+            // 保存打开的文档
+            msg.ProjectDomain.CacheContext.OpendDocuments.DeleteAll();
+            msg.ProjectDomain.CacheContext.OpendDocuments.InsertBulk(this.Documents.Select(p => new OpendDocumentEntity() { Path = p.File }));
+
+            this.Documents.Clear();
+        }
+
+        #endregion
+
         #region FileOpenMessage -- 文件打开消息
 
         /// <summary>
@@ -735,7 +833,7 @@ namespace Dance.Art.Module
             if (DanceDomain.Current is not ArtDomain domain)
                 return;
 
-            DocumentPluginModel? vm = domain.Documents.FirstOrDefault(p => p.File == msg.FileModel.Path);
+            DocumentPluginModel? vm = domain.Documents.FirstOrDefault(p => p.File == msg.Path);
             if (vm != null)
             {
                 vm.IsActive = true;
@@ -747,20 +845,20 @@ namespace Dance.Art.Module
                 if (p is not DocumentPluginInfo documentPlugin || documentPlugin.FileInfos == null)
                     return false;
 
-                return documentPlugin.FileInfos.Any(p => string.Equals(p.Extension, msg.FileModel.Extension, StringComparison.OrdinalIgnoreCase));
-            }) as DocumentPluginInfo;
+                return documentPlugin.FileInfos.Any(p => string.Equals(p.Extension, msg.Extension, StringComparison.OrdinalIgnoreCase));
+            });
 
             if (pluginModel == null || pluginModel.ViewType == null)
             {
-                if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否使用默认程序打开: {msg.FileModel.Path}", DanceMessageBoxAction.YES | DanceMessageBoxAction.CANCEL) != DanceMessageBoxAction.YES)
+                if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否使用默认程序打开: {msg.Path}", DanceMessageBoxAction.YES | DanceMessageBoxAction.CANCEL) != DanceMessageBoxAction.YES)
                     return;
 
-                Process.Start("explorer", msg.FileModel.Path);
+                Process.Start("explorer", msg.Path);
 
                 return;
             }
 
-            vm = new DocumentPluginModel(msg.FileModel.Path, msg.FileModel.FileName, pluginModel, msg.FileModel.Path);
+            vm = new DocumentPluginModel(msg.Path, msg.FileName, pluginModel, msg.Path);
             domain.Documents.Add(vm);
             vm.IsActive = true;
         }

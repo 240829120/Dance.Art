@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Domain;
 using Dance.Art.Module;
+using Dance.Art.Storage;
 using Dance.Wpf;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.ClearScript;
 using Microsoft.ClearScript.JavaScript;
-using Microsoft.ClearScript.V8;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +28,9 @@ namespace Dance.Art.Plugin
             this.CutCommand = new(this.Cut, this.CanCut);
             this.PasteCommand = new(this.Paste);
             this.RunCommand = new(this.Run, this.CanRun);
+
+            DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
+            DanceDomain.Current.Messenger.Register<ProjectClosedMessage>(this, this.OnProjectClosed);
         }
 
         // ==========================================================================================
@@ -167,6 +170,47 @@ namespace Dance.Art.Plugin
             {
                 this.OutputManager.WriteLine(ex.Message);
             }
+        }
+
+        #endregion
+
+        // ==========================================================================================
+        // Message
+
+        #region ProjectOpenMessage -- 项目打开前消息
+
+        /// <summary>
+        /// 项目打开前
+        /// </summary>
+        private void OnProjectOpen(object sender, ProjectOpenMessage msg)
+        {
+            if (this.View is not CommandView view)
+                return;
+
+            CommandCacheEntity? entity = msg.ProjectDomain.CacheContext.CommandCaches.FindAll().FirstOrDefault();
+            if (entity == null)
+                return;
+
+            view.edit.Text = entity.Command;
+        }
+
+        #endregion
+
+        #region ProjectClosedMessage -- 项目关闭消息 
+
+        /// <summary>
+        /// 项目关闭消息
+        /// </summary>
+        private void OnProjectClosed(object sender, ProjectClosedMessage msg)
+        {
+            if (this.View is not CommandView view)
+                return;
+
+            CommandCacheEntity? entity = msg.ProjectDomain.CacheContext.CommandCaches.FindAll().FirstOrDefault() ?? new();
+            entity.Command = view.edit.Text;
+            msg.ProjectDomain.CacheContext.CommandCaches.Upsert(entity);
+
+            view.edit.Clear();
         }
 
         #endregion

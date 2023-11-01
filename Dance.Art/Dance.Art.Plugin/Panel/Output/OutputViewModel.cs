@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Domain;
 using Dance.Wpf;
 using System;
@@ -20,10 +21,15 @@ namespace Dance.Art.Plugin
         /// </summary>
         public OutputViewModel()
         {
+            // 命令
             this.LoadedCommand = new(this.Loaded);
             this.CopyCommand = new(this.Copy);
             this.ClearCommand = new(this.Clear);
 
+            // 消息
+            DanceDomain.Current.Messenger.Register<ProjectClosedMessage>(this, this.OnProjectClosed);
+
+            // 输出管理器
             this.OutputManager.OnOutput -= OutputManager_OnOutput;
             this.OutputManager.OnOutput += OutputManager_OnOutput;
 
@@ -45,7 +51,7 @@ namespace Dance.Art.Plugin
         private readonly StringBuilder OutputCache = new();
 
         // ============================================================================================
-        // Command -- 命令
+        // Command
 
         #region LoadedCommand -- 加载命令
 
@@ -107,6 +113,27 @@ namespace Dance.Art.Plugin
         }
 
         #endregion
+
+        // ============================================================================================
+        // Message
+
+        #region ProjectClosedMessage -- 项目关闭消息
+
+        /// <summary>
+        /// 项目关闭
+        /// </summary>
+        private void OnProjectClosed(object sender, ProjectClosedMessage msg)
+        {
+            if (this.View is not OutputView view)
+                return;
+
+            view.edit.Clear();
+        }
+
+        #endregion
+
+        // ============================================================================================
+        // Private Function
 
         /// <summary>
         /// 输出消息

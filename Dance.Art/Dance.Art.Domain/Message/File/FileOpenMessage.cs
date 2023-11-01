@@ -14,15 +14,27 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 文件打开消息
         /// </summary>
-        /// <param name="fileModel">文件模型</param>
-        public FileOpenMessage(FileModel fileModel)
+        /// <param name="path">文件路径</param>
+        public FileOpenMessage(string path)
         {
-            this.FileModel = fileModel;
+            this.Path = path;
+            this.FileName = System.IO.Path.GetFileName(path);
+            this.Extension = System.IO.Path.GetExtension(path);
         }
 
         /// <summary>
-        /// 文件模型
+        /// 路径
         /// </summary>
-        public FileModel FileModel { get; private set; }
+        public string Path { get; private set; }
+
+        /// <summary>
+        /// 文件名
+        /// </summary>
+        public string FileName { get; private set; }
+
+        /// <summary>
+        /// 文件扩展名
+        /// </summary>
+        public string Extension { get; private set; }
     }
 }

@@ -40,7 +40,7 @@ namespace Dance.Art.Plugin
 
             // 初始化消息
             DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
-            DanceDomain.Current.Messenger.Register<ProjectCloseMessage>(this, this.OnProjectClose);
+            DanceDomain.Current.Messenger.Register<ProjectClosedMessage>(this, this.OnProjectClosed);
         }
 
         // ==================================================================================
@@ -114,7 +114,7 @@ namespace Dance.Art.Plugin
             if (fileModel == null || fileModel.Category != FileModelCategory.File)
                 return;
 
-            DanceDomain.Current.Messenger.Send(new FileOpenMessage(fileModel));
+            DanceDomain.Current.Messenger.Send(new FileOpenMessage(fileModel.Path));
         }
 
         #endregion
@@ -656,18 +656,18 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void OnProjectOpen(object sender, ProjectOpenMessage msg)
         {
-            this.FileManager.Initialize(msg.NewProject);
+            this.FileManager.Initialize(msg.ProjectDomain);
             this.Files = this.FileManager.Root == null ? null : new() { this.FileManager.Root };
         }
 
         #endregion
 
-        #region ProjectCloseMessage -- 项目关闭消息
+        #region ProjectClosedMessage -- 项目关闭消息
 
         /// <summary>
         /// 执行项目关闭消息
         /// </summary>
-        private void OnProjectClose(object sender, ProjectCloseMessage msg)
+        private void OnProjectClosed(object sender, ProjectClosedMessage msg)
         {
             this.FileManager.Clear();
             this.Files = null;

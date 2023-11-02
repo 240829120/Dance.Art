@@ -628,17 +628,12 @@ namespace Dance.Art.Plugin
         /// <returns></returns>
         private bool CanFileNewFolder()
         {
-            //if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
-            //    return false;
-
-            if (this.ViewPluginModel == null || this.FileManager.Root == null || this.View is not FileSourceView view)
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive || this.FileManager.Root == null || this.View is not FileSourceView view)
                 return false;
 
-            return true;
+            List<FileModel> sources = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
 
-            //List<FileModel> sources = view.tree.GetSelectedValues().Cast<FileModel>().ToList();
-
-            //return sources.Count == 1 && sources[0].Category != FileModelCategory.File;
+            return sources.Count == 1 && sources[0].Category != FileModelCategory.File;
         }
 
         /// <summary>

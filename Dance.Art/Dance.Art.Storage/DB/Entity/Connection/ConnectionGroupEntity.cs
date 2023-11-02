@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace Dance.Art.Storage
 {
     /// <summary>
-    /// 数据源过滤器
+    /// 连接分组实体
     /// </summary>
-    public class DataSourceFilterNode
+    public class ConnectionGroupEntity : EntityBase
     {
         /// <summary>
         /// 名称
@@ -23,18 +22,8 @@ namespace Dance.Art.Storage
         public string? Description { get; set; }
 
         /// <summary>
-        /// 类型
+        /// 连接集合
         /// </summary>
-        public DataSourceFilterType Type { get; set; }
-
-        /// <summary>
-        /// 数据源名称
-        /// </summary>
-        public string? DataSourceName { get; set; }
-
-        /// <summary>
-        /// 参数集合
-        /// </summary>
-        public Dictionary<string, string>? Parameters { get; set; }
+        public List<ConnectionEntity>? Connections { get; set; }
     }
 }

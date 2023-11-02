@@ -26,22 +26,5 @@ namespace Dance.Art.Storage
         /// 项目模板
         /// </summary>
         public string? ProjectTemplate { get; set; }
-
-        /// <summary>
-        /// 连接
-        /// </summary>
-        public List<CollectionNode>? Collections { get; set; }
-
-        /// <summary>
-        /// 数据源
-        /// </summary>
-        public List<DataSourceNode>? DataSources { get; set; }
-
-        /// <summary>
-        /// 数据源过滤器
-        /// </summary>
-        public List<DataSourceFilterNode>? DataSourceFilters { get; set; }
-
-
     }
 }

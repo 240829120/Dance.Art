@@ -23,6 +23,7 @@ namespace Dance.Art.Storage
 
             this.OpendDocuments = this.Database.GetCollection<OpendDocumentEntity>();
             this.CommandCaches = this.Database.GetCollection<CommandCacheEntity>();
+            this.ConnectionGroups = this.Database.GetCollection<ConnectionGroupEntity>();
         }
 
         /// <summary>
@@ -44,6 +45,11 @@ namespace Dance.Art.Storage
         /// 命令缓存
         /// </summary>
         public ILiteCollection<CommandCacheEntity> CommandCaches { get; private set; }
+
+        /// <summary>
+        /// 连接分组
+        /// </summary>
+        public ILiteCollection<ConnectionGroupEntity> ConnectionGroups { get; private set; }
 
         /// <summary>
         /// 销毁

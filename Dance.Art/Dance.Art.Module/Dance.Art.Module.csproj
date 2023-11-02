@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<None Remove="Themes\Resources\Icons\clear.svg" />
+		<None Remove="Themes\Resources\Icons\connection_group_add.svg" />
 		<None Remove="Themes\Resources\Icons\copy.svg" />
 		<None Remove="Themes\Resources\Icons\cut.svg" />
 		<None Remove="Themes\Resources\Icons\debug.svg" />
@@ -48,6 +49,7 @@
 
 	<ItemGroup>
 		<Resource Include="Themes\Resources\Icons\clear.svg" />
+		<Resource Include="Themes\Resources\Icons\connection_group_add.svg" />
 		<Resource Include="Themes\Resources\Icons\copy.svg" />
 		<Resource Include="Themes\Resources\Icons\cut.svg" />
 		<Resource Include="Themes\Resources\Icons\debug.svg" />

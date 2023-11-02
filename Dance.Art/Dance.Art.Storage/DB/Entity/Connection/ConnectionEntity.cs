@@ -7,10 +7,20 @@ using System.Threading.Tasks;
 namespace Dance.Art.Storage
 {
     /// <summary>
-    /// 连接
+    /// 连接实体
     /// </summary>
-    public class CollectionNode
+    public class ConnectionEntity
     {
+        /// <summary>
+        /// 插件ID
+        /// </summary>
+        public string? PluginID { get; set; }
+
+        /// <summary>
+        /// 编号
+        /// </summary>
+        public string? ID { get; set; }
+
         /// <summary>
         /// 名称
         /// </summary>
@@ -22,18 +32,8 @@ namespace Dance.Art.Storage
         public string? Description { get; set; }
 
         /// <summary>
-        /// 分组
+        /// 参数
         /// </summary>
-        public string? Group { get; set; }
-
-        /// <summary>
-        /// IP地址
-        /// </summary>
-        public string? IP { get; set; }
-
-        /// <summary>
-        /// 端口
-        /// </summary>
-        public int Port { get; set; }
+        public Dictionary<string, string>? Parameters { get; set; }
     }
 }

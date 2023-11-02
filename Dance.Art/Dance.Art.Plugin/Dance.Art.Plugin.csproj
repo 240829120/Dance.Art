@@ -13,6 +13,7 @@
     <None Remove="Themes\Resources\Icons\javascript.svg" />
     <None Remove="Themes\Resources\Icons\json.svg" />
     <None Remove="Themes\Resources\Icons\txt.svg" />
+    <None Remove="Themes\Resources\Icons\udp.svg" />
     <None Remove="Themes\Resources\Icons\xls.svg" />
     <None Remove="Themes\Resources\Icons\xlsx.svg" />
     <None Remove="Themes\Resources\Icons\xml.svg" />
@@ -43,6 +44,7 @@
     <Resource Include="Themes\Resources\Icons\javascript.svg" />
     <Resource Include="Themes\Resources\Icons\json.svg" />
     <Resource Include="Themes\Resources\Icons\txt.svg" />
+    <Resource Include="Themes\Resources\Icons\udp.svg" />
     <Resource Include="Themes\Resources\Icons\xls.svg" />
     <Resource Include="Themes\Resources\Icons\xlsx.svg" />
     <Resource Include="Themes\Resources\Icons\xml.svg" />
@@ -67,7 +69,7 @@
     <Compile Update="Document\Xml\XmlView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Panel\Collection\CollectionView.xaml.cs">
+    <Compile Update="Panel\Connection\ConnectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Panel\Command\CommandView.xaml.cs">

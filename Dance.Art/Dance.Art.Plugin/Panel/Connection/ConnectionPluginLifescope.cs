@@ -10,12 +10,12 @@ namespace Dance.Art.Plugin
     /// <summary>
     /// 连接插件生命周期
     /// </summary>
-    public class CollectionPluginLifescope : DanceObject, IDancePluginLifescope
+    public class ConnectionPluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.Plugin]:Collection";
+        public const string ID = "[Dance.Art.Plugin]:Connection";
 
         /// <summary>
         /// 名称
@@ -28,7 +28,7 @@ namespace Dance.Art.Plugin
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new PanelPluginInfo(ID, NAME, typeof(CollectionView));
+            return new PanelPluginInfo(ID, NAME, typeof(ConnectionView));
         }
 
         /// <summary>

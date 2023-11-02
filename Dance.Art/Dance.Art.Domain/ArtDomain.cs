@@ -41,6 +41,11 @@ namespace Dance.Art.Domain
         /// </summary>
         public ObservableCollection<ScriptPluginInfo> ScriptPlugins { get; } = new();
 
+        /// <summary>
+        /// 连接插件
+        /// </summary>
+        public ObservableCollection<ConnectionPluginInfo> ConnectionPlugins { get; } = new();
+
         // ----------------------------------------------------------------------------------------------------
         // Views
 

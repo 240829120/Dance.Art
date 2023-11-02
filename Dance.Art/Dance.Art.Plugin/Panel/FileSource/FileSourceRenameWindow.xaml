@@ -7,7 +7,7 @@
         xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
         xmlns:local="clr-namespace:Dance.Art.Plugin" mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:FileSourceRenameWindowModel}"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False" WindowState="Normal" WindowStyle="None" Background="{x:Null}"
         AllowsTransparency="True"
         Title="重命名" Height="240" Width="600">

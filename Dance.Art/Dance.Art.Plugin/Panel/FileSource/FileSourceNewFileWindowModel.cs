@@ -93,11 +93,11 @@ namespace Dance.Art.Plugin
 
         #region FileInfos -- 文件信息集合
 
-        private List<DocumentFileInfo>? fileInfos;
+        private IReadOnlyList<DocumentFileInfo>? fileInfos;
         /// <summary>
         /// 文件信息集合
         /// </summary>
-        public List<DocumentFileInfo>? FileInfos
+        public IReadOnlyList<DocumentFileInfo>? FileInfos
         {
             get { return fileInfos; }
             set { fileInfos = value; this.OnPropertyChanged(); }

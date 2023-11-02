@@ -17,15 +17,15 @@ using System.Windows.Shapes;
 namespace Dance.Art.Plugin
 {
     /// <summary>
-    /// CollectionView.xaml 的交互逻辑
+    /// ConnectionView.xaml 的交互逻辑
     /// </summary>
-    public partial class CollectionView : UserControl
+    public partial class ConnectionView : UserControl
     {
-        public CollectionView()
+        public ConnectionView()
         {
             InitializeComponent();
 
-            CollectionViewModel vm = new()
+            ConnectionViewModel vm = new()
             {
                 View = this
             };

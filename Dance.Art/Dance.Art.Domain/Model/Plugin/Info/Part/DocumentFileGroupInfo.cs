@@ -37,7 +37,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 文件信息
         /// </summary>
-        public List<DocumentFileInfo> FileInfos { get; private set; } = new();
+        public IReadOnlyList<DocumentFileInfo> FileInfos { get; private set; } = new List<DocumentFileInfo>();
 
         /// <summary>
         /// 是否公开

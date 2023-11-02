@@ -120,13 +120,15 @@ namespace Dance.Art.Module
                     {
                         foreach (DocumentFileInfo fileInfo in document.FileInfos)
                         {
+                            if (fileInfo.Group.FileInfos is not IList<DocumentFileInfo> fileInfos)
+                                continue;
+
                             if (!this.DocumentFileInfoManager.DocumentFileGroupInfos.Contains(fileInfo.Group))
                             {
                                 this.DocumentFileInfoManager.DocumentFileGroupInfos.Add(fileInfo.Group);
-                                fileInfo.Group.FileInfos.Clear();
                             }
 
-                            fileInfo.Group.FileInfos.Add(fileInfo);
+                            fileInfos.Add(fileInfo);
                         }
                     }
                 }
@@ -144,6 +146,11 @@ namespace Dance.Art.Module
                 else if (info is ScriptPluginInfo script)
                 {
                     domain.ScriptPlugins.Add(script);
+                }
+                // 连接插件
+                else if (info is ConnectionPluginInfo connection)
+                {
+                    domain.ConnectionPlugins.Add(connection);
                 }
 
                 await Task.Delay(100);

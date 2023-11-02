@@ -58,61 +58,61 @@
 
             <dance:DanceTreeView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="在资源管理器中打开" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileOpenInBrowserCommand}">
+                    <MenuItem Header="在资源管理器中打开" Command="{Binding Path=FileOpenInBrowserCommand}">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/openInBrowser.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="使用默认程序打开" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileOpenInDefaultCommand}">
+                    <MenuItem Header="使用默认程序打开" Command="{Binding Path=FileOpenInDefaultCommand}">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/openInDefault.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator></Separator>
-                    <MenuItem Header="新建文件夹" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileNewFolderCommand}">
+                    <MenuItem Header="新建文件夹" Command="{Binding Path=FileNewFolderCommand}">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/folder.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="新建文件" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileNewCommand}">
+                    <MenuItem Header="新建文件" Command="{Binding Path=FileNewCommand}">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/newFile.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator></Separator>
-                    <MenuItem Header="复制" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileCopyCommand}"
+                    <MenuItem Header="复制" Command="{Binding Path=FileCopyCommand}"
                               InputGestureText="Ctrl+C">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/copy.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="剪切" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileCutCommand}"
+                    <MenuItem Header="剪切" Command="{Binding Path=FileCutCommand}"
                               InputGestureText="Ctrl+X">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/cut.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="粘贴" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FilePasteCommand}"
+                    <MenuItem Header="粘贴" Command="{Binding Path=FilePasteCommand}"
                               InputGestureText="Ctrl+V">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/paste.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="重命名" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileRenameCommand}"
+                    <MenuItem Header="重命名" Command="{Binding Path=FileRenameCommand}"
                               InputGestureText="F2">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/rename.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator></Separator>
-                    <MenuItem Header="删除" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.FileDeleteCommand}"
+                    <MenuItem Header="删除" Command="{Binding Path=FileDeleteCommand}"
                               InputGestureText="Delete">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator></Separator>
-                    <MenuItem Header="项目设置" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.ProjectSettingCommand}">
+                    <MenuItem Header="项目设置" Command="{Binding Path=ProjectSettingCommand}">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>

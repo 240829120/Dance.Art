@@ -14,19 +14,19 @@
         <edit:TextEditor x:Name="edit" FontFamily="Consolas" FontSize="12pt" SyntaxHighlighting="C#" ShowLineNumbers="True" WordWrap="False" Grid.Row="1">
             <edit:TextEditor.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="复制" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.CopyCommand}"
+                    <MenuItem Header="复制" Command="{Binding Path=CopyCommand}"
                               InputGestureText="Ctrl+C">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/copy.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="剪切" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.CutCommand}"
+                    <MenuItem Header="剪切" Command="{Binding Path=CutCommand}"
                               InputGestureText="Ctrl+X">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/cut.svg"></dance:DanceSvgImage>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="粘贴" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}, Path=PlacementTarget.DataContext.PasteCommand}"
+                    <MenuItem Header="粘贴" Command="{Binding Path=PasteCommand}"
                               InputGestureText="Ctrl+V">
                         <MenuItem.Icon>
                             <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/paste.svg"></dance:DanceSvgImage>

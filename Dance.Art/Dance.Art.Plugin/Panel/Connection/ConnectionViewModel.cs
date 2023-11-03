@@ -20,6 +20,9 @@ namespace Dance.Art.Plugin
     {
         public ConnectionViewModel()
         {
+            // 命令
+            this.LoadedCommand = new(this.Loaded);
+
             // 命令 -- 分组
             this.AddGroupCommand = new(this.AddGroup);
             this.RenameGroupCommand = new(this.RenameGroup);
@@ -35,6 +38,7 @@ namespace Dance.Art.Plugin
 
             // 消息
             DanceDomain.Current.Messenger.Register<ProjectOpenMessage>(this, this.OnProjectOpen);
+            DanceDomain.Current.Messenger.Register<ProjectClosedMessage>(this, this.OnProjectClosed);
         }
 
         // ==========================================================================================
@@ -64,15 +68,40 @@ namespace Dance.Art.Plugin
 
         #region Groups -- 分组集合
 
+        private ObservableCollection<ConnectionGroupModel>? groups;
         /// <summary>
         /// 分组集合
         /// </summary>
-        public ObservableCollection<ConnectionGroupModel> Groups { get; } = new();
+        public ObservableCollection<ConnectionGroupModel>? Groups
+        {
+            get { return groups; }
+            set { groups = value; this.OnPropertyChanged(); }
+        }
 
         #endregion
 
         // ==========================================================================================
         // Command
+
+        #region LoadedCommand -- 加载命令
+
+        /// <summary>
+        /// 加载命令
+        /// </summary>
+        public RelayCommand LoadedCommand { get; private set; }
+
+        /// <summary>
+        /// 加载
+        /// </summary>
+        private void Loaded()
+        {
+            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
+                return;
+
+            this.Groups = artDomain.ProjectDomain.ConnectionGroups;
+        }
+
+        #endregion
 
         // --------------------------------------------------------
         // 分组
@@ -213,7 +242,15 @@ namespace Dance.Art.Plugin
         /// <param name="group">分组</param>
         private void AddItemFromGroup(ConnectionGroupModel? group)
         {
+            if (group == null)
+                return;
 
+            ConnectionAddWindow window = new(group)
+            {
+                Owner = this.WindowManager.MainWindow
+            };
+
+            window.ShowDialog();
         }
 
         #endregion
@@ -341,75 +378,19 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void OnProjectOpen(object sender, ProjectOpenMessage msg)
         {
-            if (DanceDomain.Current is not ArtDomain artDomain)
-                return;
+            this.Groups = msg.ProjectDomain.ConnectionGroups;
+        }
 
-            ConnectionPluginInfo pluginInfo = new(null, null, null);
+        #endregion
 
-            ObservableCollection<ConnectionGroupModel> groupModels = new();
+        #region ProjectClosedMessage -- 项目关闭消息
 
-            groupModels.Add(new ConnectionGroupModel() { Name = "设备" });
-            groupModels.Add(new ConnectionGroupModel() { Name = "引擎" });
-            groupModels.Add(new ConnectionGroupModel() { Name = "网络" });
-            groupModels.Add(new ConnectionGroupModel() { Name = "空" });
-
-            groupModels[0].Connections.Add(new ConnectionModel(pluginInfo) { Name = "设备1", Group = groupModels[0], Status = ConnectionStatus.Connected });
-            groupModels[0].Connections.Add(new ConnectionModel(pluginInfo) { Name = "设备2", Group = groupModels[0], Status = ConnectionStatus.Waiting });
-            groupModels[0].Connections.Add(new ConnectionModel(pluginInfo) { Name = "设备3", Group = groupModels[0] });
-
-            groupModels[1].Connections.Add(new ConnectionModel(pluginInfo) { Name = "UE", Group = groupModels[1] });
-            groupModels[1].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Unity", Group = groupModels[1] });
-
-            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "主机房", Group = groupModels[2] });
-            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "副机房1", Group = groupModels[2] });
-            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "副机房2", Group = groupModels[2] });
-            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "副机房3", Group = groupModels[2] });
-
-            this.Groups.Clear();
-            this.Groups.AddRange(groupModels);
-
-            //ObservableCollection<ConnectionGroupModel> groupModels = new();
-            //var groups = msg.ProjectDomain.CacheContext.ConnectionGroups.FindAll();
-            //foreach (var group in groups)
-            //{
-            //    ConnectionGroupModel groupModel = new();
-            //    groupModel.Name = group.Name;
-            //    groupModel.Description = group.Description;
-
-            //    groupModels.Add(groupModel);
-
-            //    if (group.Connections == null || group.Connections.Count == 0)
-            //        continue;
-
-            //    foreach (var connection in group.Connections)
-            //    {
-            //        ConnectionPluginInfo? pluginInfo = artDomain.ConnectionPlugins.FirstOrDefault(p => string.Equals(p.ID, connection.PluginID));
-            //        if (pluginInfo == null)
-            //        {
-            //            log.Info($"未找到连接插件: {connection.PluginID}");
-            //            continue;
-            //        }
-
-            //        ConnectionModel connectionModel = new(pluginInfo)
-            //        {
-            //            ID = connection.ID,
-            //            Name = connection.Name,
-            //            Description = connection.Description
-            //        };
-
-            //        groupModel.Connections.Add(connectionModel);
-
-            //        if (connection.Parameters == null || connection.Parameters.Count == 0)
-            //            continue;
-
-            //        foreach (var kv in connection.Parameters)
-            //        {
-            //            connectionModel.Parameters.Add(kv.Key, kv.Value);
-            //        }
-            //    }
-            //}
-
-            //this.Groups = groupModels;
+        /// <summary>
+        /// 项目关闭消息
+        /// </summary>
+        private void OnProjectClosed(object sender, ProjectClosedMessage msg)
+        {
+            this.Groups = null;
         }
 
         #endregion
@@ -422,15 +403,10 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void SaveGroups()
         {
+            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
+                return;
 
-        }
-
-        /// <summary>
-        /// 加载分组
-        /// </summary>
-        private void LoadGroups()
-        {
-
+            artDomain.ProjectDomain.SaveConnectionGroups();
         }
     }
 }

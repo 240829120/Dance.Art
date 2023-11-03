@@ -429,7 +429,7 @@ namespace Dance.Art.Module
                 if (this.View is not MainView view || view.docking.ActiveContent is not ViewPluginModelBase pluginModel)
                     return;
 
-                if (pluginModel.View is not FrameworkElement pluginView || pluginView.DataContext is not IDockingPanel panel)
+                if (pluginModel.View is not FrameworkElement pluginView || pluginView.DataContext is not IDockingPanelViewModel panel)
                     return;
 
                 panel.Save();
@@ -462,7 +462,7 @@ namespace Dance.Art.Module
 
                 foreach (DocumentPluginModel document in domain.Documents)
                 {
-                    if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
+                    if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocumentViewModel dockingDocument)
                         continue;
 
                     dockingDocument.Save();
@@ -492,7 +492,7 @@ namespace Dance.Art.Module
             if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
                 return;
 
-            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
+            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocumentViewModel dockingDocument)
                 return;
 
             dockingDocument.Redo();
@@ -515,7 +515,7 @@ namespace Dance.Art.Module
             if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
                 return;
 
-            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocument dockingDocument)
+            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocumentViewModel dockingDocument)
                 return;
 
             dockingDocument.Undo();
@@ -539,7 +539,7 @@ namespace Dance.Art.Module
             if (e == null || e.Document.Content is not DocumentPluginModel document)
                 return;
 
-            if (document.View is not FrameworkElement view || view.DataContext is not IDockingDocument dockingDocument)
+            if (document.View is not FrameworkElement view || view.DataContext is not IDockingDocumentViewModel dockingDocument)
                 return;
 
             if (!dockingDocument.IsModify)
@@ -805,10 +805,10 @@ namespace Dance.Art.Module
             if (this.Documents == null)
                 return;
 
-            List<IDockingPanel> unSaveDocuments = new();
+            List<IDockingPanelViewModel> unSaveDocuments = new();
             foreach (DocumentPluginModel document in this.Documents)
             {
-                if (document.View is FrameworkElement view && view.DataContext is IDockingPanel panel && panel.IsModify)
+                if (document.View is FrameworkElement view && view.DataContext is IDockingPanelViewModel panel && panel.IsModify)
                 {
                     unSaveDocuments.Add(panel);
                 }
@@ -831,7 +831,7 @@ namespace Dance.Art.Module
 
             this.Documents.ForEach(p =>
             {
-                if (p.View is FrameworkElement view && view.DataContext is IDockingPanel panel && panel.IsModify)
+                if (p.View is FrameworkElement view && view.DataContext is IDockingPanelViewModel panel && panel.IsModify)
                 {
                     panel.Dispose();
                 }
@@ -916,7 +916,7 @@ namespace Dance.Art.Module
         private void OnFileChange(object sender, FileChangeMessage msg)
         {
             DocumentPluginModel? documentModel = this.Documents?.FirstOrDefault(p => string.Equals(p.File, msg.Path, StringComparison.OrdinalIgnoreCase));
-            if (documentModel == null || documentModel.View is not FrameworkElement documentView || documentView.DataContext is not IDockingPanel panel)
+            if (documentModel == null || documentModel.View is not FrameworkElement documentView || documentView.DataContext is not IDockingPanelViewModel panel)
                 return;
 
             if (DanceMessageExpansion.ShowMessageBox("提升", DanceMessageBoxIcon.Info, $"文件: {documentModel.File} 发生改变，是否重新加载?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) != DanceMessageBoxAction.YES)
@@ -934,7 +934,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void OnFileStatusChange(object sender, FileStatusChangeMessage msg)
         {
-            this.IsSaveAllEnabled = this.Documents?.Any(p => p.View is FrameworkElement view && view.DataContext is IDockingDocument document && document.IsModify) ?? false;
+            this.IsSaveAllEnabled = this.Documents?.Any(p => p.View is FrameworkElement view && view.DataContext is IDockingDocumentViewModel document && document.IsModify) ?? false;
         }
 
         #endregion

@@ -28,6 +28,9 @@ namespace Dance.Art.Domain
 
             string cache = Path.Combine(this.projectFolderPath, $"{Path.GetFileNameWithoutExtension(path)}{FileSuffixCategory.PROJECT_CACHE}");
             this.cacheContext = new ProjectCacheContext(cache);
+
+            // 加载连接分组
+            this.LoadConnectionGroups();
         }
 
         // ===========================================================================
@@ -61,31 +64,21 @@ namespace Dance.Art.Domain
 
         #endregion
 
-        #region CollectionGroups -- 连接集合
+        #region ConnectionGroups -- 连接集合
 
-        private ObservableCollection<CollectionGroup> collectionGroups = new();
         /// <summary>
         /// 连接分组
         /// </summary>
-        public ObservableCollection<CollectionGroup> CollectionGroups
-        {
-            get { return collectionGroups; }
-            private set { collectionGroups = value; this.OnPropertyChanged(); }
-        }
+        public ObservableCollection<ConnectionGroupModel> ConnectionGroups { get; } = new();
 
         #endregion
 
         #region DataSources -- 数据源
 
-        private ObservableCollection<DataSource> dataSources = new();
         /// <summary>
         /// 数据源
         /// </summary>
-        public ObservableCollection<DataSource> DataSources
-        {
-            get { return dataSources; }
-            private set { dataSources = value; this.OnPropertyChanged(); }
-        }
+        public ObservableCollection<DataSource> DataSources { get; } = new();
 
         #endregion
 
@@ -185,6 +178,9 @@ namespace Dance.Art.Domain
         /// </summary>
         protected override void Destroy()
         {
+            // 销毁连接分组
+            this.DisposeConnectionGroups();
+
             this.CacheContext?.Dispose();
         }
     }

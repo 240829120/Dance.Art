@@ -97,6 +97,7 @@ namespace Dance.Art.Module
             PluginManager.LoadPlugin("Dance.Art.Plugin");
             PluginManager.LoadPlugin("Dance.Art.Template");
             PluginManager.LoadPlugin("Dance.Art.Script");
+            PluginManager.LoadPlugin("Dance.Art.Connection");
 
             for (int i = 0; i < PluginManager.PluginDomains.Count; ++i)
             {

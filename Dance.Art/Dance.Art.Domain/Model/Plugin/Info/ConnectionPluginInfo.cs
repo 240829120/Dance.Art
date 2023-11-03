@@ -16,14 +16,14 @@ namespace Dance.Art.Domain
         /// </summary>
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
-        /// <param name="factory">连接工厂</param>
+        /// <param name="factory">工厂</param>
         public ConnectionPluginInfo(string id, string name, IConnectionFactory factory) : base(id, name)
         {
             this.Factory = factory;
         }
 
         /// <summary>
-        /// 连接工厂
+        /// 工厂
         /// </summary>
         public IConnectionFactory Factory { get; private set; }
     }

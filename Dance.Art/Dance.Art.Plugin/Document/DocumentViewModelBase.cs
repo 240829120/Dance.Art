@@ -16,7 +16,7 @@ namespace Dance.Art.Plugin.Document
     /// <summary>
     /// 文档视图模型基类
     /// </summary>
-    public abstract class DocumentViewModelBase : PanelViewModelBase, IDockingDocument
+    public abstract class DocumentViewModelBase : PanelViewModelBase, IDockingDocumentViewModel
     {
         /// <summary>
         /// 文本视图模型

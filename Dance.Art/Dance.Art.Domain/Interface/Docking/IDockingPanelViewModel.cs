@@ -8,9 +8,9 @@ using System.Windows;
 namespace Dance.Art.Domain
 {
     /// <summary>
-    /// Docking 面板
+    /// Docking 面板视图模型
     /// </summary>
-    public interface IDockingPanel : IDisposable
+    public interface IDockingPanelViewModel : IDisposable
     {
         /// <summary>
         /// 是否修改

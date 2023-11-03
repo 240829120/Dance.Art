@@ -74,6 +74,9 @@ namespace Dance.Art.Plugin
         // ==========================================================================================
         // Command
 
+        // --------------------------------------------------------
+        // 分组
+
         #region AddGroupCommand -- 添加分组命令
 
         /// <summary>
@@ -194,6 +197,9 @@ namespace Dance.Art.Plugin
 
         #endregion
 
+        // --------------------------------------------------------
+        // 连接
+
         #region AddItemFromGroupCommand -- 从分组中添加项命令
 
         /// <summary>
@@ -264,13 +270,18 @@ namespace Dance.Art.Plugin
             if (item == null || item.Group == null)
                 return;
 
-            if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否删除连接: {item.Name}", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) != DanceMessageBoxAction.YES)
+            if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否删除连接: [ {item.Name} ]", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) != DanceMessageBoxAction.YES)
                 return;
 
             item.Group.Connections.Remove(item);
+
+            this.SaveGroups();
         }
 
         #endregion
+
+        // --------------------------------------------------------
+        // 拖拽
 
         #region DragBeginCommand -- 拖拽开始命令
 
@@ -284,10 +295,10 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void DragBegin(DanceDragBeginEventArgs? e)
         {
-            if (e == null)
+            if (e == null || e.Element.DataContext is not ConnectionModel item)
                 return;
 
-            e.Data = "this is a try.";
+            e.Data = item;
         }
 
         #endregion
@@ -304,11 +315,18 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void Drop(DanceDragEventArgs? e)
         {
-            if (e == null)
+            if (e == null || e.Element.DataContext is not ConnectionGroupModel dstGroup || e.EventArgs.Data.GetData(typeof(ConnectionModel)) is not ConnectionModel src)
                 return;
 
-            string? data = e.EventArgs.Data.GetData(typeof(string))?.ToString();
+            if (src.Group == null || !src.Group.Connections.Contains(src) || dstGroup.Connections.Contains(src))
+                return;
 
+            src.Group.Connections.Remove(src);
+            dstGroup.Connections.Add(src);
+            src.Group = dstGroup;
+            dstGroup.Connections.SortSelf((a, b) => string.Compare(a.Name, b.Name));
+
+            this.SaveGroups();
         }
 
         #endregion

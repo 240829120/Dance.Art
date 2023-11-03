@@ -37,6 +37,11 @@
         <ScrollViewer x:Name="scrollViewer" Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <dance:DanceGroupBox x:Name="groupBox" Width="{Binding ElementName=scrollViewer,Path=ActualWidth,Converter={StaticResource DanceSimpleMathConverter}, ConverterParameter=-0}"
                                  ItemsSource="{Binding Path=Groups}" GroupItemsSourcePath="Connections" Background="Transparent">
+                <dance:DanceGroupBox.Resources>
+                    <Style TargetType="dance:DanceGroup">
+                        <Setter Property="dance:DanceDragTrigger.DropCommand" Value="{Binding ElementName=uc,Path=DataContext.DropCommand,Mode=OneWay}"></Setter>
+                    </Style>
+                </dance:DanceGroupBox.Resources>
                 <dance:DanceGroupBox.GroupHeaderTemplate>
                     <DataTemplate>
                         <Grid Height="30">
@@ -48,7 +53,6 @@
                     <DataTemplate>
                         <Grid MinWidth="100" Height="30" Background="Transparent" Margin="5"
                               dance:DanceDragTrigger.DragBeginCommand="{Binding ElementName=uc,Path=DataContext.DragBeginCommand,Mode=OneWay}"
-                              dance:DanceDragTrigger.DropCommand="{Binding ElementName=uc,Path=DataContext.DropCommand,Mode=OneWay}"
                               dance:DanceDragTrigger.DragAdornerOwner="{Binding ElementName=groupBox}"
                               dance:DanceDragTrigger.DragAdornerBackground="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_MOUSE_OVER}}">
                             <Grid.ColumnDefinitions>

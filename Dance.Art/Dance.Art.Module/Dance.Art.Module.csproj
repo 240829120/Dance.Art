@@ -86,4 +86,10 @@
 		<Resource Include="Themes\Resources\Images\bg.jpg" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="{Core}\Template\EditStringTemplateWindow.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+
 </Project>

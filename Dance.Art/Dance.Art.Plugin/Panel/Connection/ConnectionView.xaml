@@ -12,6 +12,7 @@
              d:DesignHeight="800" d:DesignWidth="400">
 
     <UserControl.Resources>
+        <dance:DanceBindingProxy x:Key="WindowBindingProxy" Source="{x:Reference Name=uc}"></dance:DanceBindingProxy>
         <dance:DanceSimpleMathConverter x:Key="DanceSimpleMathConverter"></dance:DanceSimpleMathConverter>
         <module:IconCacheConverter x:Key="IconCacheConverter"></module:IconCacheConverter>
     </UserControl.Resources>
@@ -26,7 +27,7 @@
         <Border Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.CHUNK_BAR_BACKGROUND}}">
             <StackPanel Orientation="Horizontal">
                 <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="添加分组"
-                        Command="{Binding Path=RunCommand,Mode=OneWay}">
+                        Command="{Binding Path=AddGroupCommand,Mode=OneWay}">
                     <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/connection_group_add.svg"></dance:DanceSvgImage>
                 </Button>
             </StackPanel>
@@ -54,7 +55,8 @@
                                 <ColumnDefinition Width="20"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <module:ConnectionStatusTip Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center"></module:ConnectionStatusTip>
+                            <module:ConnectionStatusTip Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                        Status="{Binding Path=Status}"></module:ConnectionStatusTip>
                             <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Grid.Column="1" Margin="5,0,10,0"></TextBlock>
                         </Grid>
                     </DataTemplate>
@@ -66,18 +68,24 @@
                 </dance:DanceGroupBox.GroupItemsPanel>
                 <dance:DanceGroupBox.GroupContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="编辑分组">
+                        <MenuItem Header="重命名分组"
+                                  Command="{Binding Path=Source.DataContext.RenameGroupCommand, Source={StaticResource WindowBindingProxy},Mode=OneWay}"
+                                  CommandParameter="{Binding}">
                             <MenuItem.Icon>
-                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/connection_group_edit.svg"></dance:DanceSvgImage>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/rename.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="添加连接">
+                        <MenuItem Header="添加连接"
+                                  Command="{Binding Path=Source.DataContext.AddItemFromGroupCommand, Source={StaticResource WindowBindingProxy},Mode=OneWay}"
+                                  CommandParameter="{Binding}">
                             <MenuItem.Icon>
                                 <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/add.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
                         </MenuItem>
                         <Separator></Separator>
-                        <MenuItem Header="删除分组">
+                        <MenuItem Header="删除分组"
+                                  Command="{Binding Path=Source.DataContext.DeleteGroupCommand, Source={StaticResource WindowBindingProxy},Mode=OneWay}"
+                                  CommandParameter="{Binding}">
                             <MenuItem.Icon>
                                 <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
@@ -86,18 +94,24 @@
                 </dance:DanceGroupBox.GroupContextMenu>
                 <dance:DanceGroupBox.GroupItemContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="添加连接">
+                        <MenuItem Header="添加连接"
+                                  Command="{Binding Path=Source.DataContext.AddItemCommand, Source={StaticResource WindowBindingProxy},Mode=OneWay}"
+                                  CommandParameter="{Binding}">
                             <MenuItem.Icon>
                                 <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/add.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="编辑连接">
+                        <MenuItem Header="编辑连接" 
+                                  Command="{Binding Path=Source.DataContext.EditItemCommand, Source={StaticResource WindowBindingProxy},Mode=OneWay}"
+                                  CommandParameter="{Binding}">
                             <MenuItem.Icon>
                                 <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/edit.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>
                         </MenuItem>
                         <Separator></Separator>
-                        <MenuItem Header="删除连接">
+                        <MenuItem Header="删除连接" 
+                                  Command="{Binding Path=Source.DataContext.DeleteItemCommand, Source={StaticResource WindowBindingProxy},Mode=OneWay}"
+                                  CommandParameter="{Binding}">
                             <MenuItem.Icon>
                                 <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
                             </MenuItem.Icon>

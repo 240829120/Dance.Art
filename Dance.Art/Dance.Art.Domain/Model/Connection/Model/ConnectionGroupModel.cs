@@ -26,20 +26,6 @@ namespace Dance.Art.Domain
 
         #endregion
 
-        #region Description -- 描述
-
-        private string? description;
-        /// <summary>
-        /// 描述
-        /// </summary>
-        public string? Description
-        {
-            get { return description; }
-            set { description = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
-
         #region Connections -- 连接集合
 
         /// <summary>

@@ -17,19 +17,14 @@ namespace Dance.Art.Domain
         Disconnected = 0,
 
         /// <summary>
-        /// 正在断开
+        /// 等待
         /// </summary>
-        Disconnecting = 1,
-
-        /// <summary>
-        /// 正在连接
-        /// </summary>
-        Connecting = 2,
+        Waiting = 1,
 
         /// <summary>
         /// 已经连接
         /// </summary>
-        Connected = 3
+        Connected = 2
     }
 
 }

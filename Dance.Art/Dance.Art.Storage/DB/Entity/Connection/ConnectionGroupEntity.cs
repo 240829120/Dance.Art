@@ -17,11 +17,6 @@ namespace Dance.Art.Storage
         public string? Name { get; set; }
 
         /// <summary>
-        /// 描述
-        /// </summary>
-        public string? Description { get; set; }
-
-        /// <summary>
         /// 连接集合
         /// </summary>
         public List<ConnectionEntity>? Connections { get; set; }

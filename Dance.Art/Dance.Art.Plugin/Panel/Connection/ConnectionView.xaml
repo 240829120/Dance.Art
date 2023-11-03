@@ -16,7 +16,6 @@
         <module:IconCacheConverter x:Key="IconCacheConverter"></module:IconCacheConverter>
     </UserControl.Resources>
 
-
     <Grid UseLayoutRounding="True" SnapsToDevicePixels="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
@@ -35,32 +34,76 @@
         <dance:DanceDashedLine Grid.Row="1" StrokeDashArray="5 5" VerticalAlignment="Top" Margin="0,2,0,0"></dance:DanceDashedLine>
 
         <ScrollViewer x:Name="scrollViewer" Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <dance:DanceGroupBox Width="{Binding ElementName=scrollViewer,Path=ActualWidth,Converter={StaticResource DanceSimpleMathConverter}, ConverterParameter=-0}"
-                                 ItemsSource="{Binding Path=Groups}" GroupItemsSourcePath="Connections">
+            <dance:DanceGroupBox x:Name="groupBox" Width="{Binding ElementName=scrollViewer,Path=ActualWidth,Converter={StaticResource DanceSimpleMathConverter}, ConverterParameter=-0}"
+                                 ItemsSource="{Binding Path=Groups}" GroupItemsSourcePath="Connections" Background="Transparent">
                 <dance:DanceGroupBox.GroupHeaderTemplate>
                     <DataTemplate>
-                        <Grid Height="40">
-                            <TextBlock Text="{Binding Path=Name}" Opacity="0.5" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                        <Grid Height="30">
+                            <TextBlock Text="{Binding Path=Name}" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </DataTemplate>
                 </dance:DanceGroupBox.GroupHeaderTemplate>
                 <dance:DanceGroupBox.GroupItemTemplate>
                     <DataTemplate>
-                        <Grid Height="40" Background="Transparent"
+                        <Grid MinWidth="100" Height="30" Background="Transparent" Margin="5"
                               dance:DanceDragTrigger.DragBeginCommand="{Binding ElementName=uc,Path=DataContext.DragBeginCommand,Mode=OneWay}"
-                              dance:DanceDragTrigger.DropCommand="{Binding ElementName=uc,Path=DataContext.DropCommand,Mode=OneWay}">
+                              dance:DanceDragTrigger.DropCommand="{Binding ElementName=uc,Path=DataContext.DropCommand,Mode=OneWay}"
+                              dance:DanceDragTrigger.DragAdornerOwner="{Binding ElementName=groupBox}"
+                              dance:DanceDragTrigger.DragAdornerBackground="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_MOUSE_OVER}}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="40"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Image Width="14" Height="14" Source="{Binding Path=PluginInfo.Icon,Converter={StaticResource IconCacheConverter}}"
-                                   VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
-                            <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
-                            <module:ConnectionStatusTip Grid.Column="2" Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Left"></module:ConnectionStatusTip>
+                            <module:ConnectionStatusTip Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center"></module:ConnectionStatusTip>
+                            <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Grid.Column="1" Margin="5,0,10,0"></TextBlock>
                         </Grid>
                     </DataTemplate>
                 </dance:DanceGroupBox.GroupItemTemplate>
+                <dance:DanceGroupBox.GroupItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </dance:DanceGroupBox.GroupItemsPanel>
+                <dance:DanceGroupBox.GroupContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="编辑分组">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/connection_group_edit.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="添加连接">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/add.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Header="删除分组">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </dance:DanceGroupBox.GroupContextMenu>
+                <dance:DanceGroupBox.GroupItemContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="添加连接">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/add.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="编辑连接">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/edit.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Header="删除连接">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </dance:DanceGroupBox.GroupItemContextMenu>
             </dance:DanceGroupBox>
         </ScrollViewer>
     </Grid>

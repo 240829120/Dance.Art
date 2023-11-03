@@ -194,21 +194,22 @@ namespace Dance.Art.Plugin
 
             ObservableCollection<ConnectionGroupModel> groupModels = new();
 
-            groupModels.Add(new ConnectionGroupModel() { Name = "Group 1" });
-            groupModels.Add(new ConnectionGroupModel() { Name = "Group 2" });
-            groupModels.Add(new ConnectionGroupModel() { Name = "Group 3" });
+            groupModels.Add(new ConnectionGroupModel() { Name = "设备" });
+            groupModels.Add(new ConnectionGroupModel() { Name = "引擎" });
+            groupModels.Add(new ConnectionGroupModel() { Name = "网络" });
+            groupModels.Add(new ConnectionGroupModel() { Name = "空" });
 
-            groupModels[0].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Group 1 --- Item 1" });
-            groupModels[0].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Group 1 --- Item 2" });
-            groupModels[0].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Group 1 --- Item 3" });
+            groupModels[0].Connections.Add(new ConnectionModel(pluginInfo) { Name = "设备1" });
+            groupModels[0].Connections.Add(new ConnectionModel(pluginInfo) { Name = "设备2" });
+            groupModels[0].Connections.Add(new ConnectionModel(pluginInfo) { Name = "设备3" });
 
-            groupModels[1].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Group 2 --- Item 1" });
-            groupModels[1].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Group 2 --- Item 2" });
+            groupModels[1].Connections.Add(new ConnectionModel(pluginInfo) { Name = "UE" });
+            groupModels[1].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Unity" });
 
-            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Group 3 --- Item 1" });
-            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Group 3 --- Item 2" });
-            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Group 3 --- Item 3" });
-            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "Group 3 --- Item 4" });
+            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "主机房" });
+            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "副机房1" });
+            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "副机房2" });
+            groupModels[2].Connections.Add(new ConnectionModel(pluginInfo) { Name = "副机房3" });
 
             this.Groups = groupModels;
 

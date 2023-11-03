@@ -7,12 +7,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="Themes\Resources\Icons\add.svg" />
 		<None Remove="Themes\Resources\Icons\clear.svg" />
 		<None Remove="Themes\Resources\Icons\connection_group_add.svg" />
+		<None Remove="Themes\Resources\Icons\connection_group_edit.svg" />
 		<None Remove="Themes\Resources\Icons\copy.svg" />
 		<None Remove="Themes\Resources\Icons\cut.svg" />
 		<None Remove="Themes\Resources\Icons\debug.svg" />
 		<None Remove="Themes\Resources\Icons\delete.svg" />
+		<None Remove="Themes\Resources\Icons\edit.svg" />
 		<None Remove="Themes\Resources\Icons\file.svg" />
 		<None Remove="Themes\Resources\Icons\folder.svg" />
 		<None Remove="Themes\Resources\Icons\layout.svg" />
@@ -48,12 +51,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Resource Include="Themes\Resources\Icons\add.svg" />
 		<Resource Include="Themes\Resources\Icons\clear.svg" />
 		<Resource Include="Themes\Resources\Icons\connection_group_add.svg" />
+		<Resource Include="Themes\Resources\Icons\connection_group_edit.svg" />
 		<Resource Include="Themes\Resources\Icons\copy.svg" />
 		<Resource Include="Themes\Resources\Icons\cut.svg" />
 		<Resource Include="Themes\Resources\Icons\debug.svg" />
 		<Resource Include="Themes\Resources\Icons\delete.svg" />
+		<Resource Include="Themes\Resources\Icons\edit.svg" />
 		<Resource Include="Themes\Resources\Icons\file.svg" />
 		<Resource Include="Themes\Resources\Icons\layout_save.svg" />
 		<Resource Include="Themes\Resources\Icons\newFile.svg" />

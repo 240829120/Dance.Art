@@ -169,12 +169,11 @@ namespace Dance.Art.Plugin
                 return;
             }
 
-            ConnectionModel model = new(this.SelectedPluginInfo)
+            ConnectionModel model = new(this.ConnectionGroup, this.SelectedPluginInfo)
             {
                 ID = id,
                 Name = this.Name.Trim(),
-                Description = this.Description,
-                Group = this.ConnectionGroup
+                Description = this.Description
             };
 
             editViewModel.Save(model);
@@ -182,6 +181,8 @@ namespace Dance.Art.Plugin
             this.ConnectionGroup.Connections.Add(model);
             this.ConnectionGroup.Connections.SortSelf((a, b) => string.Compare(a.Name, b.Name));
             artDomain.ProjectDomain.SaveConnectionGroups();
+
+            model.Controller.Initialize();
 
             window.DialogResult = true;
             window.Close();

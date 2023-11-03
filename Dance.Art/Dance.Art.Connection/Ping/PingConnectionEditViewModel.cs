@@ -29,6 +29,20 @@ namespace Dance.Art.Connection
 
         #endregion
 
+        #region Frequency -- 频率（单位：秒）
+
+        private int frequency;
+        /// <summary>
+        /// 频率（单位：秒）
+        /// </summary>
+        public int Frequency
+        {
+            get { return frequency; }
+            set { frequency = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
         // =============================================================================================
         // Command
 
@@ -41,8 +55,13 @@ namespace Dance.Art.Connection
         /// <param name="model">模型</param>
         public void Load(ConnectionModel model)
         {
-            model.Parameters.TryGetValue("Host", out string? host);
+            model.Parameters.TryGetValue(PingConnectionParameters.Host, out string? host);
+            model.Parameters.TryGetValue(PingConnectionParameters.Frequency, out string? frequency);
+
             this.Host = host;
+
+            _ = int.TryParse(frequency, out int frequencyValue);
+            this.Frequency = Math.Max(2, frequencyValue);
         }
 
         /// <summary>
@@ -52,7 +71,8 @@ namespace Dance.Art.Connection
         /// <returns>是否保存成功</returns>
         public bool Save(ConnectionModel model)
         {
-            model.Parameters["Host"] = this.Host ?? string.Empty;
+            model.Parameters[PingConnectionParameters.Host] = this.Host ?? string.Empty;
+            model.Parameters[PingConnectionParameters.Frequency] = this.Frequency.ToString();
 
             return true;
         }

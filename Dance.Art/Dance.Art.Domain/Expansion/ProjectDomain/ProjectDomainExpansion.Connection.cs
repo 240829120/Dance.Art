@@ -47,22 +47,24 @@ namespace Dance.Art.Domain
                         continue;
                     }
 
-                    ConnectionModel connectionModel = new(pluginInfo)
+                    ConnectionModel connectionModel = new(groupModel, pluginInfo)
                     {
                         ID = connection.ID,
                         Name = connection.Name,
                         Description = connection.Description
                     };
 
-                    groupModel.Connections.Add(connectionModel);
+                    connectionModel.Controller.Initialize();
 
-                    if (connection.Parameters == null || connection.Parameters.Count == 0)
-                        continue;
-
-                    foreach (var kv in connection.Parameters)
+                    if (connection.Parameters != null && connection.Parameters.Count > 0)
                     {
-                        connectionModel.Parameters.Add(kv.Key, kv.Value);
+                        foreach (var kv in connection.Parameters)
+                        {
+                            connectionModel.Parameters.Add(kv.Key, kv.Value);
+                        }
                     }
+
+                    groupModel.Connections.Add(connectionModel);
                 }
             }
 
@@ -115,7 +117,7 @@ namespace Dance.Art.Domain
         /// <param name="projectDomain">项目领域</param>
         public static void DisposeConnectionGroups(this ProjectDomain projectDomain)
         {
-            projectDomain.ConnectionGroups.ForEach(g => g.Connections.ForEach(i => i.Dispose()));
+            projectDomain.ConnectionGroups.ForEach(g => g.Dispose());
         }
     }
 }

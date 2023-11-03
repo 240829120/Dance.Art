@@ -221,7 +221,8 @@ namespace Dance.Art.Plugin
             if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否删除分组: [ {group.Name} ]", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) != DanceMessageBoxAction.YES)
                 return;
 
-            this.Groups.Remove(group);
+            this.Groups?.Remove(group);
+            group.Dispose();
         }
 
         #endregion
@@ -311,6 +312,7 @@ namespace Dance.Art.Plugin
                 return;
 
             item.Group.Connections.Remove(item);
+            item.Dispose();
 
             this.SaveGroups();
         }

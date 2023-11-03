@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Art.Domain
+namespace Dance.Art.Connection
 {
     /// <summary>
-    /// 连接控制器
+    /// Ping连接参数
     /// </summary>
-    public interface IConnectionController : IDisposable
+    public static class PingConnectionParameters
     {
         /// <summary>
-        /// 连接模型
+        /// 主机
         /// </summary>
-        ConnectionModel? Model { get; set; }
+        public const string Host = "Host";
 
         /// <summary>
-        /// 初始化
+        /// 频率
         /// </summary>
-        void Initialize();
+        public const string Frequency = "Frequency";
     }
 }

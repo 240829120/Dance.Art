@@ -52,6 +52,7 @@
                 <dance:DanceGroupBox.GroupItemTemplate>
                     <DataTemplate>
                         <Grid MinWidth="100" Height="30" Background="Transparent" Margin="5"
+                              ToolTip="{Binding Path=Description,Mode=OneWay}"
                               dance:DanceDragTrigger.DragBeginCommand="{Binding ElementName=uc,Path=DataContext.DragBeginCommand,Mode=OneWay}"
                               dance:DanceDragTrigger.DragAdornerOwner="{Binding ElementName=groupBox}"
                               dance:DanceDragTrigger.DragAdornerBackground="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_MOUSE_OVER}}">

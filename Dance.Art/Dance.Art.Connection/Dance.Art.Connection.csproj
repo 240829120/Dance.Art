@@ -19,4 +19,10 @@
     <Folder Include="TCP\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="UDP\UdpEditView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

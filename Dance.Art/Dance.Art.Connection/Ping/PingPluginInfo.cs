@@ -40,8 +40,8 @@ namespace Dance.Art.Connection
             if (ArtDomain.Current.ProjectDomain == null || model.Source is not PingSourceModel sourceModel)
                 return;
 
-            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<PingEntity>();
-            PingEntity? entity = collection.FindById(model.SourceID) ?? new();
+            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<PingSourceEntity>();
+            PingSourceEntity? entity = collection.FindById(model.SourceID) ?? new();
 
             sourceModel.Host = entity.Host;
             sourceModel.Frequency = entity.Frequency;
@@ -56,8 +56,8 @@ namespace Dance.Art.Connection
             if (ArtDomain.Current.ProjectDomain == null || model.Source is not PingSourceModel sourceModel)
                 return 0;
 
-            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<PingEntity>();
-            PingEntity? entity = collection.FindById(model.SourceID) ?? new();
+            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<PingSourceEntity>();
+            PingSourceEntity? entity = collection.FindById(model.SourceID) ?? new();
 
             entity.ID = model.SourceID;
             entity.Host = sourceModel.Host;
@@ -77,7 +77,7 @@ namespace Dance.Art.Connection
             if (ArtDomain.Current.ProjectDomain == null || model.SourceID <= 0)
                 return;
 
-            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<PingEntity>();
+            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<PingSourceEntity>();
             collection.Delete(model.SourceID);
         }
 

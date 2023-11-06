@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Interop;
 
 namespace Dance.Art.Panel
 {
@@ -25,6 +26,7 @@ namespace Dance.Art.Panel
         /// </summary>
         public CommandViewModel()
         {
+            this.LoadedCommand = new(this.Loaded);
             this.CopyCommand = new(this.Copy, this.CanCopy);
             this.CutCommand = new(this.Cut, this.CanCut);
             this.PasteCommand = new(this.Paste);
@@ -64,6 +66,33 @@ namespace Dance.Art.Panel
 
         // ==========================================================================================
         // Command
+
+        #region LoadedCommand -- 加载命令
+
+        /// <summary>
+        /// 加载命令
+        /// </summary>
+        public RelayCommand LoadedCommand { get; private set; }
+
+        /// <summary>
+        /// 加载
+        /// </summary>
+        private void Loaded()
+        {
+            if (this.View is not CommandView view || ArtDomain.Current.ProjectDomain == null)
+                return;
+
+            CommandCacheEntity? entity = ArtDomain.Current.ProjectDomain.CacheContext.CommandCaches.FindAll().FirstOrDefault();
+            if (entity == null)
+                return;
+
+            view.edit.Text = entity.Command;
+            this.IsEnabled = true;
+
+            this.UpdateToolStatus();
+        }
+
+        #endregion
 
         #region CopyCommand -- 复制命令
 

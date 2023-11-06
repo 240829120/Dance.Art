@@ -96,7 +96,11 @@ namespace Dance.Art.Panel
         /// </summary>
         private void Loaded()
         {
+            if (ArtDomain.Current.ProjectDomain == null)
+                return;
 
+            this.FileManager.Initialize(ArtDomain.Current.ProjectDomain);
+            this.Files = this.FileManager.Root == null ? null : new() { this.FileManager.Root };
         }
 
         #endregion

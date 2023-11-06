@@ -10,7 +10,7 @@ namespace Dance.Art.Connection
     /// <summary>
     /// Ping实体
     /// </summary>
-    public class PingEntity : EntityBase
+    public class PingSourceEntity : EntityBase
     {
         /// <summary>
         /// 主机

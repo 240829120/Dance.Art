@@ -20,7 +20,8 @@ namespace Dance.Art.Connection
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
         /// <param name="editViewType">编辑器视图类型</param>
-        public PingPluginInfo(string id, string name, Type editViewType) : base(id, name, editViewType)
+        /// <param name="sourceModelType">源模型类型</param>
+        public PingPluginInfo(string id, string name, Type editViewType, Type sourceModelType) : base(id, name, editViewType, sourceModelType)
         {
 
         }
@@ -31,31 +32,40 @@ namespace Dance.Art.Connection
         private readonly IDanceLoopManager LoopManager = DanceDomain.Current.LifeScope.Resolve<IDanceLoopManager>();
 
         /// <summary>
-        /// 创建连接模型
+        /// 从仓储加载数据
         /// </summary>
         /// <param name="model">连接模型</param>
-        public override void Create(ConnectionModel model)
+        public override void LoadFromStorage(ConnectionModel model)
         {
-            if (ArtDomain.Current.ProjectDomain == null)
+            if (ArtDomain.Current.ProjectDomain == null || model.Source is not PingSourceModel sourceModel)
                 return;
 
             var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<PingEntity>();
-            PingEntity? entity = collection.FindById(model.SourceID);
-            if (entity == null)
-            {
-                entity = new();
-                collection.Insert(entity);
-            }
+            PingEntity? entity = collection.FindById(model.SourceID) ?? new();
 
-            PingSourceModel source = new()
-            {
-                ID = entity.ID,
-                Host = entity.Host,
-                Frequency = entity.Frequency
-            };
+            sourceModel.Host = entity.Host;
+            sourceModel.Frequency = entity.Frequency;
+        }
 
-            model.SourceID = entity.ID;
-            model.Source = source;
+        /// <summary>
+        /// 保存至仓储
+        /// </summary>
+        /// <param name="model">连接模型</param>
+        public override int SaveToStorage(ConnectionModel model)
+        {
+            if (ArtDomain.Current.ProjectDomain == null || model.Source is not PingSourceModel sourceModel)
+                return 0;
+
+            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<PingEntity>();
+            PingEntity? entity = collection.FindById(model.SourceID) ?? new();
+
+            entity.ID = model.SourceID;
+            entity.Host = sourceModel.Host;
+            entity.Frequency = sourceModel.Frequency;
+
+            collection.Upsert(entity);
+
+            return entity.ID;
         }
 
         /// <summary>
@@ -77,16 +87,13 @@ namespace Dance.Art.Connection
         /// <param name="model">连接模型</param>
         public override void Initialize(ConnectionModel model)
         {
-            if (model.Source == null)
-                this.Create(model);
-
             if (model.Source is not PingSourceModel sourceModel)
                 return;
 
             if (sourceModel.Ping == null)
                 sourceModel.Ping = new();
 
-            this.LoopManager.Register($"PingPluginInfo__{sourceModel.ID}", sourceModel.Frequency / 1000d, () =>
+            this.LoopManager.Register($"PingPluginInfo__{model.SourceID}", sourceModel.Frequency / 1000d, () =>
             {
                 if (sourceModel.PingTask != null || string.IsNullOrWhiteSpace(sourceModel.Host))
                     return;
@@ -111,10 +118,7 @@ namespace Dance.Art.Connection
         /// <param name="model">连接模型</param>
         public override void Destory(ConnectionModel model)
         {
-            if (model.Source is not PingSourceModel sourceModel)
-                return;
-
-            this.LoopManager.UnRegister($"PingPluginInfo__{sourceModel.ID}");
+            this.LoopManager.UnRegister($"PingPluginInfo__{model.SourceID}");
         }
     }
 }

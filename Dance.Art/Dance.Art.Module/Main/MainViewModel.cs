@@ -286,11 +286,11 @@ namespace Dance.Art.Module
                 return;
 
             ProjectDomain domain = new(vm.ProjectPath);
+            ArtDomain.Current.ProjectDomain = domain;
             domain.Build();
+
             ProjectOpenMessage msg = new(domain);
             this.ProjectDomain = domain;
-            ArtDomain.Current.ProjectDomain = domain;
-
             ArtDomain.Current.Messenger.Send(msg);
         }
 
@@ -326,11 +326,11 @@ namespace Dance.Art.Module
                 return;
 
             ProjectDomain domain = new(ofd.FileName);
+            ArtDomain.Current.ProjectDomain = domain;
             domain.Build();
+
             ProjectOpenMessage msg = new(domain);
             this.ProjectDomain = domain;
-            ArtDomain.Current.ProjectDomain = domain;
-
             ArtDomain.Current.Messenger.Send(msg);
         }
 

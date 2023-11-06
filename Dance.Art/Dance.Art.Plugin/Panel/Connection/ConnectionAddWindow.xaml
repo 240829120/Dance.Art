@@ -54,7 +54,7 @@
                             <TextBlock Text="参数" Opacity="0.7"></TextBlock>
                         </GroupBox.Header>
                         <ContentControl x:Name="editView" 
-                                        Content="{Binding Path=SelectedPluginInfo.EdtiViewType,Converter={StaticResource DanceTypeInstanceConverter}}"></ContentControl>
+                                        Content="{Binding Path=SelectedPluginInfo.EditViewType,Converter={StaticResource DanceTypeInstanceConverter}}"></ContentControl>
                     </GroupBox>
                 </Grid>
 

@@ -149,7 +149,7 @@ namespace Dance.Art.Plugin
         private void Enter()
         {
             // 校验
-            if (ArtDomain.Current.ProjectDomain == null || this.View is not ConnectionAddWindow window || this.SelectedPluginInfo == null)
+            if (ArtDomain.Current.ProjectDomain == null || this.View is not ConnectionAddWindow window || this.SelectedPluginInfo == null || string.IsNullOrWhiteSpace(this.SelectedPluginInfo.SourceModelType.FullName))
                 return;
 
             if (window.editView.Content is not FrameworkElement editView || editView.DataContext is not IConnectionEditViewModel editViewModel)
@@ -179,7 +179,8 @@ namespace Dance.Art.Plugin
             {
                 ID = id,
                 Name = this.Name.Trim(),
-                Description = this.Description
+                Description = this.Description,
+                Source = this.SelectedPluginInfo.SourceModelType.Assembly.CreateInstance(this.SelectedPluginInfo.SourceModelType.FullName)
             };
 
             if (!editViewModel.SaveToModel(model, out string error))
@@ -187,14 +188,14 @@ namespace Dance.Art.Plugin
                 DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, error, DanceMessageBoxAction.YES);
                 return;
             }
-            this.SelectedPluginInfo.Create(model);
+
+            // 保存至仓储，并且完成初始化
+            model.SourceID = this.SelectedPluginInfo.SaveToStorage(model);
+            this.SelectedPluginInfo.Initialize(model);
 
             this.ConnectionGroup.Connections.Add(model);
             this.ConnectionGroup.Connections.SortSelf((a, b) => string.Compare(a.Name, b.Name));
             this.ConnectionStorage.SaveConnectionGroups(ArtDomain.Current.ProjectDomain);
-
-            // 初始化
-            this.SelectedPluginInfo.Initialize(model);
 
             // 关闭窗口
             window.DialogResult = true;

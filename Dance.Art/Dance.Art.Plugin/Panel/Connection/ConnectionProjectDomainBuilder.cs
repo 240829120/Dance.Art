@@ -11,7 +11,7 @@ namespace Dance.Art.Plugin
     /// <summary>
     /// 连接项目构建器
     /// </summary>
-    public class ConnectionProjectDomainBuilder : IProjectDomainBuilder
+    public class ConnectionProjectDomainBuilder : DanceModel, IProjectDomainBuilder
     {
         /// <summary>
         /// 连接仓储
@@ -29,15 +29,31 @@ namespace Dance.Art.Plugin
         /// <param name="projectDomain">项目领域</param>
         public void Build(ProjectDomain projectDomain)
         {
-            projectDomain.ConnectionGroups.ForEach(g => g.Connections.ForEach(i => i.Dispose()));
-
             List<ConnectionGroupModel>? groupModels = this.ConnectionStorage.GetConnectionGroups(projectDomain);
             if (groupModels == null)
                 return;
 
             projectDomain.ConnectionGroups.AddRange(groupModels);
 
-            projectDomain.ConnectionGroups.ForEach(p => p.Connections.ForEach(i => i.PluginInfo.Initialize(i)));
+            foreach (ConnectionGroupModel groupModel in groupModels)
+            {
+                foreach (ConnectionModel model in groupModel.Connections)
+                {
+                    try
+                    {
+                        if (string.IsNullOrWhiteSpace(model.PluginInfo.SourceModelType.FullName))
+                            continue;
+
+                        model.Source = model.PluginInfo.SourceModelType.Assembly.CreateInstance(model.PluginInfo.SourceModelType.FullName);
+                        model.PluginInfo.LoadFromStorage(model);
+                        model.PluginInfo.Initialize(model);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -46,7 +62,22 @@ namespace Dance.Art.Plugin
         /// <param name="projectDomain">项目领域</param>
         public void Destroy(ProjectDomain projectDomain)
         {
-            projectDomain.ConnectionGroups.ForEach(g => g.Dispose());
+            foreach (ConnectionGroupModel groupModel in projectDomain.ConnectionGroups)
+            {
+                foreach (ConnectionModel model in groupModel.Connections)
+                {
+                    try
+                    {
+                        model.PluginInfo.Destory(model);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                    }
+                }
+            }
+
+            projectDomain.ConnectionGroups.Clear();
         }
     }
 }

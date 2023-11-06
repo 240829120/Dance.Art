@@ -34,15 +34,5 @@ namespace Dance.Art.Domain
         public ObservableCollection<ConnectionModel> Connections { get; } = new();
 
         #endregion
-
-        /// <summary>
-        /// 销毁
-        /// </summary>
-        protected override void Destroy()
-        {
-            base.Destroy();
-
-            this.Connections.ForEach(p => p.Dispose());
-        }
     }
 }

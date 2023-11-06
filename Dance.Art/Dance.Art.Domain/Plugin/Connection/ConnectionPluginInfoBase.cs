@@ -17,9 +17,11 @@ namespace Dance.Art.Domain
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
         /// <param name="editViewType">编辑器视图类型</param>
-        public ConnectionPluginInfoBase(string id, string name, Type editViewType) : base(id, name)
+        /// <param name="sourceModelType">源模型类型</param>
+        public ConnectionPluginInfoBase(string id, string name, Type editViewType, Type sourceModelType) : base(id, name)
         {
             this.EditViewType = editViewType;
+            this.SourceModelType = sourceModelType;
         }
 
         /// <summary>
@@ -28,10 +30,22 @@ namespace Dance.Art.Domain
         public Type EditViewType { get; private set; }
 
         /// <summary>
-        /// 创建连接模型
+        /// 源模型类型
+        /// </summary>
+        public Type SourceModelType { get; private set; }
+
+        /// <summary>
+        /// 从仓储加载数据
         /// </summary>
         /// <param name="model">连接模型</param>
-        public abstract void Create(ConnectionModel model);
+        public abstract void LoadFromStorage(ConnectionModel model);
+
+        /// <summary>
+        /// 保存至仓储
+        /// </summary>
+        /// <param name="model">连接模型</param>
+        /// <returns>仓储ID</returns>
+        public abstract int SaveToStorage(ConnectionModel model);
 
         /// <summary>
         /// 删除连接模型

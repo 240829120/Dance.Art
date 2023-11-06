@@ -20,11 +20,6 @@ namespace Dance.Art.Connection
         internal Task? PingTask;
 
         /// <summary>
-        /// 编号
-        /// </summary>
-        public int ID { get; set; }
-
-        /// <summary>
         /// Ping
         /// </summary>
         public Ping? Ping { get; set; }

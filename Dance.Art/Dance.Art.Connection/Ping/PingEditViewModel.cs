@@ -64,7 +64,10 @@ namespace Dance.Art.Connection
             error = string.Empty;
 
             if (model.Source is not PingSourceModel sourceModel)
+            {
+                error = $"ConnectionSourceModel 类型不正确, 应该为: PingSourceModel, 实际为: {model.Source?.GetType().FullName}";
                 return false;
+            }
 
             if (string.IsNullOrWhiteSpace(this.Host))
             {

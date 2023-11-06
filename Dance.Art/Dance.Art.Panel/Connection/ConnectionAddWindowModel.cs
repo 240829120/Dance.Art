@@ -180,7 +180,7 @@ namespace Dance.Art.Panel
                 ID = id,
                 Name = this.Name.Trim(),
                 Description = this.Description,
-                Source = this.SelectedPluginInfo.SourceModelType.Assembly.CreateInstance(this.SelectedPluginInfo.SourceModelType.FullName),
+                Source = this.SelectedPluginInfo.SourceModelType.Assembly.CreateInstance(this.SelectedPluginInfo.SourceModelType.FullName) as IConnectionSourceModel,
             };
 
             if (!editViewModel.SaveToModel(model, out string error))

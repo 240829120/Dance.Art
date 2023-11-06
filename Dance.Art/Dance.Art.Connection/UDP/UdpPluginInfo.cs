@@ -96,6 +96,7 @@ namespace Dance.Art.Connection
                 sourceModel.Client = new(localPoint);
                 sourceModel.Client.Connect(sourceModel.RemoteHost, sourceModel.RemotePort);
 
+
                 model.Status = ConnectionStatus.Connected;
             }
         }

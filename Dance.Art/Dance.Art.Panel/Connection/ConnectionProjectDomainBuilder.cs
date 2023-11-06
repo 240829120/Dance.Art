@@ -44,7 +44,7 @@ namespace Dance.Art.Panel
                         if (string.IsNullOrWhiteSpace(model.PluginInfo.SourceModelType.FullName))
                             continue;
 
-                        model.Source = model.PluginInfo.SourceModelType.Assembly.CreateInstance(model.PluginInfo.SourceModelType.FullName);
+                        model.Source = model.PluginInfo.SourceModelType.Assembly.CreateInstance(model.PluginInfo.SourceModelType.FullName) as IConnectionSourceModel;
                         model.PluginInfo.LoadFromStorage(model);
                         model.PluginInfo.Initialize(model);
                     }

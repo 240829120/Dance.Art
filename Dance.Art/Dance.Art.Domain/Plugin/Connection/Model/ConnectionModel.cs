@@ -107,11 +107,11 @@ namespace Dance.Art.Domain
 
         #region Source -- 源
 
-        private object? source;
+        private IConnectionSourceModel? source;
         /// <summary>
         /// 源
         /// </summary>
-        public object? Source
+        public IConnectionSourceModel? Source
         {
             get { return source; }
             set { source = value; this.OnPropertyChanged(); }

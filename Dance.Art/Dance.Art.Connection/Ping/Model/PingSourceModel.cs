@@ -12,7 +12,7 @@ namespace Dance.Art.Connection
     /// <summary>
     /// Ping源模型
     /// </summary>
-    public class PingSourceModel : DanceModel
+    public class PingSourceModel : DanceModel, IConnectionSourceModel
     {
         /// <summary>
         /// Ping任务
@@ -51,5 +51,19 @@ namespace Dance.Art.Connection
         }
 
         #endregion
+
+        /// <summary>
+        /// 接收数据时触发
+        /// </summary>
+        public event EventHandler<ConnectionSourceReceiveDataEventArgs>? ReceiveData;
+
+        /// <summary>
+        /// 发送
+        /// </summary>
+        /// <param name="data">数据</param>
+        public void Send(byte[] data)
+        {
+            //Nothing todo.
+        }
     }
 }

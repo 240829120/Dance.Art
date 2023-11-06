@@ -40,6 +40,7 @@
                 <dance:DanceGroupBox.Resources>
                     <Style TargetType="dance:DanceGroup">
                         <Setter Property="dance:DanceDragTrigger.DropCommand" Value="{Binding ElementName=uc,Path=DataContext.DropCommand,Mode=OneWay}"></Setter>
+                        <Setter Property="dance:DanceLayoutCommandTrigger.WidthResponsiveLayoutSmall" Value="160"></Setter>
                     </Style>
                 </dance:DanceGroupBox.Resources>
                 <dance:DanceGroupBox.GroupHeaderTemplate>
@@ -62,7 +63,12 @@
                             </Grid.ColumnDefinitions>
                             <module:ConnectionStatusTip Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center"
                                                         Status="{Binding Path=Status}"></module:ConnectionStatusTip>
-                            <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Grid.Column="1" Margin="5,0,10,0"></TextBlock>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,10,0">
+                                <TextBlock Text="[" Opacity="0.5"></TextBlock>
+                                <TextBlock Text="{Binding Path=PluginInfo.Name}" Opacity="0.5"></TextBlock>
+                                <TextBlock Text="]" Opacity="0.5"></TextBlock>
+                                <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Grid.Column="1" Margin="5,0,0,0"></TextBlock>
+                            </StackPanel>
                         </Grid>
                     </DataTemplate>
                 </dance:DanceGroupBox.GroupItemTemplate>

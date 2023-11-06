@@ -12,16 +12,17 @@ namespace Dance.Art.Domain
     public interface IConnectionEditViewModel
     {
         /// <summary>
-        /// 加载
+        /// 从模型中加载数据
         /// </summary>
-        /// <param name="model">模型</param>
-        void Load(ConnectionModel model);
+        /// <param name="model">连接模型</param>
+        void LoadFromModel(ConnectionModel model);
 
         /// <summary>
-        /// 保存
+        /// 保存至模型
         /// </summary>
-        /// <param name="model">模型</param>
-        /// <returns>是否保存成功</returns>
-        bool Save(ConnectionModel model);
+        /// <param name="model">连接模型</param>
+        /// <param name="error">错误信息</param>
+        /// <returns>是否成功保存</returns>
+        bool SaveToModel(ConnectionModel model, out string error);
     }
 }

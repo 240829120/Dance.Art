@@ -30,6 +30,11 @@ namespace Dance.Art.Module
         private readonly IDancePluginManager PluginManager = DanceDomain.Current.LifeScope.Resolve<IDancePluginManager>();
 
         /// <summary>
+        /// 项目领域管理器
+        /// </summary>
+        private readonly IProjectDomainManager ProjectDomainManager = DanceDomain.Current.LifeScope.Resolve<IProjectDomainManager>();
+
+        /// <summary>
         /// 窗口管理器
         /// </summary>
         private readonly IWindowManager WindowManager = DanceDomain.Current.LifeScope.Resolve<IWindowManager>();
@@ -91,10 +96,11 @@ namespace Dance.Art.Module
             this.ProgressValue = 0;
             this.ProgressMessage = "准备初始化";
 
-            PluginManager.LoadPlugin("Dance.Art.Plugin");
-            PluginManager.LoadPlugin("Dance.Art.Template");
-            PluginManager.LoadPlugin("Dance.Art.Script");
-            PluginManager.LoadPlugin("Dance.Art.Connection");
+            foreach (string assemblyPrefix in ArtDomain.Current.PluginAssemblyPrefixes)
+            {
+                this.PluginManager.LoadPlugin(assemblyPrefix);
+                this.ProjectDomainManager.LoadPlugin(assemblyPrefix);
+            }
 
             for (int i = 0; i < PluginManager.PluginDomains.Count; ++i)
             {

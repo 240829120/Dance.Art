@@ -27,6 +27,11 @@ namespace Dance.Art.Domain
         new public static ArtDomain Current { get { return (ArtDomain)DanceDomain.Current; } }
 
         /// <summary>
+        /// 插件程序集前缀集合
+        /// </summary>
+        public List<string> PluginAssemblyPrefixes { get; } = new();
+
+        /// <summary>
         /// 插件字典
         /// </summary>
         public Dictionary<Type, IList> PluginDic { get; private set; } = new();

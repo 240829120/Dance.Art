@@ -228,6 +228,19 @@ namespace Dance.Art.Plugin
 
             this.Groups?.Remove(group);
             group.Dispose();
+
+            foreach (ConnectionModel model in group.Connections)
+            {
+                try
+                {
+                    model.PluginInfo.Destory(model);
+                    model.PluginInfo.Delete(model);
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+            }
         }
 
         #endregion
@@ -317,9 +330,10 @@ namespace Dance.Art.Plugin
                 return;
 
             item.Group.Connections.Remove(item);
-            item.Dispose();
-
             this.SaveGroups();
+
+            item.PluginInfo.Destory(item);
+            item.PluginInfo.Delete(item);
         }
 
         #endregion

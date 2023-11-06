@@ -28,21 +28,27 @@ namespace Dance.Art.Domain
         public Type EditViewType { get; private set; }
 
         /// <summary>
-        /// 初始化
+        /// 创建连接模型
+        /// </summary>
+        /// <param name="model">连接模型</param>
+        public abstract void Create(ConnectionModel model);
+
+        /// <summary>
+        /// 删除连接模型
+        /// </summary>
+        /// <param name="model">连接模型</param>
+        public abstract void Delete(ConnectionModel model);
+
+        /// <summary>
+        /// 初始化连接模型
         /// </summary>
         /// <param name="model">连接模型</param>
         public abstract void Initialize(ConnectionModel model);
 
         /// <summary>
-        /// 保存
+        /// 销毁连接模型
         /// </summary>
         /// <param name="model">连接模型</param>
-        public abstract void Save(ConnectionModel model);
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="model">连接模型</param>
-        public abstract void Delete(ConnectionModel model);
+        public abstract void Destory(ConnectionModel model);
     }
 }

@@ -8,13 +8,10 @@ using System.Threading.Tasks;
 namespace Dance.Art.Connection
 {
     /// <summary>
-    /// Ping连接编辑视图模型
+    /// Ping编辑视图模型
     /// </summary>
     public class PingEditViewModel : DanceViewModel, IConnectionEditViewModel
     {
-        // =============================================================================================
-        // Property
-
         #region Host -- 主机
 
         private string? host;
@@ -29,11 +26,11 @@ namespace Dance.Art.Connection
 
         #endregion
 
-        #region Frequency -- 频率（单位：秒）
+        #region Frequency -- 频率（单位：毫秒）
 
         private int frequency;
         /// <summary>
-        /// 频率（单位：秒）
+        /// 频率（单位：毫秒）
         /// </summary>
         public int Frequency
         {
@@ -43,36 +40,46 @@ namespace Dance.Art.Connection
 
         #endregion
 
-        // =============================================================================================
-        // Command
-
-        // =============================================================================================
-        // Public Function
-
         /// <summary>
-        /// 加载
+        /// 从模型中加载数据
         /// </summary>
-        /// <param name="model">模型</param>
-        public void Load(ConnectionModel model)
+        /// <param name="model">连接模型</param>
+        public void LoadFromModel(ConnectionModel model)
         {
-            //model.Parameters.TryGetValue(PingConnectionParameters.Host, out string? host);
-            //model.Parameters.TryGetValue(PingConnectionParameters.Frequency, out string? frequency);
+            if (model.Source is not PingSourceModel sourceModel)
+                return;
 
-            //this.Host = host;
-
-            ////_ = int.TryParse(frequency, out int frequencyValue);
-            //this.Frequency = Math.Max(2, frequencyValue);
+            this.Host = sourceModel.Host;
+            this.Frequency = sourceModel.Frequency;
         }
 
         /// <summary>
-        /// 保存
+        /// 保存至模型
         /// </summary>
-        /// <param name="model">模型</param>
-        /// <returns>是否保存成功</returns>
-        public bool Save(ConnectionModel model)
+        /// <param name="model">连接模型</param>
+        /// <param name="error">错误信息</param>
+        /// <returns>是否成功保存</returns>
+        public bool SaveToModel(ConnectionModel model, out string error)
         {
-            //model.Parameters[PingConnectionParameters.Host] = this.Host ?? string.Empty;
-            //model.Parameters[PingConnectionParameters.Frequency] = this.Frequency.ToString();
+            error = string.Empty;
+
+            if (model.Source is not PingSourceModel sourceModel)
+                return false;
+
+            if (string.IsNullOrWhiteSpace(this.Host))
+            {
+                error = "主机不能为空";
+                return false;
+            }
+
+            if (this.Frequency < 1000)
+            {
+                error = "频率应该大于或等于1000";
+                return false;
+            }
+
+            sourceModel.Host = this.Host;
+            sourceModel.Frequency = this.Frequency;
 
             return true;
         }

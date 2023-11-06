@@ -30,6 +30,11 @@ namespace Dance.Art.Domain
         /// </summary>
         public ConnectionPluginInfoBase PluginInfo { get; private set; }
 
+        /// <summary>
+        /// 源ID
+        /// </summary>
+        public int SourceID { get; set; }
+
         #region ID -- 编号
 
         private string? id;
@@ -102,27 +107,16 @@ namespace Dance.Art.Domain
 
         #region Source -- 源
 
-        private object? source;
+        private DanceModel? source;
         /// <summary>
         /// 源
         /// </summary>
-        public object? Source
+        public DanceModel? Source
         {
             get { return source; }
             set { source = value; this.OnPropertyChanged(); }
         }
 
         #endregion
-
-        // ======================================================================================================
-        // Override
-
-        /// <summary>
-        /// 销毁
-        /// </summary>
-        protected override void Destroy()
-        {
-
-        }
     }
 }

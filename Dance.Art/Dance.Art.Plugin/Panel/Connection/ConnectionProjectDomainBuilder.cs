@@ -36,6 +36,8 @@ namespace Dance.Art.Plugin
                 return;
 
             projectDomain.ConnectionGroups.AddRange(groupModels);
+
+            projectDomain.ConnectionGroups.ForEach(p => p.Connections.ForEach(i => i.PluginInfo.Initialize(i)));
         }
 
         /// <summary>

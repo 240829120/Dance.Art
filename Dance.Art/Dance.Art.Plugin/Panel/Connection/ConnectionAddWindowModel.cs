@@ -148,7 +148,8 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void Enter()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null || this.View is not ConnectionAddWindow window || this.SelectedPluginInfo == null)
+            // 校验
+            if (ArtDomain.Current.ProjectDomain == null || this.View is not ConnectionAddWindow window || this.SelectedPluginInfo == null)
                 return;
 
             if (window.editView.Content is not FrameworkElement editView || editView.DataContext is not IConnectionEditViewModel editViewModel)
@@ -161,8 +162,7 @@ namespace Dance.Art.Plugin
             }
 
             string id = this.ID.Trim();
-
-            if (artDomain.ProjectDomain.ConnectionGroups.Any(p => p.Connections.Any(p => string.Equals(p.ID, id))))
+            if (ArtDomain.Current.ProjectDomain.ConnectionGroups.Any(p => p.Connections.Any(p => string.Equals(p.ID, id))))
             {
                 DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "ID重复", DanceMessageBoxAction.YES);
                 return;
@@ -174,19 +174,29 @@ namespace Dance.Art.Plugin
                 return;
             }
 
-            //ConnectionModel model = new(this.ConnectionGroup, this.SelectedPluginInfo)
-            //{
-            //    ID = id,
-            //    Name = this.Name.Trim(),
-            //    Description = this.Description
-            //};
+            // 创建
+            ConnectionModel model = new(this.SelectedPluginInfo, this.ConnectionGroup)
+            {
+                ID = id,
+                Name = this.Name.Trim(),
+                Description = this.Description
+            };
 
-            //editViewModel.Save(model);
+            if (!editViewModel.SaveToModel(model, out string error))
+            {
+                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, error, DanceMessageBoxAction.YES);
+                return;
+            }
+            this.SelectedPluginInfo.Create(model);
 
-            //this.ConnectionGroup.Connections.Add(model);
-            //this.ConnectionGroup.Connections.SortSelf((a, b) => string.Compare(a.Name, b.Name));
-            //this.ConnectionStorage.SaveConnectionGroups(artDomain.ProjectDomain);
+            this.ConnectionGroup.Connections.Add(model);
+            this.ConnectionGroup.Connections.SortSelf((a, b) => string.Compare(a.Name, b.Name));
+            this.ConnectionStorage.SaveConnectionGroups(ArtDomain.Current.ProjectDomain);
 
+            // 初始化
+            this.SelectedPluginInfo.Initialize(model);
+
+            // 关闭窗口
             window.DialogResult = true;
             window.Close();
         }

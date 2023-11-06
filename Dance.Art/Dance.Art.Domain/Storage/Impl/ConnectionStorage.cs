@@ -47,6 +47,7 @@ namespace Dance.Art.Domain
 
                     ConnectionModel connectionModel = new(pluginInfo, groupModel)
                     {
+                        SourceID = connection.SourceID,
                         ID = connection.ID,
                         Name = connection.Name,
                         Description = connection.Description
@@ -78,6 +79,7 @@ namespace Dance.Art.Domain
                 {
                     ConnectionEntity item = new()
                     {
+                        SourceID = itemModel.SourceID,
                         PluginID = itemModel.PluginInfo.ID,
                         ID = itemModel.ID,
                         Name = itemModel.Name,

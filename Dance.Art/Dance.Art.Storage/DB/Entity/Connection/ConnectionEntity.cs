@@ -17,6 +17,11 @@ namespace Dance.Art.Storage
         public string? PluginID { get; set; }
 
         /// <summary>
+        /// 源ID
+        /// </summary>
+        public int SourceID { get; set; }
+
+        /// <summary>
         /// 编号
         /// </summary>
         public string? ID { get; set; }

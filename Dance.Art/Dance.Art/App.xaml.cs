@@ -20,13 +20,9 @@ namespace Dance.Art
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             DanceDomain.Current = new ArtDomain();
-            DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Module");
-            DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Domain");
-            DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Plugin");
-            DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Template");
-            DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Script");
-            DanceDomain.Current.IocBuilder.AddAssemblys("Dance.Art.Connection");
-            DanceDomain.Current.Build();
+            ArtDomain.Current.IocBuilder.AddAssemblys("Dance.Art.");
+            ArtDomain.Current.PluginAssemblyPrefixes.Add("Dance.Art.");
+            ArtDomain.Current.Build();
 
             IDanceMonitorManager monitorManager = DanceDomain.Current.LifeScope.Resolve<IDanceMonitorManager>();
             monitorManager.MonitorInfo = new DanceMonitorInfo();

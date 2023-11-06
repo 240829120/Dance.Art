@@ -287,7 +287,15 @@ namespace Dance.Art.Plugin
         /// <param name="item">项</param>
         private void AddItem(ConnectionModel? item)
         {
+            if (item == null || item.Group == null)
+                return;
 
+            ConnectionAddWindow window = new(item.Group)
+            {
+                Owner = this.WindowManager.MainWindow
+            };
+
+            window.ShowDialog();
         }
 
         #endregion
@@ -305,7 +313,15 @@ namespace Dance.Art.Plugin
         /// <param name="item">项</param>
         private void EditItem(ConnectionModel? item)
         {
+            if (item == null || item.Group == null)
+                return;
 
+            ConnectionEditWindow window = new(item)
+            {
+                Owner = this.WindowManager.MainWindow
+            };
+
+            window.ShowDialog();
         }
 
         #endregion

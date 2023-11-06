@@ -28,7 +28,7 @@ namespace Dance.Art.Connection
 
         #region Frequency -- 频率（单位：毫秒）
 
-        private int frequency;
+        private int frequency = 2000;
         /// <summary>
         /// 频率（单位：毫秒）
         /// </summary>

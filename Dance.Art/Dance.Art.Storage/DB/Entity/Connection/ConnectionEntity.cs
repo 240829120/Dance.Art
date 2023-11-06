@@ -30,10 +30,5 @@ namespace Dance.Art.Storage
         /// 描述
         /// </summary>
         public string? Description { get; set; }
-
-        /// <summary>
-        /// 参数
-        /// </summary>
-        public Dictionary<string, string>? Parameters { get; set; }
     }
 }

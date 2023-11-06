@@ -102,11 +102,11 @@ namespace Dance.Art.Module
 
         #region Templates -- 模板集合
 
-        private ObservableCollection<TemplatePluginInfo>? templates;
+        private IList<TemplatePluginInfo>? templates;
         /// <summary>
         /// 模板集合
         /// </summary>
-        public ObservableCollection<TemplatePluginInfo>? Templates
+        public IList<TemplatePluginInfo>? Templates
         {
             get { return templates; }
             set { templates = value; this.OnPropertyChanged(); }
@@ -143,10 +143,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void Loaded()
         {
-            if (DanceDomain.Current is not ArtDomain domain)
-                return;
-
-            this.Templates = domain.TemplatePlugins;
+            this.Templates = ArtDomain.Current.GetPluginCollection<TemplatePluginInfo>();
             this.SelectedTemplate = this.Templates.FirstOrDefault();
         }
 

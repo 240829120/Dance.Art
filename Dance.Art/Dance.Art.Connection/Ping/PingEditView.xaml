@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Dance.Art.Connection.PingConnectionEditView"
+﻿<UserControl x:Class="Dance.Art.Connection.PingEditView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Dance.Art.Connection"
              mc:Ignorable="d" 
              d:Background="White"
-             d:DataContext="{d:DesignInstance local:PingConnectionEditViewModel}"
+             d:DataContext="{d:DesignInstance local:PingEditViewModel}"
              d:DesignHeight="400" d:DesignWidth="600">
     <Grid Margin="0,0,30,0">
         <Grid.ColumnDefinitions>

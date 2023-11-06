@@ -10,7 +10,7 @@ namespace Dance.Art.Connection
     /// <summary>
     /// Ping连接编辑视图模型
     /// </summary>
-    public class PingConnectionEditViewModel : DanceViewModel, IConnectionEditViewModel
+    public class PingEditViewModel : DanceViewModel, IConnectionEditViewModel
     {
         // =============================================================================================
         // Property
@@ -55,13 +55,13 @@ namespace Dance.Art.Connection
         /// <param name="model">模型</param>
         public void Load(ConnectionModel model)
         {
-            model.Parameters.TryGetValue(PingConnectionParameters.Host, out string? host);
-            model.Parameters.TryGetValue(PingConnectionParameters.Frequency, out string? frequency);
+            //model.Parameters.TryGetValue(PingConnectionParameters.Host, out string? host);
+            //model.Parameters.TryGetValue(PingConnectionParameters.Frequency, out string? frequency);
 
-            this.Host = host;
+            //this.Host = host;
 
-            _ = int.TryParse(frequency, out int frequencyValue);
-            this.Frequency = Math.Max(2, frequencyValue);
+            ////_ = int.TryParse(frequency, out int frequencyValue);
+            //this.Frequency = Math.Max(2, frequencyValue);
         }
 
         /// <summary>
@@ -71,8 +71,8 @@ namespace Dance.Art.Connection
         /// <returns>是否保存成功</returns>
         public bool Save(ConnectionModel model)
         {
-            model.Parameters[PingConnectionParameters.Host] = this.Host ?? string.Empty;
-            model.Parameters[PingConnectionParameters.Frequency] = this.Frequency.ToString();
+            //model.Parameters[PingConnectionParameters.Host] = this.Host ?? string.Empty;
+            //model.Parameters[PingConnectionParameters.Frequency] = this.Frequency.ToString();
 
             return true;
         }

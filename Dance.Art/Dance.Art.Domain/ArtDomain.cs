@@ -1,7 +1,10 @@
 ﻿using Dance.Wpf;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,38 +16,20 @@ namespace Dance.Art.Domain
     /// </summary>
     public class ArtDomain : DanceDomain
     {
-        // ----------------------------------------------------------------------------------------------------
-        // Plugins
+        /// <summary>
+        /// 项目领域构建器
+        /// </summary>
+        public List<IProjectDomainBuilder> ProjectDomainBuilders { get; private set; } = new();
 
         /// <summary>
-        /// 面板插件集合
+        /// 当前Art领域
         /// </summary>
-        public ObservableCollection<PanelPluginInfo> PanelPlugins { get; } = new();
+        new public static ArtDomain Current { get { return (ArtDomain)DanceDomain.Current; } }
 
         /// <summary>
-        /// 文档插件集合
+        /// 插件字典
         /// </summary>
-        public ObservableCollection<DocumentPluginInfo> DocumentPlugins { get; } = new();
-
-        /// <summary>
-        /// 设置插件集合
-        /// </summary>
-        public ObservableCollection<SettingPluginInfo> SettingPlugins { get; } = new();
-
-        /// <summary>
-        /// 模板插件集合
-        /// </summary>
-        public ObservableCollection<TemplatePluginInfo> TemplatePlugins { get; } = new();
-
-        /// <summary>
-        /// 脚本插件集合
-        /// </summary>
-        public ObservableCollection<ScriptPluginInfo> ScriptPlugins { get; } = new();
-
-        /// <summary>
-        /// 连接插件
-        /// </summary>
-        public ObservableCollection<ConnectionPluginInfo> ConnectionPlugins { get; } = new();
+        public Dictionary<Type, IList> PluginDic { get; private set; } = new();
 
         // ----------------------------------------------------------------------------------------------------
         // Views

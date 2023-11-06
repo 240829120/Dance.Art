@@ -180,18 +180,15 @@ namespace Dance.Art.Module
         /// </summary>
         private void Loaded()
         {
-            if (DanceDomain.Current is not ArtDomain domain)
-                return;
-
-            foreach (PanelPluginInfo plugin in domain.PanelPlugins)
+            foreach (PanelPluginInfo plugin in ArtDomain.Current.GetPluginCollection<PanelPluginInfo>())
             {
                 PanelPluginModel vm = new(plugin.ID, plugin.Name, plugin);
 
-                domain.Panels.Add(vm);
+                ArtDomain.Current.Panels.Add(vm);
             }
 
-            this.Panels = domain.Panels;
-            this.Documents = domain.Documents;
+            this.Panels = ArtDomain.Current.Panels;
+            this.Documents = ArtDomain.Current.Documents;
 
             this.LoadLayout();
         }
@@ -269,10 +266,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void CreateProject()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain)
-                return;
-
-            if (artDomain.ProjectDomain != null)
+            if (ArtDomain.Current.ProjectDomain != null)
             {
                 if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "是否关闭当前项目?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) == DanceMessageBoxAction.NO)
                     return;
@@ -292,11 +286,12 @@ namespace Dance.Art.Module
                 return;
 
             ProjectDomain domain = new(vm.ProjectPath);
+            domain.Build();
             ProjectOpenMessage msg = new(domain);
             this.ProjectDomain = domain;
-            artDomain.ProjectDomain = domain;
+            ArtDomain.Current.ProjectDomain = domain;
 
-            artDomain.Messenger.Send(msg);
+            ArtDomain.Current.Messenger.Send(msg);
         }
 
         #endregion
@@ -313,10 +308,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void OpenProject()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain)
-                return;
-
-            if (artDomain.ProjectDomain != null)
+            if (ArtDomain.Current.ProjectDomain != null)
             {
                 if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "是否关闭当前项目?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) == DanceMessageBoxAction.NO)
                     return;
@@ -334,11 +326,12 @@ namespace Dance.Art.Module
                 return;
 
             ProjectDomain domain = new(ofd.FileName);
+            domain.Build();
             ProjectOpenMessage msg = new(domain);
             this.ProjectDomain = domain;
-            artDomain.ProjectDomain = domain;
+            ArtDomain.Current.ProjectDomain = domain;
 
-            artDomain.Messenger.Send(msg);
+            ArtDomain.Current.Messenger.Send(msg);
         }
 
         #endregion
@@ -390,20 +383,20 @@ namespace Dance.Art.Module
         /// </summary>
         private void CloseProject()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
+            if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            ProjectClosingMessage closingMsg = new(artDomain.ProjectDomain);
+            ProjectClosingMessage closingMsg = new(ArtDomain.Current.ProjectDomain);
             DanceDomain.Current.Messenger.Send(closingMsg);
 
             if (closingMsg.IsCancel)
                 return;
 
-            ProjectClosedMessage closedMsg = new(artDomain.ProjectDomain);
+            ProjectClosedMessage closedMsg = new(ArtDomain.Current.ProjectDomain);
             DanceDomain.Current.Messenger.Send(closedMsg);
 
-            artDomain.ProjectDomain.Dispose();
-            artDomain.ProjectDomain = null;
+            ArtDomain.Current.ProjectDomain.Dispose();
+            ArtDomain.Current.ProjectDomain = null;
             this.ProjectDomain = null;
         }
 
@@ -429,7 +422,7 @@ namespace Dance.Art.Module
                 if (this.View is not MainView view || view.docking.ActiveContent is not ViewPluginModelBase pluginModel)
                     return;
 
-                if (pluginModel.View is not FrameworkElement pluginView || pluginView.DataContext is not IDockingPanelViewModel panel)
+                if (pluginModel.View is not FrameworkElement pluginView || pluginView.DataContext is not IPanelViewModel panel)
                     return;
 
                 panel.Save();
@@ -457,12 +450,9 @@ namespace Dance.Art.Module
         {
             try
             {
-                if (DanceDomain.Current is not ArtDomain domain)
-                    return;
-
-                foreach (DocumentPluginModel document in domain.Documents)
+                foreach (DocumentPluginModel document in ArtDomain.Current.Documents)
                 {
-                    if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocumentViewModel dockingDocument)
+                    if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDocumentViewModel dockingDocument)
                         continue;
 
                     dockingDocument.Save();
@@ -492,7 +482,7 @@ namespace Dance.Art.Module
             if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
                 return;
 
-            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocumentViewModel dockingDocument)
+            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDocumentViewModel dockingDocument)
                 return;
 
             dockingDocument.Redo();
@@ -515,7 +505,7 @@ namespace Dance.Art.Module
             if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
                 return;
 
-            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDockingDocumentViewModel dockingDocument)
+            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDocumentViewModel dockingDocument)
                 return;
 
             dockingDocument.Undo();
@@ -539,7 +529,7 @@ namespace Dance.Art.Module
             if (e == null || e.Document.Content is not DocumentPluginModel document)
                 return;
 
-            if (document.View is not FrameworkElement view || view.DataContext is not IDockingDocumentViewModel dockingDocument)
+            if (document.View is not FrameworkElement view || view.DataContext is not IDocumentViewModel dockingDocument)
                 return;
 
             if (!dockingDocument.IsModify)
@@ -689,9 +679,6 @@ namespace Dance.Art.Module
         /// </summary>
         private async Task StopScript()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain)
-                return;
-
             this.ScriptStatus = ScriptStatus.WaitingStop;
 
             await Task.Run(() =>
@@ -701,7 +688,7 @@ namespace Dance.Art.Module
 
                 this.ScriptDomain.Dispose();
                 this.ScriptDomain = null;
-                artDomain.ScriptDomain = null;
+                ArtDomain.Current.ScriptDomain = null;
                 this.ScriptStatus = ScriptStatus.None;
                 this.OutputManager.WriteLine($"停止脚本");
             });
@@ -724,11 +711,11 @@ namespace Dance.Art.Module
         /// </summary>
         private void OnApplicationClosing(object sender, ApplicationClosingMessage msg)
         {
-            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
+            if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            ProjectClosingMessage closingMsg = new(artDomain.ProjectDomain);
-            DanceDomain.Current.Messenger.Send(closingMsg);
+            ProjectClosingMessage closingMsg = new(ArtDomain.Current.ProjectDomain);
+            ArtDomain.Current.Messenger.Send(closingMsg);
 
             if (closingMsg.IsCancel)
             {
@@ -736,11 +723,11 @@ namespace Dance.Art.Module
                 return;
             }
 
-            ProjectClosedMessage closedMsg = new(artDomain.ProjectDomain);
-            DanceDomain.Current.Messenger.Send(closedMsg);
+            ProjectClosedMessage closedMsg = new(ArtDomain.Current.ProjectDomain);
+            ArtDomain.Current.Messenger.Send(closedMsg);
 
-            artDomain.ProjectDomain.Dispose();
-            artDomain.ProjectDomain = null;
+            ArtDomain.Current.ProjectDomain.Dispose();
+            ArtDomain.Current.ProjectDomain = null;
             this.ProjectDomain = null;
         }
 
@@ -788,14 +775,11 @@ namespace Dance.Art.Module
         /// </summary>
         private void OnProjectClosing(object sender, ProjectClosingMessage msg)
         {
-            if (DanceDomain.Current is not ArtDomain artDomain)
-                return;
-
             // 停止脚本
-            if (artDomain.ScriptDomain != null && this.ScriptStatus != ScriptStatus.None)
+            if (ArtDomain.Current.ScriptDomain != null && this.ScriptStatus != ScriptStatus.None)
             {
-                artDomain.ScriptDomain.Dispose();
-                artDomain.ScriptDomain = null;
+                ArtDomain.Current.ScriptDomain.Dispose();
+                ArtDomain.Current.ScriptDomain = null;
 
                 this.ScriptDomain = null;
                 this.ScriptStatus = ScriptStatus.None;
@@ -805,10 +789,10 @@ namespace Dance.Art.Module
             if (this.Documents == null)
                 return;
 
-            List<IDockingPanelViewModel> unSaveDocuments = new();
+            List<IPanelViewModel> unSaveDocuments = new();
             foreach (DocumentPluginModel document in this.Documents)
             {
-                if (document.View is FrameworkElement view && view.DataContext is IDockingPanelViewModel panel && panel.IsModify)
+                if (document.View is FrameworkElement view && view.DataContext is IPanelViewModel panel && panel.IsModify)
                 {
                     unSaveDocuments.Add(panel);
                 }
@@ -831,7 +815,7 @@ namespace Dance.Art.Module
 
             this.Documents.ForEach(p =>
             {
-                if (p.View is FrameworkElement view && view.DataContext is IDockingPanelViewModel panel && panel.IsModify)
+                if (p.View is FrameworkElement view && view.DataContext is IPanelViewModel panel && panel.IsModify)
                 {
                     panel.Dispose();
                 }
@@ -856,17 +840,14 @@ namespace Dance.Art.Module
         /// </summary>
         private void OnFileOpen(object sender, FileOpenMessage msg)
         {
-            if (DanceDomain.Current is not ArtDomain domain)
-                return;
-
-            DocumentPluginModel? vm = domain.Documents.FirstOrDefault(p => p.File == msg.Path);
+            DocumentPluginModel? vm = ArtDomain.Current.Documents.FirstOrDefault(p => p.File == msg.Path);
             if (vm != null)
             {
                 vm.IsActive = true;
                 return;
             }
 
-            DocumentPluginInfo? pluginModel = domain.DocumentPlugins.FirstOrDefault(p =>
+            DocumentPluginInfo? pluginModel = ArtDomain.Current.GetPluginCollection<DocumentPluginInfo>().FirstOrDefault(p =>
             {
                 if (p is not DocumentPluginInfo documentPlugin || documentPlugin.FileInfos == null)
                     return false;
@@ -885,7 +866,7 @@ namespace Dance.Art.Module
             }
 
             vm = new DocumentPluginModel(msg.Path, msg.FileName, pluginModel, msg.Path);
-            domain.Documents.Add(vm);
+            ArtDomain.Current.Documents.Add(vm);
             vm.IsActive = true;
         }
 
@@ -916,7 +897,7 @@ namespace Dance.Art.Module
         private void OnFileChange(object sender, FileChangeMessage msg)
         {
             DocumentPluginModel? documentModel = this.Documents?.FirstOrDefault(p => string.Equals(p.File, msg.Path, StringComparison.OrdinalIgnoreCase));
-            if (documentModel == null || documentModel.View is not FrameworkElement documentView || documentView.DataContext is not IDockingPanelViewModel panel)
+            if (documentModel == null || documentModel.View is not FrameworkElement documentView || documentView.DataContext is not IPanelViewModel panel)
                 return;
 
             if (DanceMessageExpansion.ShowMessageBox("提升", DanceMessageBoxIcon.Info, $"文件: {documentModel.File} 发生改变，是否重新加载?", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) != DanceMessageBoxAction.YES)
@@ -934,7 +915,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void OnFileStatusChange(object sender, FileStatusChangeMessage msg)
         {
-            this.IsSaveAllEnabled = this.Documents?.Any(p => p.View is FrameworkElement view && view.DataContext is IDockingDocumentViewModel document && document.IsModify) ?? false;
+            this.IsSaveAllEnabled = this.Documents?.Any(p => p.View is FrameworkElement view && view.DataContext is IDocumentViewModel document && document.IsModify) ?? false;
         }
 
         #endregion
@@ -949,9 +930,6 @@ namespace Dance.Art.Module
         /// <param name="flags">引擎标志</param>
         private async Task CreateAndRunScriptDomain(string file, V8ScriptEngineFlags flags)
         {
-            if (DanceDomain.Current is not ArtDomain artDomain)
-                return;
-
             await Task.Run(() =>
             {
                 try
@@ -963,7 +941,7 @@ namespace Dance.Art.Module
                     {
                         Engine = new(flags)
                     };
-                    artDomain.ScriptDomain = this.ScriptDomain;
+                    ArtDomain.Current.ScriptDomain = this.ScriptDomain;
                     this.ScriptDomain.Engine.DocumentSettings.AccessFlags = DocumentAccessFlags.EnableFileLoading;
                     this.ScriptDomain.Engine.DocumentSettings.SearchPath = this.ProjectDomain.ProjectFolderPath;
                     this.ScriptDomain.Engine.DocumentSettings.Loader.DiscardCachedDocuments();

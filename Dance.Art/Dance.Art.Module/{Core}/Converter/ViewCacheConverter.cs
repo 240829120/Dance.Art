@@ -37,7 +37,7 @@ namespace Dance.Art.Module
                 return null;
 
             pluginModel.View = pluginInfo.ViewType.Assembly.CreateInstance(pluginInfo.ViewType.FullName) as FrameworkElement;
-            if (pluginModel.View is FrameworkElement view && view.DataContext is IDockingPanelViewModel panel)
+            if (pluginModel.View is FrameworkElement view && view.DataContext is IPanelViewModel panel)
             {
                 panel.ViewPluginModel = pluginModel;
             }

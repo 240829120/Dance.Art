@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using Dance.Wpf;
 
 namespace Dance.Art.Domain
 {
@@ -28,9 +30,6 @@ namespace Dance.Art.Domain
 
             string cache = Path.Combine(this.projectFolderPath, $"{Path.GetFileNameWithoutExtension(path)}{FileSuffixCategory.PROJECT_CACHE}");
             this.cacheContext = new ProjectCacheContext(cache);
-
-            // 加载连接分组
-            this.LoadConnectionGroups();
         }
 
         // ===========================================================================
@@ -70,29 +69,6 @@ namespace Dance.Art.Domain
         /// 连接分组
         /// </summary>
         public ObservableCollection<ConnectionGroupModel> ConnectionGroups { get; } = new();
-
-        #endregion
-
-        #region DataSources -- 数据源
-
-        /// <summary>
-        /// 数据源
-        /// </summary>
-        public ObservableCollection<DataSource> DataSources { get; } = new();
-
-        #endregion
-
-        #region DataSourceFilters -- 数据源过滤器集合
-
-        private ObservableCollection<DataSourceFilter> dataSourceFilters = new();
-        /// <summary>
-        /// 数据源过滤器集合
-        /// </summary>
-        public ObservableCollection<DataSourceFilter> DataSourceFilters
-        {
-            get { return dataSourceFilters; }
-            private set { dataSourceFilters = value; this.OnPropertyChanged(); }
-        }
 
         #endregion
 
@@ -174,12 +150,39 @@ namespace Dance.Art.Domain
         // Public Function
 
         /// <summary>
+        /// 构建
+        /// </summary>
+        public void Build()
+        {
+            foreach (IProjectDomainBuilder builder in ArtDomain.Current.ProjectDomainBuilders)
+            {
+                try
+                {
+#if DEBUG
+                    Debug.WriteLine($"项目 {this.Name} 构建: {builder.Name}");
+#endif
+
+                    builder.Build(this);
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+            }
+        }
+
+        /// <summary>
         /// 销毁
         /// </summary>
         protected override void Destroy()
         {
-            // 销毁连接分组
-            this.DisposeConnectionGroups();
+            foreach (IProjectDomainBuilder builder in ArtDomain.Current.ProjectDomainBuilders)
+            {
+#if DEBUG
+                Debug.WriteLine($"项目 {this.Name} 销毁: {builder.Name}");
+#endif
+                builder.Destroy(this);
+            }
 
             this.CacheContext?.Dispose();
         }

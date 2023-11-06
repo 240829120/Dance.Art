@@ -12,7 +12,7 @@ namespace Dance.Art.Plugin
     /// <summary>
     /// 面板视图模型基类
     /// </summary>
-    public abstract class PanelViewModelBase : DanceViewModel, IDockingPanelViewModel
+    public abstract class PanelViewModelBase : DanceViewModel, IPanelViewModel
     {
         /// <summary>
         /// 是否修改

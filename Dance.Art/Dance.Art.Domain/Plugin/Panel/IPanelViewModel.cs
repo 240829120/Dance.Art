@@ -10,7 +10,7 @@ namespace Dance.Art.Domain
     /// <summary>
     /// Docking 面板视图模型
     /// </summary>
-    public interface IDockingPanelViewModel : IDisposable
+    public interface IPanelViewModel : IDisposable
     {
         /// <summary>
         /// 是否修改

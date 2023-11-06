@@ -724,10 +724,10 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void ProjectSetting()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null || string.IsNullOrWhiteSpace(artDomain.ProjectDomain.ProjectFilePath) || !File.Exists(artDomain.ProjectDomain.ProjectFilePath))
+            if (ArtDomain.Current.ProjectDomain == null || string.IsNullOrWhiteSpace(ArtDomain.Current.ProjectDomain.ProjectFilePath) || !File.Exists(ArtDomain.Current.ProjectDomain.ProjectFilePath))
                 return;
 
-            DanceDomain.Current.Messenger.Send(new FileOpenMessage(artDomain.ProjectDomain.ProjectFilePath));
+            ArtDomain.Current.Messenger.Send(new FileOpenMessage(ArtDomain.Current.ProjectDomain.ProjectFilePath));
         }
 
         #endregion

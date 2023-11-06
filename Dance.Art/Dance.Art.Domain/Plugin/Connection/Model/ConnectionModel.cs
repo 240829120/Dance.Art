@@ -14,33 +14,21 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 连接模型
         /// </summary>
-        /// <param name="group">所属分组</param>
         /// <param name="pluginInfo">插件信息</param>
-        /// <param name="controller">控制器</param>
-        public ConnectionModel(ConnectionGroupModel group, ConnectionPluginInfo pluginInfo)
+        /// <param name="group">所属分组</param>
+        public ConnectionModel(ConnectionPluginInfoBase pluginInfo, ConnectionGroupModel group)
         {
-            this.Group = group;
             this.PluginInfo = pluginInfo;
-            this.Controller = pluginInfo.Factory.CreateController();
-            this.Controller.Model = this;
+            this.Group = group;
         }
 
         // ======================================================================================================
         // Property
 
         /// <summary>
-        /// 控制器
-        /// </summary>
-        public IConnectionController Controller { get; }
-
-        #region PluginInfo -- 插件信息
-
-        /// <summary>
         /// 插件信息
         /// </summary>
-        public ConnectionPluginInfo PluginInfo { get; private set; }
-
-        #endregion
+        public ConnectionPluginInfoBase PluginInfo { get; private set; }
 
         #region ID -- 编号
 
@@ -112,12 +100,17 @@ namespace Dance.Art.Domain
 
         #endregion
 
-        #region Parameters -- 参数
+        #region Source -- 源
 
+        private object? source;
         /// <summary>
-        /// 参数
+        /// 源
         /// </summary>
-        public Dictionary<string, string> Parameters { get; } = new();
+        public object? Source
+        {
+            get { return source; }
+            set { source = value; this.OnPropertyChanged(); }
+        }
 
         #endregion
 
@@ -129,7 +122,7 @@ namespace Dance.Art.Domain
         /// </summary>
         protected override void Destroy()
         {
-            this.Controller?.Dispose();
+
         }
     }
 }

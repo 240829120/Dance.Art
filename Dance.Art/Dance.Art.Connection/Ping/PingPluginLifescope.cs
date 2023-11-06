@@ -28,7 +28,7 @@ namespace Dance.Art.Connection
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new ConnectionPluginInfo(ID, NAME, new PingConnectionFactory());
+            return new PingPluginInfo(ID, NAME, typeof(PingEditView));
         }
 
         /// <summary>

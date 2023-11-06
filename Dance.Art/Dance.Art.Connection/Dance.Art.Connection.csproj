@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TCP\" />
+  </ItemGroup>
+
 </Project>

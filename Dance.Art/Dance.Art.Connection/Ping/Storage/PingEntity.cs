@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dance.Art.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,18 +8,18 @@ using System.Threading.Tasks;
 namespace Dance.Art.Connection
 {
     /// <summary>
-    /// Ping连接参数
+    /// Ping实体
     /// </summary>
-    public static class PingConnectionParameters
+    public class PingEntity : EntityBase
     {
         /// <summary>
         /// 主机
         /// </summary>
-        public const string Host = "Host";
+        public string? Host { get; set; }
 
         /// <summary>
-        /// 频率
+        /// 频率 （单位：毫秒）
         /// </summary>
-        public const string Frequency = "Frequency";
+        public int Frequency { get; set; }
     }
 }

@@ -26,6 +26,14 @@ namespace Dance.Art.Plugin
         }
 
         // =====================================================================
+        // Field 
+
+        /// <summary>
+        /// 连接仓储
+        /// </summary>
+        private readonly IConnectionStorage ConnectionStorage = DanceDomain.Current.LifeScope.Resolve<IConnectionStorage>();
+
+        // =====================================================================
         // Property 
 
         #region ID -- 编号
@@ -72,11 +80,11 @@ namespace Dance.Art.Plugin
 
         #region PluginInfos -- 插件信息集合
 
-        private ObservableCollection<ConnectionPluginInfo>? pluginInfos;
+        private IList<ConnectionPluginInfoBase>? pluginInfos;
         /// <summary>
         /// 插件信息集合
         /// </summary>
-        public ObservableCollection<ConnectionPluginInfo>? PluginInfos
+        public IList<ConnectionPluginInfoBase>? PluginInfos
         {
             get { return pluginInfos; }
             set { pluginInfos = value; this.OnPropertyChanged(); }
@@ -86,11 +94,11 @@ namespace Dance.Art.Plugin
 
         #region SelectedPluginInfo -- 当前选中的插件信息
 
-        private ConnectionPluginInfo? selectedPluginInfo;
+        private ConnectionPluginInfoBase? selectedPluginInfo;
         /// <summary>
         /// 当前选中的插件信息
         /// </summary>
-        public ConnectionPluginInfo? SelectedPluginInfo
+        public ConnectionPluginInfoBase? SelectedPluginInfo
         {
             get { return selectedPluginInfo; }
             set { selectedPluginInfo = value; this.OnPropertyChanged(); }
@@ -122,11 +130,8 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void Loaded()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain)
-                return;
-
-            this.PluginInfos = artDomain.ConnectionPlugins;
-            this.SelectedPluginInfo = artDomain.ConnectionPlugins.FirstOrDefault();
+            this.PluginInfos = ArtDomain.Current.GetPluginCollection<ConnectionPluginInfoBase>();
+            this.SelectedPluginInfo = this.PluginInfos.FirstOrDefault();
         }
 
         #endregion
@@ -169,20 +174,18 @@ namespace Dance.Art.Plugin
                 return;
             }
 
-            ConnectionModel model = new(this.ConnectionGroup, this.SelectedPluginInfo)
-            {
-                ID = id,
-                Name = this.Name.Trim(),
-                Description = this.Description
-            };
+            //ConnectionModel model = new(this.ConnectionGroup, this.SelectedPluginInfo)
+            //{
+            //    ID = id,
+            //    Name = this.Name.Trim(),
+            //    Description = this.Description
+            //};
 
-            editViewModel.Save(model);
+            //editViewModel.Save(model);
 
-            this.ConnectionGroup.Connections.Add(model);
-            this.ConnectionGroup.Connections.SortSelf((a, b) => string.Compare(a.Name, b.Name));
-            artDomain.ProjectDomain.SaveConnectionGroups();
-
-            model.Controller.Initialize();
+            //this.ConnectionGroup.Connections.Add(model);
+            //this.ConnectionGroup.Connections.SortSelf((a, b) => string.Compare(a.Name, b.Name));
+            //this.ConnectionStorage.SaveConnectionGroups(artDomain.ProjectDomain);
 
             window.DialogResult = true;
             window.Close();

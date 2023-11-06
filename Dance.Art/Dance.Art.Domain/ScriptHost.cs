@@ -25,10 +25,7 @@ namespace Dance.Art.Domain
         /// </summary>
         private void InitService()
         {
-            if (DanceDomain.Current is not ArtDomain domain)
-                return;
-
-            foreach (ScriptPluginInfo scriptPlugin in domain.ScriptPlugins)
+            foreach (ScriptPluginInfo scriptPlugin in ArtDomain.Current.GetPluginCollection<ScriptPluginInfo>())
             {
                 if (scriptPlugin == null || scriptPlugin.Services == null || scriptPlugin.Services.Length == 0)
                     continue;

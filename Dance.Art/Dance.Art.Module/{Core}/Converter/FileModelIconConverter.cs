@@ -39,7 +39,7 @@ namespace Dance.Art.Module
         /// </summary>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (DanceDomain.Current is not ArtDomain domain || value is not FileModel fileModel)
+            if (value is not FileModel fileModel)
                 return null;
 
             if (fileModel.Category == FileModelCategory.Project)
@@ -48,7 +48,7 @@ namespace Dance.Art.Module
             if (fileModel.Category == FileModelCategory.Folder)
                 return IconCacheConverter.GetImageSource(this.Folder);
 
-            foreach (DocumentPluginInfo pluginInfo in domain.DocumentPlugins)
+            foreach (DocumentPluginInfo pluginInfo in ArtDomain.Current.GetPluginCollection<DocumentPluginInfo>())
             {
                 DocumentFileInfo? fileInfo = pluginInfo.FileInfos.FirstOrDefault(p => string.Equals(p.Extension, fileModel.Extension, StringComparison.OrdinalIgnoreCase));
                 if (fileInfo == null)

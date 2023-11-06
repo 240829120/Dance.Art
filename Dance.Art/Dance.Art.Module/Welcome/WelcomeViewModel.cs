@@ -85,9 +85,6 @@ namespace Dance.Art.Module
         /// </summary>
         private async Task Loaded()
         {
-            if (DanceDomain.Current is not ArtDomain domain)
-                return;
-
             this.WindowManager.WelcomeWindow.Closed -= WelcomeWindow_Closed;
             this.WindowManager.WelcomeWindow.Closed += WelcomeWindow_Closed;
 
@@ -111,12 +108,12 @@ namespace Dance.Art.Module
                 // 面板插件
                 if (info is PanelPluginInfo panel)
                 {
-                    domain.PanelPlugins.Add(panel);
+                    ArtDomain.Current.GetPluginCollection<PanelPluginInfo>().Add(panel);
                 }
                 // 文档插件
                 else if (info is DocumentPluginInfo document)
                 {
-                    domain.DocumentPlugins.Add(document);
+                    ArtDomain.Current.GetPluginCollection<DocumentPluginInfo>().Add(document);
                     if (document.FileInfos != null && document.FileInfos.Length > 0)
                     {
                         foreach (DocumentFileInfo fileInfo in document.FileInfos)
@@ -136,22 +133,22 @@ namespace Dance.Art.Module
                 // 设置插件
                 else if (info is SettingPluginInfo setting)
                 {
-                    domain.SettingPlugins.Add(setting);
+                    ArtDomain.Current.GetPluginCollection<SettingPluginInfo>().Add(setting);
                 }
                 // 模板插件
                 else if (info is TemplatePluginInfo template)
                 {
-                    domain.TemplatePlugins.Add(template);
+                    ArtDomain.Current.GetPluginCollection<TemplatePluginInfo>().Add(template);
                 }
                 // 脚本插件
                 else if (info is ScriptPluginInfo script)
                 {
-                    domain.ScriptPlugins.Add(script);
+                    ArtDomain.Current.GetPluginCollection<ScriptPluginInfo>().Add(script);
                 }
                 // 连接插件
-                else if (info is ConnectionPluginInfo connection)
+                else if (info is ConnectionPluginInfoBase connection)
                 {
-                    domain.ConnectionPlugins.Add(connection);
+                    ArtDomain.Current.GetPluginCollection<ConnectionPluginInfoBase>().Add(connection);
                 }
 
                 await Task.Delay(100);

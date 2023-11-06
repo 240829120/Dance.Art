@@ -181,7 +181,7 @@ namespace Dance.Art.Plugin
         {
             try
             {
-                if (DanceDomain.Current is not ArtDomain artDomain || this.View is not Window window || this.FileModel == null || string.IsNullOrWhiteSpace(this.Folder))
+                if (this.View is not Window window || this.FileModel == null || string.IsNullOrWhiteSpace(this.Folder))
                     return;
 
                 if (string.IsNullOrWhiteSpace(this.FileName))
@@ -205,7 +205,7 @@ namespace Dance.Art.Plugin
 
                 File.Create(path).Dispose();
 
-                artDomain.Messenger.Send(new FileOpenMessage(path));
+                ArtDomain.Current.Messenger.Send(new FileOpenMessage(path));
 
                 window.DialogResult = true;
                 window.Close();

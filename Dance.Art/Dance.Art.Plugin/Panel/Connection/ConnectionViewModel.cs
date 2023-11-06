@@ -49,6 +49,11 @@ namespace Dance.Art.Plugin
         /// </summary>
         private readonly IWindowManager WindowManager = DanceDomain.Current.LifeScope.Resolve<IWindowManager>();
 
+        /// <summary>
+        /// 连接仓储
+        /// </summary>
+        private readonly IConnectionStorage ConnectionStorage = DanceDomain.Current.LifeScope.Resolve<IConnectionStorage>();
+
         // ==========================================================================================
         // Property
 
@@ -95,10 +100,10 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void Loaded()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
+            if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            this.Groups = artDomain.ProjectDomain.ConnectionGroups;
+            this.Groups = ArtDomain.Current.ProjectDomain.ConnectionGroups;
         }
 
         #endregion
@@ -405,10 +410,10 @@ namespace Dance.Art.Plugin
         /// </summary>
         private void SaveGroups()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
+            if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            artDomain.ProjectDomain.SaveConnectionGroups();
+            this.ConnectionStorage.SaveConnectionGroups(ArtDomain.Current.ProjectDomain);
         }
     }
 }

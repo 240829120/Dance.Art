@@ -10,7 +10,7 @@ namespace Dance.Art.Domain
     /// <summary>
     /// Docking文档视图模型
     /// </summary>
-    public interface IDockingDocumentViewModel : IDockingPanelViewModel
+    public interface IDocumentViewModel : IPanelViewModel
     {
 
     }

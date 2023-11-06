@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +63,27 @@ namespace Dance.Art.Domain
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// 获取插件列表
+        /// </summary>
+        /// <typeparam name="T">插件类型</typeparam>
+        /// <param name="domain">领域模型</param>
+        /// <returns>插件列表</returns>
+        public static IList<T> GetPluginCollection<T>(this ArtDomain domain) where T : PluginInfoBase
+        {
+            lock (domain.PluginDic)
+            {
+                domain.PluginDic.TryGetValue(typeof(T), out IList? collection);
+                if (collection == null)
+                {
+                    collection = new List<T>();
+                    domain.PluginDic.Add(typeof(T), collection);
+                }
+
+                return (IList<T>)collection;
+            }
         }
     }
 }

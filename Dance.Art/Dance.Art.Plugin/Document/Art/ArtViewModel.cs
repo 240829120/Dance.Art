@@ -80,13 +80,13 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Load()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
+            if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            if (string.IsNullOrWhiteSpace(artDomain.ProjectDomain.ProjectFilePath))
+            if (string.IsNullOrWhiteSpace(ArtDomain.Current.ProjectDomain.ProjectFilePath))
                 return;
 
-            ProjectNode? projectNode = DanceFileHelper.ReadJson<ProjectNode>(artDomain.ProjectDomain.ProjectFilePath);
+            ProjectNode? projectNode = DanceFileHelper.ReadJson<ProjectNode>(ArtDomain.Current.ProjectDomain.ProjectFilePath);
             if (projectNode == null)
                 return;
 
@@ -106,13 +106,13 @@ namespace Dance.Art.Plugin
         /// </summary>
         public override void Save()
         {
-            if (DanceDomain.Current is not ArtDomain artDomain || artDomain.ProjectDomain == null)
+            if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            if (string.IsNullOrWhiteSpace(artDomain.ProjectDomain.ProjectFilePath))
+            if (string.IsNullOrWhiteSpace(ArtDomain.Current.ProjectDomain.ProjectFilePath))
                 return;
 
-            ProjectNode? projectNode = DanceFileHelper.ReadJson<ProjectNode>(artDomain.ProjectDomain.ProjectFilePath);
+            ProjectNode? projectNode = DanceFileHelper.ReadJson<ProjectNode>(ArtDomain.Current.ProjectDomain.ProjectFilePath);
             if (projectNode == null)
                 return;
 
@@ -120,9 +120,9 @@ namespace Dance.Art.Plugin
             projectNode.Description = this.Description;
 
 
-            this.FileManager.SaveFile(artDomain.ProjectDomain.ProjectFilePath, () =>
+            this.FileManager.SaveFile(ArtDomain.Current.ProjectDomain.ProjectFilePath, () =>
             {
-                DanceFileHelper.WriteJson(projectNode, artDomain.ProjectDomain.ProjectFilePath);
+                DanceFileHelper.WriteJson(projectNode, ArtDomain.Current.ProjectDomain.ProjectFilePath);
             });
 
             this.isModify = false;

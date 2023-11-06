@@ -16,15 +16,15 @@ using System.Windows.Shapes;
 namespace Dance.Art.Connection
 {
     /// <summary>
-    /// PingConnectionEditView.xaml 的交互逻辑
+    /// PingEditView.xaml 的交互逻辑
     /// </summary>
-    public partial class PingConnectionEditView : UserControl
+    public partial class PingEditView : UserControl
     {
-        public PingConnectionEditView()
+        public PingEditView()
         {
             InitializeComponent();
 
-            PingConnectionEditViewModel vm = new()
+            PingEditViewModel vm = new()
             {
                 View = this
             };

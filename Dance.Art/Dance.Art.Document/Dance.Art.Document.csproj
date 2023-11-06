@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Themes\Resources\Icons\cs.svg" />
+    <None Remove="Themes\Resources\Icons\csv.svg" />
+    <None Remove="Themes\Resources\Icons\javascript.svg" />
+    <None Remove="Themes\Resources\Icons\json.svg" />
+    <None Remove="Themes\Resources\Icons\txt.svg" />
+    <None Remove="Themes\Resources\Icons\udp.svg" />
+    <None Remove="Themes\Resources\Icons\xls.svg" />
+    <None Remove="Themes\Resources\Icons\xlsx.svg" />
+    <None Remove="Themes\Resources\Icons\xml.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+    <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
+    <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
+    <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Art\ArtView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CS\CSView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="JavaScript\JavaScriptView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Json\JsonView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Txt\TxtView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Xml\XmlView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Themes\Resources\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Icons\cs.svg" />
+    <Resource Include="Themes\Resources\Icons\csv.svg" />
+    <Resource Include="Themes\Resources\Icons\javascript.svg" />
+    <Resource Include="Themes\Resources\Icons\json.svg" />
+    <Resource Include="Themes\Resources\Icons\txt.svg" />
+    <Resource Include="Themes\Resources\Icons\udp.svg" />
+    <Resource Include="Themes\Resources\Icons\xls.svg" />
+    <Resource Include="Themes\Resources\Icons\xlsx.svg" />
+    <Resource Include="Themes\Resources\Icons\xml.svg" />
+  </ItemGroup>
+
+</Project>

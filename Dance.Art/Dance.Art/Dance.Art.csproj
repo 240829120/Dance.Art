@@ -17,9 +17,10 @@
     <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
     <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
     <ProjectReference Include="..\Dance.Art.Connection\Dance.Art.Connection.csproj" />
+    <ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
     <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
     <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
-    <ProjectReference Include="..\Dance.Art.Plugin\Dance.Art.Plugin.csproj" />
+    <ProjectReference Include="..\Dance.Art.Panel\Dance.Art.Panel.csproj" />
     <ProjectReference Include="..\Dance.Art.Script\Dance.Art.Script.csproj" />
     <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
     <ProjectReference Include="..\Dance.Art.Template\Dance.Art.Template.csproj" />

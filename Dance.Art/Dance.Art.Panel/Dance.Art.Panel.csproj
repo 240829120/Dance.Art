@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Output\OutputHighlighting.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+    <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
+    <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
+    <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Output\OutputHighlighting.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Command\CommandView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Connection\ConnectionAddWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Connection\ConnectionEditWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Connection\ConnectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="DataSource\DataSourceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="FileSource\FileSourceNewFileWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="FileSource\FileSourceNewFolderWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="FileSource\FileSourceRenameWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="FileSource\FileSourceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Output\OutputView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Property\PropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,5 @@
 ﻿using Dance.Art.Domain;
+using Microsoft.ClearScript.JavaScript;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Dance.Art.Connection
     /// <summary>
     /// Udp源模型
     /// </summary>
-    public class UdpSourceModel : DanceModel, IConnectionSourceModel
+    public class UdpSourceModel : DanceModel
     {
         /// <summary>
         /// UDP客户端
@@ -88,12 +89,24 @@ namespace Dance.Art.Connection
         /// 发送
         /// </summary>
         /// <param name="data">数据</param>
-        public void Send(byte[] data)
+        public void Send(IArrayBuffer data)
         {
             if (this.Client == null)
                 return;
 
-            this.Client.Send(data);
+            this.Client.Send(data.GetBytes());
+        }
+
+        /// <summary>
+        /// 发送文本
+        /// </summary>
+        /// <param name="data">数据</param>
+        public void SendString(string data)
+        {
+            if (this.Client == null)
+                return;
+
+            this.Client.Send(Encoding.UTF8.GetBytes(data));
         }
 
         /// <summary>

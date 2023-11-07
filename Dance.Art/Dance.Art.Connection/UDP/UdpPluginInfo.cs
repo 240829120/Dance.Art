@@ -95,7 +95,7 @@ namespace Dance.Art.Connection
                 IPEndPoint localPoint = new(IPAddress.Parse(sourceModel.LocalHost), sourceModel.LocalPort);
                 sourceModel.Client = new(localPoint);
                 sourceModel.Client.Connect(sourceModel.RemoteHost, sourceModel.RemotePort);
-
+                sourceModel.BeginReceiveThread();
 
                 model.Status = ConnectionStatus.Connected;
             }
@@ -110,6 +110,8 @@ namespace Dance.Art.Connection
             if (model.Source is not UdpSourceModel sourceModel)
                 return;
 
+            sourceModel.ReceiveThread?.Stop();
+            sourceModel.ReceiveThread = null;
             sourceModel.Client?.Dispose();
             sourceModel.Client = null;
         }

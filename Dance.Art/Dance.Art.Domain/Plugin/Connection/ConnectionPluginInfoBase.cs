@@ -22,9 +22,6 @@ namespace Dance.Art.Domain
         {
             this.EditViewType = editViewType;
             this.SourceModelType = sourceModelType;
-
-            if (!this.SourceModelType.IsAssignableTo(typeof(IConnectionSourceModel)))
-                throw new Exception("sourceModelType 未实现接口 IConnectionSourceModel");
         }
 
         /// <summary>

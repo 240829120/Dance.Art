@@ -1,38 +1,86 @@
 ﻿/**
- * 连接源
+ * 连接状态
  */
-class ConnectionSource {
+const ConnectionStatus = {
 
-}
+    /**
+     * 断开
+     */
+    Disconnected: "Disconnected",
+
+    /**
+     * 等待
+     */
+    Waiting: "Waiting",
+
+    /**
+     * 已经连接
+     */
+    Connected: "Connected"
+};
 
 /**
- * 连接模型
+ * 连接对象
  */
 class ConnectionModel {
 
     /**
-     * 连接模型
+     * 连接对象
+     * @param {any} host 宿主对象
      */
-    constructor() {
-        /**
-         * 编号
-         */
-        this.ID = null;
+    constructor(host) {
 
         /**
-         * 名称
+         * 宿主对象
          */
-        this.Name = null;
+        this.HOST_OBJECT = host;
+    }
 
-        /**
-         * 状态
-         */
-        this.Status = null;
+    /* ============================================================================================ */
+    /* Property */
 
-        /**
-         * {ConnectionSource} 状态
-         */
-        this.Source = new ConnectionService();
+    /* ----------------------------------------------------- */
+    /* ID */
+
+    /**
+     * 获取编号
+     * @returns {string}
+     */
+    get id() {
+        return this.HOST_OBJECT.ID;
+    }
+
+    /* ----------------------------------------------------- */
+    /* name */
+
+    /**
+     * 获取名称
+     * @returns {string}
+     */
+    get name() {
+        return this.HOST_OBJECT.Name;
+    }
+
+    /* ----------------------------------------------------- */
+    /* description */
+
+    /**
+     * 获取描述
+     * @returns {string}
+     */
+    get description() {
+        return this.HOST_OBJECT.Description;
+    }
+
+    /* ----------------------------------------------------- */
+    /* status */
+
+    /**
+     * 获取状态
+     * @returns {ConnectionStatus}
+     */
+    get status() {
+        return this.HOST_OBJECT.Status.ToString();
     }
 }
 
@@ -78,8 +126,8 @@ class ConnectionService {
 
         let result = this.HOST_OBJECT.GetConnectionByID(`${id}`);
 
-        return result;
+        return new ConnectionModel(result);
     }
 }
 
-export { ConnectionSource, ConnectionModel, ConnectionService }
+export { ConnectionStatus, ConnectionModel, ConnectionService }

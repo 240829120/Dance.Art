@@ -28,7 +28,8 @@ namespace Dance.Art.Document
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, typeof(JsonView), new DocumentFileInfo(DocumentFileGroupInfoDefines.DATA_FILE, ".json", "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/json.svg",
+            return new DocumentPluginInfo(ID, NAME, typeof(JsonView), new DocumentFileInfo(DocumentFileGroupDefines.DATA, true, ".json",
+                                                                                           "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/json.svg",
                                                                                            "json 数据文件"));
         }
 

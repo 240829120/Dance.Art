@@ -94,5 +94,19 @@ namespace Dance.Art.Domain
         }
 
         #endregion
+
+        #region Data -- 附加数据
+
+        private object? data;
+        /// <summary>
+        /// 附加数据
+        /// </summary>
+        public object? Data
+        {
+            get { return data; }
+            set { data = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
     }
 }

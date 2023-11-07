@@ -150,7 +150,7 @@ namespace Dance.Art.Panel
         /// </summary>
         private void Loaded()
         {
-            IList<DevicePluginInfo> query = ArtDomain.Current.GetPluginCollection<DevicePluginInfo>();
+            IReadOnlyList<DevicePluginInfo> query = ArtDomain.Current.GetPluginCollection<DevicePluginInfo>();
             List<DeviceCategoryModel> categorys = new();
             foreach (var group in query.GroupBy(p => p.Category))
             {

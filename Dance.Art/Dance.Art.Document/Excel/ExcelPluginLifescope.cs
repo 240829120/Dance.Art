@@ -28,11 +28,14 @@ namespace Dance.Art.Document
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, null, new DocumentFileInfo(DocumentFileGroupInfoDefines.DATA_FILE, ".xls", "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/xls.svg",
+            return new DocumentPluginInfo(ID, NAME, null, new DocumentFileInfo(DocumentFileGroupDefines.DATA, true, ".xls",
+                                                                               "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/xls.svg",
                                                                                "Microsoft Excel 工作表")
-                                                        , new DocumentFileInfo(DocumentFileGroupInfoDefines.DATA_FILE, ".xlsx", "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/xlsx.svg",
+                                                        , new DocumentFileInfo(DocumentFileGroupDefines.DATA, true, ".xlsx",
+                                                                               "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/xlsx.svg",
                                                                                "Microsoft Excel 工作表")
-                                                        , new DocumentFileInfo(DocumentFileGroupInfoDefines.DATA_FILE, ".csv", "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/csv.svg",
+                                                        , new DocumentFileInfo(DocumentFileGroupDefines.DATA, true, ".csv",
+                                                                               "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/csv.svg",
                                                                                "通用数据表格"));
         }
 

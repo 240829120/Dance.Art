@@ -36,5 +36,10 @@ namespace Dance.Art.Domain
         /// 文件扩展名
         /// </summary>
         public string Extension { get; private set; }
+
+        /// <summary>
+        /// 附加数据
+        /// </summary>
+        public object? Data { get; set; }
     }
 }

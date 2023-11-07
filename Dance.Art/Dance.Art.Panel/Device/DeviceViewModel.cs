@@ -331,7 +331,7 @@ namespace Dance.Art.Panel
             if (model == null)
                 return;
 
-            ArtDomain.Current.Messenger.Send(new FileOpenMessage($"[Device]{model.Name}.cache"));
+            ArtDomain.Current.Messenger.Send(new FileOpenMessage($"[设备]{model.Name}{FileSuffixCategory.DOCUMENT_PANEL}") { Data = model });
         }
 
         #endregion

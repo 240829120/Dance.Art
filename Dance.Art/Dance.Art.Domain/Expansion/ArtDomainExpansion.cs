@@ -71,19 +71,11 @@ namespace Dance.Art.Domain
         /// <typeparam name="T">插件类型</typeparam>
         /// <param name="domain">领域模型</param>
         /// <returns>插件列表</returns>
-        public static IList<T> GetPluginCollection<T>(this ArtDomain domain) where T : PluginInfoBase
+        public static IReadOnlyList<T> GetPluginCollection<T>(this ArtDomain domain) where T : IDancePluginInfo
         {
-            lock (domain.PluginDic)
-            {
-                domain.PluginDic.TryGetValue(typeof(T), out IList? collection);
-                if (collection == null)
-                {
-                    collection = new List<T>();
-                    domain.PluginDic.Add(typeof(T), collection);
-                }
+            Type type = typeof(T);
 
-                return (IList<T>)collection;
-            }
+            return domain.Plugins.Where(p => p.GetType().IsAssignableTo(type)).ToList().Cast<T>().ToList();
         }
     }
 }

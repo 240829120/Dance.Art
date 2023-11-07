@@ -13,15 +13,6 @@ namespace Dance.Art.Device
     /// </summary>
     public class PingDocumentViewModel : DeviceDocumentViewModelBase, IDeviceDocumentViewModel
     {
-        /// <summary>
-        /// Ping文档视图模型
-        /// </summary>
-        /// <param name="model">设备模型</param>
-        public PingDocumentViewModel(DeviceModel model) : base(model)
-        {
-
-        }
-
         // ================================================================================================
         // Property
 

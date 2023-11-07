@@ -102,11 +102,11 @@ namespace Dance.Art.Module
 
         #region Templates -- 模板集合
 
-        private IList<TemplatePluginInfo>? templates;
+        private IReadOnlyList<TemplatePluginInfo>? templates;
         /// <summary>
         /// 模板集合
         /// </summary>
-        public IList<TemplatePluginInfo>? Templates
+        public IReadOnlyList<TemplatePluginInfo>? Templates
         {
             get { return templates; }
             set { templates = value; this.OnPropertyChanged(); }

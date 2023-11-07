@@ -865,7 +865,7 @@ namespace Dance.Art.Module
                 return;
             }
 
-            vm = new DocumentPluginModel(msg.Path, msg.FileName, pluginModel, msg.Path);
+            vm = new DocumentPluginModel(msg.Path, msg.FileName, pluginModel, msg.Path) { Data = msg.Data };
             ArtDomain.Current.Documents.Add(vm);
             vm.IsActive = true;
         }

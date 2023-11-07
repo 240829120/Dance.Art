@@ -23,7 +23,7 @@ namespace Dance.Art.Domain
         /// <param name="itemType">项类型</param>
         /// <param name="sourceType">源类型</param>
         public DevicePluginInfo(string id, string name, string category, string icon, string description, Type viewType, Type itemType, Type sourceType)
-            : base(id, name, viewType, new DocumentFileInfo(DocumentFileGroupInfoDefines.PRIVATE_FILE, ".cache", string.Empty, string.Empty))
+            : base(id, name, viewType, new DocumentFileInfo(DocumentFileGroupDefines.PANEL, false, FileSuffixCategory.DOCUMENT_PANEL, string.Empty, string.Empty))
         {
             this.Category = category;
             this.Icon = icon;

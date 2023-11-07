@@ -28,7 +28,8 @@ namespace Dance.Art.Document
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, typeof(XmlView), new DocumentFileInfo(DocumentFileGroupInfoDefines.PRIVATE_FILE, ".cs", "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/cs.svg",
+            return new DocumentPluginInfo(ID, NAME, typeof(XmlView), new DocumentFileInfo(DocumentFileGroupDefines.SCRIPT, false, ".cs",
+                                                                                          "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/cs.svg",
                                                                                           "C#类文件"));
         }
 

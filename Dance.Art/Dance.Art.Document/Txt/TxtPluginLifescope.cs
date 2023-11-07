@@ -28,7 +28,8 @@ namespace Dance.Art.Document
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, typeof(TxtView), new DocumentFileInfo(DocumentFileGroupInfoDefines.NORMAL_FILE, ".txt", "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/txt.svg",
+            return new DocumentPluginInfo(ID, NAME, typeof(TxtView), new DocumentFileInfo(DocumentFileGroupDefines.COMMON, true, ".txt",
+                                                                                          "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/txt.svg",
                                                                                           "文本文件"));
         }
 

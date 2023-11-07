@@ -15,7 +15,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 关联模型
         /// </summary>
-        DeviceModel Model { get; }
+        DeviceModel? Model { get; }
 
         /// <summary>
         /// 确定命令

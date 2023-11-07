@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:Dance.Art.Module">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Control/DeviceStatusTip.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Control/DeviceStatusTip/DeviceStatusTip.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Template/TemplateDialog.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 

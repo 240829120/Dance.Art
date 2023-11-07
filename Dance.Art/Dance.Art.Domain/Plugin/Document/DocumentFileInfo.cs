@@ -15,12 +15,14 @@ namespace Dance.Art.Domain
         /// 文档文件信息
         /// </summary>
         /// <param name="group">分组</param>
+        /// <param name="isPublic">是否公开</param>
         /// <param name="extension">扩展名</param>
         /// <param name="icon">图标</param>
         /// <param name="description">描述</param>
-        public DocumentFileInfo(DocumentFileGroupInfo group, string extension, string icon, string description)
+        public DocumentFileInfo(string group, bool isPublic, string extension, string icon, string description)
         {
             this.Group = group;
+            this.IsPublic = isPublic;
             this.Extension = extension;
             this.Icon = icon;
             this.Description = description;
@@ -29,7 +31,12 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 分组
         /// </summary>
-        public DocumentFileGroupInfo Group { get; private set; }
+        public string Group { get; private set; }
+
+        /// <summary>
+        /// 是否是公开的
+        /// </summary>
+        public bool IsPublic { get; private set; }
 
         /// <summary>
         /// 扩展名

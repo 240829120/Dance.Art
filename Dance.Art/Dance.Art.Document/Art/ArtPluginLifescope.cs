@@ -28,7 +28,8 @@ namespace Dance.Art.Document
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, typeof(ArtView), new DocumentFileInfo(DocumentFileGroupInfoDefines.PRIVATE_FILE, ".art", "pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg",
+            return new DocumentPluginInfo(ID, NAME, typeof(ArtView), new DocumentFileInfo(DocumentFileGroupDefines.PANEL, false, ".art",
+                                                                                          "pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/project.svg",
                                                                                           "项目文件"));
         }
 

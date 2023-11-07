@@ -161,7 +161,7 @@ namespace Dance.Art.Panel
         /// </summary>
         private void Loaded()
         {
-            this.GroupInfos = this.DocumentFileInfoManager.DocumentFileGroupInfos?.Where(p => p.IsPublic).ToList();
+            this.GroupInfos = this.DocumentFileInfoManager.DocumentFileGroupInfos;
             this.SelectedGroupInfo = this.GroupInfos?.FirstOrDefault();
         }
 

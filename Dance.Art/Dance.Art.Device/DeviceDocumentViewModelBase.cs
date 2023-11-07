@@ -17,10 +17,8 @@ namespace Dance.Art.Device
         /// <summary>
         /// 设备文档视图模型基类
         /// </summary>
-        /// <param name="model">设备模型</param>
-        public DeviceDocumentViewModelBase(DeviceModel model)
+        public DeviceDocumentViewModelBase()
         {
-            this.Model = model;
             this.EnterCommand = new(this.Enter, this.CanEnter);
             this.ReloadCommand = new(this.Reload, this.CanReload);
         }
@@ -28,7 +26,7 @@ namespace Dance.Art.Device
         /// <summary>
         /// 设备模型
         /// </summary>
-        public DeviceModel Model { get; private set; }
+        public DeviceModel? Model { get; private set; }
 
         #region EnterComamnd -- 确定命令
 
@@ -75,6 +73,14 @@ namespace Dance.Art.Device
         protected abstract void Reload();
 
         #endregion
+
+        /// <summary>
+        /// 加载
+        /// </summary>
+        public override void Load()
+        {
+            this.Model = this.ViewPluginModel?.Data as DeviceModel;
+        }
 
         /// <summary>
         /// 是否可以拷贝

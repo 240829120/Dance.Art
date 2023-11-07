@@ -32,9 +32,9 @@ namespace Dance.Art.Domain
         public List<string> PluginAssemblyPrefixes { get; } = new();
 
         /// <summary>
-        /// 插件字典
+        /// 插件集合
         /// </summary>
-        public Dictionary<Type, IList> PluginDic { get; private set; } = new();
+        public List<IDancePluginInfo> Plugins { get; private set; } = new();
 
         // ----------------------------------------------------------------------------------------------------
         // Views

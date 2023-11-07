@@ -110,55 +110,13 @@ namespace Dance.Art.Module
                 this.ProgressMessage = $"正在加载: {info.Name}";
 
                 PluginManager.InitializePlugin(info.ID);
-
-                // 面板插件
-                if (info is PanelPluginInfo panel)
-                {
-                    ArtDomain.Current.GetPluginCollection<PanelPluginInfo>().Add(panel);
-                }
-                // 文档插件
-                if (info is DocumentPluginInfo document)
-                {
-                    ArtDomain.Current.GetPluginCollection<DocumentPluginInfo>().Add(document);
-                    if (document.FileInfos != null && document.FileInfos.Length > 0)
-                    {
-                        foreach (DocumentFileInfo fileInfo in document.FileInfos)
-                        {
-                            if (fileInfo.Group.FileInfos is not IList<DocumentFileInfo> fileInfos)
-                                continue;
-
-                            if (!this.DocumentFileInfoManager.DocumentFileGroupInfos.Contains(fileInfo.Group))
-                            {
-                                this.DocumentFileInfoManager.DocumentFileGroupInfos.Add(fileInfo.Group);
-                            }
-
-                            fileInfos.Add(fileInfo);
-                        }
-                    }
-                }
-                // 设置插件
-                if (info is SettingPluginInfo setting)
-                {
-                    ArtDomain.Current.GetPluginCollection<SettingPluginInfo>().Add(setting);
-                }
-                // 模板插件
-                if (info is TemplatePluginInfo template)
-                {
-                    ArtDomain.Current.GetPluginCollection<TemplatePluginInfo>().Add(template);
-                }
-                // 脚本插件
-                if (info is ScriptPluginInfo script)
-                {
-                    ArtDomain.Current.GetPluginCollection<ScriptPluginInfo>().Add(script);
-                }
-                // 设备插件
-                if (info is DevicePluginInfo device)
-                {
-                    ArtDomain.Current.GetPluginCollection<DevicePluginInfo>().Add(device);
-                }
+                ArtDomain.Current.Plugins.Add(info);
 
                 await Task.Delay(100);
             }
+
+            // 构建文档分组
+            this.DocumentFileInfoManager.Build();
 
             this.ProgressValue = 1;
             this.ProgressMessage = "准备启动";

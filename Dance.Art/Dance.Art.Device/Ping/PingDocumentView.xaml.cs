@@ -23,6 +23,12 @@ namespace Dance.Art.Device
         public PingDocumentView()
         {
             InitializeComponent();
+
+            PingDocumentViewModel vm = new()
+            {
+                View = this
+            };
+            this.DataContext = vm;
         }
     }
 }

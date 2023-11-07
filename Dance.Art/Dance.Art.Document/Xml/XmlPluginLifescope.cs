@@ -28,7 +28,8 @@ namespace Dance.Art.Document
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DocumentPluginInfo(ID, NAME, typeof(XmlView), new DocumentFileInfo(DocumentFileGroupInfoDefines.DATA_FILE, ".xml", "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/xml.svg",
+            return new DocumentPluginInfo(ID, NAME, typeof(XmlView), new DocumentFileInfo(DocumentFileGroupDefines.DATA, true, ".xml",
+                                                                                          "pack://application:,,,/Dance.Art.Document;component/Themes/Resources/Icons/xml.svg",
                                                                                           "可扩展标记语言"));
         }
 

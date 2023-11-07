@@ -15,5 +15,10 @@ namespace Dance.Art.Domain
         /// 文档文件分组信息集合
         /// </summary>
         List<DocumentFileGroupInfo> DocumentFileGroupInfos { get; }
+
+        /// <summary>
+        /// 构建
+        /// </summary>
+        void Build();
     }
 }

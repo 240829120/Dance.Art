@@ -326,9 +326,12 @@ namespace Dance.Art.Panel
         /// 编辑项
         /// </summary>
         /// <param name="model">项</param>
-        private void EditItem(DeviceModel? mdoel)
+        private void EditItem(DeviceModel? model)
         {
+            if (model == null)
+                return;
 
+            ArtDomain.Current.Messenger.Send(new FileOpenMessage($"[Device]{model.Name}.cache"));
         }
 
         #endregion

@@ -117,7 +117,7 @@ namespace Dance.Art.Module
                     ArtDomain.Current.GetPluginCollection<PanelPluginInfo>().Add(panel);
                 }
                 // 文档插件
-                else if (info is DocumentPluginInfo document)
+                if (info is DocumentPluginInfo document)
                 {
                     ArtDomain.Current.GetPluginCollection<DocumentPluginInfo>().Add(document);
                     if (document.FileInfos != null && document.FileInfos.Length > 0)
@@ -137,22 +137,22 @@ namespace Dance.Art.Module
                     }
                 }
                 // 设置插件
-                else if (info is SettingPluginInfo setting)
+                if (info is SettingPluginInfo setting)
                 {
                     ArtDomain.Current.GetPluginCollection<SettingPluginInfo>().Add(setting);
                 }
                 // 模板插件
-                else if (info is TemplatePluginInfo template)
+                if (info is TemplatePluginInfo template)
                 {
                     ArtDomain.Current.GetPluginCollection<TemplatePluginInfo>().Add(template);
                 }
                 // 脚本插件
-                else if (info is ScriptPluginInfo script)
+                if (info is ScriptPluginInfo script)
                 {
                     ArtDomain.Current.GetPluginCollection<ScriptPluginInfo>().Add(script);
                 }
                 // 设备插件
-                else if (info is DevicePluginInfo device)
+                if (info is DevicePluginInfo device)
                 {
                     ArtDomain.Current.GetPluginCollection<DevicePluginInfo>().Add(device);
                 }

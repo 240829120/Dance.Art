@@ -9,7 +9,7 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 设备插件信息
     /// </summary>
-    public class DevicePluginInfo : PluginInfoBase
+    public class DevicePluginInfo : DocumentPluginInfo
     {
         /// <summary>
         /// 设备插件
@@ -19,15 +19,15 @@ namespace Dance.Art.Domain
         /// <param name="category">类别</param>
         /// <param name="icon">图标</param>
         /// <param name="description">描述</param>
-        /// <param name="documentType">文档类型</param>
+        /// <param name="viewType">文档类型</param>
         /// <param name="itemType">项类型</param>
         /// <param name="sourceType">源类型</param>
-        public DevicePluginInfo(string id, string name, string category, string icon, string description, Type documentType, Type itemType, Type sourceType) : base(id, name)
+        public DevicePluginInfo(string id, string name, string category, string icon, string description, Type viewType, Type itemType, Type sourceType)
+            : base(id, name, viewType, new DocumentFileInfo(DocumentFileGroupInfoDefines.PRIVATE_FILE, ".cache", string.Empty, string.Empty))
         {
             this.Category = category;
             this.Icon = icon;
             this.Description = description;
-            this.DocumentType = documentType;
             this.ItemType = itemType;
             this.SourceType = sourceType;
         }
@@ -46,11 +46,6 @@ namespace Dance.Art.Domain
         /// 描述
         /// </summary>
         public string Description { get; private set; }
-
-        /// <summary>
-        /// 文档类型
-        /// </summary>
-        public Type DocumentType { get; private set; }
 
         /// <summary>
         /// 项类型

@@ -35,6 +35,11 @@ namespace Dance.Art.Domain
         // ===========================================================================
         // Project Property
 
+        /// <summary>
+        /// 设备分组集合
+        /// </summary>
+        public ObservableCollection<DeviceGroupModel> DeviceGroups { get; } = new();
+
         #region Name -- 名称
 
         private string? name;
@@ -60,15 +65,6 @@ namespace Dance.Art.Domain
             get { return description; }
             set { description = value; this.OnPropertyChanged(); }
         }
-
-        #endregion
-
-        #region ConnectionGroups -- 连接集合
-
-        /// <summary>
-        /// 连接分组
-        /// </summary>
-        public ObservableCollection<ConnectionGroupModel> ConnectionGroups { get; } = new();
 
         #endregion
 

@@ -30,16 +30,13 @@
     <Compile Update="Command\CommandView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Connection\ConnectionAddWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Connection\ConnectionEditWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Connection\ConnectionView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="DataSource\DataSourceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Device\DeviceAddWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Device\DeviceView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="FileSource\FileSourceNewFileWindow.xaml.cs">

@@ -1,4 +1,4 @@
-﻿import { ConnectionStatus, ConnectionModel } from './index'
+﻿import { ConnectionStatus, ConnectionModel, ConnectionSourceReceiveDataEventArgs } from './index'
 
 /**
  * UDP连接源
@@ -35,7 +35,10 @@ class UdpConnectionSource {
         if (this.ConnectionModel.HOST_OBJECT.Source.ReceiveData === null || this.ConnectionModel.HOST_OBJECT.Source.ReceiveData === undefined)
             return false;
 
-        this.ConnectionModel.HOST_OBJECT.Source.ReceiveData.connect(func);
+        this.ConnectionModel.HOST_OBJECT.Source.ReceiveData.connect((s, e) => {
+            let args = new ConnectionSourceReceiveDataEventArgs(e);
+            func(s, args);
+        });
 
         return true;
     }

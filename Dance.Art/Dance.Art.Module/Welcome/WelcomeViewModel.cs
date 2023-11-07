@@ -151,10 +151,10 @@ namespace Dance.Art.Module
                 {
                     ArtDomain.Current.GetPluginCollection<ScriptPluginInfo>().Add(script);
                 }
-                // 连接插件
-                else if (info is ConnectionPluginInfoBase connection)
+                // 设备插件
+                else if (info is DevicePluginInfo device)
                 {
-                    ArtDomain.Current.GetPluginCollection<ConnectionPluginInfoBase>().Add(connection);
+                    ArtDomain.Current.GetPluginCollection<DevicePluginInfo>().Add(device);
                 }
 
                 await Task.Delay(100);

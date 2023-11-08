@@ -19,6 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DANCE_ART\DataSource\text.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DANCE_ART\DataSource\index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="DANCE_ART\Device\tcp.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

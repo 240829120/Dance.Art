@@ -48,5 +48,36 @@ namespace Dance.Art.Domain
                 return null;
             }
         }
+
+        /// <summary>
+        /// 获取数据模型
+        /// </summary>
+        /// <param name="projectDomain">项目领域</param>
+        /// <param name="name">名称</param>
+        /// <returns>数据模型</returns>
+        public static DataSourceModel? GetDataSourceModel(this ProjectDomain? projectDomain, string name)
+        {
+            if (projectDomain == null || string.IsNullOrWhiteSpace(name))
+                return null;
+
+            try
+            {
+                foreach (DataSourceGroupModel group in projectDomain.DataSourceGroups)
+                {
+                    foreach (DataSourceModel item in group.Items)
+                    {
+                        if (string.Equals(item.Name, name))
+                            return item;
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                return null;
+            }
+        }
     }
 }

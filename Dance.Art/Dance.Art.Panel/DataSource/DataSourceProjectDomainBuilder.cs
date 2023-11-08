@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 namespace Dance.Art.Panel
 {
     /// <summary>
-    /// 数据源项目领域构建器
+    /// 数据项目领域构建器
     /// </summary>
     public class DataSourceProjectDomainBuilder : DanceObject, IProjectDomainBuilder
     {
         /// <summary>
-        /// 数据源仓储
+        /// 数据仓储
         /// </summary>
         private readonly IDataSourceStorage DataSourceStorage = DanceDomain.Current.LifeScope.Resolve<IDataSourceStorage>();
 
         /// <summary>
         /// 名称
         /// </summary>
-        public string Name { get; } = "数据源";
+        public string Name { get; } = "数据";
 
         /// <summary>
         /// 构建

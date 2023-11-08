@@ -8,17 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Art.Device
+namespace Dance.Art.DataSource
 {
     /// <summary>
-    /// 设备文档视图模型基类
+    /// 数据源文档视图模型基类
     /// </summary>
-    public abstract class DeviceDocumentViewModelBase : DocumentViewModelBase, IDeviceDocumentViewModel
+    public abstract class DataSourceDocumentViewModelBase : DocumentViewModelBase, IDataSourceDocumentViewModel
     {
         /// <summary>
-        /// 设备文档视图模型基类
+        /// 数据源文档视图模型基类
         /// </summary>
-        public DeviceDocumentViewModelBase()
+        public DataSourceDocumentViewModelBase()
         {
             this.EnterCommand = new(this.Enter, this.CanEnter);
         }
@@ -26,7 +26,7 @@ namespace Dance.Art.Device
         /// <summary>
         /// 设备模型
         /// </summary>
-        public DeviceModel? Model { get; private set; }
+        public DataSourceModel? Model { get; private set; }
 
         #region Name -- 名称
 
@@ -91,7 +91,7 @@ namespace Dance.Art.Device
         /// </summary>
         public override void Load()
         {
-            this.Model = this.ViewPluginModel?.Data as DeviceModel;
+            this.Model = this.ViewPluginModel?.Data as DataSourceModel;
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Dance.Art.Device
                 return false;
             }
 
-            if (ArtDomain.Current.ProjectDomain.DeviceGroups.Any(g => g.Items.Any(i => i != this.Model && string.Equals(i.Name, this.Name))))
+            if (ArtDomain.Current.ProjectDomain.DataSourceGroups.Any(g => g.Items.Any(i => i != this.Model && string.Equals(i.Name, this.Name))))
             {
                 DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "名称重复", DanceMessageBoxAction.YES);
                 return false;
@@ -167,8 +167,8 @@ namespace Dance.Art.Device
             if (string.IsNullOrWhiteSpace(this.Name) || this.ViewPluginModel is not DocumentPluginModel documentPluginModel)
                 return;
 
-            documentPluginModel.File = $"[设备]{this.Name}";
-            documentPluginModel.Name = $"[设备]{this.Name}";
+            documentPluginModel.File = $"[数据]{this.Name}";
+            documentPluginModel.Name = $"[数据]{this.Name}";
         }
     }
 }

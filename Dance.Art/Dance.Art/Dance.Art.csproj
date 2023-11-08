@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\..\Dance\Dance\Dance.Common\Dance.Common.csproj" />
     <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
     <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+    <ProjectReference Include="..\Dance.Art.DataSource\Dance.Art.DataSource.csproj" />
     <ProjectReference Include="..\Dance.Art.Device\Dance.Art.Device.csproj" />
     <ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
     <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />

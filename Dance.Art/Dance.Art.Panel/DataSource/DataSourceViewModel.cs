@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Dance.Art.Panel
 {
     /// <summary>
-    /// 数据源视图模型
+    /// 数据视图模型
     /// </summary>
     public class DataSourceViewModel : PanelViewModelBase
     {
@@ -50,7 +50,7 @@ namespace Dance.Art.Panel
         private readonly IWindowManager WindowManager = DanceDomain.Current.LifeScope.Resolve<IWindowManager>();
 
         /// <summary>
-        /// 数据源仓储
+        /// 数据仓储
         /// </summary>
         private readonly IDataSourceStorage DataSourceStorage = DanceDomain.Current.LifeScope.Resolve<IDataSourceStorage>();
 
@@ -356,7 +356,7 @@ namespace Dance.Art.Panel
             if (model == null || model.Group == null)
                 return;
 
-            if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否删除数据源: [ {model.Name} ]", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) != DanceMessageBoxAction.YES)
+            if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否删除数据: [ {model.Name} ]", DanceMessageBoxAction.YES | DanceMessageBoxAction.NO) != DanceMessageBoxAction.YES)
                 return;
 
             model.Group.Items.Remove(model);

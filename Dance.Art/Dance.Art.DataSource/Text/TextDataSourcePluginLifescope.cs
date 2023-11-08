@@ -5,22 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Art.Panel
+namespace Dance.Art.DataSource
 {
     /// <summary>
-    /// 数据插件生命周期
+    /// 文本数据源插件生命周期
     /// </summary>
-    public class DataSourcePluginLifescope : DanceObject, IDancePluginLifescope
+    public class TextDataSourcePluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.Panel]:DataSource";
+        public const string ID = "[Dance.Art.DataSource]:Text";
 
         /// <summary>
         /// 名称
         /// </summary>
-        public const string NAME = "数据";
+        public const string NAME = "Text";
 
         /// <summary>
         /// 注册插件
@@ -28,7 +28,9 @@ namespace Dance.Art.Panel
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new PanelPluginInfo(ID, NAME, typeof(DataSourceView));
+            return new DataSourcePluginInfo(ID, NAME, DataSourceGroupDefines.COMMON, "pack://application:,,,/Dance.Art.Device;component/Themes/Resources/Icons/ping.svg",
+                                            "文本",
+                                            typeof(TextDataSourceDocumentView), typeof(TextDataSourceModel));
         }
 
         /// <summary>

@@ -6,4 +6,18 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
+    <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+    <ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
+    <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
+    <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Text\TextDataSourceDocumentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

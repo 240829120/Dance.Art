@@ -1,5 +1,4 @@
-﻿using Dance.Art.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,27 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Dance.Art.Panel
+namespace Dance.Art.DataSource
 {
     /// <summary>
-    /// DataSourceAddWindow.xaml 的交互逻辑
+    /// TextDataSourceDocumentView.xaml 的交互逻辑
     /// </summary>
-    public partial class DataSourceAddWindow : Window
+    public partial class TextDataSourceDocumentView : UserControl
     {
-        public DataSourceAddWindow()
+        public TextDataSourceDocumentView()
         {
             InitializeComponent();
-        }
 
-        /// <summary>
-        /// 添加数据窗口
-        /// </summary>
-        /// <param name="group">数据所属分组</param>
-        public DataSourceAddWindow(DataSourceGroupModel group) : this()
-        {
-            DataSourceAddWindowModel vm = new(group)
+            TextDataSourceDocumentViewModel vm = new()
             {
                 View = this
             };

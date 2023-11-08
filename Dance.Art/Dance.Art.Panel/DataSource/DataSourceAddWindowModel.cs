@@ -12,12 +12,12 @@ using System.Windows;
 namespace Dance.Art.Panel
 {
     /// <summary>
-    /// 添加数据源窗口模型
+    /// 添加数据窗口模型
     /// </summary>
     public class DataSourceAddWindowModel : DanceViewModel
     {
         /// <summary>
-        /// 添加数据源窗口模型
+        /// 添加数据窗口模型
         /// </summary>
         /// <param name="group">分组</param>
         public DataSourceAddWindowModel(DataSourceGroupModel group)
@@ -33,7 +33,7 @@ namespace Dance.Art.Panel
         // Field 
 
         /// <summary>
-        /// 数据源仓储
+        /// 数据仓储
         /// </summary>
         private readonly IDataSourceStorage DataSourceStorage = DanceDomain.Current.LifeScope.Resolve<IDataSourceStorage>();
 
@@ -47,7 +47,7 @@ namespace Dance.Art.Panel
 
         #region Name -- 名称
 
-        private string? name = "新建数据源";
+        private string? name = "新建数据";
         /// <summary>
         /// 名称
         /// </summary>
@@ -191,7 +191,7 @@ namespace Dance.Art.Panel
                 return;
             }
 
-            if (ArtDomain.Current.ProjectDomain.DeviceGroups.Any(g => g.Items.Any(i => string.Equals(i.Name, this.Name))))
+            if (ArtDomain.Current.ProjectDomain.DataSourceGroups.Any(g => g.Items.Any(i => string.Equals(i.Name, this.Name))))
             {
                 DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "名称重复", DanceMessageBoxAction.YES);
                 return;

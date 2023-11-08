@@ -40,6 +40,11 @@ namespace Dance.Art.Domain
         /// </summary>
         public ObservableCollection<DeviceGroupModel> DeviceGroups { get; } = new();
 
+        /// <summary>
+        /// 数据源分组集合
+        /// </summary>
+        public ObservableCollection<DataSourceGroupModel> DataSourceGroups { get; } = new();
+
         #region Name -- 名称
 
         private string? name;

@@ -33,6 +33,9 @@
     <Compile Update="DataSource\DataSourceView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="DataSource\DataSourceAddWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Device\DeviceAddWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

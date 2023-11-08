@@ -847,7 +847,7 @@ namespace Dance.Art.Module
                 return;
             }
 
-            DocumentPluginInfo? pluginModel = ArtDomain.Current.GetPluginCollection<DocumentPluginInfo>().FirstOrDefault(p =>
+            DocumentPluginInfo? pluginInfo = msg.PluginInfo ?? ArtDomain.Current.GetPluginCollection<DocumentPluginInfo>().FirstOrDefault(p =>
             {
                 if (p is not DocumentPluginInfo documentPlugin || documentPlugin.FileInfos == null)
                     return false;
@@ -855,7 +855,7 @@ namespace Dance.Art.Module
                 return documentPlugin.FileInfos.Any(p => string.Equals(p.Extension, msg.Extension, StringComparison.OrdinalIgnoreCase));
             });
 
-            if (pluginModel == null || pluginModel.ViewType == null)
+            if (pluginInfo == null || pluginInfo.ViewType == null)
             {
                 if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否使用默认程序打开: {msg.Path}", DanceMessageBoxAction.YES | DanceMessageBoxAction.CANCEL) != DanceMessageBoxAction.YES)
                     return;
@@ -865,7 +865,7 @@ namespace Dance.Art.Module
                 return;
             }
 
-            vm = new DocumentPluginModel(msg.Path, msg.FileName, pluginModel, msg.Path) { Data = msg.Data };
+            vm = new DocumentPluginModel(msg.Path, msg.FileName, pluginInfo, msg.Path) { Data = msg.Data };
             ArtDomain.Current.Documents.Add(vm);
             vm.IsActive = true;
         }

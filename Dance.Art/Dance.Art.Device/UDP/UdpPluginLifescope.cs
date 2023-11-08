@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 namespace Dance.Art.Device
 {
     /// <summary>
-    /// Ping连接插件生命周期
+    /// UDP连接插件生命周期
     /// </summary>
-    public class PingPluginLifescope : DanceObject, IDancePluginLifescope
+    public class UdpPluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.Device]:Ping";
+        public const string ID = "[Dance.Art.Device]:UDP";
 
         /// <summary>
         /// 名称
         /// </summary>
-        public const string NAME = "Ping";
+        public const string NAME = "UDP";
 
         /// <summary>
         /// 注册插件
@@ -28,9 +28,9 @@ namespace Dance.Art.Device
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DevicePluginInfo(ID, NAME, DeviceGroupDefines.COMMON, "pack://application:,,,/Dance.Art.Device;component/Themes/Resources/Icons/ping.svg",
-                                        "Ping设备, 该设备将持续Ping指定地址",
-                                        typeof(PingDocumentView), typeof(PingSourceModel));
+            return new DevicePluginInfo(ID, NAME, DeviceGroupDefines.COMMON, "pack://application:,,,/Dance.Art.Device;component/Themes/Resources/Icons/udp.svg",
+                                        "UDP设备",
+                                        typeof(UdpDocumentView), typeof(UdpSourceModel));
         }
 
         /// <summary>

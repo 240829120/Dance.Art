@@ -1,25 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
-    <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
-    <ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
-    <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
-    <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
-    <ProjectReference Include="..\Dance.Art.Script\Dance.Art.Script.csproj" />
-    <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <None Remove="Themes\Resources\Icons\ping.svg" />
+	  <None Remove="Themes\Resources\Icons\tcp.svg" />
+	  <None Remove="Themes\Resources\Icons\udp.svg" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Ping\PingDocumentView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
+		<ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+		<ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
+		<ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
+		<ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
+		<ProjectReference Include="..\Dance.Art.Script\Dance.Art.Script.csproj" />
+		<ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Ping\PingDocumentView.xaml.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="UDP\UdpDocumentView.xaml.cs">
+		  <SubType>Code</SubType>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="TCP\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Themes\Resources\Icons\ping.svg" />
+	  <Resource Include="Themes\Resources\Icons\tcp.svg" />
+	  <Resource Include="Themes\Resources\Icons\udp.svg" />
+	</ItemGroup>
 
 </Project>

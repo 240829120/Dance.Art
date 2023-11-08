@@ -59,16 +59,14 @@
                               dance:DanceDragTrigger.DragAdornerBackground="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_MOUSE_OVER}}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <module:DeviceStatusTip Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center"
                                                     Status="{Binding Path=Status}"></module:DeviceStatusTip>
-                            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,10,0">
-                                <TextBlock Text="[" Opacity="0.5"></TextBlock>
-                                <TextBlock Text="{Binding Path=PluginInfo.Name}" Opacity="0.5" Width="30" TextAlignment="Center"></TextBlock>
-                                <TextBlock Text="]" Opacity="0.5"></TextBlock>
-                                <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Grid.Column="1" Margin="5,0,0,0"></TextBlock>
-                            </StackPanel>
+                            <dance:DanceSvgImage Width="14" Height="14" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                 Source="{Binding Path=PluginInfo.Icon,Mode=OneWay}" Grid.Column="1"></dance:DanceSvgImage>
+                            <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" Grid.Column="2" Margin="5,0,10,0"></TextBlock>
                         </Grid>
                     </DataTemplate>
                 </dance:DanceGroupBox.GroupItemTemplate>

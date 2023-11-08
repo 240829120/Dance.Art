@@ -14,7 +14,7 @@ namespace Dance.Art.Device
     /// <summary>
     /// Ping源模型
     /// </summary>
-    public class PingSourceModel : DanceModel, IDeviceSource
+    public class PingSourceModel : DanceWrapperModel, IDeviceSource
     {
         // =====================================================================================
         // Field
@@ -52,7 +52,7 @@ namespace Dance.Art.Device
         public string? Host
         {
             get { return host; }
-            set { host = value; this.OnPropertyChanged(); }
+            set { host = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion
@@ -66,7 +66,7 @@ namespace Dance.Art.Device
         public int Frequency
         {
             get { return frequency; }
-            set { frequency = value; this.OnPropertyChanged(); }
+            set { frequency = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion

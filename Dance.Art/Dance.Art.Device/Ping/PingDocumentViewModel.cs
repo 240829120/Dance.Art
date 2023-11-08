@@ -48,13 +48,17 @@ namespace Dance.Art.Device
         // Override
 
         /// <summary>
-        /// 重新加载
+        /// 加载
         /// </summary>
-        protected override void Reload()
+        public override void Load()
         {
-            if (this.Model.Source is not PingSourceModel sourceModel)
+            base.Load();
+
+            if (this.Model == null || this.Model.Source is not PingSourceModel sourceModel)
                 return;
 
+            this.Name = this.Model?.Name;
+            this.Description = this.Model?.Description;
             this.Host = sourceModel.Host;
             this.Frequency = sourceModel.Frequency;
         }
@@ -64,27 +68,40 @@ namespace Dance.Art.Device
         /// </summary>
         protected override void Enter()
         {
-            if (this.Model.Source is not PingSourceModel sourceModel)
-                return;
-
-            if (string.IsNullOrWhiteSpace(this.Host))
+            try
             {
-                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "请输入地址", DanceMessageBoxAction.YES);
-                return;
-            }
+                if (this.Model == null || this.Model.Source is not PingSourceModel sourceModel)
+                    return;
 
-            if (this.Frequency < 1000)
+                if (!this.CheckName())
+                    return;
+
+                if (string.IsNullOrWhiteSpace(this.Host))
+                {
+                    DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "请输入地址", DanceMessageBoxAction.YES);
+                    return;
+                }
+
+                if (this.Frequency < 1000)
+                {
+                    DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "频率最小1000毫秒", DanceMessageBoxAction.YES);
+                    return;
+                }
+
+                this.Model.Name = this.Name;
+                this.Model.Description = this.Description;
+                sourceModel.Host = this.Host;
+                sourceModel.Frequency = this.Frequency;
+
+                sourceModel.SaveToStorage();
+                sourceModel.Disconnect();
+                sourceModel.Connect();
+            }
+            catch (Exception ex)
             {
-                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "频率最小1000毫秒", DanceMessageBoxAction.YES);
-                return;
+                log.Error(ex);
+                DanceMessageExpansion.ShowMessageBox("错误", DanceMessageBoxIcon.Failure, ex.Message, DanceMessageBoxAction.YES);
             }
-
-            sourceModel.Host = this.Host;
-            sourceModel.Frequency = this.Frequency;
-
-            sourceModel.SaveToStorage();
-            sourceModel.Disconnect();
-            sourceModel.Connect();
         }
     }
 }

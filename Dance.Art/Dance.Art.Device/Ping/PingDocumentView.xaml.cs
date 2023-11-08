@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Dance.Art.Device
 {
     /// <summary>
-    /// PingEditView.xaml 的交互逻辑
+    /// PingDocumentView.xaml 的交互逻辑
     /// </summary>
     public partial class PingDocumentView : UserControl
     {

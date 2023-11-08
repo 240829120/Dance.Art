@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Dance.Art.Document.Document;
 using Dance.Art.Domain;
+using Dance.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,40 @@ namespace Dance.Art.Device
         public DeviceDocumentViewModelBase()
         {
             this.EnterCommand = new(this.Enter, this.CanEnter);
-            this.ReloadCommand = new(this.Reload, this.CanReload);
         }
 
         /// <summary>
         /// 设备模型
         /// </summary>
         public DeviceModel? Model { get; private set; }
+
+        #region Name -- 名称
+
+        private string? name;
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string? Name
+        {
+            get { return name; }
+            set { name = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region Description -- 描述
+
+        private string? description;
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string? Description
+        {
+            get { return description; }
+            set { description = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
 
         #region EnterComamnd -- 确定命令
 
@@ -47,30 +75,14 @@ namespace Dance.Art.Device
         /// <summary>
         /// 确定
         /// </summary>
-        protected abstract void Enter();
-
-        #endregion
-
-        #region ReloadCommand -- 重新加载命令
-
-        /// <summary>
-        /// 重新加载命令
-        /// </summary>
-        public RelayCommand ReloadCommand { get; private set; }
-
-        /// <summary>
-        /// 是否可以重新加载
-        /// </summary>
-        /// <returns>是否可以重新加载</returns>
-        protected virtual bool CanReload()
+        protected virtual void Enter()
         {
-            return true;
-        }
+            if (this.Model == null)
+                return;
 
-        /// <summary>
-        /// 重新加载
-        /// </summary>
-        protected abstract void Reload();
+            this.Model.Name = this.Name;
+            this.Model.Description = this.Description;
+        }
 
         #endregion
 
@@ -121,6 +133,30 @@ namespace Dance.Art.Device
         protected override void Paste()
         {
             // nothing todo.
+        }
+
+        /// <summary>
+        /// 校验设备名称
+        /// </summary>
+        /// <returns>是否通过校验</returns>
+        protected bool CheckName()
+        {
+            if (ArtDomain.Current.ProjectDomain == null)
+                return false;
+
+            if (string.IsNullOrWhiteSpace(this.Name))
+            {
+                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "名称不能为空", DanceMessageBoxAction.YES);
+                return false;
+            }
+
+            if (ArtDomain.Current.ProjectDomain.DeviceGroups.Any(g => g.Items.Any(i => i != this.Model && string.Equals(i.Name, this.Name))))
+            {
+                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "名称重复", DanceMessageBoxAction.YES);
+                return false;
+            }
+
+            return true;
         }
     }
 }

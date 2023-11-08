@@ -49,7 +49,17 @@ namespace Dance.Art.Panel
         /// <param name="projectDomain">项目领域</param>
         public void Destroy(ProjectDomain projectDomain)
         {
-            projectDomain.DeviceGroups.ForEach(g => g.Items.ForEach(i => i.Dispose()));
+            projectDomain.DeviceGroups.ForEach(g => g.Items.ForEach(i =>
+            {
+                try
+                {
+                    i.Source.Disconnect();
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+            }));
             projectDomain.DeviceGroups.Clear();
         }
     }

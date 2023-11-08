@@ -16,13 +16,19 @@ using System.Windows.Shapes;
 namespace Dance.Art.Device
 {
     /// <summary>
-    /// PingItemView.xaml 的交互逻辑
+    /// UdpDocumentView.xaml 的交互逻辑
     /// </summary>
-    public partial class PingItemView : UserControl
+    public partial class UdpDocumentView : UserControl
     {
-        public PingItemView()
+        public UdpDocumentView()
         {
             InitializeComponent();
+
+            UdpDocumentViewModel vm = new()
+            {
+                View = this
+            };
+            this.DataContext = vm;
         }
     }
 }

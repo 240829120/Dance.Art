@@ -123,6 +123,9 @@ namespace Dance.Art.Panel
         /// <param name="item">项</param>
         private void AddGroup(DeviceModel? item)
         {
+            if (ArtDomain.Current.ProjectDomain == null)
+                return;
+
             InputStringTemplateWindow window = new("添加分组", "名称:", "新分组", item, this.ExecuteAddGroup)
             {
                 Owner = this.WindowManager.MainWindow
@@ -331,7 +334,11 @@ namespace Dance.Art.Panel
             if (model == null)
                 return;
 
-            ArtDomain.Current.Messenger.Send(new FileOpenMessage($"[设备]{model.Name}{FileSuffixCategory.DOCUMENT_PANEL}") { Data = model });
+            ArtDomain.Current.Messenger.Send(new FileOpenMessage($"[设备]{model.Name}{FileSuffixCategory.DOCUMENT_PANEL}")
+            {
+                PluginInfo = model.PluginInfo,
+                Data = model
+            });
         }
 
         #endregion

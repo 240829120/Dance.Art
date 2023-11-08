@@ -64,7 +64,7 @@
                                             <ColumnDefinition Width="20"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <dance:DanceSvgImage Width="10" Height="10" Source="{Binding Path=Icon}"></dance:DanceSvgImage>
+                                        <dance:DanceSvgImage Width="14" Height="14" Source="{Binding Path=Icon}"></dance:DanceSvgImage>
                                         <TextBlock Text="{Binding Path=Name}" Grid.Column="1" Margin="10,0,10,0"></TextBlock>
                                     </Grid>
                                 </DataTemplate>

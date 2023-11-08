@@ -1,8 +1,7 @@
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Dance.Art.Device">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Dance.Art.Device">
     <ResourceDictionary.MergedDictionaries>
-
+        <ResourceDictionary Source="/Dance.Art.Device;component/{Core}/Control/DeviceDocumentPanelTemplate/DeviceDocumentPanelTemplate.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -18,13 +18,18 @@ namespace Dance.Art.Domain
         DeviceModel? Model { get; }
 
         /// <summary>
+        /// 名称
+        /// </summary>
+        string? Name { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        string? Description { get; set; }
+
+        /// <summary>
         /// 确定命令
         /// </summary>
         RelayCommand EnterCommand { get; }
-
-        /// <summary>
-        /// 还原命令
-        /// </summary>
-        RelayCommand ReloadCommand { get; }
     }
 }

@@ -20,15 +20,13 @@ namespace Dance.Art.Domain
         /// <param name="icon">图标</param>
         /// <param name="description">描述</param>
         /// <param name="viewType">文档类型</param>
-        /// <param name="itemType">项类型</param>
         /// <param name="sourceType">源类型</param>
-        public DevicePluginInfo(string id, string name, string category, string icon, string description, Type viewType, Type itemType, Type sourceType)
+        public DevicePluginInfo(string id, string name, string category, string icon, string description, Type viewType, Type sourceType)
             : base(id, name, viewType, new DocumentFileInfo(DocumentFileGroupDefines.PANEL, false, FileSuffixCategory.DOCUMENT_PANEL, string.Empty, string.Empty))
         {
             this.Category = category;
             this.Icon = icon;
             this.Description = description;
-            this.ItemType = itemType;
             this.SourceType = sourceType;
         }
 
@@ -46,11 +44,6 @@ namespace Dance.Art.Domain
         /// 描述
         /// </summary>
         public string Description { get; private set; }
-
-        /// <summary>
-        /// 项类型
-        /// </summary>
-        public Type ItemType { get; private set; }
 
         /// <summary>
         /// 源类型

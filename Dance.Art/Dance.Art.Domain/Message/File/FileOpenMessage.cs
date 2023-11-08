@@ -38,6 +38,11 @@ namespace Dance.Art.Domain
         public string Extension { get; private set; }
 
         /// <summary>
+        /// 指定插件信息
+        /// </summary>
+        public DocumentPluginInfo? PluginInfo { get; set; }
+
+        /// <summary>
         /// 附加数据
         /// </summary>
         public object? Data { get; set; }

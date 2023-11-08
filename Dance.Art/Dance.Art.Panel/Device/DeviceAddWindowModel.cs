@@ -191,7 +191,7 @@ namespace Dance.Art.Panel
                 return;
             }
 
-            if (ArtDomain.Current.ProjectDomain.DeviceGroups.Any(p => p.Items.Any(p => string.Equals(p.Name, this.Name))))
+            if (ArtDomain.Current.ProjectDomain.DeviceGroups.Any(g => g.Items.Any(i => string.Equals(i.Name, this.Name))))
             {
                 DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "名称重复", DanceMessageBoxAction.YES);
                 return;

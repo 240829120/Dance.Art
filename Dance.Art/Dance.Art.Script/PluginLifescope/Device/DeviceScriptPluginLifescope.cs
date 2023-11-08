@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 namespace Dance.Art.Script
 {
     /// <summary>
-    /// 输出脚本插件生命周期
+    /// 设备脚本插件生命周期
     /// </summary>
-    public class OutputScriptPluginLifescope : DanceObject, IDancePluginLifescope
+    public class DeviceScriptPluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.Script]:Output";
+        public const string ID = "[Dance.Art.Script]:Device";
 
         /// <summary>
         /// 名称
         /// </summary>
-        public const string NAME = "输出脚本";
+        public const string NAME = "设备脚本";
 
         /// <summary>
         /// 命名空间
@@ -33,7 +33,7 @@ namespace Dance.Art.Script
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new ScriptPluginInfo(ID, NAME, new ScriptServiceInfo(NAME_SPACE, "OutputScriptService", typeof(OutputScriptService)));
+            return new ScriptPluginInfo(ID, NAME, new ScriptServiceInfo(NAME_SPACE, "DeviceScriptService", typeof(DeviceScriptService)));
         }
 
         /// <summary>

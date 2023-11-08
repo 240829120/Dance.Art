@@ -33,7 +33,7 @@ namespace Dance.Art.Script
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new ScriptPluginInfo(ID, NAME, new ScriptServiceInfo(NAME_SPACE, "MessageService", typeof(MessageScriptService)));
+            return new ScriptPluginInfo(ID, NAME, new ScriptServiceInfo(NAME_SPACE, "MessageScriptService", typeof(MessageScriptService)));
         }
 
         /// <summary>

@@ -208,20 +208,32 @@ namespace Dance.Art.Device
         /// 发送数据
         /// </summary>
         /// <param name="buffer">数据</param>
-        public void Send(IArrayBuffer buffer)
+        /// <returns>发送数据长度</returns>
+        public int Send(IArrayBuffer buffer)
         {
-            this.TcpClient?.GetStream().Write(buffer.GetBytes());
-            this.TcpClient?.GetStream().Flush();
+            if (this.TcpClient == null)
+                return 0;
+
+            this.TcpClient.GetStream().Write(buffer.GetBytes());
+            this.TcpClient.GetStream().Flush();
+
+            return (int)buffer.Size;
         }
 
         /// <summary>
         /// 发送数据
         /// </summary>
         /// <param name="buffer">数据</param>
-        public void Send(byte[] buffer)
+        /// <returns>发送数据长度</returns>
+        public int Send(byte[] buffer)
         {
+            if (this.TcpClient == null)
+                return 0;
+
             this.TcpClient?.GetStream()?.Write(buffer);
             this.TcpClient?.GetStream().Flush();
+
+            return buffer.Length;
         }
 
         // =====================================================================================

@@ -12,7 +12,7 @@ namespace Dance.Art.Script
     /// <summary>
     /// 输出脚本服务
     /// </summary>
-    public class OutputScriptService : DanceObject
+    public class OutputScriptService : DanceWrapperModel
     {
         // ============================================================================================
         // Field

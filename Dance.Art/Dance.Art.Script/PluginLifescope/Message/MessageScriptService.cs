@@ -13,7 +13,7 @@ namespace Dance.Art.Script
     /// <summary>
     /// 消息脚本服务
     /// </summary>
-    public class MessageScriptService : DanceObject
+    public class MessageScriptService : DanceWrapperModel
     {
         // ============================================================================================
         // Public Function

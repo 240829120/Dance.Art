@@ -19,13 +19,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="DANCE_ART\Connection\udp.js">
+    <None Update="DANCE_ART\Device\tcp.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="DANCE_ART\Connection\ping.js">
+    <None Update="DANCE_ART\Device\udp.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="DANCE_ART\Connection\index.js">
+    <None Update="DANCE_ART\Device\ping.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DANCE_ART\Device\index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="DANCE_ART\Message\index.js">

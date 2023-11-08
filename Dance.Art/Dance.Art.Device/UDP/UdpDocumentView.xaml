@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Dance.Art.Device"
+             xmlns:dance="http://schemas.dance.com/wpf"
              mc:Ignorable="d" 
              d:Background="White"
              d:DataContext="{d:DesignInstance local:UdpDocumentViewModel}"
@@ -16,6 +17,8 @@
                 <ColumnDefinition Width="500"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>

@@ -22,6 +22,9 @@
 		<Content Include="ProjectTemplate\Console\.vscode\launch.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="ProjectTemplate\DeviceControl\.vscode\launch.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="ProjectTemplate\Empty\.vscode\launch.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -40,6 +43,9 @@
 	<ItemGroup>
 		<None Update="ProjectTemplate\Console\index.js">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="ProjectTemplate\DeviceControl\index.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="ProjectTemplate\Empty\index.js">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

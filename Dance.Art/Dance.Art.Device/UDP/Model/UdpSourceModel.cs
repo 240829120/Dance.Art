@@ -208,18 +208,31 @@ namespace Dance.Art.Device
         /// 发送数据
         /// </summary>
         /// <param name="buffer">数据</param>
-        public void Send(IArrayBuffer buffer)
+        /// <returns>发送数据长度</returns>
+        public int Send(IArrayBuffer buffer)
         {
-            this.UdpClient?.Send(buffer.GetBytes());
+            return this.UdpClient?.Send(buffer.GetBytes()) ?? 0;
         }
 
         /// <summary>
         /// 发送数据
         /// </summary>
         /// <param name="buffer">数据</param>
-        public void Send(byte[] buffer)
+        /// <returns>发送数据长度</returns>
+        public int Send(byte[] buffer)
         {
-            this.UdpClient?.Send(buffer);
+            return this.UdpClient?.Send(buffer) ?? 0;
+        }
+
+        /// <summary>
+        /// 发送字符串
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <returns>发送数据长度</returns>
+        public int SendString(string str)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(str);
+            return this.UdpClient?.Send(buffer) ?? 0;
         }
 
         // =====================================================================================

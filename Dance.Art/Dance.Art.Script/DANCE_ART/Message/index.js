@@ -2,7 +2,7 @@
 /**
  * 消息框图标
  */
-const MESSAGE_BOX_ICON = {
+const MESSAGE_BOX_ICON = Object.freeze({
 
     /**
      * 空
@@ -28,12 +28,12 @@ const MESSAGE_BOX_ICON = {
      * 信息
      */
     Info: "Info"
-};
+});
 
 /**
  * 消息框行为
  */
-const MESSAGE_BOX_ACTION = {
+const MESSAGE_BOX_ACTION = Object.freeze({
 
     /**
      * 确定
@@ -49,12 +49,12 @@ const MESSAGE_BOX_ACTION = {
      * 取消
      */
     CANCEL: "CANCEL"
-}
+});
 
 /**
  * 通知图标
  */
-const NOTIFY_ICON = {
+const NOTIFY_ICON = Object.freeze({
 
     /**
      * 空
@@ -75,12 +75,12 @@ const NOTIFY_ICON = {
      * 错误
      */
     _Error: "Error"
-}
+});
 
 /**
- * 消息服务
+ * 消息服务包装
  */
-class MessageService {
+class MessageScriptServiceWrapper {
 
     /**
      * 消息服务
@@ -95,7 +95,7 @@ class MessageService {
         /**
          * 服务名称
          */
-        this.NAME = "MessageService";
+        this.NAME = "MessageScriptService";
 
         /**
          * 服务宿主对象
@@ -134,4 +134,4 @@ class MessageService {
     }
 }
 
-export { MESSAGE_BOX_ICON, MESSAGE_BOX_ACTION, NOTIFY_ICON, MessageService }
+export { MESSAGE_BOX_ICON, MESSAGE_BOX_ACTION, NOTIFY_ICON, MessageScriptServiceWrapper }

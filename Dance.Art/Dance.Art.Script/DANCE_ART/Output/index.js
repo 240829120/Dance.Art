@@ -2,7 +2,7 @@
 /**
  * 输出服务
  */
-class OutputService {
+class OutputScriptServiceWrapper {
 
     /**
      * 输出服务
@@ -17,7 +17,7 @@ class OutputService {
         /**
          * 服务名称
          */
-        this.NAME = "OutputService";
+        this.NAME = "OutputScriptService";
 
         /**
          * 服务宿主对象
@@ -38,4 +38,4 @@ class OutputService {
     }
 }
 
-export { OutputService }
+export { OutputScriptServiceWrapper }

@@ -36,7 +36,7 @@ namespace Dance.Art.Template
         {
             return new TemplatePluginInfo(ID, NAME, TEMPLATE_NAME,
                                           Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ProjectTemplate", "DeviceControl"),
-                                          "pack://application:,,,/Dance.Art.Template;component/Themes/Resources/Icons/console.svg");
+                                          "pack://application:,,,/Dance.Art.Template;component/Themes/Resources/Icons/device_control.svg");
         }
 
         /// <summary>

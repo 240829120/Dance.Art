@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 	  <None Remove="Themes\Resources\Icons\console.svg" />
+	  <None Remove="Themes\Resources\Icons\device_control.svg" />
 	  <None Remove="Themes\Resources\Icons\empty.svg" />
 	</ItemGroup>
 
@@ -37,6 +38,7 @@
 
 	<ItemGroup>
 	  <Resource Include="Themes\Resources\Icons\console.svg" />
+	  <Resource Include="Themes\Resources\Icons\device_control.svg" />
 	  <Resource Include="Themes\Resources\Icons\empty.svg" />
 	</ItemGroup>
 

@@ -236,6 +236,24 @@ namespace Dance.Art.Device
             return buffer.Length;
         }
 
+        /// <summary>
+        /// 发送字符串
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <returns>发送数据长度</returns>
+        public int SendString(string str)
+        {
+            if (this.TcpClient == null)
+                return 0;
+
+            byte[] buffer = Encoding.UTF8.GetBytes(str);
+
+            this.TcpClient?.GetStream()?.Write(buffer);
+            this.TcpClient?.GetStream().Flush();
+
+            return buffer.Length;
+        }
+
         // =====================================================================================
         // Private Function
 
@@ -249,10 +267,12 @@ namespace Dance.Art.Device
             {
                 try
                 {
-                    byte[] buffer = new byte[10240];
+                    byte[] buffer = new byte[1024];
                     int length = this.TcpClient.GetStream().Read(buffer, 0, buffer.Length);
+                    byte[] dest = new byte[length];
+                    Array.Copy(buffer, dest, length);
 
-                    this.ReceiveData?.Invoke(this, new DeviceReceiveBufferDataEventArgs(this, buffer, length));
+                    this.ReceiveData?.Invoke(this, new DeviceReceiveBufferDataEventArgs(this, dest, length));
                 }
                 catch (Exception ex)
                 {

@@ -21,8 +21,7 @@ namespace Dance.Art.Domain
         /// <param name="description">描述</param>
         /// <param name="viewType">文档类型</param>
         /// <param name="sourceType">源类型</param>
-        public DevicePluginInfo(string id, string name, string category, string icon, string description, Type viewType, Type sourceType)
-            : base(id, name, viewType, new DocumentFileInfo(DocumentFileGroupDefines.PANEL, false, FileSuffixCategory.DOCUMENT_PANEL, string.Empty, string.Empty))
+        public DevicePluginInfo(string id, string name, string category, string icon, string description, Type viewType, Type sourceType) : base(id, name, viewType)
         {
             this.Category = category;
             this.Icon = icon;

@@ -23,6 +23,21 @@ namespace Dance.Art.Domain
         }
 
         /// <summary>
+        /// 打开面板
+        /// </summary>
+        /// <param name="title">标题</param>
+        /// <param name="pluginInfo">插件信息</param>
+        /// <param name="data">数据</param>
+        public FileOpenMessage(string title, DocumentPluginInfo pluginInfo, object? data)
+        {
+            this.Path = title;
+            this.FileName = title;
+            this.Extension = string.Empty;
+            this.PluginInfo = pluginInfo;
+            this.Data = data;
+        }
+
+        /// <summary>
         /// 路径
         /// </summary>
         public string Path { get; private set; }
@@ -40,11 +55,11 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 指定插件信息
         /// </summary>
-        public DocumentPluginInfo? PluginInfo { get; set; }
+        public DocumentPluginInfo? PluginInfo { get; private set; }
 
         /// <summary>
         /// 附加数据
         /// </summary>
-        public object? Data { get; set; }
+        public object? Data { get; private set; }
     }
 }

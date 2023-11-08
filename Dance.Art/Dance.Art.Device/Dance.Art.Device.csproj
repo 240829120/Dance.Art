@@ -26,13 +26,12 @@
 		<Compile Update="Ping\PingDocumentView.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>
+		<Compile Update="TCP\TcpDocumentView.xaml.cs">
+		  <SubType>Code</SubType>
+		</Compile>
 		<Compile Update="UDP\UdpDocumentView.xaml.cs">
 		  <SubType>Code</SubType>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="TCP\" />
 	</ItemGroup>
 
 	<ItemGroup>

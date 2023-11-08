@@ -334,11 +334,7 @@ namespace Dance.Art.Panel
             if (model == null)
                 return;
 
-            ArtDomain.Current.Messenger.Send(new FileOpenMessage($"[设备]{model.Name}{FileSuffixCategory.DOCUMENT_PANEL}")
-            {
-                PluginInfo = model.PluginInfo,
-                Data = model
-            });
+            ArtDomain.Current.Messenger.Send(new FileOpenMessage($"[设备]{model.Name}", model.PluginInfo, model));
         }
 
         #endregion

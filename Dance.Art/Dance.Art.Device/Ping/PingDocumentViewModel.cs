@@ -88,6 +88,7 @@ namespace Dance.Art.Device
                     return;
                 }
 
+                this.ChangeDocumentTitle();
                 this.Model.Name = this.Name;
                 this.Model.Description = this.Description;
                 sourceModel.Host = this.Host;

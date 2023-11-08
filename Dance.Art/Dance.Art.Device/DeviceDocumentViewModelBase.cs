@@ -158,5 +158,17 @@ namespace Dance.Art.Device
 
             return true;
         }
+
+        /// <summary>
+        /// 修改文档标题
+        /// </summary>
+        protected void ChangeDocumentTitle()
+        {
+            if (string.IsNullOrWhiteSpace(this.Name) || this.ViewPluginModel is not DocumentPluginModel documentPluginModel)
+                return;
+
+            documentPluginModel.File = this.Name;
+            documentPluginModel.Name = this.Name;
+        }
     }
 }

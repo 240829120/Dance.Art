@@ -1,31 +1,34 @@
 ﻿using Dance.Art.Domain;
 using Dance.Wpf;
 using Microsoft.ClearScript.JavaScript;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace Dance.Art.Device
 {
     /// <summary>
-    /// UDP源模型
+    /// TCP源模型
     /// </summary>
-    public class UdpSourceModel : DanceWrapperModel, IDeviceSource
+    public class TcpSourceModel : DanceWrapperModel, IDeviceSource
     {
         // =====================================================================================
         // Field
 
         /// <summary>
-        /// Udp客户端
+        /// Tcp客户端
         /// </summary>
-        private UdpClient? UdpClient;
+        private TcpClient? TcpClient;
 
         /// <summary>
         /// 接收数据线程
@@ -72,7 +75,6 @@ namespace Dance.Art.Device
         public int LocalPort
         {
             get { return localPort; }
-            set { localPort = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion
@@ -116,23 +118,22 @@ namespace Dance.Art.Device
             if (string.IsNullOrWhiteSpace(this.LocalHost))
                 throw new Exception("监听地址为空");
 
-            if (this.LocalPort < 0)
-                throw new Exception("监听端口不正确");
-
             if (string.IsNullOrWhiteSpace(this.RemoteHost))
                 throw new Exception("远程主机为空");
 
             if (this.RemotePort < 0)
                 throw new Exception("远程端口不正确");
 
-            if (this.UdpClient != null || this.ReceiveThread != null)
+            if (this.TcpClient != null || this.ReceiveThread != null)
                 return;
+
+            this.localPort = NetHelper.GetActiveProt();
 
             IPEndPoint localEndPoint = new(IPAddress.Parse(this.LocalHost), this.LocalPort);
             IPEndPoint remoteEndPoint = new(IPAddress.Parse(this.RemoteHost), this.RemotePort);
 
-            this.UdpClient = new(localEndPoint);
-            this.UdpClient.Connect(remoteEndPoint);
+            this.TcpClient = new(localEndPoint);
+            this.TcpClient.Connect(remoteEndPoint);
 
             this.ReceiveThread = new(this.ExecuteReceiveThread);
             this.ReceiveThread.Start();
@@ -147,9 +148,10 @@ namespace Dance.Art.Device
         {
             this.ReceiveThread?.Stop();
             this.ReceiveThread = null;
-            this.UdpClient?.Close();
-            this.UdpClient?.Dispose();
-            this.UdpClient = null;
+            this.TcpClient?.Close();
+            this.TcpClient?.Dispose();
+
+            this.TcpClient = null;
 
             this.Model.Status = DeviceStatus.Disconnected;
         }
@@ -162,10 +164,9 @@ namespace Dance.Art.Device
             if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<UdpSourceEntity>();
-            UdpSourceEntity? entity = collection.FindById(this.Model.SourceID) ?? new();
+            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<TcpSourceEntity>();
+            TcpSourceEntity? entity = collection.FindById(this.Model.SourceID) ?? new();
             entity.LocalHost = this.LocalHost;
-            entity.LocalPort = this.LocalPort;
             entity.RemoteHost = this.RemoteHost;
             entity.RemotePort = this.RemotePort;
 
@@ -181,13 +182,12 @@ namespace Dance.Art.Device
             if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<UdpSourceEntity>();
-            UdpSourceEntity? entity = collection.FindById(this.Model.SourceID);
+            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<TcpSourceEntity>();
+            TcpSourceEntity? entity = collection.FindById(this.Model.SourceID);
             if (entity == null)
                 return;
 
             this.LocalHost = entity.LocalHost;
-            this.LocalPort = entity.LocalPort;
             this.RemoteHost = entity.RemoteHost;
             this.RemotePort = entity.RemotePort;
         }
@@ -200,7 +200,7 @@ namespace Dance.Art.Device
             if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<UdpSourceEntity>();
+            var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<TcpSourceEntity>();
             collection.Delete(this.Model.SourceID);
         }
 
@@ -210,7 +210,8 @@ namespace Dance.Art.Device
         /// <param name="buffer">数据</param>
         public void Send(IArrayBuffer buffer)
         {
-            this.UdpClient?.Send(buffer.GetBytes());
+            this.TcpClient?.GetStream().Write(buffer.GetBytes());
+            this.TcpClient?.GetStream().Flush();
         }
 
         /// <summary>
@@ -219,7 +220,8 @@ namespace Dance.Art.Device
         /// <param name="buffer">数据</param>
         public void Send(byte[] buffer)
         {
-            this.UdpClient?.Send(buffer);
+            this.TcpClient?.GetStream()?.Write(buffer);
+            this.TcpClient?.GetStream().Flush();
         }
 
         // =====================================================================================
@@ -231,14 +233,14 @@ namespace Dance.Art.Device
         /// <param name="context">上下文</param>
         private void ExecuteReceiveThread(DanceThreadContext context)
         {
-            while (!context.IsCancel && this.UdpClient != null)
+            while (!context.IsCancel && this.TcpClient != null)
             {
                 try
                 {
-                    IPEndPoint? endPoint = null;
-                    byte[] data = this.UdpClient.Receive(ref endPoint);
+                    byte[] buffer = new byte[10240];
+                    int length = this.TcpClient.GetStream().Read(buffer, 0, buffer.Length);
 
-                    this.ReceiveData?.Invoke(this, new DeviceReceiveBufferDataEventArgs(this, data, data.Length));
+                    this.ReceiveData?.Invoke(this, new DeviceReceiveBufferDataEventArgs(this, buffer, length));
                 }
                 catch (Exception ex)
                 {

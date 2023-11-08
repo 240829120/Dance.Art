@@ -16,15 +16,22 @@ namespace Dance.Art.Domain
         /// </summary>
         /// <param name="source">源</param>
         /// <param name="buffer">二进制数据</param>
-        public DeviceReceiveBufferDataEventArgs(IDeviceSource source, byte[] buffer) : base(source)
+        /// <param name="length">数据长度</param>
+        public DeviceReceiveBufferDataEventArgs(IDeviceSource source, byte[] buffer, int length) : base(source)
         {
             this.Buffer = buffer;
+            this.Length = length;
         }
 
         /// <summary>
         /// 二进制数据
         /// </summary>
         public byte[] Buffer { get; private set; }
+
+        /// <summary>
+        /// 数据长度
+        /// </summary>
+        public int Length { get; private set; }
 
         /// <summary>
         /// 获取字符数据

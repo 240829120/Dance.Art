@@ -4,14 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Dance.Art.Device
 {
     /// <summary>
-    /// UDP文档视图模型
+    /// TCP文档视图模型
     /// </summary>
-    public class UdpDocumentViewModel : DeviceDocumentViewModelBase, IDeviceDocumentViewModel
+    public class TcpDocumentViewModel : DeviceDocumentViewModelBase, IDeviceDocumentViewModel
     {
         // ================================================================================================
         // Property
@@ -82,7 +83,7 @@ namespace Dance.Art.Device
         {
             base.Load();
 
-            if (this.Model == null || this.Model.Source is not UdpSourceModel sourceModel)
+            if (this.Model == null || this.Model.Source is not TcpSourceModel sourceModel)
                 return;
 
             this.Name = this.Model?.Name;
@@ -100,7 +101,7 @@ namespace Dance.Art.Device
         {
             try
             {
-                if (this.Model == null || this.Model.Source is not UdpSourceModel sourceModel)
+                if (this.Model == null || this.Model.Source is not TcpSourceModel sourceModel)
                     return;
 
                 if (!this.CheckName())
@@ -134,13 +135,13 @@ namespace Dance.Art.Device
                 this.Model.Name = this.Name;
                 this.Model.Description = this.Description;
                 sourceModel.LocalHost = this.LocalHost;
-                sourceModel.LocalPort = this.LocalPort;
                 sourceModel.RemoteHost = this.RemoteHost;
                 sourceModel.RemotePort = this.RemotePort;
 
                 sourceModel.SaveToStorage();
                 sourceModel.Disconnect();
                 sourceModel.Connect();
+                this.LocalPort = sourceModel.LocalPort;
             }
             catch (Exception ex)
             {

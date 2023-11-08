@@ -31,6 +31,7 @@ namespace Dance.Art.Panel
             this.AddItemCommand = new(this.AddItem);
             this.EditItemCommand = new(this.EditItem);
             this.DeleteItemCommand = new(this.DeleteItem);
+            this.RefreshItemCommand = new(this.RefreshItem);
             // 命令 -- 拖拽
             this.DragBeginCommand = new(this.DragBegin);
             this.DropCommand = new(this.Drop);
@@ -363,6 +364,28 @@ namespace Dance.Art.Panel
 
             model.Source?.Dispose();
             model.Source?.Delete();
+        }
+
+        #endregion
+
+        #region RefreshItemCommand -- 刷新项命令
+
+        /// <summary>
+        /// 刷新项目命令
+        /// </summary>
+        public RelayCommand<DeviceModel> RefreshItemCommand { get; private set; }
+
+        /// <summary>
+        /// 刷新项
+        /// </summary>
+        /// <param name="model">项</param>
+        private void RefreshItem(DeviceModel? model)
+        {
+            if (model == null || model.Group == null)
+                return;
+
+            model.Source.Disconnect();
+            model.Source.Connect();
         }
 
         #endregion

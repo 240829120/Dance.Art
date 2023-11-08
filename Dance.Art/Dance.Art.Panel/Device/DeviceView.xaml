@@ -118,6 +118,14 @@
                             </MenuItem.Icon>
                         </MenuItem>
                         <Separator></Separator>
+                        <MenuItem Header="重连" 
+                                  Command="{Binding Path=Source.DataContext.RefreshItemCommand, Source={StaticResource WindowBindingProxy},Mode=OneWay}"
+                                  CommandParameter="{Binding}">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/refresh.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator></Separator>
                         <MenuItem Header="删除设备" 
                                   Command="{Binding Path=Source.DataContext.DeleteItemCommand, Source={StaticResource WindowBindingProxy},Mode=OneWay}"
                                   CommandParameter="{Binding}">

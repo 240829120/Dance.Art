@@ -142,6 +142,8 @@ namespace Dance.Art.Device
                 sourceModel.Disconnect();
                 sourceModel.Connect();
                 this.LocalPort = sourceModel.LocalPort;
+
+                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "应用成功", DanceMessageBoxAction.YES);
             }
             catch (Exception ex)
             {

@@ -88,5 +88,13 @@ namespace Dance.Art.DataSource
             var collection = ArtDomain.Current.ProjectDomain.CacheContext.Database.GetCollection<TextDataSourceEntity>();
             collection.Delete(this.Model.SourceID);
         }
+
+        /// <summary>
+        /// 加载数据
+        /// </summary>
+        public void Load()
+        {
+            this.Model.Status = DataSourceStatus.Ready;
+        }
     }
 }

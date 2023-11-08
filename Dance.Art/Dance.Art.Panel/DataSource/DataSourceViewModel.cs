@@ -384,8 +384,7 @@ namespace Dance.Art.Panel
             if (model == null || model.Group == null)
                 return;
 
-            //model.Source.Disconnect();
-            //model.Source.Connect();
+            model.Source.Load();
         }
 
         #endregion

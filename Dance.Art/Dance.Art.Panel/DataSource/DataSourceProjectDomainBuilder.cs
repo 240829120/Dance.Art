@@ -34,7 +34,7 @@ namespace Dance.Art.Panel
             {
                 try
                 {
-                    //i.Source.Connect();
+                    i.Source.Load();
                 }
                 catch (Exception ex)
                 {
@@ -53,14 +53,14 @@ namespace Dance.Art.Panel
             {
                 try
                 {
-                    //i.Source.Disconnect();
+                    i.Source.Dispose();
                 }
                 catch (Exception ex)
                 {
                     log.Error(ex);
                 }
             }));
-            projectDomain.DeviceGroups.Clear();
+            projectDomain.DataSourceGroups.Clear();
         }
     }
 }

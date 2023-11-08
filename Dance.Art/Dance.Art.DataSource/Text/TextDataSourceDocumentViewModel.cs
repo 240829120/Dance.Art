@@ -67,6 +67,8 @@ namespace Dance.Art.DataSource
                 sourceModel.Text = this.Text;
 
                 sourceModel.SaveToStorage();
+
+                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "应用成功", DanceMessageBoxAction.YES);
             }
             catch (Exception ex)
             {

@@ -54,6 +54,7 @@ namespace Dance.Art.Panel
                 try
                 {
                     i.Source.Disconnect();
+                    i.Source.Dispose();
                 }
                 catch (Exception ex)
                 {

@@ -90,5 +90,19 @@ namespace Dance.Art.Domain
         }
 
         #endregion
+
+        #region Status -- 状态
+
+        private DataSourceStatus status;
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public DataSourceStatus Status
+        {
+            get { return status; }
+            set { status = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
     }
 }

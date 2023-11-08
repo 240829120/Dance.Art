@@ -97,6 +97,8 @@ namespace Dance.Art.Device
                 sourceModel.SaveToStorage();
                 sourceModel.Disconnect();
                 sourceModel.Connect();
+
+                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "应用成功", DanceMessageBoxAction.YES);
             }
             catch (Exception ex)
             {

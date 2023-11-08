@@ -250,6 +250,7 @@ namespace Dance.Art.Panel
             {
                 try
                 {
+                    model.Source?.Disconnect();
                     model.Source?.Dispose();
                     model.Source?.Delete();
                 }
@@ -362,6 +363,7 @@ namespace Dance.Art.Panel
             model.Group.Items.Remove(model);
             this.SaveGroups();
 
+            model.Source?.Disconnect();
             model.Source?.Dispose();
             model.Source?.Delete();
         }

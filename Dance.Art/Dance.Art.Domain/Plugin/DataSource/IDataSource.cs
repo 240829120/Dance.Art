@@ -30,5 +30,10 @@ namespace Dance.Art.Domain
         /// 删除
         /// </summary>
         void Delete();
+
+        /// <summary>
+        /// 加载数据
+        /// </summary>
+        void Load();
     }
 }

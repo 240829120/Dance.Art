@@ -113,7 +113,9 @@ namespace Dance.Art.DataSource
                 this.Model.Description = this.Description;
                 sourceModel.Path = this.Path;
 
+                this.SaveDataSourceGroups();
                 sourceModel.SaveToStorage();
+
                 sourceModel.Load();
 
                 DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "应用成功", DanceMessageBoxAction.YES);

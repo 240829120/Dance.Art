@@ -138,7 +138,9 @@ namespace Dance.Art.Device
                 sourceModel.RemoteHost = this.RemoteHost;
                 sourceModel.RemotePort = this.RemotePort;
 
+                this.SaveDeviceGroups();
                 sourceModel.SaveToStorage();
+
                 sourceModel.Disconnect();
                 sourceModel.Connect();
 

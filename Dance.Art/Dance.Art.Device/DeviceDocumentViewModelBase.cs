@@ -24,6 +24,11 @@ namespace Dance.Art.Device
         }
 
         /// <summary>
+        /// 设备仓储
+        /// </summary>
+        private readonly IDeviceStorage DeviceStorage = DanceDomain.Current.LifeScope.Resolve<IDeviceStorage>();
+
+        /// <summary>
         /// 设备模型
         /// </summary>
         public DeviceModel? Model { get; private set; }
@@ -169,6 +174,17 @@ namespace Dance.Art.Device
 
             documentPluginModel.File = $"[设备]{this.Name}";
             documentPluginModel.Name = $"[设备]{this.Name}";
+        }
+
+        /// <summary>
+        /// 保存设备分组
+        /// </summary>
+        protected void SaveDeviceGroups()
+        {
+            if (ArtDomain.Current.ProjectDomain == null)
+                return;
+
+            this.DeviceStorage.SaveDeviceGroups(ArtDomain.Current.ProjectDomain);
         }
     }
 }

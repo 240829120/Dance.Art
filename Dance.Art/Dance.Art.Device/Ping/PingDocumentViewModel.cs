@@ -94,7 +94,9 @@ namespace Dance.Art.Device
                 sourceModel.Host = this.Host;
                 sourceModel.Frequency = this.Frequency;
 
+                this.SaveDeviceGroups();
                 sourceModel.SaveToStorage();
+
                 sourceModel.Disconnect();
                 sourceModel.Connect();
 

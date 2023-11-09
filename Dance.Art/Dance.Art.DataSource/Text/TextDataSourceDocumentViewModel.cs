@@ -66,6 +66,7 @@ namespace Dance.Art.DataSource
                 this.Model.Description = this.Description;
                 sourceModel.Text = this.Text;
 
+                this.SaveDataSourceGroups();
                 sourceModel.SaveToStorage();
 
                 DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "应用成功", DanceMessageBoxAction.YES);

@@ -24,6 +24,11 @@ namespace Dance.Art.DataSource
         }
 
         /// <summary>
+        /// 数据仓储
+        /// </summary>
+        private readonly IDataSourceStorage DataSourceStorage = DanceDomain.Current.LifeScope.Resolve<IDataSourceStorage>();
+
+        /// <summary>
         /// 设备模型
         /// </summary>
         public DataSourceModel? Model { get; private set; }
@@ -169,6 +174,17 @@ namespace Dance.Art.DataSource
 
             documentPluginModel.File = $"[数据]{this.Name}";
             documentPluginModel.Name = $"[数据]{this.Name}";
+        }
+
+        /// <summary>
+        /// 保存数据分组
+        /// </summary>
+        protected void SaveDataSourceGroups()
+        {
+            if (ArtDomain.Current.ProjectDomain == null)
+                return;
+
+            this.DataSourceStorage.SaveDataSourceGroups(ArtDomain.Current.ProjectDomain);
         }
     }
 }

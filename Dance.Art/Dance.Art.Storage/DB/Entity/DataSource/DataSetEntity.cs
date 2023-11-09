@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Art.Domain
+namespace Dance.Art.Storage
 {
     /// <summary>
-    /// 数据源分组定义
+    /// 数据集合
     /// </summary>
-    public static class DataSourceGroupDefines
+    public class DataSetEntity
     {
         /// <summary>
-        /// 常规
+        /// 名称
         /// </summary>
-        public const string COMMON = "常规";
+        public string? Name { get; set; }
 
         /// <summary>
-        /// 文件
+        /// 单元格集合
         /// </summary>
-        public const string FILE = "文件";
+        public List<DataSetCellEntity>? Cells { get; set; }
     }
 }

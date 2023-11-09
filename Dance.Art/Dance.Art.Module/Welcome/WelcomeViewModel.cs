@@ -112,7 +112,7 @@ namespace Dance.Art.Module
                 PluginManager.InitializePlugin(info.ID);
                 ArtDomain.Current.Plugins.Add(info);
 
-                await Task.Delay(100);
+                await Task.Delay(50);
             }
 
             // 构建文档分组

@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Themes\Resources\Icons\csv.svg" />
+    <None Remove="Themes\Resources\Icons\txt.svg" />
+    <None Remove="Themes\Resources\Icons\xls.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NPOI" Version="2.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
     <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
     <ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
@@ -15,9 +25,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Excel\ExcelDataSourceDocumentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Text\TextDataSourceDocumentView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Icons\csv.svg" />
+    <Resource Include="Themes\Resources\Icons\txt.svg" />
+    <Resource Include="Themes\Resources\Icons\xls.svg" />
   </ItemGroup>
 
 </Project>

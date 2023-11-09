@@ -33,7 +33,7 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"></ColumnDefinition>
-                                    <ColumnDefinition Width="500"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <!-- 名称 -->
                                 <TextBlock Text="名称:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" Opacity="0.7"></TextBlock>

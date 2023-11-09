@@ -1,4 +1,89 @@
-﻿/**
+﻿
+/* ===================================================================================== */
+/* 数据集 */
+
+/**
+ * 数据集单元格包装器
+ */
+class DataSetCellModelWrapper {
+    /**
+     * 数据集单元格包装器
+     * @param {any} HOST_OBJECT 宿主对象
+     */
+    constructor(HOST_OBJECT) {
+        this.HOST_OBJECT = HOST_OBJECT;
+    }
+
+    /**
+     * 获取行号
+     * @returns {number}
+     */
+    get row() {
+        if (this.HOST_OBJECT === null || this.HOST_OBJECT === undefined)
+            return null;
+
+        return this.HOST_OBJECT.Row;
+    }
+
+    /**
+     * 获取列号
+     * @returns {number}
+     */
+    get column() {
+        if (this.HOST_OBJECT === null || this.HOST_OBJECT === undefined)
+            return null;
+
+        return this.HOST_OBJECT.Column;
+    }
+
+    /**
+     * 获取值
+     * @returns {string}
+     */
+    get value() {
+        if (this.HOST_OBJECT === null || this.HOST_OBJECT === undefined)
+            return null;
+
+        return this.HOST_OBJECT.Value;
+    }
+}
+
+
+/**
+ * 数据集包装器
+ */
+class DataSetModelWrapper {
+    /**
+     * 数据集包装器
+     * @param {any} HOST_OBJECT 宿主对象
+     */
+    constructor(HOST_OBJECT) {
+        this.HOST_OBJECT = HOST_OBJECT;
+    }
+
+    /**
+     * 获取单元格
+     * @param {number} row 行号
+     * @param {number} column 列号
+     * @returns {DataSetCellModelWrapper}
+     */
+    getCell(row, column) {
+        if (this.HOST_OBJECT === null || this.HOST_OBJECT === undefined)
+            return null;
+
+        let host = this.HOST_OBJECT.GetCell(row, column);
+        if (host === null || host === undefined)
+            return null;
+
+        let result = new DataSetCellModelWrapper(host);
+        return result;
+    }
+}
+
+/* ===================================================================================== */
+/* 服务 */
+
+/**
  * 数据模型包装器基类
  */
 class DataSourceModelWrapperBase {
@@ -57,4 +142,4 @@ class DataSourceScriptServiceWrapper {
     }
 }
 
-export { DataSourceModelWrapperBase, DataSourceScriptServiceWrapper }
+export { DataSetCellModelWrapper, DataSetModelWrapper, DataSourceModelWrapperBase, DataSourceScriptServiceWrapper }

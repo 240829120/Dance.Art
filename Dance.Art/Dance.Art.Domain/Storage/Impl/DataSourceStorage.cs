@@ -87,5 +87,59 @@ namespace Dance.Art.Domain
             collection.DeleteAll();
             collection.Insert(groups);
         }
+
+        /// <summary>
+        /// 转化数据集
+        /// </summary>
+        /// <param name="entity">数据集实体</param>
+        /// <returns>数据集模型</returns>
+        public DataSetModel? ConvertDataSetEntity(DataSetEntity entity)
+        {
+            DataSetModel model = new()
+            {
+                Name = entity.Name,
+            };
+
+            if (entity.Cells != null && entity.Cells.Count > 0)
+            {
+                foreach (DataSetCellEntity cell in entity.Cells)
+                {
+                    model.Cells.Add(new DataSetCellModel()
+                    {
+                        Row = cell.Row,
+                        Column = cell.Column,
+                        Value = cell.Value
+                    });
+                }
+            }
+
+            return model;
+        }
+
+        /// <summary>
+        /// 转化数据集
+        /// </summary>
+        /// <param name="model">数据集模型</param>
+        /// <returns>数据集实体</returns>
+        public DataSetEntity ConvertDataSetModel(DataSetModel model)
+        {
+            DataSetEntity entity = new()
+            {
+                Name = model.Name,
+                Cells = new()
+            };
+
+            foreach (DataSetCellModel cellModel in model.Cells)
+            {
+                entity.Cells.Add(new DataSetCellEntity()
+                {
+                    Row = cellModel.Row,
+                    Column = cellModel.Column,
+                    Value = cellModel.Value
+                });
+            }
+
+            return entity;
+        }
     }
 }

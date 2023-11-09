@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 namespace Dance.Art.DataSource
 {
     /// <summary>
-    /// 文本数据源插件生命周期
+    /// Excel数据源插件生命周期
     /// </summary>
-    public class TextDataSourcePluginLifescope : DanceObject, IDancePluginLifescope
+    public class ExcelDataSourcePluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.DataSource]:Text";
+        public const string ID = "[Dance.Art.DataSource]:Excel";
 
         /// <summary>
         /// 名称
         /// </summary>
-        public const string NAME = "Text";
+        public const string NAME = "Excel";
 
         /// <summary>
         /// 注册插件
@@ -28,9 +28,9 @@ namespace Dance.Art.DataSource
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            return new DataSourcePluginInfo(ID, NAME, DataSourceGroupDefines.COMMON, "pack://application:,,,/Dance.Art.DataSource;component/Themes/Resources/Icons/txt.svg",
-                                            "文本",
-                                            typeof(TextDataSourceDocumentView), typeof(TextDataSourceModel));
+            return new DataSourcePluginInfo(ID, NAME, DataSourceGroupDefines.FILE, "pack://application:,,,/Dance.Art.DataSource;component/Themes/Resources/Icons/xls.svg",
+                                            "Excel文件数据",
+                                            typeof(ExcelDataSourceDocumentView), typeof(ExcelDataSourceModel));
         }
 
         /// <summary>

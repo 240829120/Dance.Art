@@ -9,6 +9,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="Transparent">
-        <toolkit:PropertyGrid x:Name="propertyGrid" BorderThickness="0" Margin="-2"></toolkit:PropertyGrid>
+        <toolkit:PropertyGrid x:Name="propertyGrid" BorderThickness="0" Margin="-2,-2,-2,5"></toolkit:PropertyGrid>
     </Grid>
 </UserControl>

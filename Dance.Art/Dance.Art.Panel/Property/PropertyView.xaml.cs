@@ -47,7 +47,7 @@ namespace Dance.Art.Panel
         public string? Property_2_4 { get; set; }
 
         [Category("基础2")]
-        public string? Property_2_5 { get; set; }
+        public Color? Property_2_5 { get; set; }
     }
 
     /// <summary>

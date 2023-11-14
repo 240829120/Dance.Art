@@ -279,6 +279,9 @@
                                     AnchorablesSource="{Binding Path=Panels}"
                                     DocumentsSource="{Binding Path=Documents}">
                 <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="ActiveContentChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding Path=ActiveContentChangedCommand}"></behaviors:InvokeCommandAction>
+                    </behaviors:EventTrigger>
                     <behaviors:EventTrigger EventName="DocumentClosing">
                         <behaviors:InvokeCommandAction Command="{Binding Path=ClosingCommand}" PassEventArgsToCommand="True"></behaviors:InvokeCommandAction>
                     </behaviors:EventTrigger>

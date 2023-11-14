@@ -60,6 +60,9 @@
     <Compile Update="Property\PropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Resource\ResourceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -30,5 +30,10 @@ namespace Dance.Art.Domain
         /// 数据
         /// </summary>
         public const string DATA = "数据";
+
+        /// <summary>
+        /// 模板
+        /// </summary>
+        public const string TEMPLATE = "模板";
     }
 }

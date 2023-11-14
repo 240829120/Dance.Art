@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Dance.Art.Panel.ResourceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dance.Art.Panel"
+             xmlns:dance="http://schemas.dance.com/wpf"
+             xmlns:edit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             d:DataContext="{d:DesignInstance local:ResourceViewModel}"
+             dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}"
+             mc:Ignorable="d" d:Background="White" x:Name="uc"
+             d:DesignHeight="1200" d:DesignWidth="600">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dance.Wpf;component/Share/Xaml/Widgets/TreeView/DanceTreeView.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <dance:DanceTreeView ItemsSource="{Binding Path=Groups}" BorderThickness="0">
+            <dance:DanceTreeView.ItemContainerStyle>
+                <Style TargetType="dance:DanceTreeViewItem">
+                    <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded,Mode=TwoWay}"></Setter>
+                    <Setter Property="AllowDrop" Value="True"></Setter>
+                    <Setter Property="dance:DanceDragTrigger.IsUseDragAdorner" Value="False"></Setter>
+                    <Setter Property="dance:DanceDragTrigger.DragTriggerKind" Value="MouseLeave"></Setter>
+                    <Setter Property="dance:DanceDragTrigger.DragBeginCommand" Value="{Binding ElementName=uc, Path=DataContext.ResourceDragBeginCommand}"></Setter>
+                </Style>
+            </dance:DanceTreeView.ItemContainerStyle>
+            <dance:DanceTreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <dance:DanceSvgImage MaxWidth="14" MaxHeight="14" Source="{Binding Path=Icon}" HorizontalAlignment="Center" VerticalAlignment="Center"></dance:DanceSvgImage>
+                        <TextBlock Text="{Binding Path=Name}" Grid.Column="1" Margin="10,0,10,0"></TextBlock>
+                    </Grid>
+                </HierarchicalDataTemplate>
+            </dance:DanceTreeView.ItemTemplate>
+        </dance:DanceTreeView>
+    </Grid>
+</UserControl>

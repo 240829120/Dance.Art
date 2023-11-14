@@ -49,6 +49,7 @@ namespace Dance.Art.Module
             this.UndoCommand = new(this.Undo);
             this.ClosingCommand = new(this.Closing);
             this.ClosedCommand = new(this.Closed);
+            this.ActiveContentChangedCommand = new(this.ActiveContentChanged);
             // -----------------------------------------------------
             // Script
             this.OpenInVSCodeCommand = new(this.OpenInVSCode);
@@ -565,6 +566,27 @@ namespace Dance.Art.Module
 
         #endregion
 
+        #region ActiveContentChangedCommand -- 激活内容改变命令
+
+        /// <summary>
+        /// 激活内容改变命令
+        /// </summary>
+        public RelayCommand ActiveContentChangedCommand { get; private set; }
+
+        /// <summary>
+        /// 激活内容改变
+        /// </summary>
+        private void ActiveContentChanged()
+        {
+            if (this.View is not MainView view)
+                return;
+
+            ArtDomain.Current.CurrentActiveContent = view.docking.ActiveContent;
+            DanceDomain.Current.Messenger.Send(new DockingActiveContentChangedMessage(view.docking.ActiveContent));
+        }
+
+        #endregion
+
         // ------------------------------------------------------------------------------------------
         // Script
 
@@ -919,8 +941,6 @@ namespace Dance.Art.Module
         }
 
         #endregion
-
-
 
         // ========================================================================================
         // Private Function

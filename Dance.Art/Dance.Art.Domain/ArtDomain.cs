@@ -49,6 +49,11 @@ namespace Dance.Art.Domain
         /// </summary>
         public ObservableCollection<DocumentPluginModel> Documents { get; } = new();
 
+        /// <summary>
+        /// 当前激活的内容
+        /// </summary>
+        public object? CurrentActiveContent { get; set; }
+
         // ----------------------------------------------------------------------------------------------------
         // Domain
 

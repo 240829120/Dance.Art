@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dance="http://schemas.dance.com/wpf"
+                    xmlns:local="clr-namespace:Dance.Art.ButtonBox">
+
+    <local:ButtonBoxItemDataTemplateSelecter x:Key="ButtonBoxItemDataTemplateSelecter"></local:ButtonBoxItemDataTemplateSelecter>
+
+    <Style x:Key="ButtonBoxItem" TargetType="local:ButtonBoxItem">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ButtonBoxItem">
+                    <Border Background="Transparent">
+                        <ContentPresenter Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:ButtonBoxItem" BasedOn="{StaticResource ButtonBoxItem}"></Style>
+
+    <Style TargetType="local:ButtonBoxItemsControl">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ButtonBoxItem}"></Setter>
+        <Setter Property="ItemTemplateSelector" Value="{StaticResource ButtonBoxItemDataTemplateSelecter}"></Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <local:ButtonBoxPanel AllowDrop="True" Background="Transparent"
+                                          HighlightBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BACKGROUND_BRUSH_SELECTED}}"></local:ButtonBoxPanel>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ButtonBoxItemsControl">
+                    <ScrollViewer>
+                        <ItemsPresenter></ItemsPresenter>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

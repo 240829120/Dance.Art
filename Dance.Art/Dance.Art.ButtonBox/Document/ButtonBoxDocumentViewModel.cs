@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Document.Document;
 using Dance.Art.Domain;
 using Dance.Wpf;
+using ICSharpCode.AvalonEdit;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -21,10 +23,17 @@ namespace Dance.Art.ButtonBox
         public ButtonBoxDocumentViewModel()
         {
             this.ResourceDropCommand = new(this.ResourceDrop);
+
+            this.DesignMode = DocumentDesignMode.Normal;
         }
 
         // ====================================================================================
         // Field
+
+        /// <summary>
+        /// 文件管理器
+        /// </summary>
+        protected readonly IFileManager FileManager = DanceDomain.Current.LifeScope.Resolve<IFileManager>();
 
         // ====================================================================================
         // Property
@@ -33,10 +42,15 @@ namespace Dance.Art.ButtonBox
 
         #region CanvasModel -- 画布模型
 
+        private ButtonBoxDocumentViewCanvasModel canvasModel;
         /// <summary>
         /// 画布模型
         /// </summary>
-        public ButtonBoxDocumentViewCanvasModel CanvasModel { get; } = new();
+        public ButtonBoxDocumentViewCanvasModel CanvasModel
+        {
+            get { return canvasModel; }
+            set { canvasModel = value; this.OnPropertyChanged(); }
+        }
 
         #endregion
 
@@ -113,8 +127,11 @@ namespace Dance.Art.ButtonBox
 
             if (!this.Items.Contains(e.Model))
             {
+                e.Model.OwnerDocument = this;
                 this.Items.Add(e.Model);
             }
+
+            this.IsModify = true;
 
             DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, e.Model));
         }
@@ -123,6 +140,55 @@ namespace Dance.Art.ButtonBox
 
         // ====================================================================================
         // Override
+
+        /// <summary>
+        /// 加载
+        /// </summary>
+        public override void Load()
+        {
+            if (DanceXamlExpansion.IsInDesignMode)
+                return;
+
+            if (this.ViewPluginModel is not DocumentPluginModel document)
+                return;
+
+            ButtonBoxFileModel? fileModel = DanceFileHelper.ReadJson<ButtonBoxFileModel>(document.File, new DanceJsonObjectConverter());
+
+            this.CanvasModel = fileModel?.CanvasModel ?? new();
+            this.CanvasModel.OwnerDocument = this;
+
+            this.Items.Clear();
+            this.Items.AddRange(fileModel?.Items);
+            this.Items.ForEach(p => p.OwnerDocument = this);
+
+            this.IsModify = false;
+            this.UdateDocumentStatus();
+        }
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        public override void Save()
+        {
+            if (DanceXamlExpansion.IsInDesignMode)
+                return;
+
+            if (this.ViewPluginModel is not DocumentPluginModel document)
+                return;
+
+            ButtonBoxFileModel fileModel = new()
+            {
+                CanvasModel = this.CanvasModel,
+                Items = this.Items.ToList()
+            };
+
+            this.FileManager.SaveFile(document.File, () =>
+            {
+                DanceFileHelper.WriteJson(fileModel, document.File);
+                this.IsModify = false;
+                this.UdateDocumentStatus();
+            });
+        }
 
         /// <summary>
         /// 是否可以拷贝

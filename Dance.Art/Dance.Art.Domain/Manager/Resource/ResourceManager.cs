@@ -74,6 +74,8 @@ namespace Dance.Art.Domain
             {
                 group = new()
                 {
+                    IsGroup = true,
+                    Icon = "pack://application:,,,/Dance.Wpf;component/Themes/Resources/Icon/transparent.svg",
                     Name = resouce.Group
                 };
                 groups.Add(group);

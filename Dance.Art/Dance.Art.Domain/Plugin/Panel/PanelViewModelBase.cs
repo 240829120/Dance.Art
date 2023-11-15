@@ -16,7 +16,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 是否修改
         /// </summary>
-        public virtual bool IsModify { get; }
+        public virtual bool IsModify { get; set; }
 
         /// <summary>
         /// 是否可以重做
@@ -27,6 +27,11 @@ namespace Dance.Art.Domain
         /// 是否可以撤销
         /// </summary>
         public virtual bool CanUndo { get; }
+
+        /// <summary>
+        /// 设计模式
+        /// </summary>
+        public virtual DocumentDesignMode DesignMode { get; set; } = DocumentDesignMode.NotSupport;
 
         /// <summary>
         /// 加载

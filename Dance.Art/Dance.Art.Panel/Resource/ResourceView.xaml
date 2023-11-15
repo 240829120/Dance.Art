@@ -14,7 +14,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Dance.Wpf;component/Share/Xaml/Widgets/TreeView/DanceTreeView.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Dance.Wpf;component/Themes/Converters.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -35,7 +37,8 @@
                             <ColumnDefinition Width="auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <dance:DanceSvgImage MaxWidth="14" MaxHeight="14" Source="{Binding Path=Icon}" HorizontalAlignment="Center" VerticalAlignment="Center"></dance:DanceSvgImage>
+                        <dance:DanceSvgImage Width="14" Height="14" Source="{Binding Path=Icon}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                             Visibility="{Binding Path=IsGroup,Converter={StaticResource BooleanToVisibilityConverter_Collapsed_Visible_Visible}}"></dance:DanceSvgImage>
                         <TextBlock Text="{Binding Path=Name}" Grid.Column="1" Margin="10,0,10,0"></TextBlock>
                     </Grid>
                 </HierarchicalDataTemplate>

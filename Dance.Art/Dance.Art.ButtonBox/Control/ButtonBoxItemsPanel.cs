@@ -155,6 +155,9 @@ namespace Dance.Art.ButtonBox
                 dc.DrawSnappedLinesBetweenPoints(this.Pen, 1, new(c * this.Owner.UnitWidth, 0), new(c * this.Owner.UnitWidth, this.Owner.Rows * this.Owner.UnitHeight));
             }
 
+            if (!this.Owner.IsDesignMode)
+                return;
+
             if (this.HighlightRow != null && this.HighlightColumn != null)
             {
                 dc.DrawRectangle(this.HighlightBrush, this.Pen, new Rect(this.HighlightColumn.Value * this.Owner.UnitWidth, this.HighlightRow.Value * this.Owner.UnitHeight, this.Owner.UnitWidth, this.Owner.UnitHeight));
@@ -166,6 +169,10 @@ namespace Dance.Art.ButtonBox
         /// </summary>
         protected override void OnDragEnter(DragEventArgs e)
         {
+            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ButtonBoxItemsControl>(this);
+            if (this.Owner == null || !this.Owner.IsDesignMode)
+                return;
+
             ResourceInfoItemModel? resource = e.Data.GetData(typeof(ResourceInfoItemModel)) as ResourceInfoItemModel;
             ButtonBoxItem? item = e.Data.GetData(typeof(ButtonBoxItem)) as ButtonBoxItem;
 
@@ -188,6 +195,10 @@ namespace Dance.Art.ButtonBox
         /// </summary>
         protected override void OnDragOver(DragEventArgs e)
         {
+            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ButtonBoxItemsControl>(this);
+            if (this.Owner == null || !this.Owner.IsDesignMode)
+                return;
+
             ResourceInfoItemModel? resource = e.Data.GetData(typeof(ResourceInfoItemModel)) as ResourceInfoItemModel;
             ButtonBoxItem? item = e.Data.GetData(typeof(ButtonBoxItem)) as ButtonBoxItem;
 
@@ -202,13 +213,13 @@ namespace Dance.Art.ButtonBox
         /// </summary>
         protected override void OnDrop(DragEventArgs e)
         {
+            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ButtonBoxItemsControl>(this);
+            if (this.Owner == null || !this.Owner.IsDesignMode)
+                return;
+
             this.ClearHighlight();
 
             if (ArtDomain.Current.ProjectDomain == null)
-                return;
-
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ButtonBoxItemsControl>(this);
-            if (this.Owner == null)
                 return;
 
             ResourceInfoItemModel? resource = e.Data.GetData(typeof(ResourceInfoItemModel)) as ResourceInfoItemModel;
@@ -247,7 +258,7 @@ namespace Dance.Art.ButtonBox
             base.OnPreviewMouseLeftButtonDown(e);
 
             this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ButtonBoxItemsControl>(this);
-            if (this.Owner == null || this.Owner.ItemsSource == null)
+            if (this.Owner == null || this.Owner.ItemsSource == null || !this.Owner.IsDesignMode)
                 return;
 
             this.Owner.IsSelectedCanvas = false;
@@ -259,7 +270,7 @@ namespace Dance.Art.ButtonBox
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ButtonBoxItemsControl>(this);
-            if (this.Owner == null || this.Owner.ItemsSource == null)
+            if (this.Owner == null || this.Owner.ItemsSource == null || !this.Owner.IsDesignMode)
                 return;
 
             Point point = e.GetPosition(this);

@@ -12,6 +12,5 @@ namespace Dance.Art.Domain
     /// </summary>
     public interface IDocumentViewModel : IPanelViewModel
     {
-
     }
 }

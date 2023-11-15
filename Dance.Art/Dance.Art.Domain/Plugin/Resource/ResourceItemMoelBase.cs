@@ -1,4 +1,5 @@
 ﻿using Dance.Wpf;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 资源项基类
     /// </summary>
-    public abstract class ResourceItemMoelBase : DanceWrapperModel
+    public abstract class ResourceItemMoelBase : DocumentItemModelBase
     {
         /// <summary>
         /// 资源项基类
@@ -28,6 +29,7 @@ namespace Dance.Art.Domain
         /// 模板
         /// </summary>
         [Browsable(false)]
+        [JsonIgnore]
         public DataTemplate DataTemplate { get; }
 
         #region ID -- 编号

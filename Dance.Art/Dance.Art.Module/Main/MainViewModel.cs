@@ -47,6 +47,7 @@ namespace Dance.Art.Module
             this.SaveAllCommand = new(this.SaveAll);
             this.RedoCommand = new(this.Redo);
             this.UndoCommand = new(this.Undo);
+            this.DesignChangedCommand = new(this.DesignChanged);
             this.ClosingCommand = new(this.Closing);
             this.ClosedCommand = new(this.Closed);
             this.ActiveContentChangedCommand = new(this.ActiveContentChanged);
@@ -511,6 +512,33 @@ namespace Dance.Art.Module
                 return;
 
             dockingDocument.Undo();
+        }
+
+        #endregion
+
+        #region DesignChangedCommand -- 切换设计模式命令
+
+        /// <summary>
+        /// 切换设计模式
+        /// </summary>
+        public RelayCommand DesignChangedCommand { get; private set; }
+
+        /// <summary>
+        /// 切换设计模式
+        /// </summary>
+        private void DesignChanged()
+        {
+            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
+                return;
+
+            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDocumentViewModel dockingDocument)
+                return;
+
+            if (dockingDocument.DesignMode == DocumentDesignMode.NotSupport)
+                return;
+
+            dockingDocument.DesignMode = dockingDocument.DesignMode == DocumentDesignMode.Design ? DocumentDesignMode.Normal : DocumentDesignMode.Design;
+            DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(null, null, null));
         }
 
         #endregion

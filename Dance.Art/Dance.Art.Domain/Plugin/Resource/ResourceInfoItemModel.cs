@@ -39,6 +39,20 @@ namespace Dance.Art.Domain
 
         #endregion
 
+        #region IsGroup -- 是否是分组
+
+        private bool isGroup;
+        /// <summary>
+        /// 是否是分组
+        /// </summary>
+        public bool IsGroup
+        {
+            get { return isGroup; }
+            set { isGroup = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
         /// <summary>
         /// 源
         /// </summary>

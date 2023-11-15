@@ -12,7 +12,7 @@ namespace Dance.Art.ButtonBox
     /// <summary>
     /// 按钮组文档画布模型
     /// </summary>
-    public class ButtonBoxDocumentViewCanvasModel : DanceModel
+    public class ButtonBoxDocumentViewCanvasModel : DocumentItemModelBase
     {
         #region Rows -- 行数
 

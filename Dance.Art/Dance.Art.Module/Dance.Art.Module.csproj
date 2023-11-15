@@ -15,6 +15,7 @@
 		<None Remove="Themes\Resources\Icons\cut.svg" />
 		<None Remove="Themes\Resources\Icons\debug.svg" />
 		<None Remove="Themes\Resources\Icons\delete.svg" />
+		<None Remove="Themes\Resources\Icons\design.svg" />
 		<None Remove="Themes\Resources\Icons\edit.svg" />
 		<None Remove="Themes\Resources\Icons\file.svg" />
 		<None Remove="Themes\Resources\Icons\folder.svg" />
@@ -60,6 +61,7 @@
 		<Resource Include="Themes\Resources\Icons\cut.svg" />
 		<Resource Include="Themes\Resources\Icons\debug.svg" />
 		<Resource Include="Themes\Resources\Icons\delete.svg" />
+		<Resource Include="Themes\Resources\Icons\design.svg" />
 		<Resource Include="Themes\Resources\Icons\edit.svg" />
 		<Resource Include="Themes\Resources\Icons\file.svg" />
 		<Resource Include="Themes\Resources\Icons\layout_save.svg" />

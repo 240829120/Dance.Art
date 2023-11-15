@@ -15,7 +15,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 是否修改
         /// </summary>
-        bool IsModify { get; }
+        bool IsModify { get; set; }
 
         /// <summary>
         /// 是否可以重做
@@ -26,6 +26,11 @@ namespace Dance.Art.Domain
         /// 是否可以撤销
         /// </summary>
         bool CanUndo { get; }
+
+        /// <summary>
+        /// 设计模式
+        /// </summary>
+        DocumentDesignMode DesignMode { get; set; }
 
         /// <summary>
         /// 加载

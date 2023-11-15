@@ -69,9 +69,13 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsSelectedCanvas" Value="True">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsDesignMode" Value="True"></Condition>
+                    <Condition Property="IsSelectedCanvas" Value="True"></Condition>
+                </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH_SELECTED}}"></Setter>
-            </Trigger>
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
 

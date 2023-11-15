@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="DANCE_ART\ButtonBox\" />
-    <Folder Include="Domain\" />
     <Folder Include="Script\" />
     <Folder Include="Storage\" />
   </ItemGroup>

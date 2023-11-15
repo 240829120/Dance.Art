@@ -49,7 +49,7 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 点击脚本
         /// </summary>
-        [Category(PropertyCategoryDefines.OTHER), Description("点击执行脚本"), DisplayName("点击脚本"))]
+        [Category(PropertyCategoryDefines.OTHER), Description("点击执行脚本"), DisplayName("点击脚本")]
         public string? OnClick
         {
             get { return onClick; }

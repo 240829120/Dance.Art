@@ -3,6 +3,7 @@ using Dance.Art.Domain;
 using Dance.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 内容
         /// </summary>
+        [Category(PropertyCategoryDefines.OTHER), Description("内容"), DisplayName("内容")]
         public string? Content
         {
             get { return content; }
@@ -45,6 +47,7 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 点击脚本
         /// </summary>
+        [Category(PropertyCategoryDefines.OTHER), Description("点击执行脚本"), DisplayName("点击脚本")]
         public string? OnClick
         {
             get { return onClick; }
@@ -61,6 +64,7 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 点击命令
         /// </summary>
+        [Browsable(false)]
         public RelayCommand ClickCommand { get; private set; }
 
         /// <summary>

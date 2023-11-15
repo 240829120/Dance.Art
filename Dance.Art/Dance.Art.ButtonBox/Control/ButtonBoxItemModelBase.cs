@@ -1,6 +1,7 @@
 ﻿using Dance.Art.Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 行
         /// </summary>
+        [Category(PropertyCategoryDefines.LAYOUT), Description("行"), DisplayName("行")]
         public int Row
         {
             get { return row; }
@@ -41,10 +43,26 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 列
         /// </summary>
+        [Category(PropertyCategoryDefines.LAYOUT), Description("列"), DisplayName("列")]
         public int Column
         {
             get { return column; }
             set { column = value; this.OnWrapperPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region IsSelected -- 是否选中
+
+        private bool isSelected;
+        /// <summary>
+        /// 是否选中
+        /// </summary>
+        [Browsable(false)]
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set { isSelected = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion

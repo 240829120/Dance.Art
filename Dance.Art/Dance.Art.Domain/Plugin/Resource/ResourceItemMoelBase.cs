@@ -1,10 +1,12 @@
 ﻿using Dance.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace Dance.Art.Domain
 {
@@ -25,6 +27,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 模板
         /// </summary>
+        [Browsable(false)]
         public DataTemplate DataTemplate { get; }
 
         #region ID -- 编号
@@ -33,6 +36,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 编号
         /// </summary>
+        [Category(PropertyCategoryDefines.BASE), PropertyOrder(0), Description("编号"), DisplayName("编号")]
         public string? ID
         {
             get { return id; }

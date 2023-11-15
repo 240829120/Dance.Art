@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dance.Art.Domain
+{
+    /// <summary>
+    /// 属性选择改变消息
+    /// </summary>
+    public class PropertySelectedChangedMessage
+    {
+        /// <summary>
+        /// 属性选择改变消息
+        /// </summary>
+        /// <param name="source">源</param>
+        /// <param name="data">数据</param>
+        /// <param name="selectedObject">选中对象</param>
+        public PropertySelectedChangedMessage(object? source, object? data, object? selectedObject)
+        {
+            this.Source = source;
+            this.Data = data;
+            this.SelectedObject = selectedObject;
+        }
+
+        /// <summary>
+        /// 源
+        /// </summary>
+        public object? Source { get; }
+
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public object? Data { get; }
+
+        /// <summary>
+        /// 选中对象
+        /// </summary>
+        public object? SelectedObject { get; }
+    }
+}

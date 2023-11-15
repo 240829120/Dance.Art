@@ -1,9 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Dance.Art.Document.Document;
 using Dance.Art.Domain;
 using Dance.Wpf;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,12 +29,63 @@ namespace Dance.Art.ButtonBox
         // ====================================================================================
         // Property
 
+        // -------------------------------------------------------------------------
+
+        #region CanvasModel -- 画布模型
+
+        /// <summary>
+        /// 画布模型
+        /// </summary>
+        public ButtonBoxDocumentViewCanvasModel CanvasModel { get; } = new();
+
+        #endregion
+
         #region Items -- 项集合
 
         /// <summary>
         /// 项集合
         /// </summary>
         public DanceWrapperCollection<ButtonBoxItemModelBase> Items { get; } = new();
+
+        #endregion
+
+        #region SelectedValue -- 当前选中项
+
+        private ButtonBoxItemModelBase? selectedValue;
+        /// <summary>
+        /// 当前选中项
+        /// </summary>
+        public ButtonBoxItemModelBase? SelectedValue
+        {
+            get { return selectedValue; }
+            set
+            {
+                selectedValue = value;
+                this.OnPropertyChanged();
+
+                DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, value));
+            }
+        }
+
+        #endregion
+
+        #region IsSelectedCanvas -- 是否选中画布
+
+        private bool isSelectedCanvas;
+        /// <summary>
+        /// 是否选中画布
+        /// </summary>
+        public bool IsSelectedCanvas
+        {
+            get { return isSelectedCanvas; }
+            set
+            {
+                isSelectedCanvas = value;
+                this.OnPropertyChanged();
+
+                DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, value ? this.CanvasModel : null));
+            }
+        }
 
         #endregion
 
@@ -43,24 +97,26 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 资源拖拽结束命令
         /// </summary>
-        public RelayCommand<ButtonBoxPanelDropEventArgs> ResourceDropCommand { get; private set; }
+        public RelayCommand<ButtonBoxItemsControlDropEventArgs> ResourceDropCommand { get; private set; }
 
         /// <summary>
         /// 资源拖拽结束
         /// </summary>
         /// <param name="e">事件参数</param>
-        private void ResourceDrop(ButtonBoxPanelDropEventArgs? e)
+        private void ResourceDrop(ButtonBoxItemsControlDropEventArgs? e)
         {
-            if (e == null || e.ResourceInfo.Source == null || ArtDomain.Current.ProjectDomain == null)
+            if (e == null || ArtDomain.Current.ProjectDomain == null || e.Model == null)
                 return;
 
-            if (e.ResourceInfo.Source.CreateInstance(ArtDomain.Current.ProjectDomain) is not ButtonBoxItemModelBase model)
-                return;
+            e.Model.Row = e.Row;
+            e.Model.Column = e.Column;
 
-            model.Row = e.Row;
-            model.Column = e.Column;
+            if (!this.Items.Contains(e.Model))
+            {
+                this.Items.Add(e.Model);
+            }
 
-            this.Items.Add(model);
+            DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, e.Model));
         }
 
         #endregion

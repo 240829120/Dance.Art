@@ -10,7 +10,7 @@ namespace Dance.Art.ButtonBox
     /// <summary>
     /// 拖拽结束事件参数
     /// </summary>
-    public class ButtonBoxPanelDropEventArgs : EventArgs
+    public class ButtonBoxItemsControlDropEventArgs : EventArgs
     {
         /// <summary>
         /// 拖拽结束事件参数
@@ -18,11 +18,13 @@ namespace Dance.Art.ButtonBox
         /// <param name="row">行</param>
         /// <param name="column">列</param>
         /// <param name="resourceInfo">资源信息</param>
-        public ButtonBoxPanelDropEventArgs(int row, int column, ResourceInfoItemModel resourceInfo)
+        /// <param name="model">模型</param>
+        public ButtonBoxItemsControlDropEventArgs(int row, int column, ResourceInfoItemModel? resourceInfo, ButtonBoxItemModelBase model)
         {
             this.Row = row;
             this.Column = column;
             this.ResourceInfo = resourceInfo;
+            this.Model = model;
         }
 
         /// <summary>
@@ -38,6 +40,11 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 资源信息
         /// </summary>
-        public ResourceInfoItemModel ResourceInfo { get; private set; }
+        public ResourceInfoItemModel? ResourceInfo { get; private set; }
+
+        /// <summary>
+        /// 模型
+        /// </summary>
+        public ButtonBoxItemModelBase Model { get; private set; }
     }
 }

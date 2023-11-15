@@ -54,6 +54,11 @@ namespace Dance.Art.Domain
         /// </summary>
         public object? CurrentActiveContent { get; set; }
 
+        /// <summary>
+        /// 当前选中对象
+        /// </summary>
+        public object? CurrentSelectedObject { get; set; }
+
         // ----------------------------------------------------------------------------------------------------
         // Domain
 

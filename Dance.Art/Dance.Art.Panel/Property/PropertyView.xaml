@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:dance="http://schemas.dance.com/wpf"
              xmlns:local="clr-namespace:Dance.Art.Panel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DataContext="{d:DesignInstance local:PropertyViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800"
+             dance:DanceCommandTrigger.LoadedOnceCommand="{Binding LoadedCommand}">
 
     <Grid Background="Transparent">
-        <toolkit:PropertyGrid x:Name="propertyGrid" BorderThickness="0" Margin="-2,-2,-2,5"></toolkit:PropertyGrid>
+        <toolkit:PropertyGrid x:Name="propertyGrid" BorderThickness="0" Margin="-2,-2,-2,5" AutoGenerateProperties="True"
+                              SelectedObject="{Binding Path=SelectedObject,Mode=OneWay}"></toolkit:PropertyGrid>
     </Grid>
 </UserControl>

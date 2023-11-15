@@ -66,6 +66,7 @@ namespace Dance.Art.Module
             DanceDomain.Current.Messenger.Register<FileRenameMessage>(this, this.OnFileRename);
             DanceDomain.Current.Messenger.Register<FileChangeMessage>(this, this.OnFileChange);
             DanceDomain.Current.Messenger.Register<FileStatusChangeMessage>(this, this.OnFileStatusChange);
+            DanceDomain.Current.Messenger.Register<PropertySelectedChangedMessage>(this, this.OnPropertySelectedChanged);
 
         }
 
@@ -938,6 +939,18 @@ namespace Dance.Art.Module
         private void OnFileStatusChange(object sender, FileStatusChangeMessage msg)
         {
             this.IsSaveAllEnabled = this.Documents?.Any(p => p.View is FrameworkElement view && view.DataContext is IDocumentViewModel document && document.IsModify) ?? false;
+        }
+
+        #endregion
+
+        #region PropertySelectedChangedMessage -- 属性选择改变消息
+
+        /// <summary>
+        /// 属性选择改变消息
+        /// </summary>
+        private void OnPropertySelectedChanged(object sender, PropertySelectedChangedMessage msg)
+        {
+            ArtDomain.Current.CurrentSelectedObject = msg.SelectedObject;
         }
 
         #endregion

@@ -12,25 +12,6 @@
              mc:Ignorable="d" d:Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <dance:DanceMappingConverter x:Key="IsDesignModeConverter">
-                <dance:DanceMappingConverter.DefaultConvertValue>
-                    <sys:Boolean>False</sys:Boolean>
-                </dance:DanceMappingConverter.DefaultConvertValue>
-                <dance:DanceMappingConverterItem>
-                    <dance:DanceMappingConverterItem.From>
-                        <domain:DocumentDesignMode>Design</domain:DocumentDesignMode>
-                    </dance:DanceMappingConverterItem.From>
-                    <dance:DanceMappingConverterItem.To>
-                        <sys:Boolean>True</sys:Boolean>
-                    </dance:DanceMappingConverterItem.To>
-                </dance:DanceMappingConverterItem>
-            </dance:DanceMappingConverter>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-
     <Grid>
         <local:ButtonBoxItemsControl Rows="{Binding Path=CanvasModel.Rows}"
                                      Columns="{Binding Path=CanvasModel.Columns}"
@@ -40,7 +21,7 @@
                                      SelectedValue="{Binding Path=SelectedValue,Mode=TwoWay}"
                                      IsSelectedCanvas="{Binding Path=IsSelectedCanvas,Mode=TwoWay}"
                                      DropCommand="{Binding ResourceDropCommand}"
-                                     IsDesignMode="{Binding Path=DesignMode,Mode=OneWay,Converter={StaticResource IsDesignModeConverter}}">
+                                     IsDesignMode="{Binding Path=IsDesignMode,Mode=OneWay}">
         </local:ButtonBoxItemsControl>
     </Grid>
 </UserControl>

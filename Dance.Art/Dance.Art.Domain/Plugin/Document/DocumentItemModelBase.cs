@@ -19,7 +19,7 @@ namespace Dance.Art.Domain
         /// 对象类型
         /// </summary>
         [Browsable(false)]
-        public string DanceJsonObjectType => this.GetType().AssemblyQualifiedName ?? string.Empty;
+        public string PART_DanceObjectType => this.GetType().AssemblyQualifiedName ?? string.Empty;
 
         /// <summary>
         /// 所属文档
@@ -31,9 +31,9 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 属性改变之后出发
         /// </summary>
-        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+        protected override void OnWrapperPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            base.OnPropertyChanged(e);
+            base.OnWrapperPropertyChanged(propertyName);
 
             if (this.OwnerDocument == null)
                 return;

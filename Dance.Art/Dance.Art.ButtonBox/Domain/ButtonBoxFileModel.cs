@@ -15,7 +15,7 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 画布对象
         /// </summary>
-        public ButtonBoxDocumentViewCanvasModel? CanvasModel { get; set; }
+        public ButtonBoxCanvasModel? CanvasModel { get; set; }
 
         /// <summary>
         /// 项对象

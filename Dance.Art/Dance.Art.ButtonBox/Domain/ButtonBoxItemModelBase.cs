@@ -62,7 +62,7 @@ namespace Dance.Art.ButtonBox
         public bool IsSelected
         {
             get { return isSelected; }
-            set { isSelected = value; this.OnWrapperPropertyChanged(); }
+            set { isSelected = value; this.OnPropertyChanged(); }
         }
 
         #endregion

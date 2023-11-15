@@ -168,6 +168,27 @@ namespace Dance.Art.Module
 
         #endregion
 
+        #region IsDesignMode -- 是否是设计模式
+
+        private bool isDesignMode;
+        /// <summary>
+        /// 是否是设计模式
+        /// </summary>
+        public bool IsDesignMode
+        {
+            get { return isDesignMode; }
+            set
+            {
+                isDesignMode = value;
+                this.OnPropertyChanged();
+
+                ArtDomain.Current.IsDesignMode = value;
+                ArtDomain.Current.Messenger.Send(new DockingDesignModeChangedMessage(value));
+            }
+        }
+
+        #endregion
+
         // ========================================================================================
         // Command
 
@@ -528,16 +549,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void DesignChanged()
         {
-            if (this.View is not MainView view || view.docking.ActiveContent is not DocumentPluginModel document)
-                return;
-
-            if (document.View is not FrameworkElement documentView || documentView.DataContext is not IDocumentViewModel dockingDocument)
-                return;
-
-            if (dockingDocument.DesignMode == DocumentDesignMode.NotSupport)
-                return;
-
-            dockingDocument.DesignMode = dockingDocument.DesignMode == DocumentDesignMode.Design ? DocumentDesignMode.Normal : DocumentDesignMode.Design;
+            this.IsDesignMode = !this.IsDesignMode;
             DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(null, null, null));
         }
 

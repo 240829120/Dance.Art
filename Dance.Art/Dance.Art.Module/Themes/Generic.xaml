@@ -5,7 +5,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Control/DeviceStatusTip/DeviceStatusTip.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Control/DataSourceStatusTip/DataSourceStatusTip.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Control/DesignModeTip/DesignModeTip.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Template/TemplateDialog.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 

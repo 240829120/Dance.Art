@@ -59,6 +59,11 @@ namespace Dance.Art.Domain
         /// </summary>
         public object? CurrentSelectedObject { get; set; }
 
+        /// <summary>
+        /// 是否是设计模式
+        /// </summary>
+        public bool IsDesignMode { get; set; }
+
         // ----------------------------------------------------------------------------------------------------
         // Domain
 

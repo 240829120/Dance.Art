@@ -25,6 +25,11 @@ namespace Dance.Art.Panel
             DanceDomain.Current.Messenger.Register<PropertySelectedChangedMessage>(this, this.OnPropertySelectedChanged);
         }
 
+        /// <summary>
+        /// 属性列表编辑器管理器
+        /// </summary>
+        private readonly IPropertyGridEditorManager PropertyGridEditorManager = DanceDomain.Current.LifeScope.Resolve<IPropertyGridEditorManager>();
+
         // =========================================================================================
         // Propery
 
@@ -72,6 +77,16 @@ namespace Dance.Art.Panel
         /// </summary>
         private void OnPropertySelectedChanged(object sender, PropertySelectedChangedMessage msg)
         {
+            if (this.View is not PropertyView view)
+                return;
+
+            this.SelectedObject = null;
+            view.propertyGrid.EditorDefinitions.Clear();
+            if (msg.SelectedObject != null)
+            {
+                view.propertyGrid.EditorDefinitions.AddRange(this.PropertyGridEditorManager.GetEditorTemplateDefinitions(msg.SelectedObject.GetType()));
+            }
+
             this.SelectedObject = msg.SelectedObject;
         }
 

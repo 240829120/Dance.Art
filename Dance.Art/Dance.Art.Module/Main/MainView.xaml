@@ -110,33 +110,6 @@
                 </dance:DanceMappingConverterItem>
             </dance:DanceMappingConverter>
 
-            <!-- DocumentDesignModeConverter -->
-            <dance:DanceMultiMappingConverter x:Key="DocumentDesignModeConverter">
-                <dance:DanceMultiMappingConverter.DefaultConvertValue>
-                    <domain:DocumentDesignMode>NotSupport</domain:DocumentDesignMode>
-                </dance:DanceMultiMappingConverter.DefaultConvertValue>
-                <dance:DanceMultiMappingConverterItem>
-                    <sys:Boolean>True</sys:Boolean>
-                    <domain:DocumentDesignMode>NotSupport</domain:DocumentDesignMode>
-                    <dance:DanceMultiMappingConverterItem.To>
-                        <domain:DocumentDesignMode>NotSupport</domain:DocumentDesignMode>
-                    </dance:DanceMultiMappingConverterItem.To>
-                </dance:DanceMultiMappingConverterItem>
-                <dance:DanceMultiMappingConverterItem>
-                    <sys:Boolean>True</sys:Boolean>
-                    <domain:DocumentDesignMode>Normal</domain:DocumentDesignMode>
-                    <dance:DanceMultiMappingConverterItem.To>
-                        <domain:DocumentDesignMode>Normal</domain:DocumentDesignMode>
-                    </dance:DanceMultiMappingConverterItem.To>
-                </dance:DanceMultiMappingConverterItem>
-                <dance:DanceMultiMappingConverterItem>
-                    <sys:Boolean>True</sys:Boolean>
-                    <domain:DocumentDesignMode>Design</domain:DocumentDesignMode>
-                    <dance:DanceMultiMappingConverterItem.To>
-                        <domain:DocumentDesignMode>Design</domain:DocumentDesignMode>
-                    </dance:DanceMultiMappingConverterItem.To>
-                </dance:DanceMultiMappingConverterItem>
-            </dance:DanceMultiMappingConverter>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -298,15 +271,17 @@
                                               IsPlaying="{Binding Path=ScriptStatus,Converter={StaticResource ScriptIsWaitingStopConverter}}"></dance:DancePathAnimation>
                 </Grid>
                 <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
-                <local:DesignModeTip Width="22" Height="20" ToolTip="设计模式"
-                                     Command="{Binding Path=DesignChangedCommand}">
-                    <local:DesignModeTip.DesignMode>
-                        <MultiBinding Converter="{StaticResource DocumentDesignModeConverter}" Mode="OneWay">
-                            <Binding ElementName="docking" Path="ActiveContent" Mode="OneWay" Converter="{StaticResource IsNotNullConverter}"></Binding>
-                            <Binding ElementName="docking" Path="ActiveContent.View.DataContext.DesignMode" Mode="OneWay"></Binding>
-                        </MultiBinding>
-                    </local:DesignModeTip.DesignMode>
-                </local:DesignModeTip>
+                <Grid Width="22" Height="20">
+                    <Button Style="{StaticResource Button_Tool}" Width="22" Height="20" ToolTip="设计模式"
+                            Command="{Binding Path=DesignChangedCommand,Mode=OneWay}">
+                        <dance:DanceSvgImage Width="12" Height="12" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/design.svg"></dance:DanceSvgImage>
+                    </Button>
+                    <dance:DancePathAnimation x:Name="animation" 
+                                              Width="22" Height="20" Data="M0,0 22,0 22,20 0,20 0,0"
+                                              Stroke="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH_SELECTED}}" 
+                                              StrokeThickness="1"
+                                              IsPlaying="{Binding Path=IsDesignMode}"></dance:DancePathAnimation>
+                </Grid>
             </StackPanel>
         </Border>
 

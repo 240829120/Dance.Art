@@ -28,11 +28,6 @@ namespace Dance.Art.Domain
         bool CanUndo { get; }
 
         /// <summary>
-        /// 设计模式
-        /// </summary>
-        DocumentDesignMode DesignMode { get; set; }
-
-        /// <summary>
         /// 加载
         /// </summary>
         void Load();

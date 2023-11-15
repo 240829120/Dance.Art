@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Dance.Art.Document;
 using Dance.Art.Document.Document;
 using Dance.Art.Domain;
 using Dance.Wpf;
@@ -18,13 +19,15 @@ namespace Dance.Art.ButtonBox
     /// <summary>
     /// 按钮组文档视图模型
     /// </summary>
-    public class ButtonBoxDocumentViewModel : DocumentViewModelBase
+    public class ButtonBoxDocumentViewModel : ControlDocumentViewModelBase
     {
         public ButtonBoxDocumentViewModel()
         {
+            // 命令
             this.ResourceDropCommand = new(this.ResourceDrop);
 
-            this.DesignMode = DocumentDesignMode.Normal;
+            // 消息
+            DanceDomain.Current.Messenger.Register<DockingDesignModeChangedMessage>(this, this.OnDockingDesignModeChanged);
         }
 
         // ====================================================================================
@@ -42,11 +45,11 @@ namespace Dance.Art.ButtonBox
 
         #region CanvasModel -- 画布模型
 
-        private ButtonBoxDocumentViewCanvasModel canvasModel;
+        private ButtonBoxCanvasModel? canvasModel;
         /// <summary>
         /// 画布模型
         /// </summary>
-        public ButtonBoxDocumentViewCanvasModel CanvasModel
+        public ButtonBoxCanvasModel? CanvasModel
         {
             get { return canvasModel; }
             set { canvasModel = value; this.OnPropertyChanged(); }
@@ -103,6 +106,20 @@ namespace Dance.Art.ButtonBox
 
         #endregion
 
+        #region IsDesignMode -- 是否是设计模式
+
+        private bool isDesignMode = ArtDomain.Current.IsDesignMode;
+        /// <summary>
+        /// 是否是设计模式
+        /// </summary>
+        public bool IsDesignMode
+        {
+            get { return isDesignMode; }
+            set { isDesignMode = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
         // ====================================================================================
         // Command
 
@@ -139,6 +156,23 @@ namespace Dance.Art.ButtonBox
         #endregion
 
         // ====================================================================================
+        // Message
+
+        #region DockingDesignModeChangedMessage -- 设计模式改变消息
+
+        /// <summary>
+        /// 设计模式改变消息
+        /// </summary>
+        private void OnDockingDesignModeChanged(object sender, DockingDesignModeChangedMessage msg)
+        {
+            this.IsDesignMode = msg.IsDesignMode;
+            this.SelectedValue = null;
+            this.IsSelectedCanvas = false;
+        }
+
+        #endregion
+
+        // ====================================================================================
         // Override
 
         /// <summary>
@@ -160,6 +194,8 @@ namespace Dance.Art.ButtonBox
             this.Items.Clear();
             this.Items.AddRange(fileModel?.Items);
             this.Items.ForEach(p => p.OwnerDocument = this);
+
+            this.SelectedValue = null;
 
             this.IsModify = false;
             this.UdateDocumentStatus();
@@ -188,47 +224,6 @@ namespace Dance.Art.ButtonBox
                 this.IsModify = false;
                 this.UdateDocumentStatus();
             });
-        }
-
-        /// <summary>
-        /// 是否可以拷贝
-        /// </summary>
-        protected override bool CanCopy()
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// 是否可以剪切
-        /// </summary>
-        /// <returns></returns>
-        protected override bool CanCut()
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// 复制
-        /// </summary>
-        protected override void Copy()
-        {
-            // nothing todo.
-        }
-
-        /// <summary>
-        /// 粘贴
-        /// </summary>
-        protected override void Cut()
-        {
-            // nothing todo.
-        }
-
-        /// <summary>
-        /// 粘贴
-        /// </summary>
-        protected override void Paste()
-        {
-            // nothing todo.
         }
     }
 }

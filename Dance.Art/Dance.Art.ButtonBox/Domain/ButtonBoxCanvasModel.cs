@@ -12,7 +12,8 @@ namespace Dance.Art.ButtonBox
     /// <summary>
     /// 按钮组文档画布模型
     /// </summary>
-    public class ButtonBoxDocumentViewCanvasModel : DocumentItemModelBase
+    [DisplayName("按钮面板")]
+    public class ButtonBoxCanvasModel : DocumentItemModelBase
     {
         #region Rows -- 行数
 
@@ -24,7 +25,7 @@ namespace Dance.Art.ButtonBox
         public int Rows
         {
             get { return rows; }
-            set { rows = value; this.OnPropertyChanged(); }
+            set { rows = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion
@@ -39,7 +40,7 @@ namespace Dance.Art.ButtonBox
         public int Columns
         {
             get { return columns; }
-            set { columns = value; this.OnPropertyChanged(); }
+            set { columns = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion
@@ -54,7 +55,7 @@ namespace Dance.Art.ButtonBox
         public int UnitWidth
         {
             get { return unitWidth; }
-            set { unitWidth = value; this.OnPropertyChanged(); }
+            set { unitWidth = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion
@@ -69,7 +70,7 @@ namespace Dance.Art.ButtonBox
         public int UnitHeight
         {
             get { return unitHeight; }
-            set { unitHeight = value; this.OnPropertyChanged(); }
+            set { unitHeight = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion

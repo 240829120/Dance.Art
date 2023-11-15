@@ -7,12 +7,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Dance.Art.ButtonBox
 {
     /// <summary>
     /// 命令按钮
     /// </summary>
+    [DisplayName("命令按钮")]
     public class CommandButtonModel : ButtonBoxItemModelBase
     {
         /// <summary>
@@ -47,7 +49,7 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 点击脚本
         /// </summary>
-        [Category(PropertyCategoryDefines.OTHER), Description("点击执行脚本"), DisplayName("点击脚本")]
+        [Category(PropertyCategoryDefines.OTHER), Description("点击执行脚本"), DisplayName("点击脚本"))]
         public string? OnClick
         {
             get { return onClick; }

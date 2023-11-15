@@ -33,20 +33,6 @@ namespace Dance.Art.Document.Document
         // ==========================================================================================
         // Property
 
-        #region DesignMode -- 设计模式
-
-        private DocumentDesignMode designMode = DocumentDesignMode.NotSupport;
-        /// <summary>
-        /// 设计模式
-        /// </summary>
-        public override DocumentDesignMode DesignMode
-        {
-            get { return designMode; }
-            set { designMode = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
-
         // ==========================================================================================
         // Command
 
@@ -132,7 +118,6 @@ namespace Dance.Art.Document.Document
                 this.OnPropertyChanged(nameof(IsModify));
                 this.OnPropertyChanged(nameof(CanRedo));
                 this.OnPropertyChanged(nameof(CanUndo));
-                this.OnPropertyChanged(nameof(DesignMode));
 
                 if (this.ViewPluginModel is not DocumentPluginModel document)
                     return;

@@ -15,5 +15,10 @@ namespace Dance.Art.ButtonBox
         /// 命令按钮
         /// </summary>
         public const string CommandButton = "[Dance.Art.Resource]:[ButtonBox]CommandButton";
+
+        /// <summary>
+        /// 脚本按钮
+        /// </summary>
+        public const string ScriptButton = "[Dance.Art.Resource]:[ButtonBox]ScriptButton";
     }
 }

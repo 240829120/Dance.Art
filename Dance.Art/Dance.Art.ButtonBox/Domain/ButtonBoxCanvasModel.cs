@@ -47,7 +47,7 @@ namespace Dance.Art.ButtonBox
 
         #region UnitWidth -- 单位宽度
 
-        private int unitWidth = 120;
+        private int unitWidth = 140;
         /// <summary>
         /// 单位宽度
         /// </summary>

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Dance.Wpf;
+using SharpVectors.Dom;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -203,6 +204,20 @@ namespace Dance.Art.ButtonBox
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new ButtonBoxItem();
+        }
+
+        // =================================================================================
+        // Public Function
+
+        /// <summary>
+        /// 刷新
+        /// </summary>
+        public void Refresh()
+        {
+            Application.Current.Dispatcher.BeginInvoke(() =>
+            {
+                this.PART_Panel?.InvalidateVisual();
+            });
         }
     }
 }

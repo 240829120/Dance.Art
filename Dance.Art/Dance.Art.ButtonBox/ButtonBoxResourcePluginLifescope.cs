@@ -31,7 +31,8 @@ namespace Dance.Art.ButtonBox
         {
             List<IResourceSource> resources = new()
             {
-                new CommandButtonSource()
+                new CommandButtonSource(),
+                new ScriptButtonSource()
             };
 
             return new ResourcePluginInfo(ID, NAME, resources.ToArray());

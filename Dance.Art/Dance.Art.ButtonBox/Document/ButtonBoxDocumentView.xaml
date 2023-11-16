@@ -18,7 +18,8 @@
     </dance:DanceHotkeyTrigger.HotkeyBindings>
 
     <Grid>
-        <local:ButtonBoxItemsControl Rows="{Binding Path=CanvasModel.Rows}"
+        <local:ButtonBoxItemsControl x:Name="itemsControl"
+                                     Rows="{Binding Path=CanvasModel.Rows}"
                                      Columns="{Binding Path=CanvasModel.Columns}"
                                      UnitWidth="{Binding Path=CanvasModel.UnitWidth}"
                                      UnitHeight="{Binding Path=CanvasModel.UnitHeight}"

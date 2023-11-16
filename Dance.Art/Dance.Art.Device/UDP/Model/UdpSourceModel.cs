@@ -17,7 +17,7 @@ namespace Dance.Art.Device
     /// <summary>
     /// UDP源模型
     /// </summary>
-    public class UdpSourceModel : DanceWrapperModel, IDeviceSource
+    public class UdpSourceModel : DanceWrapperModel, ISendDeviceSource
     {
         // =====================================================================================
         // Field

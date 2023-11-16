@@ -16,6 +16,7 @@
 		<None Remove="Themes\Resources\Icons\debug.svg" />
 		<None Remove="Themes\Resources\Icons\delete.svg" />
 		<None Remove="Themes\Resources\Icons\design.svg" />
+		<None Remove="Themes\Resources\Icons\device.svg" />
 		<None Remove="Themes\Resources\Icons\edit.svg" />
 		<None Remove="Themes\Resources\Icons\file.svg" />
 		<None Remove="Themes\Resources\Icons\folder.svg" />
@@ -39,7 +40,9 @@
 		<None Remove="Themes\Resources\Icons\run.svg" />
 		<None Remove="Themes\Resources\Icons\save.svg" />
 		<None Remove="Themes\Resources\Icons\save_all.svg" />
+		<None Remove="Themes\Resources\Icons\search.svg" />
 		<None Remove="Themes\Resources\Icons\stop.svg" />
+		<None Remove="Themes\Resources\Icons\txt.svg" />
 		<None Remove="Themes\Resources\Icons\undo.svg" />
 		<None Remove="Themes\Resources\Icons\vscode.svg" />
 		<None Remove="Themes\Resources\Images\bg.jpg" />
@@ -67,6 +70,7 @@
 		<Resource Include="Themes\Resources\Icons\debug.svg" />
 		<Resource Include="Themes\Resources\Icons\delete.svg" />
 		<Resource Include="Themes\Resources\Icons\design.svg" />
+		<Resource Include="Themes\Resources\Icons\device.svg" />
 		<Resource Include="Themes\Resources\Icons\edit.svg" />
 		<Resource Include="Themes\Resources\Icons\file.svg" />
 		<Resource Include="Themes\Resources\Icons\javascript.svg" />
@@ -90,13 +94,18 @@
 		<Resource Include="Themes\Resources\Icons\restart.svg" />
 		<Resource Include="Themes\Resources\Icons\save.svg" />
 		<Resource Include="Themes\Resources\Icons\save_all.svg" />
+		<Resource Include="Themes\Resources\Icons\search.svg" />
 		<Resource Include="Themes\Resources\Icons\stop.svg" />
+		<Resource Include="Themes\Resources\Icons\txt.svg" />
 		<Resource Include="Themes\Resources\Icons\undo.svg" />
 		<Resource Include="Themes\Resources\Icons\vscode.svg" />
 		<Resource Include="Themes\Resources\Images\bg.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="{Core}\Control\Editor\DeviceChooseEditor\DeviceChooseWindow.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
 	  <Compile Update="{Core}\Template\EditStringTemplateWindow.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>

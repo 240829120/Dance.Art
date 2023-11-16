@@ -1,4 +1,5 @@
 ﻿using Dance.Art.Domain;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,7 +59,7 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 是否选中
         /// </summary>
-        [Browsable(false)]
+        [Browsable(false), JsonIgnore]
         public bool IsSelected
         {
             get { return isSelected; }

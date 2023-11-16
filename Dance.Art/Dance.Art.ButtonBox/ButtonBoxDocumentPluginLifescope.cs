@@ -31,11 +31,12 @@ namespace Dance.Art.ButtonBox
         {
             List<string> resouceIDs = new()
             {
-                ResourceDefines.CommandButton
+                ResourceDefines.CommandButton,
+                ResourceDefines.ScriptButton
             };
 
             return new ResourceDocumentPluginInfo(ID, NAME, typeof(ButtonBoxDocumentView), resouceIDs,
-                                                  new DocumentFileInfo(DocumentFileGroupDefines.TEMPLATE, true, ".art_bp",
+                                                  new DocumentFileInfo(DocumentFileGroupDefines.TEMPLATE, true, FileSuffixCategory.BUTTON_PANEL,
                                                                        "pack://application:,,,/Dance.Art.ButtonBox;component/Themes/Resources/Icons/button_box.svg",
                                                                        "按钮面板"));
         }

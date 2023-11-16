@@ -53,7 +53,16 @@ namespace Dance.Art.ButtonBox
         public ButtonBoxCanvasModel? CanvasModel
         {
             get { return canvasModel; }
-            set { canvasModel = value; this.OnPropertyChanged(); }
+            set
+            {
+                canvasModel = value;
+                this.OnPropertyChanged();
+
+                if (this.View is not ButtonBoxDocumentView view)
+                    return;
+
+                view.itemsControl.Refresh();
+            }
         }
 
         #endregion

@@ -10,19 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Dance.Art.ButtonBox
+namespace Dance.Art.Module
 {
     /// <summary>
-    /// CommandButton.xaml 的交互逻辑
+    /// DeviceChooseWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class CommandButton : UserControl
+    public partial class DeviceChooseWindow : Window
     {
-        public CommandButton()
+        public DeviceChooseWindow()
         {
             InitializeComponent();
+
+            DeviceChooseWindowModel vm = new()
+            {
+                View = this
+            };
+            this.DataContext = vm;
         }
     }
 }

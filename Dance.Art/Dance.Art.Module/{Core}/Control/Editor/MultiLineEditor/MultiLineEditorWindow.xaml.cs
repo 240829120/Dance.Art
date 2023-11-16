@@ -15,15 +15,15 @@ using System.Windows.Shapes;
 namespace Dance.Art.Module
 {
     /// <summary>
-    /// ScriptEditorWindow.xaml 的交互逻辑
+    /// MultiLineEditorWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class ScriptEditorWindow : Window
+    public partial class MultiLineEditorWindow : Window
     {
-        public ScriptEditorWindow()
+        public MultiLineEditorWindow()
         {
             InitializeComponent();
 
-            ScriptEditorWindowModel vm = new()
+            MultiLineEditorWindowModel vm = new()
             {
                 View = this
             };

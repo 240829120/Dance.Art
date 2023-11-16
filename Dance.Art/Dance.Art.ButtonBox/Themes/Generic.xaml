@@ -3,5 +3,7 @@
                     xmlns:local="clr-namespace:Dance.Art.ButtonBox">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Dance.Art.ButtonBox;component/Control/ButtonBoxItemsControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Dance.Art.ButtonBox;component/Resource/CommandButton/CommandButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Dance.Art.ButtonBox;component/Resource/ScriptButton/ScriptButton.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

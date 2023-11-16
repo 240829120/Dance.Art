@@ -20,7 +20,7 @@ namespace Dance.Art.Device
     /// <summary>
     /// TCP源模型
     /// </summary>
-    public class TcpSourceModel : DanceWrapperModel, IDeviceSource
+    public class TcpSourceModel : DanceWrapperModel, ISendDeviceSource
     {
         // =====================================================================================
         // Field

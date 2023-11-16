@@ -72,7 +72,7 @@ namespace Dance.Art.Domain
 
         #region BackgroundColor -- 背景颜色
 
-        private Color backgroundColor = Colors.White;
+        private Color backgroundColor = Colors.Transparent;
         /// <summary>
         /// 背景颜色
         /// </summary>

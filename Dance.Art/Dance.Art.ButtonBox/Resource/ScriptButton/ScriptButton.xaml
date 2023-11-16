@@ -5,7 +5,7 @@
 
     <dance:DanceColorSolidColorBrushConverter x:Key="DanceColorSolidColorBrushConverter"></dance:DanceColorSolidColorBrushConverter>
 
-    <Style TargetType="local:CommandButton">
+    <Style TargetType="local:ScriptButton">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
         <Setter Property="Background" Value="{Binding BackgroundColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>
         <Setter Property="Foreground" Value="{Binding ForegroundColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>
@@ -17,7 +17,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:CommandButton">
+                <ControlTemplate TargetType="local:ScriptButton">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             CornerRadius="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_CORNERRADIUS}}">
@@ -26,7 +26,7 @@
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.ButtonBox;component/Themes/Resources/Icons/command_button.svg"
+                            <dance:DanceSvgImage Source="pack://application:,,,/Dance.Art.ButtonBox;component/Themes/Resources/Icons/script_button.svg"
                                                  Width="14" Height="14" VerticalAlignment="Center" HorizontalAlignment="Center"></dance:DanceSvgImage>
                             <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Grid.Column="1"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"></ContentPresenter>

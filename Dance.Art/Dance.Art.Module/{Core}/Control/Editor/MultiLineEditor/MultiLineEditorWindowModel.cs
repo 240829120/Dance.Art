@@ -1,19 +1,21 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Highlighting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Dance.Art.Module
 {
     /// <summary>
-    /// 脚本编辑窗口模型
+    /// 多行文本编辑窗口模型
     /// </summary>
-    public class ScriptEditorWindowModel : DanceViewModel
+    public class MultiLineEditorWindowModel : DanceViewModel
     {
-        public ScriptEditorWindowModel()
+        public MultiLineEditorWindowModel()
         {
             this.CopyCommand = new(this.Copy, this.CanCopy);
             this.CutCommand = new(this.Cut, this.CanCut);
@@ -21,6 +23,11 @@ namespace Dance.Art.Module
             this.EnterCommand = new(this.Enter);
             this.CancelCommand = new(this.Cancel);
         }
+
+        /// <summary>
+        /// 高亮转化器
+        /// </summary>
+        private readonly HighlightingDefinitionTypeConverter HighlightingConverter = new();
 
         // ====================================================================================================
         // Property
@@ -40,6 +47,29 @@ namespace Dance.Art.Module
                     return;
 
                 editor.Text = value;
+            }
+        }
+
+        #endregion
+
+        #region SyntaxHighlighting -- 高亮策略
+
+        /// <summary>
+        /// 高亮策略
+        /// </summary>
+        public string? SyntaxHighlighting
+        {
+            get { return this.GetEditor()?.SyntaxHighlighting?.ToString(); }
+            set
+            {
+                TextEditor? editor = this.GetEditor();
+                if (editor == null)
+                    return;
+
+                if (string.IsNullOrWhiteSpace(value))
+                    editor.SyntaxHighlighting = null;
+                else
+                    editor.SyntaxHighlighting = HighlightingConverter.ConvertFromString(value) as IHighlightingDefinition;
             }
         }
 
@@ -141,7 +171,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void Enter()
         {
-            if (this.View is not ScriptEditorWindow window)
+            if (this.View is not Window window)
                 return;
 
             this.IsEnter = true;
@@ -162,7 +192,7 @@ namespace Dance.Art.Module
         /// </summary>
         private void Cancel()
         {
-            if (this.View is not ScriptEditorWindow window)
+            if (this.View is not Window window)
                 return;
 
             this.IsEnter = false;
@@ -180,7 +210,7 @@ namespace Dance.Art.Module
         /// <returns>编辑器</returns>
         protected TextEditor? GetEditor()
         {
-            if (this.View is not ScriptEditorWindow view)
+            if (this.View is not MultiLineEditorWindow view)
                 return null;
 
             return view.edit;

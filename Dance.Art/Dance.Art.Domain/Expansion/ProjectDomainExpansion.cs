@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Dance.Art.Domain
 {
@@ -46,6 +47,44 @@ namespace Dance.Art.Domain
             {
                 log.Error(ex);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取设备模型
+        /// </summary>
+        /// <param name="projectDomain">项目领域</param>
+        /// <param name="names">名称集合</param>
+        /// <returns>设备模型</returns>
+        public static List<DeviceModel> GetDeviceModel(this ProjectDomain? projectDomain, List<string> names)
+        {
+            List<DeviceModel> list = new();
+
+            if (projectDomain == null || names == null || names.Count == 0)
+                return list;
+
+            try
+            {
+                foreach (DeviceGroupModel group in projectDomain.DeviceGroups)
+                {
+                    foreach (DeviceModel item in group.Items)
+                    {
+                        if (string.IsNullOrWhiteSpace(item.Name))
+                            continue;
+
+                        if (names.Contains(item.Name))
+                        {
+                            list.Add(item);
+                        }
+                    }
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                return new();
             }
         }
 

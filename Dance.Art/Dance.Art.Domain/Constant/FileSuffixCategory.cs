@@ -20,5 +20,10 @@ namespace Dance.Art.Domain
         /// 项目缓存文件
         /// </summary>
         public const string PROJECT_CACHE = ".art_cache";
+
+        /// <summary>
+        /// 按钮面板
+        /// </summary>
+        public const string BUTTON_PANEL = ".art_bp";
     }
 }

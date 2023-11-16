@@ -55,18 +55,34 @@ namespace Dance.Art.ButtonBox
 
         #endregion
 
-        #region OnClick -- 点击脚本
+        #region DeviceNames -- 设备名称
 
-        private string? onClick;
+        private string? deviceNames;
         /// <summary>
-        /// 点击脚本
+        /// 设备名称
         /// </summary>
-        [Category(PropertyCategoryDefines.OTHER), Description("点击执行脚本"), DisplayName("点击脚本")]
-        [Editor(typeof(ScriptEditor), typeof(ScriptEditor))]
-        public string? OnClick
+        [Category(PropertyCategoryDefines.OTHER), Description("设备"), DisplayName("设备")]
+        [Editor(typeof(SendDeviceChooseEditor), typeof(SendDeviceChooseEditor))]
+        public string? DeviceNames
         {
-            get { return onClick; }
-            set { onClick = value; this.OnWrapperPropertyChanged(); }
+            get { return deviceNames; }
+            set { deviceNames = value; this.OnWrapperPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region Command -- 命令
+
+        private string? command;
+        /// <summary>
+        /// 命令
+        /// </summary>
+        [Category(PropertyCategoryDefines.OTHER), Description("命令"), DisplayName("命令")]
+        [Editor(typeof(MultiLineEditor), typeof(MultiLineEditor))]
+        public string? Command
+        {
+            get { return command; }
+            set { command = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion
@@ -87,27 +103,36 @@ namespace Dance.Art.ButtonBox
         /// </summary>
         private void Click()
         {
-            if (string.IsNullOrWhiteSpace(this.OnClick))
+            if (ArtDomain.Current.ProjectDomain == null || string.IsNullOrWhiteSpace(this.DeviceNames) || string.IsNullOrWhiteSpace(this.Command))
                 return;
 
-            MainViewModel vm = DanceDomain.Current.LifeScope.Resolve<MainViewModel>();
-            if (vm == null || vm.ScriptDomain == null || vm.ScriptDomain.Engine == null || (vm.ScriptStatus != ScriptStatus.Running && vm.ScriptStatus != ScriptStatus.Debugging))
-            {
-                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "脚本未运行", DanceMessageBoxAction.YES);
+            List<string> devices = this.DeviceNames.Split(DeviceChooseEditor.SEPARATOR, StringSplitOptions.RemoveEmptyEntries).ToList();
+            if (devices.Count == 0)
                 return;
+
+            List<DeviceModel> deviceModels = ArtDomain.Current.ProjectDomain.GetDeviceModel(devices);
+            if (deviceModels.Count == 0)
+                return;
+
+            byte[] buffer = Encoding.UTF8.GetBytes(this.Command);
+
+            foreach (DeviceModel model in deviceModels)
+            {
+                if (model == null || model.Source == null || model.Source is not ISendDeviceSource source)
+                    return;
+
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        source.Send(buffer);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                    }
+                });
             }
-
-            Task.Run(() =>
-            {
-                try
-                {
-                    vm.ScriptDomain.Engine.Evaluate(new DocumentInfo() { Category = ModuleCategory.Standard }, this.OnClick);
-                }
-                catch (Exception ex)
-                {
-                    this.OutputManager.WriteLine(ex.Message);
-                }
-            });
         }
 
         #endregion

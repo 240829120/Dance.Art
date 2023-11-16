@@ -132,7 +132,7 @@ namespace Dance.Art.ButtonBox
                 element.Arrange(new Rect(model.Column * this.Owner.UnitWidth, model.Row * this.Owner.UnitHeight, this.Owner.UnitWidth, this.Owner.UnitHeight));
             }
 
-            return finalSize;
+            return new Size(this.Owner.Columns * this.Owner.UnitWidth, this.Owner.Rows * this.Owner.UnitHeight);
         }
 
         /// <summary>

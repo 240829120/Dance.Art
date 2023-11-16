@@ -19,6 +19,7 @@
 		<None Remove="Themes\Resources\Icons\edit.svg" />
 		<None Remove="Themes\Resources\Icons\file.svg" />
 		<None Remove="Themes\Resources\Icons\folder.svg" />
+		<None Remove="Themes\Resources\Icons\javascript.svg" />
 		<None Remove="Themes\Resources\Icons\layout.svg" />
 		<None Remove="Themes\Resources\Icons\layout_save.svg" />
 		<None Remove="Themes\Resources\Icons\logo.png" />
@@ -45,6 +46,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\..\Dance\Dance\Dance.Common\Dance.Common.csproj" />
 		<ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
 		<ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
@@ -64,6 +69,7 @@
 		<Resource Include="Themes\Resources\Icons\design.svg" />
 		<Resource Include="Themes\Resources\Icons\edit.svg" />
 		<Resource Include="Themes\Resources\Icons\file.svg" />
+		<Resource Include="Themes\Resources\Icons\javascript.svg" />
 		<Resource Include="Themes\Resources\Icons\layout_save.svg" />
 		<Resource Include="Themes\Resources\Icons\newFile.svg" />
 		<Resource Include="Themes\Resources\Icons\newFolder.svg" />

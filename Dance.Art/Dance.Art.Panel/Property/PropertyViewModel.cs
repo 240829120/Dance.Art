@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
+using System.Windows.Interop;
 
 namespace Dance.Art.Panel
 {
@@ -23,6 +24,7 @@ namespace Dance.Art.Panel
 
             // 消息
             DanceDomain.Current.Messenger.Register<PropertySelectedChangedMessage>(this, this.OnPropertySelectedChanged);
+            DanceDomain.Current.Messenger.Register<ProjectClosedMessage>(this, this.OnProjectClosed);
         }
 
         /// <summary>
@@ -62,6 +64,15 @@ namespace Dance.Art.Panel
         /// </summary>
         private void Loaded()
         {
+            if (this.View is not PropertyView view)
+                return;
+
+            view.propertyGrid.EditorDefinitions.Clear();
+            if (ArtDomain.Current.CurrentSelectedObject != null)
+            {
+                view.propertyGrid.EditorDefinitions.AddRange(this.PropertyGridEditorManager.GetEditorTemplateDefinitions(ArtDomain.Current.CurrentSelectedObject.GetType()));
+            }
+
             this.SelectedObject = ArtDomain.Current.CurrentSelectedObject;
         }
 
@@ -88,6 +99,18 @@ namespace Dance.Art.Panel
             }
 
             this.SelectedObject = msg.SelectedObject;
+        }
+
+        #endregion
+
+        #region ProjectClosedMessage -- 项目关闭消息
+
+        /// <summary>
+        /// 项目关闭消息
+        /// </summary>
+        private void OnProjectClosed(object sender, ProjectClosedMessage msg)
+        {
+            this.SelectedObject = null;
         }
 
         #endregion

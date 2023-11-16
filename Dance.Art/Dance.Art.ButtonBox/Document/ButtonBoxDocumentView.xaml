@@ -11,6 +11,11 @@
              dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}"
              mc:Ignorable="d" d:Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
+    <dance:DanceHotkeyTrigger.HotkeyBindings>
+        <dance:DanceHotkeyCollection>
+            <dance:DanceHotkeyBinding Key="Delete" Command="{Binding Path=DeleteCommand}"></dance:DanceHotkeyBinding>
+        </dance:DanceHotkeyCollection>
+    </dance:DanceHotkeyTrigger.HotkeyBindings>
 
     <Grid>
         <local:ButtonBoxItemsControl Rows="{Binding Path=CanvasModel.Rows}"

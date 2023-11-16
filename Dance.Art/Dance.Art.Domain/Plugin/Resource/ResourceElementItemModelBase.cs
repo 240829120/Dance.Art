@@ -25,9 +25,24 @@ namespace Dance.Art.Domain
 
         }
 
+        #region ForegroundColor -- 前景色
+
+        private Color foregroundColor = Colors.Black;
+        /// <summary>
+        /// 前景色
+        /// </summary>
+        [Category(PropertyCategoryDefines.STYLE), Description("前景色"), DisplayName("前景色")]
+        public Color ForegroundColor
+        {
+            get { return foregroundColor; }
+            set { foregroundColor = value; this.OnWrapperPropertyChanged(); }
+        }
+
+        #endregion
+
         #region BorderColor -- 边框颜色
 
-        private Color borderColor;
+        private Color borderColor = (Color)ColorConverter.ConvertFromString("#FF1890FF");
         /// <summary>
         /// 边框颜色
         /// </summary>
@@ -42,7 +57,7 @@ namespace Dance.Art.Domain
 
         #region BorderThickness -- 边框
 
-        private Thickness borderThickness;
+        private Thickness borderThickness = new(1);
         /// <summary>
         /// 边框
         /// </summary>
@@ -57,7 +72,7 @@ namespace Dance.Art.Domain
 
         #region BackgroundColor -- 背景颜色
 
-        private Color backgroundColor;
+        private Color backgroundColor = Colors.White;
         /// <summary>
         /// 背景颜色
         /// </summary>

@@ -237,7 +237,7 @@ namespace Dance.Art.ButtonBox
                 model = item.DataContext as ButtonBoxItemModelBase;
             }
 
-            if (model == null)
+            if (model == null || e.Source is FrameworkElement source && source.DataContext == model)
                 return;
 
             Point point = e.GetPosition(this);

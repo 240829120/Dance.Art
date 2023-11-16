@@ -1,6 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Dance.Art.Domain;
+using Dance.Art.Module;
 using Dance.Wpf;
+using Microsoft.ClearScript.JavaScript;
+using Microsoft.ClearScript;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,11 +30,19 @@ namespace Dance.Art.ButtonBox
         }
 
         // ================================================================================
+        // Field
+
+        /// <summary>
+        /// 输出管理器
+        /// </summary>
+        private readonly IOutputManager OutputManager = DanceDomain.Current.LifeScope.Resolve<IOutputManager>();
+
+        // ================================================================================
         // Property
 
         #region Content -- 内容
 
-        private string? content;
+        private string? content = "命令按钮";
         /// <summary>
         /// 内容
         /// </summary>
@@ -50,6 +62,7 @@ namespace Dance.Art.ButtonBox
         /// 点击脚本
         /// </summary>
         [Category(PropertyCategoryDefines.OTHER), Description("点击执行脚本"), DisplayName("点击脚本")]
+        [Editor(typeof(ScriptEditor), typeof(ScriptEditor))]
         public string? OnClick
         {
             get { return onClick; }
@@ -66,7 +79,7 @@ namespace Dance.Art.ButtonBox
         /// <summary>
         /// 点击命令
         /// </summary>
-        [Browsable(false)]
+        [Browsable(false), JsonIgnore]
         public RelayCommand ClickCommand { get; private set; }
 
         /// <summary>
@@ -74,7 +87,27 @@ namespace Dance.Art.ButtonBox
         /// </summary>
         private void Click()
         {
-            DanceMessageExpansion.ShowMessageBox("点击命令按钮", $"{this.Content}");
+            if (string.IsNullOrWhiteSpace(this.OnClick))
+                return;
+
+            MainViewModel vm = DanceDomain.Current.LifeScope.Resolve<MainViewModel>();
+            if (vm == null || vm.ScriptDomain == null || vm.ScriptDomain.Engine == null || (vm.ScriptStatus != ScriptStatus.Running && vm.ScriptStatus != ScriptStatus.Debugging))
+            {
+                DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "脚本未运行", DanceMessageBoxAction.YES);
+                return;
+            }
+
+            Task.Run(() =>
+            {
+                try
+                {
+                    vm.ScriptDomain.Engine.Evaluate(new DocumentInfo() { Category = ModuleCategory.Standard }, this.OnClick);
+                }
+                catch (Exception ex)
+                {
+                    this.OutputManager.WriteLine(ex.Message);
+                }
+            });
         }
 
         #endregion

@@ -25,6 +25,7 @@ namespace Dance.Art.ButtonBox
         {
             // 命令
             this.ResourceDropCommand = new(this.ResourceDrop);
+            this.DeleteCommand = new(this.Delete);
 
             // 消息
             DanceDomain.Current.Messenger.Register<DockingDesignModeChangedMessage>(this, this.OnDockingDesignModeChanged);
@@ -151,6 +152,34 @@ namespace Dance.Art.ButtonBox
             this.IsModify = true;
 
             DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, e.Model));
+        }
+
+        #endregion
+
+        #region DeleteCommand -- 删除命令
+
+        /// <summary>
+        /// 删除命令
+        /// </summary>
+        public RelayCommand DeleteCommand { get; private set; }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        private void Delete()
+        {
+            if (DanceXamlExpansion.IsInDesignMode)
+                return;
+
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive)
+                return;
+
+            if (this.Items == null || this.Items.Count == 0 || this.SelectedValue == null)
+                return;
+
+            this.Items.Remove(this.SelectedValue);
+            this.SelectedValue = null;
+            this.IsModify = true;
         }
 
         #endregion

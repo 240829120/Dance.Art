@@ -211,15 +211,17 @@ namespace Dance.Art.Panel
             if (vm == null || vm.ScriptDomain == null || vm.ScriptDomain.Engine == null || (vm.ScriptStatus != ScriptStatus.Running && vm.ScriptStatus != ScriptStatus.Debugging))
                 return;
 
-            try
+            Task.Run(() =>
             {
-                object? result = vm.ScriptDomain.Engine.Evaluate(new DocumentInfo() { Category = ModuleCategory.Standard }, view.edit.Text);
-                this.OutputManager.WriteLine(result?.ToString() ?? string.Empty);
-            }
-            catch (Exception ex)
-            {
-                this.OutputManager.WriteLine(ex.Message);
-            }
+                try
+                {
+                    vm.ScriptDomain.Engine.Evaluate(new DocumentInfo() { Category = ModuleCategory.Standard }, view.edit.Text);
+                }
+                catch (Exception ex)
+                {
+                    this.OutputManager.WriteLine(ex.Message);
+                }
+            });
         }
 
         #endregion

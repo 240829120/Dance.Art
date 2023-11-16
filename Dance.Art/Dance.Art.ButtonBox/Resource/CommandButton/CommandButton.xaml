@@ -24,6 +24,7 @@
                 Command="{Binding ClickCommand,Mode=OneWay}"
                 Background="{Binding BackgroundColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"
                 BorderThickness="{Binding BorderThickness}"
-                BorderBrush="{Binding BorderColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Button>
+                BorderBrush="{Binding BorderColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"
+                Foreground="{Binding ForegroundColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Button>
     </Grid>
 </UserControl>

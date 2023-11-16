@@ -28,6 +28,7 @@ namespace Dance.Art.Panel
 
             // 消息
             DanceDomain.Current.Messenger.Register<DockingActiveContentChangedMessage>(this, this.OnDockingActiveContentChanged);
+            DanceDomain.Current.Messenger.Register<ProjectClosedMessage>(this, this.OnProjectClosed);
         }
 
         // ============================================================================================
@@ -121,6 +122,18 @@ namespace Dance.Art.Panel
                 return;
 
             this.LoadResources(vm.File);
+        }
+
+        #endregion
+
+        #region ProjectClosedMessage -- 项目关闭消息
+
+        /// <summary>
+        /// 项目关闭
+        /// </summary>
+        private void OnProjectClosed(object sender, ProjectClosedMessage msg)
+        {
+            this.Groups = null;
         }
 
         #endregion

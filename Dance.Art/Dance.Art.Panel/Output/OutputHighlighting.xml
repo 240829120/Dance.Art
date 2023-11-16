@@ -2,6 +2,13 @@
 <SyntaxDefinition name="Output Highlighting" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
 	<Color name="LogTime" foreground="#ADADAD" exampleText="[21:22:52.123] ===>"/>
 	<RuleSet>
-		<Span color="LogTime" multiline="false" begin="\[" end="===>"  />
+		<Span color="LogTime" multiline="false" begin="\[" end="]"  />
+		<Keywords foreground="#ADADAD">
+			<Word>===></Word>
+		</Keywords>
+		<Keywords foreground="Blue">
+			<Word>发送</Word>
+			<Word>设备</Word>
+		</Keywords>
 	</RuleSet>
 </SyntaxDefinition>

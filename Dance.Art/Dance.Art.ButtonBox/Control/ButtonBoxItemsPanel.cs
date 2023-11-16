@@ -110,6 +110,14 @@ namespace Dance.Art.ButtonBox
             if (this.Owner == null || this.Owner.ItemsSource == null)
                 return availableSize;
 
+            foreach (FrameworkElement element in Children)
+            {
+                if (element == null || element.DataContext is not ButtonBoxItemModelBase model)
+                    continue;
+
+                element.Measure(new Size(this.Owner.UnitWidth, this.Owner.UnitHeight));
+            }
+
             return new Size(this.Owner.Columns * this.Owner.UnitWidth, this.Owner.Rows * this.Owner.UnitHeight);
         }
 
@@ -132,7 +140,10 @@ namespace Dance.Art.ButtonBox
                 element.Arrange(new Rect(model.Column * this.Owner.UnitWidth, model.Row * this.Owner.UnitHeight, this.Owner.UnitWidth, this.Owner.UnitHeight));
             }
 
-            return new Size(this.Owner.Columns * this.Owner.UnitWidth, this.Owner.Rows * this.Owner.UnitHeight);
+            double width = this.Owner.Columns * this.Owner.UnitWidth;
+            double height = this.Owner.Rows * this.Owner.UnitHeight;
+
+            return new Size(width, height);
         }
 
         /// <summary>
@@ -293,6 +304,22 @@ namespace Dance.Art.ButtonBox
 
             this.Owner.SelectedValue = null;
             this.Owner.IsSelectedCanvas = true;
+        }
+
+        // =================================================================================
+        // Public Function
+
+        /// <summary>
+        /// 更新画布大小
+        /// </summary>
+        public void UpdateCanvasSize()
+        {
+            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ButtonBoxItemsControl>(this);
+            if (this.Owner == null || this.Owner.ItemsSource == null || !this.Owner.IsDesignMode)
+                return;
+
+            this.Width = this.Owner.Columns * this.Owner.UnitWidth;
+            this.Height = this.Owner.Rows * this.Owner.UnitHeight;
         }
 
         // =================================================================================

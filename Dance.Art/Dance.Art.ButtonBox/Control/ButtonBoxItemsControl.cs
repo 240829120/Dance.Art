@@ -91,7 +91,7 @@ namespace Dance.Art.ButtonBox
                 if (s is not ButtonBoxItemsControl element)
                     return;
 
-                element.PART_Panel?.InvalidateVisual();
+                element.PART_Panel?.UpdateCanvasSize();
             })));
 
         #endregion
@@ -116,7 +116,7 @@ namespace Dance.Art.ButtonBox
                 if (s is not ButtonBoxItemsControl element)
                     return;
 
-                element.PART_Panel?.InvalidateVisual();
+                element.PART_Panel?.UpdateCanvasSize();
             })));
 
         #endregion
@@ -141,7 +141,7 @@ namespace Dance.Art.ButtonBox
                 if (s is not ButtonBoxItemsControl element)
                     return;
 
-                element.PART_Panel?.InvalidateVisual();
+                element.PART_Panel?.UpdateCanvasSize();
             })));
 
         #endregion
@@ -166,7 +166,7 @@ namespace Dance.Art.ButtonBox
                 if (s is not ButtonBoxItemsControl element)
                     return;
 
-                element.PART_Panel?.InvalidateVisual();
+                element.PART_Panel?.UpdateCanvasSize();
             })));
 
         #endregion

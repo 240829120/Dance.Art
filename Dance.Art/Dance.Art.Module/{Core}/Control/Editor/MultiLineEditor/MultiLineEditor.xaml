@@ -11,7 +11,7 @@
         <Setter Property="Height" Value="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.EDIT_HEIGHT_SMALL}}"></Setter>
         <Setter Property="EditValue" Value="{Binding Path=Value,Mode=TwoWay}"></Setter>
         <Setter Property="ToolTip" Value="{Binding Path=Value,Mode=OneWay}"></Setter>
-        <Setter Property="WindowTitle" Value="脚本编辑"></Setter>
+        <Setter Property="WindowTitle" Value="文本编辑"></Setter>
         <Setter Property="SyntaxHighlighting" Value="Txt"></Setter>
         <Setter Property="Icon" Value="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/txt.svg"></Setter>
         <Setter Property="Template">

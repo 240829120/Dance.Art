@@ -126,6 +126,7 @@ namespace Dance.Art.ButtonBox
                     try
                     {
                         source.Send(buffer);
+                        this.OutputManager.WriteLine($"设备: [{model.Name}] 发送 [{this.Command}]");
                     }
                     catch (Exception ex)
                     {

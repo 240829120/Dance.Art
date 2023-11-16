@@ -29,7 +29,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
-                        <dance:DanceSvgImage Width="14" Height="14" Margin="10,0,0,0"
+                        <dance:DanceSvgImage Width="14" Height="14" Margin="10,0,0,0" IsHitTestVisible="False"
                                              Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/search.svg"></dance:DanceSvgImage>
                         <TextBox Width="300" Text="{Binding Path=Filter,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"></TextBox>
                     </StackPanel>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace Dance.Art.ControlGrid
 {
@@ -30,7 +31,7 @@ namespace Dance.Art.ControlGrid
         /// <summary>
         /// 行
         /// </summary>
-        [Category(PropertyCategoryDefines.LAYOUT), Description("行"), DisplayName("行")]
+        [Category(PropertyCategoryDefines.LAYOUT), PropertyOrder(0), Description("行"), DisplayName("行")]
         public int Row
         {
             get { return row; }
@@ -45,7 +46,7 @@ namespace Dance.Art.ControlGrid
         /// <summary>
         /// 列
         /// </summary>
-        [Category(PropertyCategoryDefines.LAYOUT), Description("列"), DisplayName("列")]
+        [Category(PropertyCategoryDefines.LAYOUT), PropertyOrder(1), Description("列"), DisplayName("列")]
         public int Column
         {
             get { return column; }
@@ -60,7 +61,7 @@ namespace Dance.Art.ControlGrid
         /// <summary>
         /// 水平对齐
         /// </summary>
-        [Category(PropertyCategoryDefines.LAYOUT), Description("水平对齐"), DisplayName("水平对齐")]
+        [Category(PropertyCategoryDefines.LAYOUT), PropertyOrder(2), Description("水平对齐"), DisplayName("水平对齐")]
         public HorizontalAlignment HorizontalAlignment
         {
             get { return horizontalAlignment; }
@@ -75,7 +76,7 @@ namespace Dance.Art.ControlGrid
         /// <summary>
         /// 垂直对齐
         /// </summary>
-        [Category(PropertyCategoryDefines.LAYOUT), Description("垂直对齐"), DisplayName("垂直对齐")]
+        [Category(PropertyCategoryDefines.LAYOUT), PropertyOrder(3), Description("垂直对齐"), DisplayName("垂直对齐")]
         public VerticalAlignment VerticalAlignment
         {
             get { return verticalAlignment; }

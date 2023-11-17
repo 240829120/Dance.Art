@@ -122,6 +122,12 @@ namespace Dance.Art.ControlGrid
             if (e == null)
                 return;
 
+            if (!this.IsDesignMode)
+            {
+                e.IsCancel = true;
+                return;
+            }
+
             e.Data = this;
         }
 

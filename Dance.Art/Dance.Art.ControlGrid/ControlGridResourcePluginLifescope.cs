@@ -32,7 +32,9 @@ namespace Dance.Art.ControlGrid
             List<IResourceSource> resources = new()
             {
                 new CommandButtonSource(),
-                new ScriptButtonSource()
+                new ScriptButtonSource(),
+                new CheckBoxSource(),
+                new ComboBoxSource(),
             };
 
             return new ResourcePluginInfo(ID, NAME, resources.ToArray());

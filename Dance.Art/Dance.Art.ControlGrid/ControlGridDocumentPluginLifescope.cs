@@ -37,7 +37,9 @@ namespace Dance.Art.ControlGrid
             List<string> resouceIDs = new()
             {
                 ControlGridResourceDefines.CommandButton,
-                ControlGridResourceDefines.ScriptButton
+                ControlGridResourceDefines.ScriptButton,
+                ControlGridResourceDefines.CheckBox,
+                ControlGridResourceDefines.ComboBox,
             };
 
             return new ResourceDocumentPluginInfo(ID, NAME, typeof(ControlGridDocumentView), resouceIDs,

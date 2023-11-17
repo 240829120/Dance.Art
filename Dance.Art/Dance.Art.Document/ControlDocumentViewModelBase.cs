@@ -24,7 +24,7 @@ namespace Dance.Art.Document
         public override bool IsModify
         {
             get { return isModify; }
-            set { this.isModify = value; this.OnPropertyChanged(); }
+            set { this.isModify = value; this.UdateDocumentStatus(); }
         }
 
         #endregion

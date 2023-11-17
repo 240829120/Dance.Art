@@ -20,5 +20,15 @@ namespace Dance.Art.ControlGrid
         /// 脚本按钮
         /// </summary>
         public const string ScriptButton = "[Dance.Art.ControlGrid]:ScriptButton";
+
+        /// <summary>
+        /// 复选框
+        /// </summary>
+        public const string CheckBox = "[Dance.Art.ControlGrid]:CheckBox";
+
+        /// <summary>
+        /// 下拉列表
+        /// </summary>
+        public const string ComboBox = "[Dance.Art.ControlGrid]:ComboBox";
     }
 }

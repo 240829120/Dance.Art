@@ -19,15 +19,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:ControlGridItem">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid >
-                            <ContentPresenter x:Name="content" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></ContentPresenter>
-                            <Border x:Name="designPanel" Background="Transparent" Visibility="Collapsed"></Border>
-                        </Grid>
+                        <ContentPresenter x:Name="content" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></ContentPresenter>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDesignMode" Value="True">
                             <Setter TargetName="content" Property="IsHitTestVisible" Value="False"></Setter>
-                            <Setter TargetName="designPanel" Property="Visibility" Value="Visible"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

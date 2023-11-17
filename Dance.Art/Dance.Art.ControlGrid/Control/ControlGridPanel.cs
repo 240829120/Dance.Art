@@ -106,7 +106,6 @@ namespace Dance.Art.ControlGrid
         /// <returns>测量结果</returns>
         protected override Size MeasureOverride(Size availableSize)
         {
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this);
             if (this.Owner == null || this.Owner.ItemsSource == null)
                 return availableSize;
 
@@ -128,7 +127,6 @@ namespace Dance.Art.ControlGrid
         /// <returns>布局结果</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this);
             if (this.Owner == null || this.Owner.ItemsSource == null)
                 return finalSize;
 
@@ -151,7 +149,6 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         protected override void OnRender(DrawingContext dc)
         {
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this);
             if (this.Owner == null)
                 return;
 
@@ -180,7 +177,6 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         protected override void OnDragEnter(DragEventArgs e)
         {
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this);
             if (this.Owner == null || !this.Owner.IsDesignMode)
                 return;
 
@@ -206,7 +202,6 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         protected override void OnDragOver(DragEventArgs e)
         {
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this);
             if (this.Owner == null || !this.Owner.IsDesignMode)
                 return;
 
@@ -224,7 +219,6 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         protected override void OnDrop(DragEventArgs e)
         {
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this);
             if (this.Owner == null || !this.Owner.IsDesignMode)
                 return;
 
@@ -266,23 +260,11 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            base.OnPreviewMouseLeftButtonDown(e);
-
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this);
             if (this.Owner == null || this.Owner.ItemsSource == null || !this.Owner.IsDesignMode)
+            {
+                base.OnPreviewMouseLeftButtonDown(e);
                 return;
-
-            this.Owner.IsSelectedCanvas = false;
-        }
-
-        /// <summary>
-        /// 鼠标左键按下
-        /// </summary>
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this);
-            if (this.Owner == null || this.Owner.ItemsSource == null || !this.Owner.IsDesignMode)
-                return;
+            }
 
             Point point = e.GetPosition(this);
             int row = (int)(point.Y / this.Owner.UnitHeight);
@@ -298,12 +280,11 @@ namespace Dance.Art.ControlGrid
                     this.Owner.IsSelectedCanvas = false;
                     this.Owner.SelectedValue = item;
 
+                    e.Handled = true;
+
                     return;
                 }
             }
-
-            this.Owner.SelectedValue = null;
-            this.Owner.IsSelectedCanvas = true;
         }
 
         // =================================================================================
@@ -314,7 +295,6 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         public void UpdateCanvasSize()
         {
-            this.Owner ??= DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this);
             if (this.Owner == null || this.Owner.ItemsSource == null || !this.Owner.IsDesignMode)
                 return;
 
@@ -333,7 +313,8 @@ namespace Dance.Art.ControlGrid
             if (DanceXamlExpansion.GetVisualTreeParent<ControlGrid>(this) is not ControlGrid owner)
                 return;
 
-            owner.PART_Panel = this;
+            this.Owner = owner;
+            this.Owner.PART_Panel = this;
         }
 
         /// <summary>

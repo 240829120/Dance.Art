@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Dance.Art.ControlGrid
 {
@@ -204,6 +205,20 @@ namespace Dance.Art.ControlGrid
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new ControlGridItem();
+        }
+
+        /// <summary>
+        /// 鼠标左键按下
+        /// </summary>
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnPreviewMouseLeftButtonDown(e);
+
+            if (!this.IsDesignMode)
+                return;
+
+            this.SelectedValue = null;
+            this.IsSelectedCanvas = true;
         }
 
         // =================================================================================

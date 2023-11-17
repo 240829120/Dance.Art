@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dance="http://schemas.dance.com/wpf"
+                    xmlns:local="clr-namespace:Dance.Art.ControlGrid">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Dance.Wpf;component/Themes/Styles/ComboBox.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
+    <dance:DanceColorSolidColorBrushConverter x:Key="DanceColorSolidColorBrushConverter"></dance:DanceColorSolidColorBrushConverter>
+
+    <Style TargetType="local:ComboBox" BasedOn="{StaticResource ComboBox}">
+        <Setter Property="Background" Value="{Binding BackgroundColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>
+        <Setter Property="Foreground" Value="{Binding ForegroundColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>
+        <Setter Property="BorderBrush" Value="{Binding BorderColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>
+        <Setter Property="BorderThickness" Value="{Binding BorderThickness}"></Setter>
+        <Setter Property="SelectedValue" Value="{Binding Value,Mode=TwoWay}"></Setter>
+        <Setter Property="ItemsSource" Value="{Binding Items,Mode=OneWay}"></Setter>
+        <Setter Property="IsSynchronizedWithCurrentItem" Value="True"></Setter>
+        <Setter Property="IsEditable" Value="False"></Setter>
+        <Setter Property="Width" Value="NaN"></Setter>
+        <Setter Property="Height" Value="NaN"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Control/ControlGrid.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Resource/CheckBox/CheckBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Resource/Label/Label.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Resource/ComboBox/ComboBox.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Resource/CommandButton/CommandButton.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Resource/ScriptButton/ScriptButton.xaml"></ResourceDictionary>

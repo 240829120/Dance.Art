@@ -220,19 +220,5 @@ namespace Dance.Art.ControlGrid
             this.SelectedValue = null;
             this.IsSelectedCanvas = true;
         }
-
-        // =================================================================================
-        // Public Function
-
-        /// <summary>
-        /// 刷新
-        /// </summary>
-        public void Refresh()
-        {
-            Application.Current.Dispatcher.BeginInvoke(() =>
-            {
-                this.PART_Panel?.InvalidateVisual();
-            });
-        }
     }
 }

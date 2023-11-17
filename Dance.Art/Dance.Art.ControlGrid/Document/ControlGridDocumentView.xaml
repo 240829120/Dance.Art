@@ -19,10 +19,10 @@
 
     <Grid>
         <local:ControlGrid x:Name="controlGrid"
-                           Rows="{Binding Path=CanvasModel.Rows}"
-                           Columns="{Binding Path=CanvasModel.Columns}"
-                           UnitWidth="{Binding Path=CanvasModel.UnitWidth}"
-                           UnitHeight="{Binding Path=CanvasModel.UnitHeight}"
+                           Rows="{Binding Path=ControlGridModel.Rows}"
+                           Columns="{Binding Path=ControlGridModel.Columns}"
+                           UnitWidth="{Binding Path=ControlGridModel.UnitWidth}"
+                           UnitHeight="{Binding Path=ControlGridModel.UnitHeight}"
                            ItemsSource="{Binding Path=Items,Mode=OneWay}"
                            SelectedValue="{Binding Path=SelectedValue,Mode=TwoWay}"
                            IsSelectedCanvas="{Binding Path=IsSelectedCanvas,Mode=TwoWay}"

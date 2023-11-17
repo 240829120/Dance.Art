@@ -1,7 +1,5 @@
 ﻿import { DataSetModelWrapper, DataSourceModelWrapperBase } from './index'
 
-
-
 /**
  * Excel数据模型包装器
  */
@@ -14,6 +12,9 @@ class ExcelDataSourceModelWrapper extends DataSourceModelWrapperBase {
     constructor(HOST_OBJECT) {
         super(HOST_OBJECT);
     }
+
+    /* ============================================================================================ */
+    /* Function */
 
     /**
      * 获取数据集

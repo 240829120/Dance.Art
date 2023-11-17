@@ -30,5 +30,10 @@ namespace Dance.Art.ControlGrid
         /// 下拉列表
         /// </summary>
         public const string ComboBox = "[Dance.Art.ControlGrid]:ComboBox";
+
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public const string Label = "[Dance.Art.ControlGrid]:Label";
     }
 }

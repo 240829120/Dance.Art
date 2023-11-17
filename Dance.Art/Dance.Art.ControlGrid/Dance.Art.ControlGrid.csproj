@@ -11,7 +11,12 @@
     <None Remove="Themes\Resources\Icons\checkbox.svg" />
     <None Remove="Themes\Resources\Icons\combobox.svg" />
     <None Remove="Themes\Resources\Icons\command_button.svg" />
+    <None Remove="Themes\Resources\Icons\label.svg" />
     <None Remove="Themes\Resources\Icons\script_button.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Icons\label.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,8 +31,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DANCE_ART\ControlGrid\" />
-    <Folder Include="Script\" />
+    <Folder Include="DANCE_ART\Document\" />
+    <Folder Include="DANCE_ART\Resource\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Dance.Art.Script\DANCE_ART\Document\index.js" Link="DANCE_ART\Document\index.js" />
+    <None Include="..\Dance.Art.Script\DANCE_ART\Resource\index.js" Link="DANCE_ART\Resource\index.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +52,24 @@
     <Compile Update="Document\ControlGridDocumentView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DANCE_ART\ControlGrid\scriptButton.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DANCE_ART\ControlGrid\commandButton.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DANCE_ART\ControlGrid\comboBox.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DANCE_ART\ControlGrid\checkBox.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DANCE_ART\ControlGrid\index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

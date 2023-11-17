@@ -48,11 +48,6 @@ namespace Dance.Art.Domain
         /// </summary>
         private readonly Dictionary<ScriptServiceInfo, object?> ServiceCache = new();
 
-        /// <summary>
-        /// 是否已经销毁
-        /// </summary>
-        private bool IsDestroyed;
-
         // ===========================================================================================
         // Public Function
 
@@ -85,17 +80,6 @@ namespace Dance.Art.Domain
                 }
 
                 return this.ServiceCache[serviceInfo];
-            }
-        }
-
-        /// <summary>
-        /// 销毁
-        /// </summary>
-        protected override void Destroy()
-        {
-            lock (this.ServiceCache)
-            {
-
             }
         }
     }

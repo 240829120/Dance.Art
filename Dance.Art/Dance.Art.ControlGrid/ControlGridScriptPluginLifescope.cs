@@ -1,5 +1,4 @@
 ﻿using Dance.Art.Domain;
-using Dance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +8,24 @@ using System.Threading.Tasks;
 namespace Dance.Art.ControlGrid
 {
     /// <summary>
-    /// 按钮组资源插件生命周期
+    /// 控制面板插件生命周期
     /// </summary>
-    public class ControlGridResourcePluginLifescope : DanceObject, IDancePluginLifescope
+    public class ControlGridScriptPluginLifescope : DanceObject, IDancePluginLifescope
     {
         /// <summary>
         /// 编号
         /// </summary>
-        public const string ID = "[Dance.Art.ControlGrid]:Resource";
+        public const string ID = "[Dance.Art.ControlGrid]:Script";
 
         /// <summary>
         /// 名称
         /// </summary>
-        public const string NAME = "按钮面板资源";
+        public const string NAME = "控制面板脚本";
+
+        /// <summary>
+        /// 命名空间
+        /// </summary>
+        public const string NAME_SPACE = ScriptNameSpace.DANCE_ART_SCRIPT;
 
         /// <summary>
         /// 注册插件
@@ -29,16 +33,7 @@ namespace Dance.Art.ControlGrid
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            List<IResourceSource> resources = new()
-            {
-                new LabelSource(),
-                new CommandButtonSource(),
-                new ScriptButtonSource(),
-                new CheckBoxSource(),
-                new ComboBoxSource(),
-            };
-
-            return new ResourcePluginInfo(ID, NAME, resources.ToArray());
+            return new ScriptPluginInfo(ID, NAME, new ScriptServiceInfo(NAME_SPACE, "ControlGridScriptService", typeof(ControlGridScriptService)));
         }
 
         /// <summary>
@@ -50,4 +45,3 @@ namespace Dance.Art.ControlGrid
         }
     }
 }
-

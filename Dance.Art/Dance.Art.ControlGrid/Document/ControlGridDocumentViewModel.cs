@@ -53,16 +53,7 @@ namespace Dance.Art.ControlGrid
         public ControlGridModel? ControlGridModel
         {
             get { return controlGridModel; }
-            set
-            {
-                controlGridModel = value;
-                this.OnPropertyChanged();
-
-                if (this.View is not ControlGridDocumentView view)
-                    return;
-
-                view.controlGrid.Refresh();
-            }
+            set { controlGridModel = value; this.OnPropertyChanged(); }
         }
 
         #endregion
@@ -262,6 +253,19 @@ namespace Dance.Art.ControlGrid
                 this.IsModify = false;
                 this.UdateDocumentStatus();
             });
+        }
+
+        // ====================================================================================
+        // Public Function
+
+        /// <summary>
+        /// 根据ID获取项
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>项</returns>
+        public ControlGridItemModelBase? GetItemByID(string id)
+        {
+            return this.Items?.FirstOrDefault(p => string.Equals(p.ID, id));
         }
     }
 }

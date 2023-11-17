@@ -61,6 +61,59 @@ class DataSetModelWrapper {
         this.HOST_OBJECT = HOST_OBJECT;
     }
 
+    /* ============================================================================================ */
+    /* Property */
+
+    /* ----------------------------------------------------- */
+    /* content */
+
+    /**
+     * 获取最小行号
+     * @returns {number}
+     */
+    get minRow() {
+        if (this.HOST_OBJECT === null || this.HOST_OBJECT === undefined)
+            return null;
+
+        return this.HOST_OBJECT.MinRow;
+    }
+
+    /**
+     * 获取最大行号
+     * @returns {number}
+     */
+    get maxRow() {
+        if (this.HOST_OBJECT === null || this.HOST_OBJECT === undefined)
+            return null;
+
+        return this.HOST_OBJECT.MaxRow;
+    }
+
+    /**
+     * 获取最小列号
+     * @returns {number}
+     */
+    get minColumn() {
+        if (this.HOST_OBJECT === null || this.HOST_OBJECT === undefined)
+            return null;
+
+        return this.HOST_OBJECT.MinColumn;
+    }
+
+    /**
+     * 获取最小列号
+     * @returns {number}
+     */
+    get maxColumn() {
+        if (this.HOST_OBJECT === null || this.HOST_OBJECT === undefined)
+            return null;
+
+        return this.HOST_OBJECT.MaxColumn;
+    }
+
+    /* ============================================================================================ */
+    /* Function */
+
     /**
      * 获取单元格
      * @param {number} row 行号

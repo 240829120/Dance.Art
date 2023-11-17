@@ -12,8 +12,8 @@
         <Setter Property="BorderBrush" Value="{Binding BorderColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>
         <Setter Property="BorderThickness" Value="{Binding BorderThickness}"></Setter>
         <Setter Property="Content" Value="{Binding Content}"></Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-        <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalAlignment}"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalAlignment}"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:Label">

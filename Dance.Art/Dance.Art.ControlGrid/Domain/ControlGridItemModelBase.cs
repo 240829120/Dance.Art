@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Dance.Art.ControlGrid
 {
@@ -49,6 +50,36 @@ namespace Dance.Art.ControlGrid
         {
             get { return column; }
             set { column = value; this.OnWrapperPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region HorizontalAlignment -- 水平对齐
+
+        private HorizontalAlignment horizontalAlignment = HorizontalAlignment.Left;
+        /// <summary>
+        /// 水平对齐
+        /// </summary>
+        [Category(PropertyCategoryDefines.LAYOUT), Description("水平对齐"), DisplayName("水平对齐")]
+        public HorizontalAlignment HorizontalAlignment
+        {
+            get { return horizontalAlignment; }
+            set { horizontalAlignment = value; this.OnWrapperPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region VerticalAlignment -- 垂直对齐
+
+        private VerticalAlignment verticalAlignment = VerticalAlignment.Center;
+        /// <summary>
+        /// 垂直对齐
+        /// </summary>
+        [Category(PropertyCategoryDefines.LAYOUT), Description("垂直对齐"), DisplayName("垂直对齐")]
+        public VerticalAlignment VerticalAlignment
+        {
+            get { return verticalAlignment; }
+            set { verticalAlignment = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion

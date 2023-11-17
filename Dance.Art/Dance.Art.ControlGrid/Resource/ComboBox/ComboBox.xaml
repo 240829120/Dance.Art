@@ -19,8 +19,8 @@
         <Setter Property="IsEditable" Value="False"></Setter>
         <Setter Property="Width" Value="NaN"></Setter>
         <Setter Property="Height" Value="NaN"></Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-        <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalAlignment}"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalAlignment}"></Setter>
     </Style>
 
 </ResourceDictionary>

@@ -26,7 +26,7 @@ namespace Dance.Art.ControlGrid
         /// <summary>
         /// 描述
         /// </summary>
-        public const string Description = @"由一组控件按照表格分布的控制面板";
+        public const string Description = @"控件按照表格分布的控制面板";
 
         /// <summary>
         /// 注册插件

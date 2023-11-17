@@ -19,6 +19,13 @@ namespace Dance.Art
         {
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
+            if (DateTime.Now >= DateTime.Parse("2024/3/1"))
+            {
+                MessageBox.Show("软件过期");
+                this.Shutdown();
+                return;
+            }
+
             DanceDomain.Current = new ArtDomain();
             ArtDomain.Current.IocBuilder.AddAssemblys("Dance.Art.");
             ArtDomain.Current.PluginAssemblyPrefixes.Add("Dance.Art.");

@@ -81,6 +81,9 @@ namespace Dance.Art.ControlGrid
                 selectedValue = value;
                 this.OnPropertyChanged();
 
+                if (!this.IsDesignMode)
+                    return;
+
                 DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, value));
             }
         }

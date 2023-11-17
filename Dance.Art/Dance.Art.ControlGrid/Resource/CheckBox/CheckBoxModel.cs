@@ -37,7 +37,7 @@ namespace Dance.Art.ControlGrid
 
         #region Content -- 内容
 
-        private string? content = "命令按钮";
+        private string? content = "复选框";
         /// <summary>
         /// 内容
         /// </summary>

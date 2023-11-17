@@ -11,6 +11,29 @@ namespace Dance.Art.Domain
     /// </summary>
     public class ResourceInfoItemModel : DanceModel
     {
+        #region IsExpanded -- 是否展开
+
+        private bool isExpanded;
+        /// <summary>
+        /// 是否展开
+        /// </summary>
+        public bool IsExpanded
+        {
+            get { return isExpanded; }
+            set { isExpanded = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region Items -- 项集合
+
+        /// <summary>
+        /// 项集合
+        /// </summary>
+        public List<ResourceInfoItemModel> Items { get; } = new();
+
+        #endregion
+
         #region Icon -- 图标
 
         private string? icon;

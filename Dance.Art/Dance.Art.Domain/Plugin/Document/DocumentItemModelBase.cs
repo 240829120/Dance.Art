@@ -13,7 +13,7 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 文档项模型
     /// </summary>
-    public abstract class DocumentItemModelBase : DanceWrapperModel, IDanceJsonObject
+    public abstract class DocumentItemModelBase : DanceWrapperModel, IDanceJsonObject, IDocumentItemModel
     {
         /// <summary>
         /// 对象类型

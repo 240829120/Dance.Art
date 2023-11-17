@@ -24,6 +24,6 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 按钮面板
         /// </summary>
-        public const string BUTTON_PANEL = ".art_bp";
+        public const string BUTTON_PANEL = ".art_cg";
     }
 }

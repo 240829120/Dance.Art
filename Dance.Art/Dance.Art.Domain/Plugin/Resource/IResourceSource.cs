@@ -41,6 +41,6 @@ namespace Dance.Art.Domain
         /// </summary>
         /// <param name="projectDomain">项目领域</param>
         /// <returns>实例</returns>
-        ResourceItemMoelBase CreateInstance(ProjectDomain projectDomain);
+        ResourceItemModelBase CreateInstance(ProjectDomain projectDomain);
     }
 }

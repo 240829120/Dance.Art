@@ -33,12 +33,39 @@ namespace Dance.Art.Domain
         /// </summary>
         protected override void OnWrapperPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            base.OnWrapperPropertyChanged(propertyName);
+            if (System.Windows.Application.Current == null || System.Windows.Application.Current.Dispatcher == null)
+            {
+                OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
 
-            if (this.OwnerDocument == null)
+                if (this.OwnerDocument != null)
+                {
+                    this.OwnerDocument.IsModify = true;
+                }
+
                 return;
+            }
 
-            this.OwnerDocument.IsModify = true;
+            if (System.Windows.Application.Current.Dispatcher.CheckAccess())
+            {
+                OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+
+                if (this.OwnerDocument != null)
+                {
+                    this.OwnerDocument.IsModify = true;
+                }
+
+                return;
+            }
+
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+
+                if (this.OwnerDocument != null)
+                {
+                    this.OwnerDocument.IsModify = true;
+                }
+            });
         }
     }
 }

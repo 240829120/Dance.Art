@@ -144,6 +144,9 @@ namespace Dance.Art.ControlGrid
             if (e == null || ArtDomain.Current.ProjectDomain == null || e.Model == null)
                 return;
 
+            if (this.Items.Any(p => p.Column == e.Column && p.Row == e.Row))
+                return;
+
             e.Model.Row = e.Row;
             e.Model.Column = e.Column;
 
@@ -264,6 +267,8 @@ namespace Dance.Art.ControlGrid
                         model.Row = r;
 
                         this.Items.Add(model);
+
+                        model.IsSelected = true;
 
                         return;
                     }

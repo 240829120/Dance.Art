@@ -1,83 +1,84 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Themes\Resources\Icons\button_box.svg" />
-    <None Remove="Themes\Resources\Icons\checkbox.svg" />
-    <None Remove="Themes\Resources\Icons\combobox.svg" />
-    <None Remove="Themes\Resources\Icons\command_button.svg" />
-    <None Remove="Themes\Resources\Icons\label.svg" />
-    <None Remove="Themes\Resources\Icons\script_button.svg" />
-    <None Remove="Themes\Resources\Icons\textbox.svg" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Themes\Resources\Icons\button_box.svg" />
+		<None Remove="Themes\Resources\Icons\checkbox.svg" />
+		<None Remove="Themes\Resources\Icons\combobox.svg" />
+		<None Remove="Themes\Resources\Icons\command_button.svg" />
+		<None Remove="Themes\Resources\Icons\label.svg" />
+		<None Remove="Themes\Resources\Icons\script_button.svg" />
+		<None Remove="Themes\Resources\Icons\textbox.svg" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Themes\Resources\Icons\label.svg" />
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="Themes\Resources\Icons\label.svg" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
-    <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
-    <ProjectReference Include="..\Dance.Art.Device\Dance.Art.Device.csproj" />
-    <ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
-    <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
-    <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
-    <ProjectReference Include="..\Dance.Art.Script\Dance.Art.Script.csproj" />
-    <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
+		<ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+		<ProjectReference Include="..\Dance.Art.DataSource\Dance.Art.DataSource.csproj" />
+		<ProjectReference Include="..\Dance.Art.Device\Dance.Art.Device.csproj" />
+		<ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
+		<ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
+		<ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
+		<ProjectReference Include="..\Dance.Art.Script\Dance.Art.Script.csproj" />
+		<ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DANCE_ART\Document\" />
-    <Folder Include="DANCE_ART\Resource\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="DANCE_ART\Document\" />
+		<Folder Include="DANCE_ART\Resource\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\Dance.Art.Script\DANCE_ART\Document\index.js" Link="DANCE_ART\Document\index.js" />
-    <None Include="..\Dance.Art.Script\DANCE_ART\Resource\index.js" Link="DANCE_ART\Resource\index.js" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\Dance.Art.Script\DANCE_ART\Document\index.js" Link="DANCE_ART\Document\index.js" />
+		<None Include="..\Dance.Art.Script\DANCE_ART\Resource\index.js" Link="DANCE_ART\Resource\index.js" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Themes\Resources\Icons\button_box.svg" />
-    <Resource Include="Themes\Resources\Icons\checkbox.svg" />
-    <Resource Include="Themes\Resources\Icons\combobox.svg" />
-    <Resource Include="Themes\Resources\Icons\command_button.svg" />
-    <Resource Include="Themes\Resources\Icons\script_button.svg" />
-    <Resource Include="Themes\Resources\Icons\textbox.svg" />
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="Themes\Resources\Icons\button_box.svg" />
+		<Resource Include="Themes\Resources\Icons\checkbox.svg" />
+		<Resource Include="Themes\Resources\Icons\combobox.svg" />
+		<Resource Include="Themes\Resources\Icons\command_button.svg" />
+		<Resource Include="Themes\Resources\Icons\script_button.svg" />
+		<Resource Include="Themes\Resources\Icons\textbox.svg" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Document\ControlGridDocumentView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Document\ControlGridDocumentView.xaml.cs">
+			<SubType>Code</SubType>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="DANCE_ART\ControlGrid\scriptButton.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="DANCE_ART\ControlGrid\commandButton.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="DANCE_ART\ControlGrid\comboBox.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="DANCE_ART\ControlGrid\checkBox.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="DANCE_ART\ControlGrid\index.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="DANCE_ART\ControlGrid\scriptButton.js">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="DANCE_ART\ControlGrid\commandButton.js">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="DANCE_ART\ControlGrid\comboBox.js">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="DANCE_ART\ControlGrid\checkBox.js">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="DANCE_ART\ControlGrid\index.js">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Page Update="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
+	<ItemGroup>
+		<Page Update="Themes\Generic.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
 
 </Project>

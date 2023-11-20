@@ -1,32 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="logo.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Dance\Dance\Dance.Common\Dance.Common.csproj" />
     <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
     <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
-    <ProjectReference Include="..\Dance.Art.ControlGrid\Dance.Art.ControlGrid.csproj" />
     <ProjectReference Include="..\Dance.Art.DataSource\Dance.Art.DataSource.csproj" />
     <ProjectReference Include="..\Dance.Art.Device\Dance.Art.Device.csproj" />
     <ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
     <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
     <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
-    <ProjectReference Include="..\Dance.Art.Panel\Dance.Art.Panel.csproj" />
-    <ProjectReference Include="..\Dance.Art.Script\Dance.Art.Script.csproj" />
     <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
-    <ProjectReference Include="..\Dance.Art.Template\Dance.Art.Template.csproj" />
-    <ProjectReference Include="..\Dance.Art.Timeline\Dance.Art.Timeline.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Control\" />
+    <Folder Include="DANCE_ART\Timeline\" />
+    <Folder Include="Document\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Resource\" />
+    <Folder Include="Storage\" />
   </ItemGroup>
 
 </Project>

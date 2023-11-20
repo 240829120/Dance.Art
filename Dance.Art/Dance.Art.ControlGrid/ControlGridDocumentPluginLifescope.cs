@@ -34,17 +34,7 @@ namespace Dance.Art.ControlGrid
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            List<string> resouceIDs = new()
-            {
-                ControlGridResourceDefines.CommandButton,
-                ControlGridResourceDefines.ScriptButton,
-                ControlGridResourceDefines.CheckBox,
-                ControlGridResourceDefines.ComboBox,
-                ControlGridResourceDefines.Label,
-                ControlGridResourceDefines.TextBox,
-            };
-
-            return new ResourceDocumentPluginInfo(ID, NAME, typeof(ControlGridDocumentView), resouceIDs,
+            return new ResourceDocumentPluginInfo(ID, NAME, typeof(ControlGridDocumentView), typeof(IControlGridItemModel),
                                                   new DocumentFileInfo(DocumentFileGroupDefines.TEMPLATE, true, FileSuffixCategory.BUTTON_PANEL,
                                                                        "pack://application:,,,/Dance.Art.ControlGrid;component/Themes/Resources/Icons/button_box.svg",
                                                                        Description));

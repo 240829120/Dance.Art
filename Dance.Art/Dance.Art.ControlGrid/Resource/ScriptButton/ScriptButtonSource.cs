@@ -38,6 +38,11 @@ namespace Dance.Art.ControlGrid
         public string Description { get; } = "脚本按钮";
 
         /// <summary>
+        /// 资源类型
+        /// </summary>
+        public Type ResourceType { get; } = typeof(ScriptButtonModel);
+
+        /// <summary>
         /// 创建实例
         /// </summary>
         /// <param name="projectDomain">项目领域</param>

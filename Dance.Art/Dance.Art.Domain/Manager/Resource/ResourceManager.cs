@@ -49,7 +49,7 @@ namespace Dance.Art.Domain
 
                     foreach (var item in plugin.Resources)
                     {
-                        if (pluginInfo.ResourceIDs.Contains(item.ID))
+                        if (item.ResourceType.IsAssignableTo(item.ResourceType))
                         {
                             TryAddResource(groups, item);
                         }

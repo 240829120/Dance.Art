@@ -37,6 +37,11 @@ namespace Dance.Art.Domain
         string Description { get; }
 
         /// <summary>
+        /// 资源类型
+        /// </summary>
+        Type ResourceType { get; }
+
+        /// <summary>
         /// 创建实例
         /// </summary>
         /// <param name="projectDomain">项目领域</param>

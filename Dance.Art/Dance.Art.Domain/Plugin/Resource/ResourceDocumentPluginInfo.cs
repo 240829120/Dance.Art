@@ -17,16 +17,16 @@ namespace Dance.Art.Domain
         /// <param name="id">编号</param>
         /// <param name="name">名称</param>
         /// <param name="viewType">视图类型</param>
-        /// <param name="resourceIDs">资源ID集合</param>
+        /// <param name="resourceType">资源类型</param>
         /// <param name="fileInfos">文件信息</param>
-        public ResourceDocumentPluginInfo(string id, string name, Type? viewType, IEnumerable<string> resourceIDs, params DocumentFileInfo[] fileInfos) : base(id, name, viewType, fileInfos)
+        public ResourceDocumentPluginInfo(string id, string name, Type? viewType, Type resourceType, params DocumentFileInfo[] fileInfos) : base(id, name, viewType, fileInfos)
         {
-            this.ResourceIDs.AddRange(resourceIDs);
+            this.ResourceType = resourceType;
         }
 
         /// <summary>
-        /// 资源ID集合
+        /// 资源类型
         /// </summary>
-        public List<string> ResourceIDs { get; } = new();
+        public Type ResourceType { get; }
     }
 }

@@ -13,6 +13,7 @@
     <None Remove="Themes\Resources\Icons\command_button.svg" />
     <None Remove="Themes\Resources\Icons\label.svg" />
     <None Remove="Themes\Resources\Icons\script_button.svg" />
+    <None Remove="Themes\Resources\Icons\textbox.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +47,7 @@
     <Resource Include="Themes\Resources\Icons\combobox.svg" />
     <Resource Include="Themes\Resources\Icons\command_button.svg" />
     <Resource Include="Themes\Resources\Icons\script_button.svg" />
+    <Resource Include="Themes\Resources\Icons\textbox.svg" />
   </ItemGroup>
 
   <ItemGroup>

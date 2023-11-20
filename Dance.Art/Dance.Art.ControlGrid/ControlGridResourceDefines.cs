@@ -35,5 +35,10 @@ namespace Dance.Art.ControlGrid
         /// 标签
         /// </summary>
         public const string Label = "[Dance.Art.ControlGrid]:Label";
+
+        /// <summary>
+        /// 文本框
+        /// </summary>
+        public const string TextBox = "[Dance.Art.ControlGrid]:TextBox";
     }
 }

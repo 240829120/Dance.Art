@@ -36,6 +36,7 @@ namespace Dance.Art.ControlGrid
                 new ScriptButtonSource(),
                 new CheckBoxSource(),
                 new ComboBoxSource(),
+                new TextBoxSource(),
             };
 
             return new ResourcePluginInfo(ID, NAME, resources.ToArray());

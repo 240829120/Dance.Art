@@ -8,5 +8,6 @@
         <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Resource/ComboBox/ComboBox.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Resource/CommandButton/CommandButton.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Resource/ScriptButton/ScriptButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Dance.Art.ControlGrid;component/Resource/TextBox/TextBox.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

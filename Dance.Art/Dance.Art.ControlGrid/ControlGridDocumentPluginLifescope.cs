@@ -41,6 +41,7 @@ namespace Dance.Art.ControlGrid
                 ControlGridResourceDefines.CheckBox,
                 ControlGridResourceDefines.ComboBox,
                 ControlGridResourceDefines.Label,
+                ControlGridResourceDefines.TextBox,
             };
 
             return new ResourceDocumentPluginInfo(ID, NAME, typeof(ControlGridDocumentView), resouceIDs,

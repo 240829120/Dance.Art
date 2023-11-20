@@ -41,7 +41,7 @@ namespace Dance.Art.ControlGrid
         /// <summary>
         /// 值
         /// </summary>
-        [Category(PropertyCategoryDefines.OTHER), Description("内容"), DisplayName("内容")]
+        [Category(PropertyCategoryDefines.OTHER), Description("值"), DisplayName("值")]
         public string? Value
         {
             get { return _value; }

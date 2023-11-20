@@ -20,6 +20,6 @@ namespace Dance.Art.ControlGrid
         /// <summary>
         /// 项对象
         /// </summary>
-        public List<ControlGridItemModelBase>? Items { get; set; }
+        public List<IControlGridItemModel>? Items { get; set; }
     }
 }

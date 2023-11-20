@@ -13,11 +13,46 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <dance:DanceHotkeyTrigger.HotkeyBindings>
         <dance:DanceHotkeyCollection>
+            <dance:DanceHotkeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Path=CopyCommand}"></dance:DanceHotkeyBinding>
+            <dance:DanceHotkeyBinding Modifiers="Ctrl" Key="V" Command="{Binding Path=PasteCommand}"></dance:DanceHotkeyBinding>
             <dance:DanceHotkeyBinding Key="Delete" Command="{Binding Path=DeleteCommand}"></dance:DanceHotkeyBinding>
         </dance:DanceHotkeyCollection>
     </dance:DanceHotkeyTrigger.HotkeyBindings>
 
-    <Grid>
+    <UserControl.Resources>
+        <dance:DanceMappingConverter x:Key="ContextMenuConverter">
+            <dance:DanceMappingConverterItem>
+                <dance:DanceMappingConverterItem.From>
+                    <sys:Boolean>True</sys:Boolean>
+                </dance:DanceMappingConverterItem.From>
+                <dance:DanceMappingConverterItem.To>
+                    <ContextMenu>
+                        <MenuItem Header="复制" Command="{Binding Path=CopyCommand}"
+                          InputGestureText="Ctrl+C">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/copy.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="粘贴" Command="{Binding Path=PasteCommand}"
+                          InputGestureText="Ctrl+V">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/paste.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Header="删除" Command="{Binding Path=DeleteCommand}"
+                          InputGestureText="Delete">
+                            <MenuItem.Icon>
+                                <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </dance:DanceMappingConverterItem.To>
+            </dance:DanceMappingConverterItem>
+        </dance:DanceMappingConverter>
+    </UserControl.Resources>
+
+    <Grid Background="Transparent">
         <local:ControlGrid x:Name="controlGrid"
                            Rows="{Binding Path=ControlGridModel.Rows}"
                            Columns="{Binding Path=ControlGridModel.Columns}"
@@ -27,7 +62,9 @@
                            SelectedValue="{Binding Path=SelectedValue,Mode=TwoWay}"
                            IsSelectedCanvas="{Binding Path=IsSelectedCanvas,Mode=TwoWay}"
                            DropCommand="{Binding ResourceDropCommand}"
-                           IsDesignMode="{Binding Path=IsDesignMode,Mode=OneWay}">
+                           IsDesignMode="{Binding Path=IsDesignMode,Mode=OneWay}"
+                           ContextMenu="{Binding IsDesignMode,Converter={StaticResource ContextMenuConverter}}">
+
         </local:ControlGrid>
     </Grid>
 </UserControl>

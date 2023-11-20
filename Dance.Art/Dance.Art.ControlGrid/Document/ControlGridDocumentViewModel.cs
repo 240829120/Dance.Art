@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Dance.Art.ControlGrid
 {
@@ -25,7 +26,7 @@ namespace Dance.Art.ControlGrid
         {
             // 命令
             this.ResourceDropCommand = new(this.ResourceDrop);
-            this.DeleteCommand = new(this.Delete);
+            this.DeleteCommand = new(this.Delete, this.CanDelete);
 
             // 消息
             DanceDomain.Current.Messenger.Register<DockingDesignModeChangedMessage>(this, this.OnDockingDesignModeChanged);
@@ -63,17 +64,17 @@ namespace Dance.Art.ControlGrid
         /// <summary>
         /// 项集合
         /// </summary>
-        public DanceWrapperCollection<ControlGridItemModelBase> Items { get; } = new();
+        public DocumentWrapperCollection<IControlGridItemModel> Items { get; } = new();
 
         #endregion
 
         #region SelectedValue -- 当前选中项
 
-        private ControlGridItemModelBase? selectedValue;
+        private IControlGridItemModel? selectedValue;
         /// <summary>
         /// 当前选中项
         /// </summary>
-        public ControlGridItemModelBase? SelectedValue
+        public IControlGridItemModel? SelectedValue
         {
             get { return selectedValue; }
             set
@@ -167,6 +168,15 @@ namespace Dance.Art.ControlGrid
         public RelayCommand DeleteCommand { get; private set; }
 
         /// <summary>
+        /// 是否可以删除
+        /// </summary>
+        /// <returns></returns>
+        private bool CanDelete()
+        {
+            return this.IsDesignMode && this.SelectedValue != null;
+        }
+
+        /// <summary>
         /// 删除
         /// </summary>
         private void Delete()
@@ -183,6 +193,82 @@ namespace Dance.Art.ControlGrid
             this.Items.Remove(this.SelectedValue);
             this.SelectedValue = null;
             this.IsModify = true;
+        }
+
+        #endregion
+
+        #region CopyCommand -- 拷贝命令
+
+        /// <summary>
+        /// 是否可以拷贝
+        /// </summary>
+        /// <returns></returns>
+        protected override bool CanCopy()
+        {
+            return this.IsDesignMode && this.SelectedValue != null;
+        }
+
+        /// <summary>
+        /// 拷贝
+        /// </summary>
+        protected override void Copy()
+        {
+            if (DanceXamlExpansion.IsInDesignMode)
+                return;
+
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive)
+                return;
+
+            if (!this.IsDesignMode || this.SelectedValue == null)
+                return;
+
+            Clipboard.SetData(typeof(IControlGridItemModel).FullName, JsonConvert.SerializeObject(this.SelectedValue));
+        }
+
+        #endregion
+
+        #region PasteCommand -- 粘贴命令
+
+        /// <summary>
+        /// 粘贴
+        /// </summary>
+        protected override void Paste()
+        {
+            if (DanceXamlExpansion.IsInDesignMode)
+                return;
+
+            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive)
+                return;
+
+            if (!this.IsDesignMode || this.ControlGridModel == null)
+                return;
+
+            string? json = Clipboard.GetData(typeof(IControlGridItemModel).FullName)?.ToString();
+            if (string.IsNullOrWhiteSpace(json))
+                return;
+
+            IControlGridItemModel? model = JsonConvert.DeserializeObject<IControlGridItemModel>(json, new DanceJsonObjectConverter());
+            if (model == null)
+                return;
+
+            model.ID = null;
+            model.OwnerDocument = this;
+
+            for (int r = 0; r < this.ControlGridModel.Rows; ++r)
+            {
+                for (int c = 0; c < this.ControlGridModel.Columns; ++c)
+                {
+                    if (!this.Items.Any(p => p.Column == c && p.Row == r))
+                    {
+                        model.Column = c;
+                        model.Row = r;
+
+                        this.Items.Add(model);
+
+                        return;
+                    }
+                }
+            }
         }
 
         #endregion
@@ -266,7 +352,7 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         /// <param name="id">id</param>
         /// <returns>项</returns>
-        public ControlGridItemModelBase? GetItemByID(string id)
+        public IControlGridItemModel? GetItemByID(string id)
         {
             return this.Items?.FirstOrDefault(p => string.Equals(p.ID, id));
         }

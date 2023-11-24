@@ -263,7 +263,10 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void ElementDragBegin(DanceTimelineElementDragBeginEventArgs? e)
         {
+            if (e == null || ArtDomain.Current.ProjectDomain == null || e.Element.DataContext is not TimelineElementModelBase model)
+                return;
 
+            e.Data = new TimelineDragInfo(model);
         }
 
         #endregion
@@ -280,7 +283,26 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void ElementDragOver(DanceTimelineElementDragEventArgs? e)
         {
+            if (e == null || ArtDomain.Current.ProjectDomain == null || this.View is not TimelineDocumentView view)
+                return;
 
+            // 控件内拖拽
+            if (e.EventArgs.Data.GetData(typeof(TimelineDragInfo)) is TimelineDragInfo dragInfo)
+            {
+                e.BeginTime = dragInfo.Model.BeginTime;
+                e.EndTime = dragInfo.Model.EndTime;
+
+                return;
+            }
+
+            // 资源拖拽
+            if (e.EventArgs.Data.GetData(typeof(ResourceInfoItemModel)) is ResourceInfoItemModel resource)
+            {
+                e.BeginTime = TimeSpan.Zero;
+                e.EndTime = view.timeline.GetViewportWidth() / 20;
+
+                return;
+            }
         }
 
         #endregion
@@ -297,7 +319,44 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void ElementDrop(DanceTimelineElementDragEventArgs? e)
         {
+            if (e == null || ArtDomain.Current.ProjectDomain == null || this.View is not TimelineDocumentView view)
+                return;
 
+            if (e.BeginTime == null || e.EndTime == null)
+                return;
+
+            if (e.Track == null || e.Track.DataContext is not TimelineTrackModel trackModel)
+                return;
+
+            // 控件内拖拽
+            if (e.EventArgs.Data.GetData(typeof(TimelineDragInfo)) is TimelineDragInfo dragInfo)
+            {
+                if (dragInfo.Model.JsonObjectCopy<TimelineElementModelBase>() is not TimelineElementModelBase dest)
+                    return;
+
+                dest.BeginTime = e.BeginTime.Value;
+                dest.EndTime = e.EndTime.Value;
+                dest.OwnerDocument = this;
+
+                trackModel.Items.Add(dest);
+
+                return;
+            }
+
+            // 资源拖拽
+            if (e.EventArgs.Data.GetData(typeof(ResourceInfoItemModel)) is ResourceInfoItemModel resource)
+            {
+                if (resource.Source?.CreateInstance(ArtDomain.Current.ProjectDomain) is not TimelineElementModelBase dest)
+                    return;
+
+                dest.BeginTime = e.BeginTime.Value;
+                dest.EndTime = e.EndTime.Value;
+                dest.OwnerDocument = this;
+
+                trackModel.Items.Add(dest);
+
+                return;
+            }
         }
 
         #endregion

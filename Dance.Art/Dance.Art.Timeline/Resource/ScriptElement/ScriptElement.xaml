@@ -7,6 +7,7 @@
 
     <Style TargetType="local:ScriptElement">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+        <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="Background" Value="{Binding BackgroundColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>
         <Setter Property="Foreground" Value="{Binding ForegroundColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>
         <Setter Property="BorderBrush" Value="{Binding BorderColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>

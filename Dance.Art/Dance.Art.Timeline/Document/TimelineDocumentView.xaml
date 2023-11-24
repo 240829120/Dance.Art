@@ -13,12 +13,6 @@
              mc:Ignorable="d" d:Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <dance:DanceHotkeyTrigger.HotkeyBindings>
-        <dance:DanceHotkeyCollection>
-            <dance:DanceHotkeyBinding Key="Delete" Command="{Binding Path=DeleteCommand}"></dance:DanceHotkeyBinding>
-        </dance:DanceHotkeyCollection>
-    </dance:DanceHotkeyTrigger.HotkeyBindings>
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,7 +21,7 @@
 
             <dance:DanceColorSolidColorBrushConverter x:Key="DanceColorSolidColorBrushConverter"></dance:DanceColorSolidColorBrushConverter>
 
-            <!--<dance:DanceMappingConverter x:Key="ContextMenuConverter">
+            <dance:DanceMappingConverter x:Key="ContextMenuConverter">
                 <dance:DanceMappingConverterItem>
                     <dance:DanceMappingConverterItem.From>
                         <sys:Boolean>True</sys:Boolean>
@@ -35,8 +29,13 @@
                     <dance:DanceMappingConverterItem.To>
                         <ContextMenu>
                             <Separator></Separator>
-                            <MenuItem Header="删除" Command="{Binding Path=DeleteCommand}"
-                  InputGestureText="Delete">
+                            <MenuItem Header="删除轨道" Command="{Binding Path=DeleteTrackCommand}">
+                                <MenuItem.Icon>
+                                    <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <Separator></Separator>
+                            <MenuItem Header="删除元素" Command="{Binding Path=DeleteElementCommand}">
                                 <MenuItem.Icon>
                                     <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
                                 </MenuItem.Icon>
@@ -44,7 +43,7 @@
                         </ContextMenu>
                     </dance:DanceMappingConverterItem.To>
                 </dance:DanceMappingConverterItem>
-            </dance:DanceMappingConverter>-->
+            </dance:DanceMappingConverter>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -97,7 +96,8 @@
         <dance:DanceTimeline x:Name="timeline" Grid.Row="4"
                              CurrentTime="{Binding Path=CurrentTime,Mode=TwoWay}"
                              IsPlaying="{Binding IsPlaying,Mode=TwoWay}"
-                             ItemsSource="{Binding Path=Tracks,Mode=OneWay}" >
+                             ItemsSource="{Binding Path=Tracks,Mode=OneWay}" 
+                             ContextMenu="{Binding Path=IsDesignMode,Converter={StaticResource ContextMenuConverter}}">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="TrackSelectionChanged">
                     <behaviors:InvokeCommandAction Command="{Binding TrackSelectionChangedCommand}" PassEventArgsToCommand="True"></behaviors:InvokeCommandAction>
@@ -139,7 +139,6 @@
                     <ContentControl Content="{Binding .}" ContentTemplate="{Binding DataTemplate}"></ContentControl>
                 </DataTemplate>
             </dance:DanceTimeline.ElementTemplate>
-
 
         </dance:DanceTimeline>
     </Grid>

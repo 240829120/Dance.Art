@@ -39,7 +39,8 @@ namespace Dance.Art.Timeline
             this.ElementDragOverCommand = new(this.ElementDragOver);
             this.ElementDropCommand = new(this.ElementDrop);
 
-            this.DeleteCommand = new(this.Delete, this.CanDelete);
+            this.DeleteTrackCommand = new(this.DeleteTrack, this.CanDeleteTrack);
+            this.DeleteElementCommand = new(this.DeleteElement, this.CanDeleteElement);
 
             // 消息
             DanceDomain.Current.Messenger.Register<DockingDesignModeChangedMessage>(this, this.OnDockingDesignModeChanged);
@@ -124,34 +125,7 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void AddTrack()
         {
-            if (this.View is not TimelineDocumentView view)
-                return;
-
-            Random random = new();
-
-            TimelineTrackModel track = new() { Name = $"轨道" };
-
-            TimeSpan beginTime = TimeSpan.FromSeconds(random.Next(0, (int)TimeSpan.FromMinutes(5).TotalSeconds));
-
-            for (int i = 0; i < 100; ++i)
-            {
-                TimeSpan endTime = TimeSpan.FromSeconds(random.Next((int)beginTime.TotalSeconds, (int)(beginTime + TimeSpan.FromMinutes(5)).TotalSeconds));
-
-                if (beginTime >= view.timeline.Duration || endTime >= view.timeline.Duration)
-                    break;
-
-                ScriptElementModel item = new()
-                {
-                    BeginTime = beginTime,
-                    EndTime = endTime
-                };
-
-                track.Items.Add(item);
-
-                beginTime = TimeSpan.FromSeconds(random.Next((int)endTime.TotalSeconds, (int)(beginTime + TimeSpan.FromMinutes(5)).TotalSeconds)); ;
-            }
-
-            this.Tracks.Add(track);
+            this.Tracks.Add(new TimelineTrackModel() { Name = $"新轨道", OwnerDocument = this });
         }
 
         #endregion
@@ -361,35 +335,80 @@ namespace Dance.Art.Timeline
 
         #endregion
 
-        #region DeleteCommand -- 删除命令
+        #region DeleteCommand -- 删除轨道命令
 
         /// <summary>
-        /// 删除命令
+        /// 删除轨道命令
         /// </summary>
-        public RelayCommand DeleteCommand { get; private set; }
+        public RelayCommand DeleteTrackCommand { get; private set; }
 
         /// <summary>
-        /// 是否可以删除
+        /// 是否可以删除轨道
         /// </summary>
-        /// <returns></returns>
-        private bool CanDelete()
+        private bool CanDeleteTrack()
         {
-            return false;
+            return this.Tracks.Any(p => p.IsSelected);
         }
 
         /// <summary>
-        /// 删除
+        /// 删除轨道
         /// </summary>
-        private void Delete()
+        private void DeleteTrack()
         {
             if (DanceXamlExpansion.IsInDesignMode)
                 return;
 
-            if (this.ViewPluginModel == null || !this.ViewPluginModel.IsActive)
+            TimelineTrackModel? trackModel = this.Tracks.FirstOrDefault(p => p.IsSelected);
+            if (trackModel == null)
                 return;
 
+            if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, $"是否删除轨道: {trackModel.Name}", DanceMessageBoxAction.YES | DanceMessageBoxAction.CANCEL) != DanceMessageBoxAction.YES)
+                return;
+
+            this.Tracks.Remove(trackModel);
 
             this.IsModify = true;
+        }
+
+        #endregion
+
+        #region DeleteElementCommand -- 删除元素命令
+
+        /// <summary>
+        /// 删除元素命令
+        /// </summary>
+        public RelayCommand DeleteElementCommand { get; private set; }
+
+        /// <summary>
+        /// 是否可以删除元素
+        /// </summary>
+        private bool CanDeleteElement()
+        {
+            foreach (TimelineTrackModel trackModel in this.Tracks)
+            {
+                if (trackModel.Items.Any(p => p.IsSelected))
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 删除元素
+        /// </summary>
+        private void DeleteElement()
+        {
+            if (DanceXamlExpansion.IsInDesignMode)
+                return;
+
+            if (DanceMessageExpansion.ShowMessageBox("提示", DanceMessageBoxIcon.Info, "是否删除选中元素", DanceMessageBoxAction.YES | DanceMessageBoxAction.CANCEL) != DanceMessageBoxAction.YES)
+                return;
+
+            foreach (TimelineTrackModel trackModel in this.Tracks)
+            {
+                List<TimelineElementModelBase> removeList = trackModel.Items.Where(p => p.IsSelected).ToList();
+                removeList.ForEach(p => trackModel.Items.Remove(p));
+            }
         }
 
         #endregion

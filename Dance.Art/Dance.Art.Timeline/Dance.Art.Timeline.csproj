@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Themes\Resources\Icons\script_element.svg" />
+    <None Remove="Themes\Resources\Icons\timeline.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
     <ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
     <ProjectReference Include="..\Dance.Art.DataSource\Dance.Art.DataSource.csproj" />
@@ -20,10 +25,17 @@
   <ItemGroup>
     <Folder Include="Control\" />
     <Folder Include="DANCE_ART\Timeline\" />
-    <Folder Include="Document\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Resource\" />
-    <Folder Include="Storage\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Icons\script_element.svg" />
+    <Resource Include="Themes\Resources\Icons\timeline.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Document\TimelineDocumentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

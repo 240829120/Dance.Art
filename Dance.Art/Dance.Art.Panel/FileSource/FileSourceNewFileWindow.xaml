@@ -70,7 +70,8 @@
                         <GroupBox.Header>
                             <TextBlock Text="描述" Opacity="0.7"></TextBlock>
                         </GroupBox.Header>
-                        <TextBlock Margin="10,0,10,10" Text="{Binding Path=SelectedFileInfo.Description,Mode=OneWay}"></TextBlock>
+                        <TextBlock Margin="10,0,10,10" Text="{Binding Path=SelectedFileInfo.Description,Mode=OneWay}"
+                                   TextWrapping="Wrap"></TextBlock>
                     </GroupBox>
                 </Grid>
 

@@ -25,5 +25,10 @@ namespace Dance.Art.Domain
         /// 按钮面板
         /// </summary>
         public const string BUTTON_PANEL = ".art_cg";
+
+        /// <summary>
+        /// 时间线面板
+        /// </summary>
+        public const string TIME_LINE_PANEL = ".art_tl";
     }
 }

@@ -37,6 +37,7 @@ namespace Dance.Art.Timeline
             this.AddTrackCommand = new(this.AddTrack);
             this.PlayCommand = new(this.Play);
             this.StopCommand = new(this.Stop);
+            this.LocateCurrentTimeCommand = new(this.LocateCurrentTime);
             this.TrackSelectionChangedCommand = new(this.TrackSelectionChanged);
             this.ElementSelectionChangedCommand = new(this.ElementSelectionChanged);
             this.ElementDragBeginCommand = new(this.ElementDragBegin);
@@ -173,12 +174,15 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void Play()
         {
-            this.TriggerController.Play();
-
             if (this.View is not TimelineDocumentView view)
                 return;
 
+            view.timeline.ClearTrackSelection();
+            view.timeline.ClearElementSelection();
+            DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, null));
             view.timeline.Focus();
+
+            this.TriggerController.Play();
         }
 
         #endregion
@@ -201,6 +205,26 @@ namespace Dance.Art.Timeline
                 return;
 
             view.timeline.Focus();
+        }
+
+        #endregion
+
+        #region LocateCurrentTimeCommand -- 定位当前时间命令
+
+        /// <summary>
+        /// 定位当前时间命令
+        /// </summary>
+        public RelayCommand LocateCurrentTimeCommand { get; private set; }
+
+        /// <summary>
+        /// 定位当前时间
+        /// </summary>
+        private void LocateCurrentTime()
+        {
+            if (this.View is not TimelineDocumentView view)
+                return;
+
+            view.timeline.ScrollTo(this.CurrentTime);
         }
 
         #endregion

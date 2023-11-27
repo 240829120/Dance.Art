@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace Dance.Art.Timeline
 {
@@ -44,7 +45,7 @@ namespace Dance.Art.Timeline
         /// </summary>
         public override void OnBegin()
         {
-            Console.WriteLine("OnBegin");
+            Debug.WriteLine("OnBegin");
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Dance.Art.Timeline
         /// </summary>
         public override void OnEnd()
         {
-            Console.WriteLine("OnEnd");
+            Debug.WriteLine("OnEnd");
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace Dance.Art.Timeline
         /// </summary>
         protected override void Destroy()
         {
-            Console.WriteLine("Destroy");
+            Debug.WriteLine("Destroy");
         }
     }
 }

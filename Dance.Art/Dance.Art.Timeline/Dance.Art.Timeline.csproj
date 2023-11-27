@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="Themes\Resources\Icons\follow.svg" />
     <None Remove="Themes\Resources\Icons\help.svg" />
+    <None Remove="Themes\Resources\Icons\locate.svg" />
     <None Remove="Themes\Resources\Icons\script_element.svg" />
     <None Remove="Themes\Resources\Icons\timeline.svg" />
   </ItemGroup>
@@ -31,6 +32,7 @@
   <ItemGroup>
     <Resource Include="Themes\Resources\Icons\follow.svg" />
     <Resource Include="Themes\Resources\Icons\help.svg" />
+    <Resource Include="Themes\Resources\Icons\locate.svg" />
     <Resource Include="Themes\Resources\Icons\script_element.svg" />
     <Resource Include="Themes\Resources\Icons\timeline.svg" />
   </ItemGroup>

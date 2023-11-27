@@ -1,6 +1,8 @@
-﻿using Dance.Art.Domain;
+﻿using CommunityToolkit.Mvvm.Input;
+using Dance.Art.Domain;
 using Dance.Wpf;
 using Newtonsoft.Json;
+using SharpVectors.Dom;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,8 +25,17 @@ namespace Dance.Art.Timeline
         /// <param name="dataTemplate">数据模板</param>
         public TimelineElementModelBase(Type dataTemplate) : base(dataTemplate)
         {
-
+            this.BeginCommand = new(this.Begin);
+            this.EndCommand = new(this.End);
         }
+
+        // ==========================================================================================
+        // Field
+
+        /// <summary>
+        /// 输出管理器
+        /// </summary>
+        private readonly IOutputManager OutputManager = DanceDomain.Current.LifeScope.Resolve<IOutputManager>();
 
         // ==========================================================================================
         // Property
@@ -152,11 +163,87 @@ namespace Dance.Art.Timeline
             set { isTriggeiedEnd = value; }
         }
 
+        #endregion
+
+        #region TriggerOperate -- 触发器操作
+
+        private int triggerOperate;
+        /// <summary>
+        /// 触发器操作
+        /// </summary>
+        /// <remarks>
+        /// 该属性值无意义，用于在PropertyGrid中生成触发器操作面板
+        /// </remarks>
+        [Category(PropertyCategoryDefines.OTHER), Description("触发器操作"), DisplayName("触发器操作")]
+        [Editor(typeof(TimelineTriggerOperateEditor), typeof(TimelineTriggerOperateEditor))]
+        [JsonIgnore]
+        public int TriggerOperate
+        {
+            get { return triggerOperate; }
+            set { triggerOperate = value; }
+        }
 
         #endregion
 
         // -------------------------------------------------------------------
-        // Control
+        // Command
+
+        #region BeginCommand -- 开始命令
+
+        /// <summary>
+        /// 开始命令
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public RelayCommand BeginCommand { get; private set; }
+
+        /// <summary>
+        /// 开始
+        /// </summary>
+        private void Begin()
+        {
+            this.OutputManager.WriteLine($"[ID: {this.ID}, Content: {this.Content}] 开始");
+
+            try
+            {
+                this.OnBegin();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
+        #endregion
+
+        #region EndCommand -- 结束命令
+
+        /// <summary>
+        /// 结束命令
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public RelayCommand EndCommand { get; private set; }
+
+        /// <summary>
+        /// 结束
+        /// </summary>
+        private void End()
+        {
+            this.OutputManager.WriteLine($"[ID: {this.ID}, Content: {this.Content}] 结束");
+
+            try
+            {
+                this.OnEnd();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
+        #endregion
+
+        // -------------------------------------------------------------------
+        // Public Function
 
         /// <summary>
         /// 当开始时执行

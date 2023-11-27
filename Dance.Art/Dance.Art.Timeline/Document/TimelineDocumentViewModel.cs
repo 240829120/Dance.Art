@@ -234,9 +234,7 @@ namespace Dance.Art.Timeline
 
             view.timeline.ClearTrackSelection();
 
-            ITimelineElementModel? model = e.Elements.FirstOrDefault()?.DataContext as ITimelineElementModel;
-
-            if (model == null || e.Elements.Count == 0)
+            if (e.Elements.FirstOrDefault()?.DataContext is not ITimelineElementModel model || e.Elements.Count == 0)
             {
                 DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, this.TimelineModel));
             }

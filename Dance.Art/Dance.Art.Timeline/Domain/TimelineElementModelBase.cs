@@ -36,6 +36,7 @@ namespace Dance.Art.Timeline
         /// 开始时间
         /// </summary>
         [Category(PropertyCategoryDefines.OTHER), Description("开始时间"), DisplayName("开始时间")]
+        [Editor(typeof(TimelineBeginTimeEditor), typeof(TimelineBeginTimeEditor))]
         public TimeSpan BeginTime
         {
             get { return beginTime; }
@@ -51,6 +52,7 @@ namespace Dance.Art.Timeline
         /// 结束时间
         /// </summary>
         [Category(PropertyCategoryDefines.OTHER), Description("结束时间"), DisplayName("结束时间")]
+        [Editor(typeof(TimelineEndTimeEditor), typeof(TimelineEndTimeEditor))]
         public TimeSpan EndTime
         {
             get { return endTime; }

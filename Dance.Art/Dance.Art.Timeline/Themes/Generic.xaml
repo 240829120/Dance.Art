@@ -2,6 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Dance.Art.Timeline">
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Dance.Art.Timeline;component/Editor/BeginTimeEditor/TimelineBeginTimeEditor.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Dance.Art.Timeline;component/Editor/EndTimeEditor/TimelineEndTimeEditor.xaml"></ResourceDictionary>
+
         <ResourceDictionary Source="/Dance.Art.Timeline;component/Resource/ScriptElement/ScriptElement.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

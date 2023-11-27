@@ -8,6 +8,8 @@ using ICSharpCode.AvalonEdit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NPOI.SS.Formula.Functions;
+using Org.BouncyCastle.Tls.Crypto;
+using SharpVectors.Dom.Events;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace Dance.Art.Timeline
 {
@@ -110,6 +114,20 @@ namespace Dance.Art.Timeline
 
         #endregion
 
+        #region TimelineModel -- 时间线模型
+
+        private TimelineModel? timelineModel;
+        /// <summary>
+        /// 时间线模型
+        /// </summary>
+        public TimelineModel? TimelineModel
+        {
+            get { return timelineModel; }
+            set { timelineModel = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
         // ====================================================================================
         // Command
 
@@ -186,11 +204,13 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void TrackSelectionChanged(DanceTimelineTrackSelectionChangedEventArgs? e)
         {
-            if (e == null)
+            if (e == null || this.View is not TimelineDocumentView view)
                 return;
 
             if (e.Track == null || e.Track.DataContext is not TimelineTrackModel trackModel)
                 return;
+
+            view.timeline.ClearElementSelection();
 
             DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, trackModel));
         }
@@ -209,17 +229,24 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void ElementSelectionChanged(DanceTimelineElementSelectionChangedEventArgs? e)
         {
-            if (e == null)
+            if (e == null || this.View is not TimelineDocumentView view)
                 return;
 
+            view.timeline.ClearTrackSelection();
+
             ITimelineElementModel? model = e.Elements.FirstOrDefault()?.DataContext as ITimelineElementModel;
-            if (model == null || e.Elements.Count != 1)
+
+            if (model == null || e.Elements.Count == 0)
             {
-                DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, null));
+                DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, this.TimelineModel));
+            }
+            else if (e.Elements.Count == 1)
+            {
+                DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, model));
             }
             else
             {
-                DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, model));
+                DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, null));
             }
         }
 
@@ -424,6 +451,11 @@ namespace Dance.Art.Timeline
         private void OnDockingDesignModeChanged(object sender, DockingDesignModeChangedMessage msg)
         {
             this.IsDesignMode = msg.IsDesignMode;
+            if (this.View is not TimelineDocumentView view)
+                return;
+
+            view.timeline.ClearTrackSelection();
+            view.timeline.ClearElementSelection();
         }
 
         #endregion
@@ -443,6 +475,9 @@ namespace Dance.Art.Timeline
                 return;
 
             TimelineStorage? storage = DanceFileHelper.ReadJson<TimelineStorage>(document.File, new DanceJsonObjectConverter());
+
+            this.TimelineModel = storage?.TimelineModel ?? new();
+            this.TimelineModel.OwnerDocument = this;
 
             this.Tracks.Clear();
             this.Tracks.AddRange(storage?.Tracks);
@@ -467,6 +502,7 @@ namespace Dance.Art.Timeline
 
             TimelineStorage storage = new()
             {
+                TimelineModel = this.TimelineModel,
                 Tracks = this.Tracks.ToList()
             };
 

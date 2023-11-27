@@ -12,6 +12,11 @@ namespace Dance.Art.Timeline
     public class TimelineStorage
     {
         /// <summary>
+        /// 时间线模型
+        /// </summary>
+        public TimelineModel? TimelineModel { get; set; }
+
+        /// <summary>
         /// 轨道
         /// </summary>
         public List<TimelineTrackModel>? Tracks { get; set; }

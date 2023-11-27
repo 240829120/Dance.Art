@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Dance.Art.Timeline"
+             xmlns:local="clr-namespace:Dance.Art.Timeline" d:Background="White" d:Width="400" d:Height="1000"
              mc:Ignorable="d" Background="Transparent">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
@@ -28,29 +29,32 @@
         <!-- 放大/缩小 -->
         <TextBlock Text="放大/缩小:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="1"></TextBlock>
         <TextBlock Text="Ctrl + 鼠标滚轮" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" Margin="20,0,0,0"></TextBlock>
+        <!-- 选择元素 -->
+        <TextBlock Text="选择元素:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="2"></TextBlock>
+        <TextBlock Text="在设计模式下鼠标框选，按住Ctrl则为加选/减选" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="2" Margin="20,0,0,0"></TextBlock>
         <!-- 水平移动 -->
-        <TextBlock Text="水平移动:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="2"></TextBlock>
-        <TextBlock Text="选中元素后, 按住Alt拖拽元素" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="2" Margin="20,0,0,0"></TextBlock>
+        <TextBlock Text="水平移动:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3"></TextBlock>
+        <TextBlock Text="选中元素后, 按住Alt拖拽元素" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="3" Margin="20,0,0,0"></TextBlock>
         <!-- 复制元素 -->
-        <TextBlock Text="复制元素:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3"></TextBlock>
-        <TextBlock Text="选中元素后, 按住Shift拖拽元素（只支持单个元素复制）" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="3" Margin="20,0,0,0"></TextBlock>
+        <TextBlock Text="复制元素:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="4"></TextBlock>
+        <TextBlock Text="选中元素后, 按住Shift拖拽元素（只支持单个元素复制）" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="4" Margin="20,0,0,0"></TextBlock>
         <!-- 添加元素 -->
-        <TextBlock Text="添加元素:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="4"></TextBlock>
-        <TextBlock Text="从资源中拖拽元素至轨道" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="4" Margin="20,0,0,0"></TextBlock>
+        <TextBlock Text="添加元素:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="5"></TextBlock>
+        <TextBlock Text="从资源中拖拽元素至轨道" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="5" Margin="20,0,0,0"></TextBlock>
         <!-- 删除轨道 -->
-        <TextBlock Text="删除轨道:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="5"></TextBlock>
-        <TextBlock Text="点击轨道头部选中轨道，右键菜单中选择删除轨道" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="5" Margin="20,0,0,0"></TextBlock>
+        <TextBlock Text="删除轨道:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="6"></TextBlock>
+        <TextBlock Text="点击轨道头部选中轨道，右键菜单中选择删除轨道" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="6" Margin="20,0,0,0"></TextBlock>
         <!-- 删除元素 -->
-        <TextBlock Text="删除元素:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="6"></TextBlock>
-        <TextBlock Text="选中元素后，右键菜单中选择删除元素" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="6" Margin="20,0,0,0"></TextBlock>
+        <TextBlock Text="删除元素:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="7"></TextBlock>
+        <TextBlock Text="选中元素后，右键菜单中选择删除元素" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="7" Margin="20,0,0,0"></TextBlock>
         <!-- 修改当前时间 -->
-        <TextBlock Text="修改当前时间:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="7"></TextBlock>
-        <TextBlock Text="拖拽红色时间线，或者直接点击头部刻度尺拖拽" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="7" Margin="20,0,0,0"></TextBlock>
+        <TextBlock Text="修改当前时间:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="8"></TextBlock>
+        <TextBlock Text="拖拽红色时间线，或者直接点击头部刻度尺拖拽" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="8" Margin="20,0,0,0"></TextBlock>
         <!-- 跟随 -->
-        <TextBlock Text="跟随:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="8"></TextBlock>
-        <TextBlock Text="勾选跟随后,在播放状态下画布会跟随红色时间线移动" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="8" Margin="20,0,0,0"></TextBlock>
+        <TextBlock Text="跟随:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="9"></TextBlock>
+        <TextBlock Text="勾选跟随后,在播放状态下画布会跟随红色时间线移动" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="9" Margin="20,0,0,0"></TextBlock>
         <!-- 设计 -->
-        <TextBlock Text="设计模式:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="9"></TextBlock>
-        <TextBlock Text="只有在设计模式下才能对轨道和元素进行编辑" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="9" Margin="20,0,0,0"></TextBlock>
+        <TextBlock Text="设计模式:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="10"></TextBlock>
+        <TextBlock Text="只有在设计模式下才能对轨道和元素进行编辑" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="10" Margin="20,0,0,0"></TextBlock>
     </Grid>
 </UserControl>

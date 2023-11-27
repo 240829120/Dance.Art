@@ -57,8 +57,16 @@ namespace Dance.Art.Timeline
             {
                 foreach (TimelineElementModelBase element in trackModel.Items)
                 {
-                    element.IsTriggeiedBegin = element.BeginTime < currentTime;
-                    element.IsTriggeiedEnd = element.EndTime < currentTime;
+                    try
+                    {
+                        element.IsTriggeiedBegin = element.BeginTime < currentTime;
+                        element.IsTriggeiedEnd = element.EndTime < currentTime;
+                        element.OnPlay();
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                    }
                 }
             }
 
@@ -74,6 +82,23 @@ namespace Dance.Art.Timeline
         {
             if (this.ViewModel.ViewPluginModel is not DocumentPluginModel document)
                 return;
+
+            foreach (TimelineTrackModel trackModel in this.ViewModel.Tracks)
+            {
+                foreach (TimelineElementModelBase element in trackModel.Items)
+                {
+                    try
+                    {
+                        element.IsTriggeiedBegin = false;
+                        element.IsTriggeiedEnd = false;
+                        element.OnStop();
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                    }
+                }
+            }
 
             this.ViewModel.IsPlaying = false;
 
@@ -100,7 +125,7 @@ namespace Dance.Art.Timeline
                     {
                         try
                         {
-                            this.OutputManager.WriteLine($"[ID: {element.ID}, Content: {element.Content}] 开始");
+                            this.OutputManager.WriteLine($"[ID: {element.ID} | {element.Content}] 开始");
                             element.IsTriggeiedBegin = true;
                             element.OnBegin();
                         }
@@ -114,7 +139,7 @@ namespace Dance.Art.Timeline
                     {
                         try
                         {
-                            this.OutputManager.WriteLine($"[ID: {element.ID}, Content: {element.Content}] 结束");
+                            this.OutputManager.WriteLine($"[ID: {element.ID} | {element.Content}] 结束");
                             element.IsTriggeiedEnd = true;
                             element.OnEnd();
                         }

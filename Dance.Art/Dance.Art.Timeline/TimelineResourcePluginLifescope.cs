@@ -32,6 +32,7 @@ namespace Dance.Art.Timeline
             List<IResourceSource> resources = new()
             {
                 new ScriptElementSource(),
+                new CommandElementSource(),
             };
 
             return new ResourcePluginInfo(ID, NAME, resources.ToArray());

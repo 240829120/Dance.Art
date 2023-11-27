@@ -25,8 +25,8 @@ namespace Dance.Art.Timeline
         /// <param name="dataTemplate">数据模板</param>
         public TimelineElementModelBase(Type dataTemplate) : base(dataTemplate)
         {
-            this.BeginCommand = new(this.Begin);
-            this.EndCommand = new(this.End);
+            this.ExecuteBeginCommand = new(this.ExecuteBegin);
+            this.ExecuteEndCommand = new(this.ExecuteEnd);
         }
 
         // ==========================================================================================
@@ -35,10 +35,25 @@ namespace Dance.Art.Timeline
         /// <summary>
         /// 输出管理器
         /// </summary>
-        private readonly IOutputManager OutputManager = DanceDomain.Current.LifeScope.Resolve<IOutputManager>();
+        protected readonly IOutputManager OutputManager = DanceDomain.Current.LifeScope.Resolve<IOutputManager>();
 
         // ==========================================================================================
         // Property
+
+        #region Content -- 内容
+
+        private string? content = "标签";
+        /// <summary>
+        /// 内容
+        /// </summary>
+        [Category(PropertyCategoryDefines.OTHER), PropertyOrder(1), Description("内容"), DisplayName("内容")]
+        public string? Content
+        {
+            get { return content; }
+            set { content = value; this.OnWrapperPropertyChanged(); }
+        }
+
+        #endregion
 
         #region BeginTime -- 开始时间
 
@@ -46,7 +61,7 @@ namespace Dance.Art.Timeline
         /// <summary>
         /// 开始时间
         /// </summary>
-        [Category(PropertyCategoryDefines.OTHER), Description("开始时间"), DisplayName("开始时间")]
+        [Category(PropertyCategoryDefines.OTHER), PropertyOrder(2), Description("开始时间"), DisplayName("开始时间")]
         [Editor(typeof(TimelineBeginTimeEditor), typeof(TimelineBeginTimeEditor))]
         public TimeSpan BeginTime
         {
@@ -62,27 +77,12 @@ namespace Dance.Art.Timeline
         /// <summary>
         /// 结束时间
         /// </summary>
-        [Category(PropertyCategoryDefines.OTHER), Description("结束时间"), DisplayName("结束时间")]
+        [Category(PropertyCategoryDefines.OTHER), PropertyOrder(3), Description("结束时间"), DisplayName("结束时间")]
         [Editor(typeof(TimelineEndTimeEditor), typeof(TimelineEndTimeEditor))]
         public TimeSpan EndTime
         {
             get { return endTime; }
             set { endTime = value; this.OnWrapperPropertyChanged(); }
-        }
-
-        #endregion
-
-        #region Content -- 内容
-
-        private string? content = "标签";
-        /// <summary>
-        /// 内容
-        /// </summary>
-        [Category(PropertyCategoryDefines.OTHER), Description("内容"), DisplayName("内容")]
-        public string? Content
-        {
-            get { return content; }
-            set { content = value; this.OnWrapperPropertyChanged(); }
         }
 
         #endregion
@@ -174,7 +174,7 @@ namespace Dance.Art.Timeline
         /// <remarks>
         /// 该属性值无意义，用于在PropertyGrid中生成触发器操作面板
         /// </remarks>
-        [Category(PropertyCategoryDefines.OTHER), Description("触发器操作"), DisplayName("触发器操作")]
+        [Category(PropertyCategoryDefines.OTHER), PropertyOrder(int.MaxValue), Description("触发器操作"), DisplayName("触发器操作")]
         [Editor(typeof(TimelineTriggerOperateEditor), typeof(TimelineTriggerOperateEditor))]
         [JsonIgnore]
         public int TriggerOperate
@@ -188,18 +188,18 @@ namespace Dance.Art.Timeline
         // -------------------------------------------------------------------
         // Command
 
-        #region BeginCommand -- 开始命令
+        #region ExecuteBeginCommand -- 执行开始命令
 
         /// <summary>
-        /// 开始命令
+        /// 执行开始命令
         /// </summary>
         [Browsable(false), JsonIgnore]
-        public RelayCommand BeginCommand { get; private set; }
+        public RelayCommand ExecuteBeginCommand { get; private set; }
 
         /// <summary>
-        /// 开始
+        /// 执行开始
         /// </summary>
-        private void Begin()
+        private void ExecuteBegin()
         {
             this.OutputManager.WriteLine($"[ID: {this.ID}, Content: {this.Content}] 开始");
 
@@ -215,18 +215,18 @@ namespace Dance.Art.Timeline
 
         #endregion
 
-        #region EndCommand -- 结束命令
+        #region ExecuteEndCommand -- 执行结束命令
 
         /// <summary>
-        /// 结束命令
+        /// 执行结束命令
         /// </summary>
         [Browsable(false), JsonIgnore]
-        public RelayCommand EndCommand { get; private set; }
+        public RelayCommand ExecuteEndCommand { get; private set; }
 
         /// <summary>
-        /// 结束
+        /// 执行结束
         /// </summary>
-        private void End()
+        private void ExecuteEnd()
         {
             this.OutputManager.WriteLine($"[ID: {this.ID}, Content: {this.Content}] 结束");
 
@@ -244,6 +244,16 @@ namespace Dance.Art.Timeline
 
         // -------------------------------------------------------------------
         // Public Function
+
+        /// <summary>
+        /// 当开始时触发
+        /// </summary>
+        public abstract void OnPlay();
+
+        /// <summary>
+        /// 当停止时触发
+        /// </summary>
+        public abstract void OnStop();
 
         /// <summary>
         /// 当开始时执行

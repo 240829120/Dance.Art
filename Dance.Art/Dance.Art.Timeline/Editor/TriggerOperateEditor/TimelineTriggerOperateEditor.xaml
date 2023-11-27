@@ -16,10 +16,10 @@
                 <ControlTemplate TargetType="local:TimelineTriggerOperateEditor">
                     <StackPanel Orientation="Horizontal">
                         <Button Content="开始" ToolTip="触发开始事件" Width="40"
-                                Command="{Binding Path=Instance.BeginCommand,Mode=OneWay}" Style="{StaticResource Button_Tool}" Foreground="Black"></Button>
+                                Command="{Binding Path=Instance.ExecuteBeginCommand,Mode=OneWay}" Style="{StaticResource Button_Tool}" Foreground="Black"></Button>
                         <Rectangle Width="1" Height="20" Margin="5,0,5,0" Fill="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}"></Rectangle>
                         <Button Content="结束" ToolTip="触发结束事件" Width="40"
-                                Command="{Binding Path=Instance.EndCommand,Mode=OneWay}" Style="{StaticResource Button_Tool}" Foreground="Black" Grid.Column="1"></Button>
+                                Command="{Binding Path=Instance.ExecuteEndCommand,Mode=OneWay}" Style="{StaticResource Button_Tool}" Foreground="Black" Grid.Column="1"></Button>
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>

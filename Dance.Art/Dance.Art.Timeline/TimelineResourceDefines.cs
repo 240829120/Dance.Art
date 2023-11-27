@@ -15,5 +15,10 @@ namespace Dance.Art.Timeline
         /// 脚本元素
         /// </summary>
         public const string ScriptElement = "[Dance.Art.Timeline]:ScriptElement";
+
+        /// <summary>
+        /// 命令元素
+        /// </summary>
+        public const string CommandElement = "[Dance.Art.Timeline]:CommandElement";
     }
 }

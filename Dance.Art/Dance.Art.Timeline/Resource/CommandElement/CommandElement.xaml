@@ -5,7 +5,7 @@
 
     <dance:DanceColorSolidColorBrushConverter x:Key="DanceColorSolidColorBrushConverter"></dance:DanceColorSolidColorBrushConverter>
 
-    <Style TargetType="local:ScriptElement">
+    <Style TargetType="local:CommandElement">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
         <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="Background" Value="{Binding BackgroundColor,Converter={StaticResource DanceColorSolidColorBrushConverter}}"></Setter>
@@ -18,7 +18,7 @@
         <Setter Property="Padding" Value="5,0,5,0"></Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:ScriptElement">
+                <ControlTemplate TargetType="local:CommandElement">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
@@ -26,7 +26,7 @@
                                 <ColumnDefinition Width="30"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <dance:DanceSvgImage Width="16" Height="16" Source="pack://application:,,,/Dance.Art.Timeline;component/Themes/Resources/Icons/script_element.svg"></dance:DanceSvgImage>
+                            <dance:DanceSvgImage Width="16" Height="16" Source="pack://application:,,,/Dance.Art.Timeline;component/Themes/Resources/Icons/command_element.svg"></dance:DanceSvgImage>
                             <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Column="1"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"></ContentPresenter>
                         </Grid>

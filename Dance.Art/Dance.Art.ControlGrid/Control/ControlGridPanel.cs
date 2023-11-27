@@ -107,11 +107,16 @@ namespace Dance.Art.ControlGrid
         protected override Size MeasureOverride(Size availableSize)
         {
             if (this.Owner == null || this.Owner.ItemsSource == null)
-                return availableSize;
+            {
+                double destWidth = availableSize.Width == double.PositiveInfinity ? 0 : availableSize.Width;
+                double destHeight = availableSize.Height == double.PositiveInfinity ? 0 : availableSize.Height;
+
+                return new Size(destWidth, destHeight);
+            }
 
             foreach (FrameworkElement element in Children)
             {
-                if (element == null || element.DataContext is not ControlGridItemModelBase model)
+                if (element == null)
                     continue;
 
                 element.Measure(new Size(this.Owner.UnitWidth, this.Owner.UnitHeight));
@@ -128,7 +133,12 @@ namespace Dance.Art.ControlGrid
         protected override Size ArrangeOverride(Size finalSize)
         {
             if (this.Owner == null || this.Owner.ItemsSource == null)
-                return finalSize;
+            {
+                double destWidth = finalSize.Width == double.PositiveInfinity ? 0 : finalSize.Width;
+                double destHeight = finalSize.Height == double.PositiveInfinity ? 0 : finalSize.Height;
+
+                return new Size(destWidth, destHeight);
+            }
 
             foreach (FrameworkElement element in Children)
             {
@@ -315,6 +325,8 @@ namespace Dance.Art.ControlGrid
 
             this.Owner = owner;
             this.Owner.PART_Panel = this;
+
+            this.InvalidateVisual();
         }
 
         /// <summary>

@@ -37,21 +37,30 @@ namespace Dance.Art.Timeline
         // Field
 
         // ================================================================================
-        // Property
+        // Override
 
-        #region Content -- 内容
-
-        private string? content = "标签";
         /// <summary>
-        /// 内容
+        /// 当开始时触发
         /// </summary>
-        [Category(PropertyCategoryDefines.OTHER), Description("内容"), DisplayName("内容")]
-        public string? Content
+        public override void OnBegin()
         {
-            get { return content; }
-            set { content = value; this.OnWrapperPropertyChanged(); }
+            Console.WriteLine("OnBegin");
         }
 
-        #endregion
+        /// <summary>
+        /// 当结束时触发
+        /// </summary>
+        public override void OnEnd()
+        {
+            Console.WriteLine("OnEnd");
+        }
+
+        /// <summary>
+        /// 销毁
+        /// </summary>
+        protected override void Destroy()
+        {
+            Console.WriteLine("Destroy");
+        }
     }
 }

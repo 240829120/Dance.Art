@@ -48,6 +48,9 @@ namespace Dance.Art.Timeline
 
             // 消息
             DanceDomain.Current.Messenger.Register<DockingDesignModeChangedMessage>(this, this.OnDockingDesignModeChanged);
+
+            // 控制器
+            this.TriggerController = new(this);
         }
 
         // ====================================================================================
@@ -57,6 +60,11 @@ namespace Dance.Art.Timeline
         /// 文件管理器
         /// </summary>
         protected readonly IFileManager FileManager = DanceDomain.Current.LifeScope.Resolve<IFileManager>();
+
+        /// <summary>
+        /// 触发控制器
+        /// </summary>
+        private TimelineTriggerController TriggerController;
 
         // ====================================================================================
         // Property
@@ -95,7 +103,12 @@ namespace Dance.Art.Timeline
         public TimeSpan CurrentTime
         {
             get { return currentTime; }
-            set { currentTime = value; this.OnPropertyChanged(); }
+            set
+            {
+                currentTime = value;
+                this.OnPropertyChanged();
+                this.TriggerController.InvokeTrigger();
+            }
         }
 
         #endregion
@@ -160,7 +173,7 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void Play()
         {
-            this.IsPlaying = true;
+            this.TriggerController.Play();
 
             if (this.View is not TimelineDocumentView view)
                 return;
@@ -182,7 +195,7 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void Stop()
         {
-            this.IsPlaying = false;
+            this.TriggerController.Stop();
 
             if (this.View is not TimelineDocumentView view)
                 return;

@@ -124,5 +124,48 @@ namespace Dance.Art.Timeline
 
         #endregion
 
+        #region IsTriggeiedBegin -- 是否已经触发了开始事件
+
+        private bool isTriggeiedBegin;
+        /// <summary>
+        /// 是否已经触发了开始事件
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public bool IsTriggeiedBegin
+        {
+            get { return isTriggeiedBegin; }
+            set { isTriggeiedBegin = value; }
+        }
+
+        #endregion
+
+        #region IsTriggeiedEnd -- 是否已经触发了结束事件
+
+        private bool isTriggeiedEnd;
+        /// <summary>
+        /// 是否已经触发了结束事件
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public bool IsTriggeiedEnd
+        {
+            get { return isTriggeiedEnd; }
+            set { isTriggeiedEnd = value; }
+        }
+
+
+        #endregion
+
+        // -------------------------------------------------------------------
+        // Control
+
+        /// <summary>
+        /// 当开始时执行
+        /// </summary>
+        public abstract void OnBegin();
+
+        /// <summary>
+        /// 当结束时触发
+        /// </summary>
+        public abstract void OnEnd();
     }
 }

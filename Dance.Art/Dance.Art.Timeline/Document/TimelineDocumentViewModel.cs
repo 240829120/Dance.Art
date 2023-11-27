@@ -332,7 +332,7 @@ namespace Dance.Art.Timeline
             }
 
             // 资源拖拽
-            if (e.EventArgs.Data.GetData(typeof(ResourceInfoItemModel)) is ResourceInfoItemModel resource)
+            if (e.EventArgs.Data.GetData(typeof(ResourceInfoItemModel)) is ResourceInfoItemModel)
             {
                 e.BeginTime = TimeSpan.Zero;
                 e.EndTime = view.timeline.GetViewportWidth() / 20;
@@ -355,7 +355,7 @@ namespace Dance.Art.Timeline
         /// </summary>
         private void ElementDrop(DanceTimelineElementDragEventArgs? e)
         {
-            if (e == null || ArtDomain.Current.ProjectDomain == null || this.View is not TimelineDocumentView view)
+            if (e == null || ArtDomain.Current.ProjectDomain == null)
                 return;
 
             if (e.BeginTime == null || e.EndTime == null)

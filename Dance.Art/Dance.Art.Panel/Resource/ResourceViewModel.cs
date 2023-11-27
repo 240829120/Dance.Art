@@ -71,7 +71,7 @@ namespace Dance.Art.Panel
         /// </summary>
         private void Loaded()
         {
-            if (this.View is not ResourceView view)
+            if (this.View is not ResourceView)
                 return;
 
             if (ArtDomain.Current.CurrentActiveContent is not DocumentPluginModel vm)

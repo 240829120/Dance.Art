@@ -191,7 +191,7 @@ namespace Dance.Art.Panel
         /// <returns>是否可以运行</returns>
         private bool CanRun()
         {
-            if (this.View is not CommandView view)
+            if (this.View is not CommandView)
                 return false;
 
             MainViewModel vm = DanceDomain.Current.LifeScope.Resolve<MainViewModel>();

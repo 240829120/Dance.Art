@@ -43,5 +43,16 @@ namespace Dance.Art.Panel
             };
             this.DataContext = vm;
         }
+
+        /// <summary>
+        /// 编辑器鼠标按下
+        /// </summary>
+        private void edit_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (this.DataContext is not CommandViewModel vm || vm.ViewPluginModel == null)
+                return;
+
+            vm.ViewPluginModel.IsActive = true;
+        }
     }
 }

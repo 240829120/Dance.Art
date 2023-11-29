@@ -7,14 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace Dance.Art.Scene
 {
     /// <summary>
     /// 变换分组
     /// </summary>
+    [ExpandableObject]
     public class SceneTransformGroup3D : SceneStructBase
     {
+        /// <summary>
+        /// 平移
+        /// </summary>
+        public const string TRANSLATE_TRANSFORM = "平移";
+
+        /// <summary>
+        /// 缩放
+        /// </summary>
+        public const string SCALE_TRANSFORM = "缩放";
+
         public SceneTransformGroup3D()
         {
             this.TranslateTransform = new();
@@ -37,6 +50,8 @@ namespace Dance.Art.Scene
         /// <summary>
         /// X轴偏移量
         /// </summary>
+        [Category(TRANSLATE_TRANSFORM), PropertyOrder(0), Description("X轴平移"), DisplayName("X轴平移")]
+        [Editor(typeof(PropertyGridEditorDoubleUpDown), typeof(PropertyGridEditorDoubleUpDown))]
         public double OffsetX
         {
             get { return offsetX; }
@@ -57,6 +72,7 @@ namespace Dance.Art.Scene
         /// <summary>
         /// Y轴偏移量
         /// </summary>
+        [Category(TRANSLATE_TRANSFORM), PropertyOrder(1), Description("Y轴平移"), DisplayName("Y轴平移")]
         public double OffsetY
         {
             get { return offsetY; }
@@ -77,6 +93,7 @@ namespace Dance.Art.Scene
         /// <summary>
         /// Z轴偏移量
         /// </summary>
+        [Category(TRANSLATE_TRANSFORM), PropertyOrder(2), Description("Z轴平移"), DisplayName("Z轴平移")]
         public double OffsetZ
         {
             get { return offsetZ; }
@@ -100,6 +117,7 @@ namespace Dance.Art.Scene
         /// <summary>
         /// X轴缩放
         /// </summary>
+        [Category(SCALE_TRANSFORM), PropertyOrder(0), Description("X轴缩放"), DisplayName("X轴缩放")]
         public double ScaleX
         {
             get { return scaleX; }
@@ -120,6 +138,7 @@ namespace Dance.Art.Scene
         /// <summary>
         /// Y轴缩放
         /// </summary>
+        [Category(SCALE_TRANSFORM), PropertyOrder(1), Description("Y轴缩放"), DisplayName("Y轴缩放")]
         public double ScaleY
         {
             get { return scaleY; }
@@ -140,6 +159,7 @@ namespace Dance.Art.Scene
         /// <summary>
         /// Z轴缩放
         /// </summary>
+        [Category(SCALE_TRANSFORM), PropertyOrder(2), Description("Z轴缩放"), DisplayName("Z轴缩放")]
         public double ScaleZ
         {
             get { return scaleZ; }
@@ -160,6 +180,7 @@ namespace Dance.Art.Scene
         /// <summary>
         /// 中心X坐标
         /// </summary>
+        [Category(SCALE_TRANSFORM), PropertyOrder(3), Description("中心X坐标"), DisplayName("中心X坐标")]
         public double CenterX
         {
             get { return centerX; }
@@ -180,6 +201,7 @@ namespace Dance.Art.Scene
         /// <summary>
         /// 中心Y坐标
         /// </summary>
+        [Category(SCALE_TRANSFORM), PropertyOrder(4), Description("中心Y坐标"), DisplayName("中心Y坐标")]
         public double CenterY
         {
             get { return centerY; }
@@ -200,6 +222,7 @@ namespace Dance.Art.Scene
         /// <summary>
         /// 中心Z坐标
         /// </summary>
+        [Category(SCALE_TRANSFORM), PropertyOrder(5), Description("中心Z坐标"), DisplayName("中心Z坐标")]
         public double CenterZ
         {
             get { return centerZ; }

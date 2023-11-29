@@ -34,7 +34,8 @@
 
         <dance:DanceDashedLine Grid.Row="1" StrokeDashArray="5 5" VerticalAlignment="Top" Margin="0,2,0,0"></dance:DanceDashedLine>
 
-        <edit:TextEditor x:Name="edit" FontFamily="Consolas" FontSize="12pt" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" WordWrap="False" Grid.Row="2">
+        <edit:TextEditor x:Name="edit" FontFamily="Consolas" FontSize="12pt" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" WordWrap="False" Grid.Row="2"
+                         PreviewMouseDown="edit_PreviewMouseDown">
             <edit:TextEditor.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="复制" Command="{Binding Path=CopyCommand}"

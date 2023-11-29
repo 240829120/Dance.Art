@@ -12,7 +12,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <edit:TextEditor x:Name="edit" FontFamily="Consolas" FontSize="12pt" SyntaxHighlighting="Txt" ShowLineNumbers="False" WordWrap="False"
-                         IsReadOnly="True">
+                         IsReadOnly="True" PreviewMouseDown="edit_PreviewMouseDown">
             <edit:TextEditor.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="复制" InputGestureText="Ctrl+C" Command="{Binding Path=CopyCommand}">

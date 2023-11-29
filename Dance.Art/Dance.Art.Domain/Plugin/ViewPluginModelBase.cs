@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,12 @@ namespace Dance.Art.Domain
             this.id = id;
             this.name = name;
             this.pluginInfo = pluginInfo;
+
+            this.LayoutItemPreviewMouseDownCommand = new(this.LayoutItemPreviewMouseDown);
         }
+
+        // ============================================================================================
+        // Property
 
         #region ID -- 编号
 
@@ -105,6 +111,26 @@ namespace Dance.Art.Domain
         {
             get { return data; }
             set { data = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        // ============================================================================================
+        // Command
+
+        #region LayoutItemPreviewMouseDownCommand -- 布局项鼠标左键按下命令
+
+        /// <summary>
+        /// 布局项鼠标左键按下命令
+        /// </summary>
+        public RelayCommand LayoutItemPreviewMouseDownCommand { get; private set; }
+
+        /// <summary>
+        /// 布局项鼠标左键按下
+        /// </summary>
+        private void LayoutItemPreviewMouseDown()
+        {
+            this.IsActive = true;
         }
 
         #endregion

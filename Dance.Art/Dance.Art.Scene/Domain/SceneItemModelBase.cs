@@ -74,7 +74,6 @@ namespace Dance.Art.Scene
         /// 变换
         /// </summary>
         [Category(PropertyCategoryDefines.LAYOUT), PropertyOrder(0), Description("变换"), DisplayName("变换")]
-        [Editor(typeof(TransformEditor), typeof(TransformEditor))]
         public SceneTransformGroup3D Transform
         {
             get { return transform; }

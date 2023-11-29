@@ -17,6 +17,7 @@
 		<Folder Include="DANCE_ART\Scene\" />
 		<Folder Include="DANCE_ART\Document\" />
 		<Folder Include="DANCE_ART\Resource\" />
+		<Folder Include="Editor\" />
 	</ItemGroup>
 
 	<ItemGroup>

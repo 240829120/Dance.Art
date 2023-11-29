@@ -35,7 +35,7 @@ namespace Dance.Art.ControlGrid
         public IDancePluginInfo Register()
         {
             return new ResourceDocumentPluginInfo(ID, NAME, typeof(ControlGridDocumentView), typeof(IControlGridItemModel),
-                                                  new DocumentFileInfo(DocumentFileGroupDefines.TEMPLATE, true, FileSuffixCategory.BUTTON_PANEL,
+                                                  new DocumentFileInfo(DocumentFileGroupDefines.TEMPLATE, true, FileSuffixCategory.CONTROL_GRID_PANEL,
                                                                        "pack://application:,,,/Dance.Art.ControlGrid;component/Themes/Resources/Icons/button_box.svg",
                                                                        Description));
         }

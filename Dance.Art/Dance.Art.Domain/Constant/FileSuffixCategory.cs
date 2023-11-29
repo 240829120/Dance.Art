@@ -22,13 +22,18 @@ namespace Dance.Art.Domain
         public const string PROJECT_CACHE = ".art_cache";
 
         /// <summary>
-        /// 按钮面板
+        /// 控制面板
         /// </summary>
-        public const string BUTTON_PANEL = ".art_cg";
+        public const string CONTROL_GRID_PANEL = ".art_cg";
 
         /// <summary>
         /// 时间线面板
         /// </summary>
         public const string TIME_LINE_PANEL = ".art_tl";
+
+        /// <summary>
+        /// 场景
+        /// </summary>
+        public const string SCENE = ".art_scene";
     }
 }

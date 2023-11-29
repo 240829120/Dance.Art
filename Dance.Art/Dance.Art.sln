@@ -51,7 +51,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "75-Plugin-Template", "75-Pl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.ControlGrid", "Dance.Art.ControlGrid\Dance.Art.ControlGrid.csproj", "{E07CF0DA-828D-4FA0-95C2-5E03AFD8082E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.Timeline", "Dance.Art.Timeline\Dance.Art.Timeline.csproj", "{9DF41EE6-B284-4568-B855-41BDA81663F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.Timeline", "Dance.Art.Timeline\Dance.Art.Timeline.csproj", "{9DF41EE6-B284-4568-B855-41BDA81663F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.Scene", "Dance.Art.Scene\Dance.Art.Scene.csproj", "{860B56BF-E65D-4E53-A722-F9ED418072CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +121,10 @@ Global
 		{9DF41EE6-B284-4568-B855-41BDA81663F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DF41EE6-B284-4568-B855-41BDA81663F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DF41EE6-B284-4568-B855-41BDA81663F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{860B56BF-E65D-4E53-A722-F9ED418072CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{860B56BF-E65D-4E53-A722-F9ED418072CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{860B56BF-E65D-4E53-A722-F9ED418072CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{860B56BF-E65D-4E53-A722-F9ED418072CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +145,7 @@ Global
 		{ABD8012F-0391-40BC-9849-ABCCBC7ECA5A} = {ECFDB010-B5BB-4833-942A-A20F4CD27259}
 		{E07CF0DA-828D-4FA0-95C2-5E03AFD8082E} = {8172C6F6-785C-4931-9CFA-F69F57BD0B46}
 		{9DF41EE6-B284-4568-B855-41BDA81663F1} = {8172C6F6-785C-4931-9CFA-F69F57BD0B46}
+		{860B56BF-E65D-4E53-A722-F9ED418072CF} = {8172C6F6-785C-4931-9CFA-F69F57BD0B46}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {924F5453-D98B-4C15-9FBA-9141CEE70FE3}

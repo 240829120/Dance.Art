@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Themes\Resources\Icons\scene.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Control\" />
+		<Folder Include="DANCE_ART\Scene\" />
+		<Folder Include="DANCE_ART\Document\" />
+		<Folder Include="DANCE_ART\Resource\" />
+		<Folder Include="Resource\" />
+		<Folder Include="Storage\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\Dance.Art.Script\DANCE_ART\Document\index.js" Link="DANCE_ART\Document\index.js" />
+		<None Include="..\Dance.Art.Script\DANCE_ART\Resource\index.js" Link="DANCE_ART\Resource\index.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Dance\Dance\Dance.Wpf\Dance.Wpf.csproj" />
+		<ProjectReference Include="..\..\..\Dance\Dance\Dance\Dance.csproj" />
+		<ProjectReference Include="..\Dance.Art.Document\Dance.Art.Document.csproj" />
+		<ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
+		<ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
+		<ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Themes\Resources\Icons\scene.svg" />
+	</ItemGroup>
+
+</Project>

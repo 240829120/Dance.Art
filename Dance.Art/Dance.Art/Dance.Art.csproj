@@ -23,6 +23,7 @@
     <ProjectReference Include="..\Dance.Art.Domain\Dance.Art.Domain.csproj" />
     <ProjectReference Include="..\Dance.Art.Module\Dance.Art.Module.csproj" />
     <ProjectReference Include="..\Dance.Art.Panel\Dance.Art.Panel.csproj" />
+    <ProjectReference Include="..\Dance.Art.Scene\Dance.Art.Scene.csproj" />
     <ProjectReference Include="..\Dance.Art.Script\Dance.Art.Script.csproj" />
     <ProjectReference Include="..\Dance.Art.Storage\Dance.Art.Storage.csproj" />
     <ProjectReference Include="..\Dance.Art.Template\Dance.Art.Template.csproj" />

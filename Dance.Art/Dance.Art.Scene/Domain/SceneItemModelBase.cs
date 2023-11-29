@@ -37,6 +37,21 @@ namespace Dance.Art.Scene
         // ===================================================================================================
         // Property
 
+        #region Icon -- 图标
+
+        private string? icon;
+        /// <summary>
+        /// 图标
+        /// </summary>
+        [Browsable(false)]
+        public string? Icon
+        {
+            get { return icon; }
+            set { icon = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
         #region Name -- 名称
 
         private string? name;
@@ -59,6 +74,7 @@ namespace Dance.Art.Scene
         /// 变换
         /// </summary>
         [Category(PropertyCategoryDefines.LAYOUT), PropertyOrder(0), Description("变换"), DisplayName("变换")]
+        [Editor(typeof(TransformEditor), typeof(TransformEditor))]
         public SceneTransformGroup3D Transform
         {
             get { return transform; }
@@ -69,21 +85,6 @@ namespace Dance.Art.Scene
 
         // ===================================================================================================
         // Controller
-
-        #region Icon -- 图标
-
-        private string? icon;
-        /// <summary>
-        /// 图标
-        /// </summary>
-        [Browsable(false), JsonIgnore]
-        public string? Icon
-        {
-            get { return icon; }
-            set { icon = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
 
         #region Material -- 材质
 

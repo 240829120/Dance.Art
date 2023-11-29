@@ -76,6 +76,26 @@ namespace Dance.Art.Scene
 
         #endregion
 
+        #region SelectedItem -- 当前选中项
+
+        private ISceneItemModel? selectedItem;
+        /// <summary>
+        /// 当前选中项
+        /// </summary>
+        public ISceneItemModel? SelectedItem
+        {
+            get { return selectedItem; }
+            set
+            {
+                selectedItem = value;
+                this.OnPropertyChanged();
+
+                DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, value));
+            }
+        }
+
+        #endregion
+
         // ===============================================================================================
         // Command 
 

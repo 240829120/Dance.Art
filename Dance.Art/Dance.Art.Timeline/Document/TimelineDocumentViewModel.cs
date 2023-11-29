@@ -65,7 +65,7 @@ namespace Dance.Art.Timeline
         /// <summary>
         /// 触发控制器
         /// </summary>
-        private TimelineTriggerController TriggerController;
+        private readonly TimelineTriggerController TriggerController;
 
         // ====================================================================================
         // Property

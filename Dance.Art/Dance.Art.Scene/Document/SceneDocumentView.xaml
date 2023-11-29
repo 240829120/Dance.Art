@@ -69,8 +69,8 @@
         </Border>
 
         <!-- 元素 -->
-        <ListBox ItemsSource="{Binding Items}" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0"
-                 AllowDrop="True" 
+        <ListBox ItemsSource="{Binding Items}" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" AllowDrop="True" 
+                 SelectedValue="{Binding Path=SelectedItem,Mode=TwoWay}"
                  dance:DanceDragTrigger.DropCommand="{Binding Path=ResourceDropCommand}">
             <ListBox.ItemTemplate>
                 <DataTemplate>

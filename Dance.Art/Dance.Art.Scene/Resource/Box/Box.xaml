@@ -5,7 +5,7 @@
 
     <DataTemplate x:Key="[Dance.Art.Scene]:Box">
         <hx:MeshGeometryModel3D IsThrowingShadow="True"
-                                CullMode="Back"
+                                CullMode="None"
                                 Geometry="{Binding Path=Geometry,Mode=OneWay}"
                                 Material="{Binding Path=Material,Mode=OneWay}"
                                 Transform="{Binding Path=Transform.TransformGroup,Mode=OneWay}"></hx:MeshGeometryModel3D>

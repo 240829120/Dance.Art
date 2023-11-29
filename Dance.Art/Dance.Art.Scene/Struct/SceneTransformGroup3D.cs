@@ -96,7 +96,7 @@ namespace Dance.Art.Scene
 
         #region ScaleX -- X轴缩放
 
-        private double scaleX;
+        private double scaleX = 1d;
         /// <summary>
         /// X轴缩放
         /// </summary>
@@ -116,7 +116,7 @@ namespace Dance.Art.Scene
 
         #region ScaleY -- Y轴缩放
 
-        private double scaleY;
+        private double scaleY = 1d;
         /// <summary>
         /// Y轴缩放
         /// </summary>
@@ -136,7 +136,7 @@ namespace Dance.Art.Scene
 
         #region ScaleZ -- Z轴缩放
 
-        private double scaleZ;
+        private double scaleZ = 1d;
         /// <summary>
         /// Z轴缩放
         /// </summary>

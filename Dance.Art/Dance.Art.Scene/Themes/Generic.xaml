@@ -1,6 +1,9 @@
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Dance.Art.Scene">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Dance.Art.Scene">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Dance.Art.Scene;component/Editor/TransformEditor/TransformEditor.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,17 +21,20 @@ namespace Dance.Art.Domain
         /// 资源项基类
         /// </summary>
         /// <param name="dataTemplate">模板</param>
-        public ResourceItemModelBase(Type dataTemplate)
+        public ResourceItemModelBase(Type? dataTemplate)
         {
-            this.DataTemplate = DanceXamlExpansion.CreateDataTemplate(dataTemplate) ?? throw new Exception($"can`t create DataTemplate, type: {dataTemplate}");
+            if (dataTemplate != null)
+            {
+                this.DataTemplate = DanceXamlExpansion.CreateDataTemplate(dataTemplate) ?? throw new Exception($"can`t create DataTemplate, type: {dataTemplate}");
+            }
         }
 
         /// <summary>
         /// 模板
         /// </summary>
-        [Browsable(false)]
-        [JsonIgnore]
-        public DataTemplate DataTemplate { get; }
+        [Browsable(false), JsonIgnore]
+        [NotNull]
+        public DataTemplate? DataTemplate { get; protected set; }
 
         #region ID -- 编号
 

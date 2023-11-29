@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace Dance.Art.Scene
 {
     /// <summary>
-    /// 资源定义
+    /// 场景资源分组定义
     /// </summary>
-    public static class SceneResourceDefines
+    public static class SceneResourceGroupDefines
     {
         /// <summary>
-        /// 盒子
+        /// 基础
         /// </summary>
-        public const string Box = "[Dance.Art.Scene]:Box";
+        public const string BASE = "基础";
 
         /// <summary>
-        /// 平行光
+        /// 光
         /// </summary>
-        public const string DirectionalLight = "[Dance.Art.Scene]:DirectionalLight";
+        public const string LIGHT = "光";
     }
 }

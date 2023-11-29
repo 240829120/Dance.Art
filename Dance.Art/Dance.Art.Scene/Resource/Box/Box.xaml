@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:hx="http://helix-toolkit.org/wpf/SharpDX"
+                    xmlns:local="clr-namespace:Dance.Art.Scene">
+
+    <DataTemplate x:Key="[Dance.Art.Scene]:Box">
+        <hx:MeshGeometryModel3D IsThrowingShadow="True"
+                                CullMode="Back"
+                                Geometry="{Binding Path=Geometry,Mode=OneWay}"
+                                Material="{Binding Path=Material,Mode=OneWay}"
+                                Transform="{Binding Path=Transform.TransformGroup,Mode=OneWay}"></hx:MeshGeometryModel3D>
+    </DataTemplate>
+
+</ResourceDictionary>

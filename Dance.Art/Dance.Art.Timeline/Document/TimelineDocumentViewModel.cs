@@ -514,6 +514,7 @@ namespace Dance.Art.Timeline
             this.TimelineModel = storage?.TimelineModel ?? new();
             this.TimelineModel.OwnerDocument = this;
 
+            this.Tracks.ForEach(p => p.Dispose());
             this.Tracks.Clear();
             this.Tracks.AddRange(storage?.Tracks);
             this.Tracks.ForEach(p =>

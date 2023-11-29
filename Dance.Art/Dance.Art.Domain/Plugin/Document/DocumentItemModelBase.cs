@@ -24,8 +24,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 所属文档
         /// </summary>
-        [JsonIgnore]
-        [Browsable(false)]
+        [Browsable(false), JsonIgnore]
         public virtual IDocumentViewModel? OwnerDocument { get; set; }
 
         /// <summary>

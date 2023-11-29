@@ -31,7 +31,8 @@ namespace Dance.Art.Scene
         {
             List<IResourceSource> resources = new()
             {
-
+                new DirectionalLightSource(),
+                new BoxSource(),
             };
 
             return new ResourcePluginInfo(ID, NAME, resources.ToArray());

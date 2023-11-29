@@ -3,10 +3,87 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hx="http://helix-toolkit.org/wpf/SharpDX"
+             xmlns:dance="http://schemas.dance.com/wpf"
              xmlns:local="clr-namespace:Dance.Art.Scene"
              mc:Ignorable="d" 
+             dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}"
+             d:DataContext="{d:DesignInstance Type=local:SceneDocumentViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <dance:DanceItemsModel3DTemplateSelector x:Key="DanceItemsModel3DTemplateSelector"></dance:DanceItemsModel3DTemplateSelector>
+    </UserControl.Resources>
+
     <Grid>
-        <TextBlock Text="场景" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!-- 菜单 -->
+        <Grid Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.CHUNK_BAR_BACKGROUND}}" Grid.ColumnSpan="2">
+            <!-- Left -->
+            <StackPanel Orientation="Horizontal">
+
+            </StackPanel>
+        </Grid>
+        <dance:DanceDashedLine Grid.Row="1" StrokeDashArray="5 5" VerticalAlignment="Top" Margin="0,2,0,0" Grid.ColumnSpan="2"></dance:DanceDashedLine>
+
+        <!-- 视图 -->
+        <Border BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}" 
+                BorderThickness="1"
+                Grid.Row="2" Padding="10">
+            <hx:Viewport3DX BackgroundColor="White"
+                        EnableDesignModeRendering="False"
+                        ShowCoordinateSystem="True"
+                        ZoomExtentsWhenLoaded="True"
+                        UseDefaultGestures="False"
+                        EnableSwapChainRendering="True"
+                        FXAALevel="{Binding Path=SceneModel.FXAALevel,Mode=OneWay}"
+                        EffectsManager="{Binding Path=SceneModel.EffectsManager,Mode=OneWay}"
+                        ModelUpDirection="{Binding Path=SceneModel.UpDirection,Mode=OneWay}"
+                        DefaultCamera="{Binding Path=SceneModel.DefaultCamera,Mode=OneWay}"
+                        Camera="{Binding Path=SceneModel.Camera,Mode=OneWay}">
+                <hx:Viewport3DX.InputBindings>
+                    <KeyBinding Key="B" Command="hx:ViewportCommands.BackView" />
+                    <KeyBinding Key="F" Command="hx:ViewportCommands.FrontView" />
+                    <KeyBinding Key="U" Command="hx:ViewportCommands.TopView" />
+                    <KeyBinding Key="D" Command="hx:ViewportCommands.BottomView" />
+                    <KeyBinding Key="L" Command="hx:ViewportCommands.LeftView" />
+                    <KeyBinding Key="R" Command="hx:ViewportCommands.RightView" />
+                    <KeyBinding Command="hx:ViewportCommands.ZoomExtents" Gesture="Control+E" />
+                    <MouseBinding Command="hx:ViewportCommands.Rotate" Gesture="RightClick" />
+                    <MouseBinding Command="hx:ViewportCommands.Zoom" Gesture="MiddleClick" />
+                    <MouseBinding Command="hx:ViewportCommands.Pan" Gesture="LeftClick" />
+                </hx:Viewport3DX.InputBindings>
+                <hx:AmbientLight3D Color="{Binding SceneModel.AmbientLight}" />
+                <hx:DirectionalLight3D Direction="{Binding SceneModel.DefaultCamera.LookDirection}" Color="White" />
+                <!--<hx:Element3DPresenter x:Name="presenter" />-->
+                <dance:DanceItemsModel3D ItemTemplateSelector="{StaticResource DanceItemsModel3DTemplateSelector}"
+                                         ItemsSource="{Binding Path=Items,Mode=OneWay}"></dance:DanceItemsModel3D>
+            </hx:Viewport3DX>
+        </Border>
+
+        <!-- 元素 -->
+        <ListBox ItemsSource="{Binding Items}" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0"
+                 AllowDrop="True" 
+                 dance:DanceDragTrigger.DropCommand="{Binding Path=ResourceDropCommand}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <dance:DanceSvgImage Width="16" Height="16" Source="{Binding Path=Icon,Mode=OneWay}"></dance:DanceSvgImage>
+                        <TextBlock Text="{Binding Path=Name,Mode=OneWay}" Grid.Column="1"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

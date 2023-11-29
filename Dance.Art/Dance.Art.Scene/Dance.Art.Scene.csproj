@@ -7,6 +7,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Themes\Resources\Icons\box.svg" />
+	  <None Remove="Themes\Resources\Icons\directional_light.svg" />
 	  <None Remove="Themes\Resources\Icons\scene.svg" />
 	</ItemGroup>
 
@@ -15,8 +17,6 @@
 		<Folder Include="DANCE_ART\Scene\" />
 		<Folder Include="DANCE_ART\Document\" />
 		<Folder Include="DANCE_ART\Resource\" />
-		<Folder Include="Resource\" />
-		<Folder Include="Storage\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -34,6 +34,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Themes\Resources\Icons\box.svg" />
+	  <Resource Include="Themes\Resources\Icons\directional_light.svg" />
 	  <Resource Include="Themes\Resources\Icons\scene.svg" />
 	</ItemGroup>
 

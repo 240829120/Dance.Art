@@ -24,6 +24,8 @@ namespace Dance.Art.ControlGrid
     {
         public ControlGridDocumentViewModel()
         {
+            this.Items = new() { OwnerDocument = this };
+
             // 命令
             this.ResourceDropCommand = new(this.ResourceDrop);
             this.DeleteCommand = new(this.Delete, this.CanDelete);
@@ -64,7 +66,7 @@ namespace Dance.Art.ControlGrid
         /// <summary>
         /// 项集合
         /// </summary>
-        public DocumentWrapperCollection<IControlGridItemModel> Items { get; } = new();
+        public DocumentWrapperCollection<IControlGridItemModel> Items { get; }
 
         #endregion
 

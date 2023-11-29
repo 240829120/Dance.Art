@@ -98,5 +98,16 @@ namespace Dance.Art.Timeline
         }
 
         #endregion
+
+        // -------------------------------------------------------------------
+        // Override
+
+        protected override void Destroy()
+        {
+            foreach (TimelineElementModelBase item in this.Items)
+            {
+                item.Dispose();
+            }
+        }
     }
 }

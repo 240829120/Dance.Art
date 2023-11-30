@@ -1,5 +1,6 @@
 ﻿using Dance.Art.Domain;
 using HelixToolkit.SharpDX.Core;
+using HelixToolkit.Wpf.SharpDX;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
@@ -93,7 +95,7 @@ namespace Dance.Art.Scene
 
         #region DefaultCamera -- 默认摄像机
 
-        private HelixToolkit.Wpf.SharpDX.Camera defaultCamera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera
+        private HelixToolkit.Wpf.SharpDX.ProjectionCamera defaultCamera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera
         {
             Position = new Point3D(3, 3, 5),
             LookDirection = new Vector3D(-3, -3, -5),
@@ -105,7 +107,7 @@ namespace Dance.Art.Scene
         /// 主摄像机
         /// </summary>
         [Browsable(false), JsonIgnore]
-        public HelixToolkit.Wpf.SharpDX.Camera DefaultCamera
+        public HelixToolkit.Wpf.SharpDX.ProjectionCamera DefaultCamera
         {
             get { return defaultCamera; }
             set { defaultCamera = value; this.OnPropertyChanged(); }
@@ -121,7 +123,7 @@ namespace Dance.Art.Scene
         /// 摄像机
         /// </summary>
         [Browsable(false), JsonIgnore]
-        public HelixToolkit.Wpf.SharpDX.Camera Camera
+        public HelixToolkit.Wpf.SharpDX.Camera? Camera
         {
             get { return camera; }
             set { camera = value; this.OnPropertyChanged(); }
@@ -129,7 +131,5 @@ namespace Dance.Art.Scene
 
 
         #endregion
-
-
     }
 }

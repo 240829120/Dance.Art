@@ -45,7 +45,7 @@ namespace Dance.Art.Scene
         /// 模型路径
         /// </summary>
         [Category(PropertyCategoryDefines.OTHER), PropertyOrder(0), Description("模型路径"), DisplayName("模型路径")]
-        [Editor(typeof(ModelOpenFileEditor), typeof(ModelOpenFileEditor))]
+        [Editor(typeof(OpenFileEditor), typeof(ModelOpenFileEditor))]
         public string? FilePath
         {
             get { return filePath; }

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows;
+using HelixToolkit.Wpf.SharpDX;
+using HelixToolkit.SharpDX.Core.Model.Scene;
 
 namespace Dance.Art.Scene
 {
@@ -23,6 +25,7 @@ namespace Dance.Art.Scene
 
             // 命令
             this.ResourceDropCommand = new(this.ResourceDrop);
+            this.MouseDown3DCommand = new(this.MouseDown3D);
 
             // 消息
             DanceDomain.Current.Messenger.Register<DockingDesignModeChangedMessage>(this, this.OnDockingDesignModeChanged);

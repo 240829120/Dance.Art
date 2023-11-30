@@ -6,6 +6,7 @@
              xmlns:hx="http://helix-toolkit.org/wpf/SharpDX"
              xmlns:dance="http://schemas.dance.com/wpf"
              xmlns:local="clr-namespace:Dance.Art.Scene"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              dance:DanceCommandTrigger.LoadedOnceCommand="{Binding Path=LoadedCommand}"
              d:DataContext="{d:DesignInstance Type=local:SceneDocumentViewModel}"
@@ -60,9 +61,9 @@
                     <MouseBinding Command="hx:ViewportCommands.Zoom" Gesture="MiddleClick" />
                     <MouseBinding Command="hx:ViewportCommands.Pan" Gesture="LeftClick" />
                 </hx:Viewport3DX.InputBindings>
+                
                 <hx:AmbientLight3D Color="{Binding SceneModel.AmbientLight}" />
                 <hx:DirectionalLight3D Direction="{Binding SceneModel.Camera.LookDirection}" Color="White" />
-                <!--<hx:Element3DPresenter x:Name="presenter" />-->
                 <dance:DanceItemsModel3D ItemTemplateSelector="{StaticResource DanceItemsModel3DTemplateSelector}"
                                          ItemsSource="{Binding Path=Items,Mode=OneWay}"></dance:DanceItemsModel3D>
             </hx:Viewport3DX>

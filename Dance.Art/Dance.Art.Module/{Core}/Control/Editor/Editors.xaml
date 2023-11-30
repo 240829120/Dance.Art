@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Control/Editor/DeviceChooseEditor/DeviceChooseEditor.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Control/Editor/MultiLineEditor/MultiLineEditor.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Dance.Art.Module;component/{Core}/Control/Editor/OpenFileEditor/OpenFileEditor.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

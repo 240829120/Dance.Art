@@ -28,9 +28,9 @@ namespace Dance.Art.Scene
         /// <summary>
         /// 平行光
         /// </summary>
-        public DirectionalLightModel()
+        public DirectionalLightModel() : base(SceneResourceDefines.DirectionalLight)
         {
-            this.DataTemplate = this.SceneResourceManager.Get(SceneResourceDefines.DirectionalLight);
+
         }
 
         // ================================================================================

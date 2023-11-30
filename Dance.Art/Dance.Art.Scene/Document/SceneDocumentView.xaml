@@ -47,7 +47,7 @@
                         EffectsManager="{Binding Path=SceneModel.EffectsManager,Mode=OneWay}"
                         ModelUpDirection="{Binding Path=SceneModel.UpDirection,Mode=OneWay}"
                         DefaultCamera="{Binding Path=SceneModel.DefaultCamera,Mode=OneWay}"
-                        Camera="{Binding Path=SceneModel.Camera,Mode=OneWay}">
+                        Camera="{Binding Path=SceneModel.Camera,Mode=TwoWay}">
                 <hx:Viewport3DX.InputBindings>
                     <KeyBinding Key="B" Command="hx:ViewportCommands.BackView" />
                     <KeyBinding Key="F" Command="hx:ViewportCommands.FrontView" />
@@ -61,7 +61,7 @@
                     <MouseBinding Command="hx:ViewportCommands.Pan" Gesture="LeftClick" />
                 </hx:Viewport3DX.InputBindings>
                 <hx:AmbientLight3D Color="{Binding SceneModel.AmbientLight}" />
-                <hx:DirectionalLight3D Direction="{Binding SceneModel.DefaultCamera.LookDirection}" Color="White" />
+                <hx:DirectionalLight3D Direction="{Binding SceneModel.Camera.LookDirection}" Color="White" />
                 <!--<hx:Element3DPresenter x:Name="presenter" />-->
                 <dance:DanceItemsModel3D ItemTemplateSelector="{StaticResource DanceItemsModel3DTemplateSelector}"
                                          ItemsSource="{Binding Path=Items,Mode=OneWay}"></dance:DanceItemsModel3D>

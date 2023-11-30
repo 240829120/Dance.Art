@@ -26,10 +26,8 @@ namespace Dance.Art.Scene
         /// <summary>
         /// 长方体
         /// </summary>
-        public BoxModel()
+        public BoxModel() : base(SceneResourceDefines.Box)
         {
-            this.DataTemplate = this.SceneResourceManager.Get(SceneResourceDefines.Box);
-
             MeshBuilder builder = new();
             builder.AddBox(new Vector3(0, 0, 0), 1, 1, 1, BoxFaces.All);
             this.Geometry = builder.ToMeshGeometry3D();

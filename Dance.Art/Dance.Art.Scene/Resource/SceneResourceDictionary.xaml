@@ -3,6 +3,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Dance.Art.Scene;component/Resource/Box/Box.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Dance.Art.Scene;component/Resource/Model/Model.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Dance.Art.Scene;component/Resource/DirectionalLight/DirectionalLight.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 

@@ -33,6 +33,7 @@ namespace Dance.Art.Scene
             {
                 new DirectionalLightSource(),
                 new BoxSource(),
+                new ModelSource(),
             };
 
             return new ResourcePluginInfo(ID, NAME, resources.ToArray());

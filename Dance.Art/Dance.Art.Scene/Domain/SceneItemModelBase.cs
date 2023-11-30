@@ -21,9 +21,10 @@ namespace Dance.Art.Scene
         /// <summary>
         /// 场景项模型基类
         /// </summary>
-        protected SceneItemModelBase() : base(null)
+        /// <param name="key">资源键<see cref="SceneResourceDefines"/></param>
+        protected SceneItemModelBase(string key) : base(null)
         {
-
+            this.DataTemplate = this.SceneResourceManager.Get(key);
         }
 
         // ===================================================================================================
@@ -32,7 +33,7 @@ namespace Dance.Art.Scene
         /// <summary>
         /// 场景资源管理器
         /// </summary>
-        protected readonly ISceneResourceManager SceneResourceManager = DanceDomain.Current.LifeScope.Resolve<ISceneResourceManager>();
+        private readonly ISceneResourceManager SceneResourceManager = DanceDomain.Current.LifeScope.Resolve<ISceneResourceManager>();
 
         // ===================================================================================================
         // Property

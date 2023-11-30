@@ -53,7 +53,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.ControlGrid", "Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.Timeline", "Dance.Art.Timeline\Dance.Art.Timeline.csproj", "{9DF41EE6-B284-4568-B855-41BDA81663F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.Scene", "Dance.Art.Scene\Dance.Art.Scene.csproj", "{860B56BF-E65D-4E53-A722-F9ED418072CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.Scene", "Dance.Art.Scene\Dance.Art.Scene.csproj", "{860B56BF-E65D-4E53-A722-F9ED418072CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.WpfTest", "Dance.Art.WpfTest\Dance.Art.WpfTest.csproj", "{CE89DA7C-AE35-40E7-B1DB-B9BC143A3CDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +127,10 @@ Global
 		{860B56BF-E65D-4E53-A722-F9ED418072CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{860B56BF-E65D-4E53-A722-F9ED418072CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{860B56BF-E65D-4E53-A722-F9ED418072CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE89DA7C-AE35-40E7-B1DB-B9BC143A3CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE89DA7C-AE35-40E7-B1DB-B9BC143A3CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE89DA7C-AE35-40E7-B1DB-B9BC143A3CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE89DA7C-AE35-40E7-B1DB-B9BC143A3CDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +152,7 @@ Global
 		{E07CF0DA-828D-4FA0-95C2-5E03AFD8082E} = {8172C6F6-785C-4931-9CFA-F69F57BD0B46}
 		{9DF41EE6-B284-4568-B855-41BDA81663F1} = {8172C6F6-785C-4931-9CFA-F69F57BD0B46}
 		{860B56BF-E65D-4E53-A722-F9ED418072CF} = {8172C6F6-785C-4931-9CFA-F69F57BD0B46}
+		{CE89DA7C-AE35-40E7-B1DB-B9BC143A3CDB} = {BFB6662A-0B9F-4AFC-B20E-FACA5F228BB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {924F5453-D98B-4C15-9FBA-9141CEE70FE3}

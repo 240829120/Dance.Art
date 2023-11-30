@@ -17,6 +17,11 @@ namespace Dance.Art.Scene
         public const string Box = "[Dance.Art.Scene]:Box";
 
         /// <summary>
+        /// 模型
+        /// </summary>
+        public const string Model = "[Dance.Art.Scene]:Model";
+
+        /// <summary>
         /// 平行光
         /// </summary>
         public const string DirectionalLight = "[Dance.Art.Scene]:DirectionalLight";

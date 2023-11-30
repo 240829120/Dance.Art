@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:hx="http://helix-toolkit.org/wpf/SharpDX"
+                    xmlns:dance="http://schemas.dance.com/wpf"
+                    xmlns:local="clr-namespace:Dance.Art.Scene">
+
+    <DataTemplate x:Key="[Dance.Art.Scene]:Model">
+        <dance:DanceSceneRootNodeModel3D Root="{Binding Root,Mode=OneWay}"
+                                         Transform="{Binding Path=Transform.TransformGroup,Mode=OneWay}"></dance:DanceSceneRootNodeModel3D>
+    </DataTemplate>
+
+</ResourceDictionary>

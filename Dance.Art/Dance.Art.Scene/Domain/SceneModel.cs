@@ -131,5 +131,67 @@ namespace Dance.Art.Scene
 
 
         #endregion
+
+        // ----------------------------------------------------------------------------
+
+        #region ManipulatorVisibility -- 操作是否可见
+
+        private Visibility manipulatorVisibility = Visibility.Collapsed;
+        /// <summary>
+        /// 操作是否可见
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public Visibility ManipulatorVisibility
+        {
+            get { return manipulatorVisibility; }
+            set { manipulatorVisibility = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region ManipulatorCenterOffset -- 操作中心偏移量
+
+        private SharpDX.Vector3 manipulatorCenterOffset;
+        /// <summary>
+        /// 操作中心偏移量
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public SharpDX.Vector3 ManipulatorCenterOffset
+        {
+            get { return manipulatorCenterOffset; }
+            set { manipulatorCenterOffset = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region ManipulatorSizeScale -- 操作缩放
+
+        private double manipulatorSizeScale = 1d;
+        /// <summary>
+        /// 操作缩放
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public double ManipulatorSizeScale
+        {
+            get { return manipulatorSizeScale; }
+            set { manipulatorSizeScale = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region ManipulatorTarget -- 操作目标
+
+        private Element3D? manipulatorTarget;
+        /// <summary>
+        /// 操作目标
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public Element3D? ManipulatorTarget
+        {
+            get { return manipulatorTarget; }
+            set { manipulatorTarget = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
     }
 }

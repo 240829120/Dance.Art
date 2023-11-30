@@ -24,10 +24,5 @@ namespace Dance.Art.Scene
         /// 名称
         /// </summary>
         string? Name { get; set; }
-
-        /// <summary>
-        /// 变换
-        /// </summary>
-        SceneTransformGroup3D Transform { get; set; }
     }
 }

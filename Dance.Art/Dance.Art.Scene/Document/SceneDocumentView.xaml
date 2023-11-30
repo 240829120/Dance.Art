@@ -61,9 +61,17 @@
                     <MouseBinding Command="hx:ViewportCommands.Zoom" Gesture="MiddleClick" />
                     <MouseBinding Command="hx:ViewportCommands.Pan" Gesture="LeftClick" />
                 </hx:Viewport3DX.InputBindings>
-                
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseDown3D">
+                        <b:InvokeCommandAction Command="{Binding Path=MouseDown3DCommand}" PassEventArgsToCommand="True"></b:InvokeCommandAction>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+
                 <hx:AmbientLight3D Color="{Binding SceneModel.AmbientLight}" />
                 <hx:DirectionalLight3D Direction="{Binding SceneModel.Camera.LookDirection}" Color="White" />
+                <hx:TransformManipulator3D x:Name="manipulator" CenterOffset="{Binding SceneModel.ManipulatorCenterOffset}"
+                                           SizeScale="10"
+                                           Target="{Binding SceneModel.ManipulatorTarget}"/>
                 <dance:DanceItemsModel3D ItemTemplateSelector="{StaticResource DanceItemsModel3DTemplateSelector}"
                                          ItemsSource="{Binding Path=Items,Mode=OneWay}"></dance:DanceItemsModel3D>
             </hx:Viewport3DX>

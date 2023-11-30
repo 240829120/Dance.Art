@@ -102,6 +102,61 @@ namespace Dance.Art.Scene
         // ===============================================================================================
         // Command 
 
+        #region MouseDown3DCommand -- 3D鼠标点击命令
+
+        /// <summary>
+        /// 3D鼠标点击命令
+        /// </summary>
+        public RelayCommand<RoutedEventArgs> MouseDown3DCommand { get; private set; }
+
+        /// <summary>
+        /// 3D鼠标点击
+        /// </summary>
+        /// <param name="e">事件参数</param>
+        private void MouseDown3D(RoutedEventArgs? e)
+        {
+            if (this.SceneModel == null || e is not MouseDown3DEventArgs args)
+                return;
+
+            if (args.HitTestResult == null)
+            {
+                this.SceneModel.ManipulatorTarget = null;
+                this.SceneModel.ManipulatorVisibility = Visibility.Collapsed;
+                return;
+            }
+
+            if (args.HitTestResult.ModelHit is MeshGeometryModel3D element)
+            {
+                this.SceneModel.ManipulatorTarget = null;
+                this.SceneModel.ManipulatorCenterOffset = element.Geometry.Bound.Center;
+                this.SceneModel.ManipulatorTarget = element;
+                this.SceneModel.ManipulatorVisibility = Visibility.Visible;
+                return;
+            }
+
+            if (args.HitTestResult.ModelHit is MeshNode node && this.TryFindTag(node) is Element3D owner)
+            {
+                this.SceneModel.ManipulatorTarget = null;
+                this.SceneModel.ManipulatorCenterOffset = owner.Bounds.Center;
+                this.SceneModel.ManipulatorTarget = owner;
+                this.SceneModel.ManipulatorVisibility = Visibility.Visible;
+                return;
+            }
+
+            this.SceneModel.ManipulatorTarget = null;
+            this.SceneModel.ManipulatorVisibility = Visibility.Collapsed;
+        }
+
+        private Element3D? TryFindTag(SceneNode node)
+        {
+            if (node.Tag is Element3D element)
+                return element;
+
+            return this.TryFindTag(node.Parent);
+        }
+
+        #endregion
+
         #region ResourceDropCommand -- 元素拖拽放置命令
 
         /// <summary>

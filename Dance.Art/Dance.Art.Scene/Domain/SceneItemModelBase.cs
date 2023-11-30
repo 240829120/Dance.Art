@@ -68,21 +68,6 @@ namespace Dance.Art.Scene
 
         #endregion
 
-        #region Transform -- 变换
-
-        private SceneTransformGroup3D transform = new();
-        /// <summary>
-        /// 变换
-        /// </summary>
-        [Category(PropertyCategoryDefines.LAYOUT), PropertyOrder(0), Description("变换"), DisplayName("变换")]
-        public SceneTransformGroup3D Transform
-        {
-            get { return transform; }
-            set { transform = value; this.OnWrapperPropertyChanged(); }
-        }
-
-        #endregion
-
         // ===================================================================================================
         // Controller
 
@@ -93,6 +78,21 @@ namespace Dance.Art.Scene
         /// </summary>
         [Browsable(false), JsonIgnore]
         public PhongMaterial Material { get; } = PhongMaterials.Red;
+
+        #endregion
+
+        #region Transform -- 变换
+
+        private MatrixTransform3D transform = new();
+        /// <summary>
+        /// 变换
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public MatrixTransform3D Transform
+        {
+            get { return transform; }
+            set { transform = value; this.OnPropertyChanged(); }
+        }
 
         #endregion
     }

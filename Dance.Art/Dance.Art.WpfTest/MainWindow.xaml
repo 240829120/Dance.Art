@@ -20,7 +20,7 @@
                         CoordinateSystemLabelForeground="White"
                         EnableDesignModeRendering="False"
                         FXAALevel="Low" EnableSwapChainRendering="False"
-                        ShowCoordinateSystem="True" MouseDown3D="viewport_MouseDown3D"
+                        ShowCoordinateSystem="True" MouseDown3D="Viewport_MouseDown3D"
                         TextBrush="White" ZoomExtentsWhenLoaded="True"
                         UseDefaultGestures="False">
             <hx:Viewport3DX.InputBindings>

@@ -72,7 +72,7 @@ namespace Dance.Art.WpfTest
 
         }
 
-        private void viewport_MouseDown3D(object sender, RoutedEventArgs e)
+        private void Viewport_MouseDown3D(object sender, RoutedEventArgs e)
         {
             if (e is not MouseDown3DEventArgs args || args.OriginalInputEventArgs is not MouseButtonEventArgs mouseEventArgs || mouseEventArgs.LeftButton != MouseButtonState.Pressed)
                 return;

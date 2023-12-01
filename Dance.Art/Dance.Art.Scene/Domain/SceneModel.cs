@@ -1,4 +1,5 @@
 ﻿using Dance.Art.Domain;
+using Dance.Wpf;
 using HelixToolkit.SharpDX.Core;
 using HelixToolkit.Wpf.SharpDX;
 using Newtonsoft.Json;
@@ -23,7 +24,13 @@ namespace Dance.Art.Scene
     {
         public SceneModel()
         {
-
+            this.camera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera
+            {
+                Position = new Point3D(3, 3, 5),
+                LookDirection = new Vector3D(-3, -3, -5),
+                UpDirection = new Vector3D(0, 1, 0),
+                FarPlaneDistance = 50000
+            };
         }
 
         // ===============================================================================================
@@ -93,103 +100,18 @@ namespace Dance.Art.Scene
 
         #endregion
 
-        #region DefaultCamera -- 默认摄像机
-
-        private HelixToolkit.Wpf.SharpDX.ProjectionCamera defaultCamera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera
-        {
-            Position = new Point3D(3, 3, 5),
-            LookDirection = new Vector3D(-3, -3, -5),
-            UpDirection = new Vector3D(0, 1, 0),
-            FarPlaneDistance = 50000
-        };
-
-        /// <summary>
-        /// 主摄像机
-        /// </summary>
-        [Browsable(false), JsonIgnore]
-        public HelixToolkit.Wpf.SharpDX.ProjectionCamera DefaultCamera
-        {
-            get { return defaultCamera; }
-            set { defaultCamera = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
-
         #region Camera -- 摄像机
 
-        private HelixToolkit.Wpf.SharpDX.Camera? camera;
+        private HelixToolkit.Wpf.SharpDX.Camera camera;
 
         /// <summary>
         /// 摄像机
         /// </summary>
         [Browsable(false), JsonIgnore]
-        public HelixToolkit.Wpf.SharpDX.Camera? Camera
+        public HelixToolkit.Wpf.SharpDX.Camera Camera
         {
             get { return camera; }
             set { camera = value; this.OnPropertyChanged(); }
-        }
-
-
-        #endregion
-
-        // ----------------------------------------------------------------------------
-
-        #region ManipulatorVisibility -- 操作是否可见
-
-        private Visibility manipulatorVisibility = Visibility.Collapsed;
-        /// <summary>
-        /// 操作是否可见
-        /// </summary>
-        [Browsable(false), JsonIgnore]
-        public Visibility ManipulatorVisibility
-        {
-            get { return manipulatorVisibility; }
-            set { manipulatorVisibility = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
-
-        #region ManipulatorCenterOffset -- 操作中心偏移量
-
-        private SharpDX.Vector3 manipulatorCenterOffset;
-        /// <summary>
-        /// 操作中心偏移量
-        /// </summary>
-        [Browsable(false), JsonIgnore]
-        public SharpDX.Vector3 ManipulatorCenterOffset
-        {
-            get { return manipulatorCenterOffset; }
-            set { manipulatorCenterOffset = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
-
-        #region ManipulatorSizeScale -- 操作缩放
-
-        private double manipulatorSizeScale = 1d;
-        /// <summary>
-        /// 操作缩放
-        /// </summary>
-        [Browsable(false), JsonIgnore]
-        public double ManipulatorSizeScale
-        {
-            get { return manipulatorSizeScale; }
-            set { manipulatorSizeScale = value; this.OnPropertyChanged(); }
-        }
-
-        #endregion
-
-        #region ManipulatorTarget -- 操作目标
-
-        private Element3D? manipulatorTarget;
-        /// <summary>
-        /// 操作目标
-        /// </summary>
-        [Browsable(false), JsonIgnore]
-        public Element3D? ManipulatorTarget
-        {
-            get { return manipulatorTarget; }
-            set { manipulatorTarget = value; this.OnPropertyChanged(); }
         }
 
         #endregion

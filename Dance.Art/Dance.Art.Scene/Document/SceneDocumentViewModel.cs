@@ -11,6 +11,8 @@ using CommunityToolkit.Mvvm.Input;
 using System.Windows;
 using HelixToolkit.Wpf.SharpDX;
 using HelixToolkit.SharpDX.Core.Model.Scene;
+using System.Windows.Input;
+using System.ComponentModel;
 
 namespace Dance.Art.Scene
 {
@@ -99,6 +101,20 @@ namespace Dance.Art.Scene
 
         #endregion
 
+        #region ManipulatorTarget -- 操作目标
+
+        private IDanceModel3D? manipulatorTarget;
+        /// <summary>
+        /// 操作目标
+        /// </summary>
+        public IDanceModel3D? ManipulatorTarget
+        {
+            get { return manipulatorTarget; }
+            set { manipulatorTarget = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
         // ===============================================================================================
         // Command 
 
@@ -115,36 +131,33 @@ namespace Dance.Art.Scene
         /// <param name="e">事件参数</param>
         private void MouseDown3D(RoutedEventArgs? e)
         {
-            if (this.SceneModel == null || e is not MouseDown3DEventArgs args || args.HitTestResult == null || args.HitTestResult.ModelHit is TransformManipulator3D)
+            if (this.View is not SceneDocumentView view)
+                return;
+
+            if (e is not MouseDown3DEventArgs args || args.OriginalInputEventArgs is not MouseButtonEventArgs mouseEventArgs || mouseEventArgs.LeftButton != MouseButtonState.Pressed)
                 return;
 
             if (args.HitTestResult == null)
             {
-                this.SceneModel.ManipulatorTarget = null;
-                this.SceneModel.ManipulatorVisibility = Visibility.Collapsed;
+                this.ManipulatorTarget = null;
                 return;
             }
 
-            if (args.HitTestResult.ModelHit is MeshGeometryModel3D element)
+            if (args.HitTestResult.ModelHit is Element3D element)
             {
-                this.SceneModel.ManipulatorTarget = null;
-                //this.SceneModel.ManipulatorCenterOffset = element.Geometry.Bound.Center;
-                this.SceneModel.ManipulatorTarget = element;
-                this.SceneModel.ManipulatorVisibility = Visibility.Visible;
+                if (view.manipulator.HitTest(element) || element.DataContext is not IDanceModel3D model)
+                    return;
+
+                this.ManipulatorTarget = model;
                 return;
             }
-
-            if (args.HitTestResult.ModelHit is MeshNode node && this.TryFindTag(node) is Element3D owner)
+            else if (args.HitTestResult.ModelHit is MeshNode node && node.GetOnwer() is DanceGroupNode3D groupNode && groupNode.Element.DataContext is IDanceModel3D model)
             {
-                this.SceneModel.ManipulatorTarget = null;
-                //this.SceneModel.ManipulatorCenterOffset = owner.Bounds.Center;
-                this.SceneModel.ManipulatorTarget = owner;
-                this.SceneModel.ManipulatorVisibility = Visibility.Visible;
+                this.ManipulatorTarget = model;
                 return;
             }
 
-            this.SceneModel.ManipulatorTarget = null;
-            this.SceneModel.ManipulatorVisibility = Visibility.Collapsed;
+            this.ManipulatorTarget = null;
         }
 
         private Element3D? TryFindTag(SceneNode node)

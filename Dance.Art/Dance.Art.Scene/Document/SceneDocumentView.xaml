@@ -38,7 +38,7 @@
         <Border BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}" 
                 BorderThickness="1"
                 Grid.Row="2" Padding="10">
-            <hx:Viewport3DX BackgroundColor="White" AllowDrop="True"
+            <hx:Viewport3DX x:Name="viewport" BackgroundColor="White" AllowDrop="True"
                             EnableDesignModeRendering="False"
                             ShowCoordinateSystem="True"
                             ZoomExtentsWhenLoaded="True"

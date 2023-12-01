@@ -48,9 +48,40 @@ namespace Dance.Art.Domain
         /// </summary>
         public virtual void Undo() { }
 
+        #region ViewPluginModel -- 视图插件模型
+
+        private ViewPluginModelBase? viewPluginModel;
         /// <summary>
         /// 视图插件模型
         /// </summary>
-        public ViewPluginModelBase? ViewPluginModel { get; set; }
+        public ViewPluginModelBase? ViewPluginModel
+        {
+            get { return viewPluginModel; }
+            set
+            {
+                if (this.viewPluginModel != null)
+                {
+                    this.viewPluginModel.OnDestory -= ViewPluginModel_OnDestory;
+                }
+
+                this.viewPluginModel = value;
+
+                if (this.viewPluginModel != null)
+                {
+                    this.viewPluginModel.OnDestory -= ViewPluginModel_OnDestory;
+                    this.viewPluginModel.OnDestory += ViewPluginModel_OnDestory;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 销毁
+        /// </summary>
+        private void ViewPluginModel_OnDestory(object? sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        #endregion
     }
 }

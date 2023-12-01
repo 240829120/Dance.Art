@@ -260,9 +260,16 @@ namespace Dance.Art.Scene
             });
         }
 
+        /// <summary>
+        /// 销毁
+        /// </summary>
         protected override void Destroy()
         {
-            base.Destroy();
+            if (this.View is not SceneDocumentView view)
+                return;
+
+            view.viewport.Dispose();
+            view.viewport.RenderHost?.Dispose();
         }
     }
 }

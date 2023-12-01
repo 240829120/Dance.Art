@@ -603,6 +603,7 @@ namespace Dance.Art.Module
                 return;
 
             this.Documents?.Remove(document);
+            document.Dispose();
         }
 
         #endregion

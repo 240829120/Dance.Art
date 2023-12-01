@@ -29,6 +29,14 @@ namespace Dance.Art.Domain
         }
 
         // ============================================================================================
+        // Event
+
+        /// <summary>
+        /// 销毁时触发
+        /// </summary>
+        public event EventHandler<EventArgs>? OnDestory;
+
+        // ============================================================================================
         // Property
 
         #region ID -- 编号
@@ -134,5 +142,16 @@ namespace Dance.Art.Domain
         }
 
         #endregion
+
+        // ============================================================================================
+        // Override
+
+        /// <summary>
+        /// 销毁
+        /// </summary>
+        protected override void Destroy()
+        {
+            this.OnDestory?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

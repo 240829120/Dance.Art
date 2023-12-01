@@ -75,12 +75,12 @@ namespace Dance.Art.Scene
          * 0, 0, 1, 0
          * 0, 0, 0, 1
          */
-        private SharpDX.Matrix transform = new SharpDX.Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        private DanceMatrix3 transform = new(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
         /// <summary>
         /// 变换信息
         /// </summary>
         [Browsable(false)]
-        public SharpDX.Matrix Transform
+        public DanceMatrix3 Transform
         {
             get { return transform; }
             set { transform = value; this.OnWrapperPropertyChanged(); }

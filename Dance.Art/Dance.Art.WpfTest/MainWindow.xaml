@@ -19,22 +19,28 @@
         <hx:Viewport3DX x:Name="viewport" BackgroundColor="White"
                         CoordinateSystemLabelForeground="White"
                         EnableDesignModeRendering="False"
-                        FXAALevel="Low" EnableSwapChainRendering="False"
+                        FXAALevel="Low" EnableSwapChainRendering="True"
                         ShowCoordinateSystem="True" MouseDown3D="Viewport_MouseDown3D"
                         TextBrush="White" ZoomExtentsWhenLoaded="True"
-                        UseDefaultGestures="False">
+                        UseDefaultGestures="False"
+                        RotateAroundMouseDownPoint="True"
+                        ZoomAroundMouseDownPoint="True"
+                        IsShadowMappingEnabled="True"
+                        ShowViewCube="True">
             <hx:Viewport3DX.InputBindings>
-                <!--<KeyBinding Key="B" Command="hx:ViewportCommands.BackView" />
+                <KeyBinding Key="B" Command="hx:ViewportCommands.BackView" />
                 <KeyBinding Key="F" Command="hx:ViewportCommands.FrontView" />
                 <KeyBinding Key="U" Command="hx:ViewportCommands.TopView" />
                 <KeyBinding Key="D" Command="hx:ViewportCommands.BottomView" />
                 <KeyBinding Key="L" Command="hx:ViewportCommands.LeftView" />
                 <KeyBinding Key="R" Command="hx:ViewportCommands.RightView" />
-                <KeyBinding Command="hx:ViewportCommands.ZoomExtents" Gesture="Control+E" />-->
+                <KeyBinding Command="hx:ViewportCommands.ZoomExtents" Gesture="Control+E" />
                 <MouseBinding Command="hx:ViewportCommands.Rotate" Gesture="RightClick" />
-                <!--<MouseBinding Command="hx:ViewportCommands.Zoom" Gesture="MiddleClick" />-->
-                <!--<MouseBinding Command="hx:ViewportCommands.Pan" Gesture="MiddleMove" />-->
+                <MouseBinding Command="hx:ViewportCommands.Pan" Gesture="MiddleClick" />
             </hx:Viewport3DX.InputBindings>
+            <hx:AxisPlaneGridModel3D
+                AutoSpacing="True"
+                RenderShadowMap="False" />
 
             <hx:AmbientLight3D Color="White" />
             <hx:DirectionalLight3D Direction="0,-1,0" Color="White" />

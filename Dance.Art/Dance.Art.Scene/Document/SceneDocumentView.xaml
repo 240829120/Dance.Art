@@ -38,16 +38,17 @@
         <Border BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}" 
                 BorderThickness="1"
                 Grid.Row="2" Padding="10">
-            <hx:Viewport3DX BackgroundColor="White"
-                        EnableDesignModeRendering="False"
-                        ShowCoordinateSystem="True"
-                        ZoomExtentsWhenLoaded="True"
-                        UseDefaultGestures="False"
-                        EnableSwapChainRendering="True"
-                        FXAALevel="{Binding Path=SceneModel.FXAALevel,Mode=OneWay}"
-                        EffectsManager="{Binding Path=SceneModel.EffectsManager,Mode=OneWay}"
-                        ModelUpDirection="{Binding Path=SceneModel.UpDirection,Mode=OneWay}"
-                        Camera="{Binding Path=SceneModel.Camera,Mode=TwoWay}">
+            <hx:Viewport3DX BackgroundColor="White" AllowDrop="True"
+                            EnableDesignModeRendering="False"
+                            ShowCoordinateSystem="True"
+                            ZoomExtentsWhenLoaded="True"
+                            UseDefaultGestures="False"
+                            EnableSwapChainRendering="True"
+                            FXAALevel="{Binding Path=SceneModel.FXAALevel,Mode=OneWay}"
+                            EffectsManager="{Binding Path=SceneModel.EffectsManager,Mode=OneWay}"
+                            ModelUpDirection="{Binding Path=SceneModel.UpDirection,Mode=OneWay}"
+                            Camera="{Binding Path=SceneModel.Camera,Mode=TwoWay}"
+                            dance:DanceDragTrigger.DropCommand="{Binding Path=ResourceDropCommand}">
                 <hx:Viewport3DX.InputBindings>
                     <KeyBinding Key="B" Command="hx:ViewportCommands.BackView" />
                     <KeyBinding Key="F" Command="hx:ViewportCommands.FrontView" />
@@ -57,19 +58,19 @@
                     <KeyBinding Key="R" Command="hx:ViewportCommands.RightView" />
                     <KeyBinding Command="hx:ViewportCommands.ZoomExtents" Gesture="Control+E" />
                     <MouseBinding Command="hx:ViewportCommands.Rotate" Gesture="RightClick" />
-                    <!--<MouseBinding Command="hx:ViewportCommands.Zoom" Gesture="MiddleClick" />-->
                     <MouseBinding Command="hx:ViewportCommands.Pan" Gesture="MiddleClick" />
                 </hx:Viewport3DX.InputBindings>
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="MouseDown3D">
                         <b:InvokeCommandAction Command="{Binding Path=MouseDown3DCommand}" PassEventArgsToCommand="True"></b:InvokeCommandAction>
                     </b:EventTrigger>
-                </b:Interaction.Triggers>
 
+                </b:Interaction.Triggers>
+                <hx:AxisPlaneGridModel3D AutoSpacing="True" RenderShadowMap="False" />
                 <hx:AmbientLight3D Color="{Binding SceneModel.AmbientLight}" />
                 <hx:DirectionalLight3D Direction="{Binding SceneModel.Camera.LookDirection}" Color="White" />
                 <dance:DanceTransformManipulator3D x:Name="manipulator"
-                                                   Target="{Binding ManipulatorTarget}"/>
+                                                   Target="{Binding SelectedItem,Mode=TwoWay}"/>
                 <dance:DanceItemsModel3D ItemTemplateSelector="{StaticResource DanceItemsModel3DTemplateSelector}"
                                          ItemsSource="{Binding Path=Items,Mode=OneWay}"></dance:DanceItemsModel3D>
             </hx:Viewport3DX>

@@ -83,11 +83,11 @@ namespace Dance.Art.Scene
 
         #region SelectedItem -- 当前选中项
 
-        private ISceneItemModel? selectedItem;
+        private IDanceModel3D? selectedItem;
         /// <summary>
         /// 当前选中项
         /// </summary>
-        public ISceneItemModel? SelectedItem
+        public IDanceModel3D? SelectedItem
         {
             get { return selectedItem; }
             set
@@ -97,20 +97,6 @@ namespace Dance.Art.Scene
 
                 DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, value));
             }
-        }
-
-        #endregion
-
-        #region ManipulatorTarget -- 操作目标
-
-        private IDanceModel3D? manipulatorTarget;
-        /// <summary>
-        /// 操作目标
-        /// </summary>
-        public IDanceModel3D? ManipulatorTarget
-        {
-            get { return manipulatorTarget; }
-            set { manipulatorTarget = value; this.OnPropertyChanged(); }
         }
 
         #endregion
@@ -139,25 +125,31 @@ namespace Dance.Art.Scene
 
             if (args.HitTestResult == null)
             {
-                this.ManipulatorTarget = null;
+                this.SelectedItem = null;
                 return;
             }
 
             if (args.HitTestResult.ModelHit is Element3D element)
             {
-                if (view.manipulator.HitTest(element) || element.DataContext is not IDanceModel3D model)
+                if (view.manipulator.HitTest(element))
                     return;
 
-                this.ManipulatorTarget = model;
+                if (element.DataContext is not IDanceModel3D model)
+                {
+                    this.SelectedItem = null;
+                    return;
+                }
+
+                this.SelectedItem = model;
                 return;
             }
             else if (args.HitTestResult.ModelHit is MeshNode node && node.GetOnwer() is DanceGroupNode3D groupNode && groupNode.Element.DataContext is IDanceModel3D model)
             {
-                this.ManipulatorTarget = model;
+                this.SelectedItem = model;
                 return;
             }
 
-            this.ManipulatorTarget = null;
+            this.SelectedItem = null;
         }
 
         private Element3D? TryFindTag(SceneNode node)

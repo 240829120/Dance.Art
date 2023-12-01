@@ -38,13 +38,7 @@ namespace Dance.Art.WpfTest
             InitializeComponent();
 
             this.viewport.ModelUpDirection = new System.Windows.Media.Media3D.Vector3D(0, 1, 0);
-            this.viewport.Camera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera
-            {
-                Position = new Point3D(3, 3, 5),
-                LookDirection = new Vector3D(-3, -3, -5),
-                UpDirection = new Vector3D(0, 1, 0),
-                FarPlaneDistance = 50000
-            };
+            this.viewport.Camera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera() { Position = new Point3D(0, 0, 200), LookDirection = new Vector3D(0, 0, -200), UpDirection = new Vector3D(0, 1, 0), FarPlaneDistance = 1000 };
             this.viewport.EffectsManager = new DefaultEffectsManager();
 
             string path = @"E:\学习\helix-toolkit-develop\helix-toolkit-develop\Models\FBX\obj_Neck_Mech_Walker_by_3DHaupt\Neck_Mech_Walker_by_3DHaupt-(Wavefront OBJ).fbx";
@@ -58,6 +52,7 @@ namespace Dance.Art.WpfTest
             this.Items.Add(new BoxModel { });
 
             this.itemsModel.ItemsSource = this.Items;
+
 
             this.Loaded += MainWindow_Loaded;
             this.Closed += Window_Closed;

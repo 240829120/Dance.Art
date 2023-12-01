@@ -68,6 +68,26 @@ namespace Dance.Art.Scene
 
         #endregion
 
+        #region Transform -- 变换
+        /**
+         * 1, 0, 0, 0
+         * 0, 1, 0, 0
+         * 0, 0, 1, 0
+         * 0, 0, 0, 1
+         */
+        private SharpDX.Matrix transform = new SharpDX.Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        /// <summary>
+        /// 变换信息
+        /// </summary>
+        [Browsable(false)]
+        public SharpDX.Matrix Transform
+        {
+            get { return transform; }
+            set { transform = value; this.OnWrapperPropertyChanged(); }
+        }
+
+        #endregion
+
         // ===================================================================================================
         // Controller
 
@@ -78,21 +98,6 @@ namespace Dance.Art.Scene
         /// </summary>
         [Browsable(false), JsonIgnore]
         public PhongMaterial Material { get; } = PhongMaterials.Red;
-
-        #endregion
-
-        #region Transform -- 变换
-
-        private MatrixTransform3D transform = new();
-        /// <summary>
-        /// 变换
-        /// </summary>
-        [Browsable(false), JsonIgnore]
-        public MatrixTransform3D Transform
-        {
-            get { return transform; }
-            set { transform = value; this.OnPropertyChanged(); }
-        }
 
         #endregion
 

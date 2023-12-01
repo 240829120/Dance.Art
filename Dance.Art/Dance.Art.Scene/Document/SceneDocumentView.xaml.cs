@@ -33,23 +33,6 @@ namespace Dance.Art.Scene
             {
                 View = this
             };
-
-            //this.Loaded += SceneDocumentView_Loaded;
         }
-
-        //private void SceneDocumentView_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    string path = @"E:\学习\helix-toolkit-develop\helix-toolkit-develop\Models\FBX\obj_Neck_Mech_Walker_by_3DHaupt\Neck_Mech_Walker_by_3DHaupt-(Wavefront OBJ).fbx";
-
-        //    Importer importer = new();
-
-        //    using FileStream fs = new(path, FileMode.Open, FileAccess.Read);
-        //    importer.Load(fs, path, ".fbx", out HelixToolkitScene scene, new DanceTexturePathResolver());
-
-        //    SceneNodeGroupModel3D model = new();
-        //    model.AddNode(scene.Root);
-
-        //    this.presenter.Content = model;
-        //}
     }
 }

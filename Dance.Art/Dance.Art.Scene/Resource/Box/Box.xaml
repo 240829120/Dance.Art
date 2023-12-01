@@ -8,7 +8,7 @@
                                 CullMode="None"
                                 Geometry="{Binding Path=Geometry,Mode=OneWay}"
                                 Material="{Binding Path=Material,Mode=OneWay}"
-                                Transform="{Binding Path=Transform,Mode=OneWay}"></hx:MeshGeometryModel3D>
+                                Transform="{Binding Transform,Mode=TwoWay}"></hx:MeshGeometryModel3D>
     </DataTemplate>
 
 </ResourceDictionary>

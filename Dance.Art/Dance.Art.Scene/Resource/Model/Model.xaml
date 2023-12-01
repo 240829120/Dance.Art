@@ -6,7 +6,7 @@
 
     <DataTemplate x:Key="[Dance.Art.Scene]:Model">
         <dance:DanceSceneRootNodeModel3D Root="{Binding Root,Mode=OneWay}"
-                                         Transform="{Binding Path=Transform,Mode=OneWay}"></dance:DanceSceneRootNodeModel3D>
+                                         Transform="{Binding Transform,Mode=TwoWay}"></dance:DanceSceneRootNodeModel3D>
     </DataTemplate>
 
 </ResourceDictionary>

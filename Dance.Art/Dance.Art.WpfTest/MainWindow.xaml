@@ -5,9 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dance.Art.WpfTest"
         xmlns:module="clr-namespace:Dance.Art.Module;assembly=Dance.Art.Module"
+        xmlns:dance="http://schemas.dance.com/wpf"
+        xmlns:hx="http://helix-toolkit.org/wpf/SharpDX"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <dance:DanceItemsModel3DTemplateSelector x:Key="DanceItemsModel3DTemplateSelector"></dance:DanceItemsModel3DTemplateSelector>
+    </Window.Resources>
+
     <Grid>
-        <module:OpenFileEditor></module:OpenFileEditor>
+
+        <hx:Viewport3DX x:Name="viewport" BackgroundColor="White"
+                        CoordinateSystemLabelForeground="White"
+                        EnableDesignModeRendering="False"
+                        FXAALevel="Low" EnableSwapChainRendering="False"
+                        ShowCoordinateSystem="True" MouseDown3D="viewport_MouseDown3D"
+                        TextBrush="White" ZoomExtentsWhenLoaded="True"
+                        UseDefaultGestures="False">
+            <hx:Viewport3DX.InputBindings>
+                <!--<KeyBinding Key="B" Command="hx:ViewportCommands.BackView" />
+                <KeyBinding Key="F" Command="hx:ViewportCommands.FrontView" />
+                <KeyBinding Key="U" Command="hx:ViewportCommands.TopView" />
+                <KeyBinding Key="D" Command="hx:ViewportCommands.BottomView" />
+                <KeyBinding Key="L" Command="hx:ViewportCommands.LeftView" />
+                <KeyBinding Key="R" Command="hx:ViewportCommands.RightView" />
+                <KeyBinding Command="hx:ViewportCommands.ZoomExtents" Gesture="Control+E" />-->
+                <MouseBinding Command="hx:ViewportCommands.Rotate" Gesture="RightClick" />
+                <!--<MouseBinding Command="hx:ViewportCommands.Zoom" Gesture="MiddleClick" />-->
+                <!--<MouseBinding Command="hx:ViewportCommands.Pan" Gesture="MiddleMove" />-->
+            </hx:Viewport3DX.InputBindings>
+
+            <hx:AmbientLight3D Color="White" />
+            <hx:DirectionalLight3D Direction="0,-1,0" Color="White" />
+
+            <dance:DanceItemsModel3D x:Name="itemsModel"
+                                     ItemTemplateSelector="{StaticResource DanceItemsModel3DTemplateSelector}">
+            </dance:DanceItemsModel3D>
+
+            <dance:DanceTransformManipulator3D x:Name="manipulator" />
+
+        </hx:Viewport3DX>
+
     </Grid>
 </Window>

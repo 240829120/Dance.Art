@@ -58,8 +58,8 @@
                     <KeyBinding Key="R" Command="hx:ViewportCommands.RightView" />
                     <KeyBinding Command="hx:ViewportCommands.ZoomExtents" Gesture="Control+E" />
                     <MouseBinding Command="hx:ViewportCommands.Rotate" Gesture="RightClick" />
-                    <MouseBinding Command="hx:ViewportCommands.Zoom" Gesture="MiddleClick" />
-                    <MouseBinding Command="hx:ViewportCommands.Pan" Gesture="LeftClick" />
+                    <!--<MouseBinding Command="hx:ViewportCommands.Zoom" Gesture="MiddleClick" />-->
+                    <MouseBinding Command="hx:ViewportCommands.Pan" Gesture="MiddleClick" />
                 </hx:Viewport3DX.InputBindings>
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="MouseDown3D">

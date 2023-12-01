@@ -95,5 +95,21 @@ namespace Dance.Art.Scene
         }
 
         #endregion
+
+        #region Element -- 所属元素
+
+        private Element3D? element;
+        /// <summary>
+        /// 元素
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        public Element3D? Element
+        {
+            get { return element; }
+            set { element = value; this.OnPropertyChanged(); }
+        }
+
+        #endregion
+
     }
 }

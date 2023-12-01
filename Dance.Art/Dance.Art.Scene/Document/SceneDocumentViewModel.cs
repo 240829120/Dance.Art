@@ -115,7 +115,7 @@ namespace Dance.Art.Scene
         /// <param name="e">事件参数</param>
         private void MouseDown3D(RoutedEventArgs? e)
         {
-            if (this.SceneModel == null || e is not MouseDown3DEventArgs args)
+            if (this.SceneModel == null || e is not MouseDown3DEventArgs args || args.HitTestResult == null || args.HitTestResult.ModelHit is TransformManipulator3D)
                 return;
 
             if (args.HitTestResult == null)
@@ -128,7 +128,7 @@ namespace Dance.Art.Scene
             if (args.HitTestResult.ModelHit is MeshGeometryModel3D element)
             {
                 this.SceneModel.ManipulatorTarget = null;
-                this.SceneModel.ManipulatorCenterOffset = element.Geometry.Bound.Center;
+                //this.SceneModel.ManipulatorCenterOffset = element.Geometry.Bound.Center;
                 this.SceneModel.ManipulatorTarget = element;
                 this.SceneModel.ManipulatorVisibility = Visibility.Visible;
                 return;
@@ -137,7 +137,7 @@ namespace Dance.Art.Scene
             if (args.HitTestResult.ModelHit is MeshNode node && this.TryFindTag(node) is Element3D owner)
             {
                 this.SceneModel.ManipulatorTarget = null;
-                this.SceneModel.ManipulatorCenterOffset = owner.Bounds.Center;
+                //this.SceneModel.ManipulatorCenterOffset = owner.Bounds.Center;
                 this.SceneModel.ManipulatorTarget = owner;
                 this.SceneModel.ManipulatorVisibility = Visibility.Visible;
                 return;
@@ -253,6 +253,11 @@ namespace Dance.Art.Scene
                 this.IsModify = false;
                 this.UdateDocumentStatus();
             });
+        }
+
+        protected override void Destroy()
+        {
+            base.Destroy();
         }
     }
 }

@@ -28,6 +28,7 @@ namespace Dance.Art.Scene
             // 命令
             this.ResourceDropCommand = new(this.ResourceDrop);
             this.MouseDown3DCommand = new(this.MouseDown3D);
+            this.DeleteCommand = new(this.Delete);
 
             // 消息
             DanceDomain.Current.Messenger.Register<DockingDesignModeChangedMessage>(this, this.OnDockingDesignModeChanged);
@@ -83,11 +84,11 @@ namespace Dance.Art.Scene
 
         #region SelectedItem -- 当前选中项
 
-        private IDanceModel3D? selectedItem;
+        private ISceneItemModel? selectedItem;
         /// <summary>
         /// 当前选中项
         /// </summary>
-        public IDanceModel3D? SelectedItem
+        public ISceneItemModel? SelectedItem
         {
             get { return selectedItem; }
             set
@@ -134,7 +135,7 @@ namespace Dance.Art.Scene
                 if (view.manipulator.HitTest(element))
                     return;
 
-                if (element.DataContext is not IDanceModel3D model)
+                if (element.DataContext is not ISceneItemModel model)
                 {
                     this.SelectedItem = null;
                     return;
@@ -143,7 +144,7 @@ namespace Dance.Art.Scene
                 this.SelectedItem = model;
                 return;
             }
-            else if (args.HitTestResult.ModelHit is MeshNode node && node.GetOnwer() is DanceGroupNode3D groupNode && groupNode.Element.DataContext is IDanceModel3D model)
+            else if (args.HitTestResult.ModelHit is MeshNode node && node.GetOnwer() is DanceGroupNode3D groupNode && groupNode.Element.DataContext is ISceneItemModel model)
             {
                 this.SelectedItem = model;
                 return;
@@ -192,6 +193,27 @@ namespace Dance.Art.Scene
             this.Items.Add(model);
 
             DanceDomain.Current.Messenger.Send(new PropertySelectedChangedMessage(this, null, model));
+        }
+
+        #endregion
+
+        #region DeleteCommand -- 删除命令
+
+        /// <summary>
+        /// 删除命令
+        /// </summary>
+        public RelayCommand DeleteCommand { get; private set; }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        private void Delete()
+        {
+            if (this.SelectedItem == null)
+                return;
+
+            this.Items.Remove(this.SelectedItem);
+            this.SelectedItem = null;
         }
 
         #endregion

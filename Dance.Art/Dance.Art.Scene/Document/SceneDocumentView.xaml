@@ -15,6 +15,12 @@
         <dance:DanceItemsModel3DTemplateSelector x:Key="DanceItemsModel3DTemplateSelector"></dance:DanceItemsModel3DTemplateSelector>
     </UserControl.Resources>
 
+    <dance:DanceHotkeyTrigger.HotkeyBindings>
+        <dance:DanceHotkeyCollection>
+            <dance:DanceHotkeyBinding Key="Delete" Command="{Binding Path=DeleteCommand}"></dance:DanceHotkeyBinding>
+        </dance:DanceHotkeyCollection>
+    </dance:DanceHotkeyTrigger.HotkeyBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
@@ -79,6 +85,15 @@
         <ListBox ItemsSource="{Binding Items}" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" AllowDrop="True" 
                  SelectedValue="{Binding Path=SelectedItem,Mode=TwoWay}"
                  dance:DanceDragTrigger.DropCommand="{Binding Path=ResourceDropCommand}">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="删除元素" Command="{Binding Path=DeleteCommand}">
+                        <MenuItem.Icon>
+                            <dance:DanceSvgImage Width="10" Height="10" Source="pack://application:,,,/Dance.Art.Module;component/Themes/Resources/Icons/delete.svg"></dance:DanceSvgImage>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>

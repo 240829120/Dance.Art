@@ -25,6 +25,7 @@ namespace Dance.Art.Scene
         protected SceneItemModelBase(string key) : base(null)
         {
             this.DataTemplate = this.SceneResourceManager.Get(key);
+            this.transform.PropertyChanged += Transform_PropertyChanged;
         }
 
         // ===================================================================================================
@@ -69,21 +70,41 @@ namespace Dance.Art.Scene
         #endregion
 
         #region Transform -- 变换
-        /**
-         * 1, 0, 0, 0
-         * 0, 1, 0, 0
-         * 0, 0, 1, 0
-         * 0, 0, 0, 1
-         */
-        private DanceMatrix3 transform = new(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+
+        private DanceTransform3D transform = new();
         /// <summary>
         /// 变换信息
         /// </summary>
-        [Browsable(false)]
-        public DanceMatrix3 Transform
+        [Category(PropertyCategoryDefines.TRANSFORM), PropertyOrder(0), Description("变换"), DisplayName("变换")]
+        [Editor(typeof(TransformEditor), typeof(TransformEditor))]
+        public DanceTransform3D Transform
         {
             get { return transform; }
-            set { transform = value; this.OnWrapperPropertyChanged(); }
+            set
+            {
+                if (this.transform != null)
+                {
+                    this.transform.PropertyChanged -= Transform_PropertyChanged;
+                }
+
+                transform = value;
+                this.OnWrapperPropertyChanged();
+
+                if (this.transform != null)
+                {
+                    this.transform.PropertyChanged -= Transform_PropertyChanged;
+                    this.transform.PropertyChanged += Transform_PropertyChanged;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 变换属性改变
+        /// </summary>
+        private void Transform_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            this.UpdateTransform();
+            this.OnWrapperPropertyChanged(nameof(this.Transform));
         }
 
         #endregion
@@ -116,5 +137,12 @@ namespace Dance.Art.Scene
 
         #endregion
 
+        /// <summary>
+        /// 更新变换
+        /// </summary>
+        public void UpdateTransform()
+        {
+            this.OnWrapperPropertyChanged(nameof(this.Transform));
+        }
     }
 }

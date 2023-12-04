@@ -64,7 +64,6 @@
                     <b:EventTrigger EventName="MouseDown3D">
                         <b:InvokeCommandAction Command="{Binding Path=MouseDown3DCommand}" PassEventArgsToCommand="True"></b:InvokeCommandAction>
                     </b:EventTrigger>
-
                 </b:Interaction.Triggers>
                 <hx:AxisPlaneGridModel3D AutoSpacing="True" RenderShadowMap="False" />
                 <hx:AmbientLight3D Color="{Binding SceneModel.AmbientLight}" />

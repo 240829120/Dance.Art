@@ -4,11 +4,11 @@
                     xmlns:dance="http://schemas.dance.com/wpf"
                     xmlns:local="clr-namespace:Dance.Art.Scene">
 
-    <dance:DanceMatrixToMatrixTransform3DConverter x:Key="DanceMatrixToMatrixTransform3DConverter"></dance:DanceMatrixToMatrixTransform3DConverter>
+    <dance:DanceTransformConverter x:Key="DanceTransformConverter"></dance:DanceTransformConverter>
 
     <DataTemplate x:Key="[Dance.Art.Scene]:Model">
         <dance:DanceSceneRootNodeModel3D Root="{Binding Root,Mode=OneWay}"
-                                         Transform="{Binding Transform,Mode=TwoWay,Converter={StaticResource DanceMatrixToMatrixTransform3DConverter}}"></dance:DanceSceneRootNodeModel3D>
+                                         Transform="{Binding Transform,Mode=OneWay,Converter={StaticResource DanceTransformConverter}}"></dance:DanceSceneRootNodeModel3D>
     </DataTemplate>
 
 </ResourceDictionary>

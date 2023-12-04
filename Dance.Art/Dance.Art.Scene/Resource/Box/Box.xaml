@@ -4,14 +4,14 @@
                     xmlns:dance="http://schemas.dance.com/wpf"
                     xmlns:local="clr-namespace:Dance.Art.Scene">
 
-    <dance:DanceMatrixToMatrixTransform3DConverter x:Key="DanceMatrixToMatrixTransform3DConverter"></dance:DanceMatrixToMatrixTransform3DConverter>
+    <dance:DanceTransformConverter x:Key="DanceTransformConverter"></dance:DanceTransformConverter>
 
     <DataTemplate x:Key="[Dance.Art.Scene]:Box">
         <hx:MeshGeometryModel3D IsThrowingShadow="True"
                                 CullMode="None"
                                 Geometry="{Binding Path=Geometry,Mode=OneWay}"
                                 Material="{Binding Path=Material,Mode=OneWay}"
-                                Transform="{Binding Transform,Mode=TwoWay,Converter={StaticResource DanceMatrixToMatrixTransform3DConverter}}"></hx:MeshGeometryModel3D>
+                                Transform="{Binding Transform,Mode=OneWay,Converter={StaticResource DanceTransformConverter}}"></hx:MeshGeometryModel3D>
     </DataTemplate>
 
 </ResourceDictionary>

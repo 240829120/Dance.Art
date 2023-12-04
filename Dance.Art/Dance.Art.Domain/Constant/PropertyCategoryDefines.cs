@@ -27,6 +27,11 @@ namespace Dance.Art.Domain
         public const string LAYOUT = "布局";
 
         /// <summary>
+        /// 变换
+        /// </summary>
+        public const string TRANSFORM = "变换";
+
+        /// <summary>
         /// 其他
         /// </summary>
         public const string OTHER = "其他";

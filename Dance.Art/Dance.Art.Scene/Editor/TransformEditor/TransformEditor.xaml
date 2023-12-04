@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+                    xmlns:dance="http://schemas.dance.com/wpf"
+                    xmlns:local="clr-namespace:Dance.Art.Scene">
+
+    <Style TargetType="local:TransformEditor">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+        <Setter Property="dance:DanceToolkitPropertyGridOption.IsShowLabel" Value="False"></Setter>
+        <Setter Property="Height" Value="100"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:TransformEditor">
+                    <Grid Background="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!-- 平移 -->
+                        <TextBlock Text="平移" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                        <toolkit:SingleUpDown Grid.Row="0" Grid.Column="1" Value="{Binding Path=Value.TranslationX,Mode=TwoWay}" Margin="0,0,5,0"></toolkit:SingleUpDown>
+                        <toolkit:SingleUpDown Grid.Row="0" Grid.Column="2" Value="{Binding Path=Value.TranslationY,Mode=TwoWay}" Margin="0,0,5,0"></toolkit:SingleUpDown>
+                        <toolkit:SingleUpDown Grid.Row="0" Grid.Column="3" Value="{Binding Path=Value.TranslationZ,Mode=TwoWay}" Margin="0,0,5,0"></toolkit:SingleUpDown>
+
+                        <!-- 旋转 -->
+                        <TextBlock Text="旋转" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                        <toolkit:SingleUpDown Grid.Row="1" Grid.Column="1" Value="{Binding Path=Value.RotationX,Mode=TwoWay}" Margin="0,0,5,0"></toolkit:SingleUpDown>
+                        <toolkit:SingleUpDown Grid.Row="1" Grid.Column="2" Value="{Binding Path=Value.RotationY,Mode=TwoWay}" Margin="0,0,5,0"></toolkit:SingleUpDown>
+                        <toolkit:SingleUpDown Grid.Row="1" Grid.Column="3" Value="{Binding Path=Value.RotationZ,Mode=TwoWay}" Margin="0,0,5,0"></toolkit:SingleUpDown>
+
+                        <!-- 缩放 -->
+                        <TextBlock Text="缩放" Grid.Row="2" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                        <toolkit:SingleUpDown Grid.Row="2" Grid.Column="1" Value="{Binding Path=Value.ScaleX,Mode=TwoWay}" Margin="0,0,5,0" Minimum="0.01"></toolkit:SingleUpDown>
+                        <toolkit:SingleUpDown Grid.Row="2" Grid.Column="2" Value="{Binding Path=Value.ScaleY,Mode=TwoWay}" Margin="0,0,5,0"></toolkit:SingleUpDown>
+                        <toolkit:SingleUpDown Grid.Row="2" Grid.Column="3" Value="{Binding Path=Value.ScaleZ,Mode=TwoWay}" Margin="0,0,5,0"></toolkit:SingleUpDown>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

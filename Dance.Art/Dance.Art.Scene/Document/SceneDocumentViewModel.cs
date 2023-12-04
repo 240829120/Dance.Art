@@ -187,6 +187,7 @@ namespace Dance.Art.Scene
             model.OwnerDocument = this;
             model.Icon = resource.Icon;
             model.Name = resource.Name;
+            model.Transform = new();
 
             this.Items.Add(model);
 

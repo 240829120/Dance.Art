@@ -37,31 +37,25 @@ namespace Dance.Art.WpfTest
         {
             InitializeComponent();
 
-            DanceMatrix3 Mmatrix = new DanceMatrix3();
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(Mmatrix);
+            this.viewport.ModelUpDirection = new System.Windows.Media.Media3D.Vector3D(0, 1, 0);
+            this.viewport.Camera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera() { Position = new Point3D(0, 0, 200), LookDirection = new Vector3D(0, 0, -200), UpDirection = new Vector3D(0, 1, 0), FarPlaneDistance = 1000 };
+            this.viewport.EffectsManager = new DefaultEffectsManager();
 
-            DanceMatrix3 Mmatrix2 = Newtonsoft.Json.JsonConvert.DeserializeObject<DanceMatrix3>(json);
+            string path = @"E:\学习\helix-toolkit-develop\helix-toolkit-develop\Models\FBX\obj_Neck_Mech_Walker_by_3DHaupt\Neck_Mech_Walker_by_3DHaupt-(Wavefront OBJ).fbx";
+            Importer importer = new();
 
-            //this.viewport.ModelUpDirection = new System.Windows.Media.Media3D.Vector3D(0, 1, 0);
-            //this.viewport.Camera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera() { Position = new Point3D(0, 0, 200), LookDirection = new Vector3D(0, 0, -200), UpDirection = new Vector3D(0, 1, 0), FarPlaneDistance = 1000 };
-            //this.viewport.EffectsManager = new DefaultEffectsManager();
-
-            //string path = @"E:\学习\helix-toolkit-develop\helix-toolkit-develop\Models\FBX\obj_Neck_Mech_Walker_by_3DHaupt\Neck_Mech_Walker_by_3DHaupt-(Wavefront OBJ).fbx";
-            //Importer importer = new();
-
-            //using FileStream fs = new(path, FileMode.Open, FileAccess.Read);
-            //importer.Load(fs, path, ".fbx", out HelixToolkitScene scene, new DanceTexturePathResolver());
+            using FileStream fs = new(path, FileMode.Open, FileAccess.Read);
+            importer.Load(fs, path, ".fbx", out HelixToolkitScene scene, new DanceTexturePathResolver());
 
 
-            //this.Items.Add(new ModelModel { Root = scene.Root });
-            //this.Items.Add(new BoxModel { });
+            this.Items.Add(new ModelModel { Root = scene.Root });
+            this.Items.Add(new BoxModel { });
 
-            //this.itemsModel.ItemsSource = this.Items;
+            this.itemsModel.ItemsSource = this.Items;
 
 
-            //this.Loaded += MainWindow_Loaded;
-            //this.Closed += Window_Closed;
-
+            this.Loaded += MainWindow_Loaded;
+            this.Closed += Window_Closed;
 
         }
 

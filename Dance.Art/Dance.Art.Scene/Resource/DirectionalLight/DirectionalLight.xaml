@@ -4,12 +4,12 @@
                     xmlns:dance ="http://schemas.dance.com/wpf"
                     xmlns:local="clr-namespace:Dance.Art.Scene">
 
-    <dance:DanceMatrixToMatrixTransform3DConverter x:Key="DanceMatrixToMatrixTransform3DConverter"></dance:DanceMatrixToMatrixTransform3DConverter>
+    <dance:DanceTransformConverter x:Key="DanceTransformConverter"></dance:DanceTransformConverter>
 
     <DataTemplate x:Key="[Dance.Art.Scene]:DirectionalLight">
         <hx:DirectionalLight3D Color="{Binding Path=Color,Mode=OneWay}"
                                Direction="{Binding Path=Direction,Mode=OneWay}"
-                               Transform="{Binding Transform,Mode=TwoWay,Converter={StaticResource DanceMatrixToMatrixTransform3DConverter}}"></hx:DirectionalLight3D>
+                               Transform="{Binding Transform,Mode=OneWay,Converter={StaticResource DanceTransformConverter}}"></hx:DirectionalLight3D>
     </DataTemplate>
 
 </ResourceDictionary>

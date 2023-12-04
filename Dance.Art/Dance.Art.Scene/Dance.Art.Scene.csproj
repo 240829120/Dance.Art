@@ -10,7 +10,9 @@
 	  <None Remove="Themes\Resources\Icons\box.svg" />
 	  <None Remove="Themes\Resources\Icons\directional_light.svg" />
 	  <None Remove="Themes\Resources\Icons\model.svg" />
+	  <None Remove="Themes\Resources\Icons\point_light.svg" />
 	  <None Remove="Themes\Resources\Icons\scene.svg" />
+	  <None Remove="Themes\Resources\Images\point_light.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -38,7 +40,9 @@
 	  <Resource Include="Themes\Resources\Icons\box.svg" />
 	  <Resource Include="Themes\Resources\Icons\directional_light.svg" />
 	  <Resource Include="Themes\Resources\Icons\model.svg" />
+	  <Resource Include="Themes\Resources\Icons\point_light.svg" />
 	  <Resource Include="Themes\Resources\Icons\scene.svg" />
+	  <Resource Include="Themes\Resources\Images\point_light.png" />
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:hx="http://helix-toolkit.org/wpf/SharpDX"
+                    xmlns:dance ="http://schemas.dance.com/wpf"
+                    xmlns:local="clr-namespace:Dance.Art.Scene">
+
+    <dance:DanceTransformConverter x:Key="DanceTransformConverter"></dance:DanceTransformConverter>
+
+    <DataTemplate x:Key="[Dance.Art.Scene]:PointLight">
+        <dance:DanceTransformGroupElement3D InnerBounds="{Binding Path=InnerBounds,Mode=OneWay}" 
+                                            Transform="{Binding Transform,Mode=OneWay,Converter={StaticResource DanceTransformConverter}}">
+            <hx:BillboardTextModel3D FixedSize="False" Geometry="{Binding Path=BillboardImage,Mode=OneWay}"></hx:BillboardTextModel3D>
+            <hx:PointLight3D Color="{Binding Path=Color,Mode=OneWay}"
+                             Attenuation="{Binding Path=Attenuation,Mode=OneWay}"></hx:PointLight3D>
+        </dance:DanceTransformGroupElement3D>
+    </DataTemplate>
+
+</ResourceDictionary>

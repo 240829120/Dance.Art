@@ -68,5 +68,30 @@ namespace Dance.Art.Scene
         }
 
         #endregion
+
+        // ================================================================================
+        // Control
+
+        // ================================================================================
+        // Control
+
+        #region Transform -- 变换
+
+        private DanceTransform3D transform = new();
+        /// <summary>
+        /// 变换信息
+        /// </summary>
+        [Browsable(false), JsonIgnore]
+        new public DanceTransform3D Transform
+        {
+            get { return transform; }
+            set
+            {
+                transform = value;
+                this.OnWrapperPropertyChanged();
+            }
+        }
+
+        #endregion
     }
 }

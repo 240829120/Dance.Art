@@ -25,5 +25,10 @@ namespace Dance.Art.Scene
         /// 平行光
         /// </summary>
         public const string DirectionalLight = "[Dance.Art.Scene]:DirectionalLight";
+
+        /// <summary>
+        /// 点光源
+        /// </summary>
+        public const string PointLight = "[Dance.Art.Scene]:PointLight";
     }
 }

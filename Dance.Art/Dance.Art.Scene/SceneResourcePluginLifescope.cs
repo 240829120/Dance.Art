@@ -32,6 +32,7 @@ namespace Dance.Art.Scene
             List<IResourceSource> resources = new()
             {
                 new DirectionalLightSource(),
+                new PointLightSource(),
                 new BoxSource(),
                 new ModelSource(),
             };

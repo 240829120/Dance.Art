@@ -28,8 +28,8 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <!-- 菜单 -->
         <Grid Background="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.CHUNK_BAR_BACKGROUND}}" Grid.ColumnSpan="2">
@@ -42,7 +42,7 @@
 
         <!-- 视图 -->
         <Border BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}" 
-                BorderThickness="1"
+                BorderThickness="1" Grid.Column="1" Margin="5,0,0,0"
                 Grid.Row="2" Padding="10">
             <hx:Viewport3DX x:Name="viewport" BackgroundColor="White" AllowDrop="True"
                             EnableDesignModeRendering="False"
@@ -82,7 +82,7 @@
         </Border>
 
         <!-- 元素 -->
-        <ListBox ItemsSource="{Binding Items}" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" AllowDrop="True" 
+        <ListBox ItemsSource="{Binding Items}" Grid.Row="2" AllowDrop="True" 
                  SelectedValue="{Binding Path=SelectedItem,Mode=TwoWay}"
                  dance:DanceDragTrigger.DropCommand="{Binding Path=ResourceDropCommand}">
             <ListBox.ContextMenu>

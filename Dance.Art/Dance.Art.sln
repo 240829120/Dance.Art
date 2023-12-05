@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.Timeline", "Dance
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.Scene", "Dance.Art.Scene\Dance.Art.Scene.csproj", "{860B56BF-E65D-4E53-A722-F9ED418072CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dance.Art.WpfTest", "Dance.Art.WpfTest\Dance.Art.WpfTest.csproj", "{CE89DA7C-AE35-40E7-B1DB-B9BC143A3CDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dance.Art.WpfTest", "Dance.Art.WpfTest\Dance.Art.WpfTest.csproj", "{CE89DA7C-AE35-40E7-B1DB-B9BC143A3CDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

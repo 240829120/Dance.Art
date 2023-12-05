@@ -35,6 +35,11 @@ namespace Dance.Art.Module
         private readonly IProjectDomainManager ProjectDomainManager = DanceDomain.Current.LifeScope.Resolve<IProjectDomainManager>();
 
         /// <summary>
+        /// 服务管理器
+        /// </summary>
+        private readonly IServerManager ServerManager = DanceDomain.Current.LifeScope.Resolve<IServerManager>();
+
+        /// <summary>
         /// 窗口管理器
         /// </summary>
         private readonly IWindowManager WindowManager = DanceDomain.Current.LifeScope.Resolve<IWindowManager>();
@@ -96,6 +101,7 @@ namespace Dance.Art.Module
             this.ProgressValue = 0;
             this.ProgressMessage = "准备初始化";
 
+            // 加载插件
             foreach (string assemblyPrefix in ArtDomain.Current.PluginAssemblyPrefixes)
             {
                 this.PluginManager.LoadPlugin(assemblyPrefix);
@@ -118,7 +124,13 @@ namespace Dance.Art.Module
             // 构建文档分组
             this.DocumentFileInfoManager.Build();
 
+            // 启动服务
             this.ProgressValue = 1;
+            this.ProgressMessage = "启动服务";
+            this.ServerManager.Start(ArtDomain.Current.PluginAssemblyPrefixes);
+            await Task.Delay(1000);
+
+            // 准备启动主界面
             this.ProgressMessage = "准备启动";
 
             await Task.Delay(2000);

@@ -76,5 +76,15 @@ namespace Dance.Art.Domain
         /// 脚本领域
         /// </summary>
         public ScriptDomain? ScriptDomain { get; set; }
+
+        /// <summary>
+        /// 销毁
+        /// </summary>
+        protected override void Destroy()
+        {
+            base.Destroy();
+
+            DanceDomain.Current.LifeScope.Resolve<IServerManager>()?.Dispose();
+        }
     }
 }

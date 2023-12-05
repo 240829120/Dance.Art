@@ -49,6 +49,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="Server\.well-known\ai-plugin.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
 	</ItemGroup>
 
@@ -109,6 +115,18 @@
 	  <Compile Update="{Core}\Template\EditStringTemplateWindow.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Server\.well-known\openapi.yaml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Server\logo.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

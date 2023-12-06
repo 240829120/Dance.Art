@@ -69,4 +69,8 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Output\Controller\Response\" />
+  </ItemGroup>
+
 </Project>

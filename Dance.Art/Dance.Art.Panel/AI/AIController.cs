@@ -12,10 +12,16 @@ using System.Threading.Tasks;
 
 namespace Dance.Art.Panel
 {
+    /// <summary>
+    /// 问心一言注册接口
+    /// </summary>
     [ApiController]
     [Route("")]
     public class AIController : ControllerBase
     {
+        /// <summary>
+        /// 获取插件信息
+        /// </summary>
         [HttpGet]
         [Route(".well-known/ai-plugin.json")]
         public FileStreamResult AIPlugin()
@@ -27,6 +33,9 @@ namespace Dance.Art.Panel
             return new FileStreamResult(new FileStream(path, FileMode.Open, FileAccess.Read), "application/json");
         }
 
+        /// <summary>
+        /// 插件接口注册
+        /// </summary>
         [HttpGet]
         [Route(".well-known/openapi.yaml")]
         public FileStreamResult OpenApi()
@@ -38,6 +47,9 @@ namespace Dance.Art.Panel
             return new FileStreamResult(new FileStream(path, FileMode.Open, FileAccess.Read), "text/yaml");
         }
 
+        /// <summary>
+        /// 插件图标
+        /// </summary>
         [HttpGet]
         [Route("logo.png")]
         public FileStreamResult Logo()

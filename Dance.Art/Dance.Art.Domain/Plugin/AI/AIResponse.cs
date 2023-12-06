@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dance.Art.Panel
+namespace Dance.Art.Domain
 {
     /// <summary>
-    /// 输出日志返回
+    /// 返回
     /// </summary>
-    public class WriteLineResponse
+    public class AIResponse
     {
         /// <summary>
         /// 消息
         /// </summary>
-        public string? message { get; set; }
+        public string? msg { get; set; }
     }
 }

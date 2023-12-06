@@ -22,8 +22,63 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/messageResponse"
+                                $ref: "#/components/schemas/aiResponse"
 
+    /ControlGrid/AddItem:
+        post:
+            operationId: controlGridAddItem
+            summary: 控制面板添加控件
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/controlGridAddItemRequest"
+            responses:
+                "200":
+                    description: 控制面板添加控件成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/aiResponse"
+
+    /ControlGrid/DeleteItem:
+        post:
+            operationId: controlGridDeleteItem
+            summary: 控制面板删除控件
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/controlGridDeleteItemRequest"
+            responses:
+                "200":
+                    description: 控制面板删除控件成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/aiResponse"
+
+    /ControlGrid/MoveItem:
+        post:
+            operationId: controlGridMoveItem
+            summary: 控制面板移动控件
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/controlGridMoveItemRequest"
+            responses:
+                "200":
+                    description: 控制面板移动控件成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/aiResponse"
+    
+    
 components:
     schemas:
         outputWriteline:
@@ -33,10 +88,68 @@ components:
                 msg:
                     type: string
                     description: 消息
-        messageResponse:
+
+        aiResponse:
             type: object
-            required: [message]
+            required: [msg]
             properties:
                 message:
                     type: string
                     description: 回复信息
+
+        controlGridAddItemRequest:
+            type: object
+            required: [path,type,id,row,column]
+            properties:
+                path:
+                    type: string
+                    description: 文档,文档路径
+                type:
+                    type: string
+                    enum: [
+                        "[Dance.Art.ControlGrid]:CommandButton",
+                        "[Dance.Art.ControlGrid]:ScriptButton",
+                        "[Dance.Art.ControlGrid]:CheckBox",
+                        "[Dance.Art.ControlGrid]:ComboBox",
+                        "[Dance.Art.ControlGrid]:Label",
+                        "[Dance.Art.ControlGrid]:TextBox"
+                        ]
+                    default: "[Dance.Art.ControlGrid]:ScriptButton"
+                    description: 类型,控件类型
+                id:
+                    type: string
+                    description: ID,编号
+                row:
+                    type: int32
+                    description: 行
+                column:
+                    type: int32
+                    description: 列
+
+        controlGridDeleteItemRequest:
+            type: object
+            required: [path,id]
+            properties:
+                path:
+                    type: string
+                    description: 文档,文档路径
+                id:
+                    type: string
+                    description: ID,编号
+
+        controlGridMoveItemRequest:
+            type: object
+            required: [path,id,row,column]
+            properties:
+                path:
+                    type: string
+                    description: 文档,文档路径
+                id:
+                    type: string
+                    description: ID,编号
+                row:
+                    type: int32
+                    description: 行
+                column:
+                    type: int32
+                    description: 列

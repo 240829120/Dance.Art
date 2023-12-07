@@ -4,7 +4,6 @@ using Dance.Wpf;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +12,10 @@ using System.Windows;
 namespace Dance.Art.ControlGrid
 {
     /// <summary>
-    /// 控制面板接口
+    /// 控制面板服务
     /// </summary>
-    [ApiController]
-    [Route("[controller]")]
-    public class ControlGridController : ControllerBase
+    [DanceServiceRoute]
+    public class ControlGridService
     {
         /// <summary>
         /// 资源管理器
@@ -29,9 +27,8 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         /// <param name="request">请求</param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("AddItem")]
-        public AIResponse AddItem(ControlGridAddItemRequest request)
+        [DanceServiceRoute]
+        public ServerResponse AddItem(ControlGridAddItemRequest request)
         {
             string msg = "添加失败";
 
@@ -71,7 +68,7 @@ namespace Dance.Art.ControlGrid
                 msg = "添加成功";
             });
 
-            return new AIResponse { msg = msg };
+            return new ServerResponse(msg);
         }
 
         /// <summary>
@@ -79,9 +76,8 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         /// <param name="request">请求</param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("DeleteItem")]
-        public AIResponse DeleteItem(ControlGridDeleteItemRequest request)
+        [DanceServiceRoute]
+        public ServerResponse DeleteItem(ControlGridDeleteItemRequest request)
         {
             string msg = "删除失败";
 
@@ -105,7 +101,7 @@ namespace Dance.Art.ControlGrid
                 msg = "删除成功";
             });
 
-            return new AIResponse { msg = msg };
+            return new ServerResponse(msg);
         }
 
         /// <summary>
@@ -113,9 +109,8 @@ namespace Dance.Art.ControlGrid
         /// </summary>
         /// <param name="request">请求</param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("MoveItem")]
-        public AIResponse MoveItem(ControlGridMoveItemRequest request)
+        [DanceServiceRoute]
+        public ServerResponse MoveItem(ControlGridMoveItemRequest request)
         {
             string msg = "移动失败";
 
@@ -140,7 +135,7 @@ namespace Dance.Art.ControlGrid
                 msg = "移动成功";
             });
 
-            return new AIResponse { msg = msg };
+            return new ServerResponse(msg);
         }
     }
 }

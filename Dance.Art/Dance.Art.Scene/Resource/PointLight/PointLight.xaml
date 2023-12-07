@@ -9,7 +9,7 @@
     <DataTemplate x:Key="[Dance.Art.Scene]:PointLight">
         <dance:DanceTransformGroupElement3D InnerBounds="{Binding Path=InnerBounds,Mode=OneWay}" 
                                             Transform="{Binding Transform,Mode=OneWay,Converter={StaticResource DanceTransformConverter}}">
-            <hx:BillboardTextModel3D FixedSize="False" Geometry="{Binding Path=BillboardImage,Mode=OneWay}"></hx:BillboardTextModel3D>
+            <hx:BillboardTextModel3D FixedSize="True" Geometry="{Binding Path=BillboardImage,Mode=OneWay}"></hx:BillboardTextModel3D>
             <hx:PointLight3D Color="{Binding Path=Color,Mode=OneWay}"
                              Attenuation="{Binding Path=Attenuation,Mode=OneWay}"></hx:PointLight3D>
         </dance:DanceTransformGroupElement3D>

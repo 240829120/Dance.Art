@@ -44,7 +44,7 @@
         <Border BorderBrush="{DynamicResource ResourceKey={x:Static Member=dance:DanceResourceKey.BORDER_BRUSH}}" 
                 BorderThickness="1" Grid.Column="1" Margin="5,0,0,0"
                 Grid.Row="2" Padding="10">
-            <hx:Viewport3DX x:Name="viewport" BackgroundColor="White" AllowDrop="True"
+            <hx:Viewport3DX x:Name="viewport" BackgroundColor="Black" AllowDrop="True"
                             EnableDesignModeRendering="False"
                             ShowCoordinateSystem="True"
                             ZoomExtentsWhenLoaded="True"
@@ -71,7 +71,10 @@
                         <b:InvokeCommandAction Command="{Binding Path=MouseDown3DCommand}" PassEventArgsToCommand="True"></b:InvokeCommandAction>
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
-                <hx:AxisPlaneGridModel3D AutoSpacing="True" RenderShadowMap="False" />
+
+                <hx:LineGeometryModel3D x:Name="grid" />
+                
+                <!--<hx:AxisPlaneGridModel3D AutoSpacing="True" RenderShadowMap="False" />-->
                 <hx:AmbientLight3D Color="{Binding SceneModel.AmbientLight}" />
                 <hx:DirectionalLight3D Direction="{Binding SceneModel.Camera.LookDirection}" Color="White" />
                 <dance:DanceTransformManipulator3D x:Name="manipulator"

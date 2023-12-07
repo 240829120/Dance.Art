@@ -37,6 +37,11 @@ namespace Dance.Art.Module
         /// <summary>
         /// 服务管理器
         /// </summary>
+        private readonly IDanceServiceManager ServiceManager = DanceDomain.Current.LifeScope.Resolve<IDanceServiceManager>();
+
+        /// <summary>
+        /// Web服务管理器
+        /// </summary>
         private readonly IServerManager ServerManager = DanceDomain.Current.LifeScope.Resolve<IServerManager>();
 
         /// <summary>
@@ -123,10 +128,14 @@ namespace Dance.Art.Module
 
             // 构建文档分组
             this.DocumentFileInfoManager.Build();
-
-            // 启动服务
             this.ProgressValue = 1;
+
+            // 构建服务
             this.ProgressMessage = "启动服务";
+            foreach (string assemblyPrefix in ArtDomain.Current.PluginAssemblyPrefixes)
+            {
+                this.ServiceManager.Build(assemblyPrefix);
+            }
             this.ServerManager.Start(ArtDomain.Current.PluginAssemblyPrefixes);
             await Task.Delay(1000);
 

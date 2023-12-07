@@ -1,5 +1,8 @@
 ﻿using Dance.Wpf;
+using Microsoft.ClearScript;
+using Microsoft.ClearScript.JavaScript;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,74 +15,34 @@ namespace Dance.Art.Domain
     /// </summary>
     public class ScriptHost : DanceObject
     {
-        /// <summary>
-        /// 脚本宿主
-        /// </summary>
-        public ScriptHost()
-        {
-            this.InitService();
-        }
-
-        /// <summary>
-        /// 初始化服务
-        /// </summary>
-        private void InitService()
-        {
-            foreach (ScriptPluginInfo scriptPlugin in ArtDomain.Current.GetPluginCollection<ScriptPluginInfo>())
-            {
-                if (scriptPlugin == null || scriptPlugin.Services == null || scriptPlugin.Services.Length == 0)
-                    continue;
-
-                foreach (ScriptServiceInfo serviceInfo in scriptPlugin.Services)
-                {
-                    if (serviceInfo == null || serviceInfo.Type == null)
-                        continue;
-
-                    this.ServiceCache.Add(serviceInfo, null);
-                }
-            }
-        }
-
         // ===========================================================================================
         // Field
 
         /// <summary>
-        /// 服务缓存
+        /// 服务管理器
         /// </summary>
-        private readonly Dictionary<ScriptServiceInfo, object?> ServiceCache = new();
+        private readonly IDanceServiceManager ServiceManager = DanceDomain.Current.LifeScope.Resolve<IDanceServiceManager>();
 
         // ===========================================================================================
         // Public Function
 
         /// <summary>
-        /// 获取服务
+        /// 执行
         /// </summary>
-        /// <param name="nameSpace">命名空间</param>
-        /// <param name="name">名称</param>
-        /// <returns>服务</returns>
-        public object? GetService(string nameSpace, string name)
+        /// <param name="route">路由</param>
+        /// <param name="args">参数</param>
+        /// <returns>执行结果</returns>
+        public string? Invoke(string route, IEnumerable args)
         {
-            lock (this.ServiceCache)
+            try
             {
-                ScriptServiceInfo? serviceInfo = this.ServiceCache.Keys.FirstOrDefault(p => string.Equals(p.NameSpace, nameSpace) && string.Equals(p.Name, name));
-                if (serviceInfo == null)
-                    return null;
+                return this.ServiceManager.InvokeJson(route, args.Cast<string>().ToArray());
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
 
-                if (this.ServiceCache[serviceInfo] == null)
-                {
-                    if (string.IsNullOrWhiteSpace(serviceInfo.Type.FullName))
-                        return null;
-
-                    object? service = serviceInfo.Type.Assembly.CreateInstance(serviceInfo.Type.FullName);
-                    if (service == null)
-                        return null;
-
-                    this.ServiceCache[serviceInfo] = service;
-
-                    return service;
-                }
-
-                return this.ServiceCache[serviceInfo];
+                return null;
             }
         }
     }

@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dance.Wpf;
 using HelixToolkit.Wpf.SharpDX;
+using SharpDX;
 
 namespace Dance.Art.Scene
 {
@@ -28,6 +29,16 @@ namespace Dance.Art.Scene
         public SceneDocumentView()
         {
             InitializeComponent();
+
+            var grid = new LineBuilder();
+            for (var i = -1000; i <= 1000; i += 30)
+            {
+                grid.AddLine(new Vector3(i, 0, -1000), new Vector3(i, 0, 1000));
+                grid.AddLine(new Vector3(-1000, 0, i), new Vector3(1000, 0, i));
+            }
+
+            this.grid.Geometry = grid.ToLineGeometry3D();
+            this.grid.Color = (System.Windows.Media.Color)ColorConverter.ConvertFromString("#FF444444");
 
             this.DataContext = new SceneDocumentViewModel()
             {

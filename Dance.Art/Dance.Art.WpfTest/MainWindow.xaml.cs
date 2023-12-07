@@ -25,6 +25,16 @@ using HelixToolkit.Wpf.SharpDX;
 
 namespace Dance.Art.WpfTest
 {
+    [DanceServiceRoute]
+    public class TestService
+    {
+        [DanceServiceRoute]
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
+    }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -35,6 +45,12 @@ namespace Dance.Art.WpfTest
 
         public MainWindow()
         {
+            DanceServiceManager serviceManager = new();
+            serviceManager.AddService(new TestService());
+            var r = serviceManager.Invoke("Test/Add", new object[] { 1, 2 });
+
+
+
             InitializeComponent();
 
             this.viewport.ModelUpDirection = new System.Windows.Media.Media3D.Vector3D(0, 1, 0);

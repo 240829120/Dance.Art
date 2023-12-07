@@ -1,41 +1,27 @@
-﻿
+﻿import { ServerWrapper } from '../Core/server'
+
 /**
  * 输出服务
  */
-class OutputScriptServiceWrapper {
+class OutputServer {
 
-    /**
-     * 输出服务
-     */
     constructor() {
 
         /**
-         * 服务命名空间
+         * 服务包装器
          */
-        this.NAME_SPACE = "DANCE_ART_SCRIPT";
-
-        /**
-         * 服务名称
-         */
-        this.NAME = "OutputScriptService";
-
-        /**
-         * 服务宿主对象
-         */
-        this.HOST_OBJECT = DANCE_ART_HOST.GetService(this.NAME_SPACE, this.NAME);
+        this.serverWrapper = new ServerWrapper();
     }
 
     /**
-     * 输出日志
-     * @param {string} txt 日志
+     * 输出行
+     * @param {any} msg 消息
      */
-    log(txt) {
-        if (this.HOST_OBJECT === null || this.HOST_OBJECT === undefined)
-            retun;
+    writeLine(msg) {
+        let request = { msg : msg }
 
-        this.HOST_OBJECT.Log(`${txt}`);
-        console.log(`${txt}`);
+        this.serverWrapper.invoke("Output/WriteLine", request);
     }
 }
 
-export { OutputScriptServiceWrapper }
+export { OutputServer }

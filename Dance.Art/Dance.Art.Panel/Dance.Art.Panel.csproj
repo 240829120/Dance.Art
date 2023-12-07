@@ -70,7 +70,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Output\Controller\Response\" />
+    <Folder Include="Output\Server\Controller\Response\" />
   </ItemGroup>
 
 </Project>

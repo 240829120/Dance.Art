@@ -1,4 +1,4 @@
-﻿import { OutputScriptServiceWrapper } from './DANCE_ART/Output/index'
+﻿import { OutputServer } from './DANCE_ART/Output/index'
 
-let outputService = new OutputScriptServiceWrapper();
-outputService.log("Hello World");
+let outputServer = new OutputServer();
+outputServer.writeLine("Hello World");

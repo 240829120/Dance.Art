@@ -24,7 +24,7 @@ namespace Dance.Art.Scene
     {
         public SceneModel()
         {
-            this.camera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera() { Position = new Point3D(0, 0, 200), LookDirection = new Vector3D(0, 0, -200), UpDirection = new Vector3D(0, 1, 0), FarPlaneDistance = 1000 };
+            this.camera = new HelixToolkit.Wpf.SharpDX.PerspectiveCamera() { Position = new Point3D(0, 0, 200), LookDirection = new Vector3D(0, 0, -20000), UpDirection = new Vector3D(0, 1, 0), FarPlaneDistance = 100000 };
         }
 
         // ===============================================================================================

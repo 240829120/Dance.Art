@@ -11,21 +11,10 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 文件模型
     /// </summary>
-    public class FileModel : DanceModel
+    /// <param name="parent">父基元素</param>
+    /// <param name="path">路径</param>
+    public class FileModel(FileModel? parent, string path) : DanceModel
     {
-        /// <summary>
-        /// 文件模型
-        /// </summary>
-        /// <param name="parent">父基元素</param>
-        /// <param name="path">路径</param>
-        public FileModel(FileModel? parent, string path)
-        {
-            this.parent = parent;
-            this.path = path;
-            this.fileName = System.IO.Path.GetFileName(path);
-            this.extension = System.IO.Path.GetExtension(path);
-        }
-
         // =============================================================================================
         // Property
 
@@ -36,7 +25,7 @@ namespace Dance.Art.Domain
 
         #region Parent -- 父级元素
 
-        private FileModel? parent;
+        private FileModel? parent = parent;
         /// <summary>
         /// 父级元素
         /// </summary>
@@ -50,7 +39,7 @@ namespace Dance.Art.Domain
 
         #region FileName -- 文件名称
 
-        private string fileName;
+        private string fileName = System.IO.Path.GetFileName(path);
         /// <summary>
         /// 文件名
         /// </summary>
@@ -64,7 +53,7 @@ namespace Dance.Art.Domain
 
         #region Path -- 路径
 
-        private string path;
+        private string path = path;
         /// <summary>
         /// 路径
         /// </summary>
@@ -78,7 +67,7 @@ namespace Dance.Art.Domain
 
         #region Extension -- 扩展名
 
-        private string extension;
+        private string extension = System.IO.Path.GetExtension(path);
         /// <summary>
         /// 扩展名
         /// </summary>
@@ -92,7 +81,7 @@ namespace Dance.Art.Domain
 
         #region Items -- 子项集合
 
-        private ObservableCollection<FileModel> items = new();
+        private ObservableCollection<FileModel> items = [];
         /// <summary>
         /// 子项集合
         /// </summary>

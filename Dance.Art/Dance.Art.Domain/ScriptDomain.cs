@@ -12,21 +12,13 @@ namespace Dance.Art
     /// <summary>
     /// 脚本领域
     /// </summary>
-    public class ScriptDomain : DanceDomain
+    /// <param name="indexFile">入口文件</param>
+    public class ScriptDomain(string indexFile) : DanceDomain
     {
-        /// <summary>
-        /// 脚本领域
-        /// </summary>
-        /// <param name="indexFile">入口文件</param>
-        public ScriptDomain(string indexFile)
-        {
-            this.IndexFile = indexFile;
-        }
-
         /// <summary>
         /// 入口文件
         /// </summary>
-        public string IndexFile { get; private set; }
+        public string IndexFile { get; private set; } = indexFile;
 
         /// <summary>
         /// 脚本引擎

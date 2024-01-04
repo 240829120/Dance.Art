@@ -9,20 +9,12 @@ namespace Dance.Art.Timeline
     /// <summary>
     /// 时间线拖拽信息
     /// </summary>
-    public class TimelineDragInfo
+    /// <param name="model">时间线元素模型</param>
+    public class TimelineDragInfo(TimelineElementModelBase model)
     {
-        /// <summary>
-        /// 时间线拖拽信息
-        /// </summary>
-        /// <param name="model">时间线元素模型</param>
-        public TimelineDragInfo(TimelineElementModelBase model)
-        {
-            this.Model = model;
-        }
-
         /// <summary>
         /// 元素
         /// </summary>
-        public TimelineElementModelBase Model { get; set; }
+        public TimelineElementModelBase Model { get; set; } = model;
     }
 }

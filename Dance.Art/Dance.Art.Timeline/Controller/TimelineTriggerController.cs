@@ -12,17 +12,9 @@ namespace Dance.Art.Timeline
     /// <summary>
     /// 时间线触发控制器
     /// </summary>
-    public class TimelineTriggerController : DanceObject
+    /// <param name="vm">文档视图模型</param>
+    public class TimelineTriggerController(TimelineDocumentViewModel vm) : DanceObject
     {
-        /// <summary>
-        /// 时间线触发器控制器
-        /// </summary>
-        /// <param name="vm">文档视图模型</param>
-        public TimelineTriggerController(TimelineDocumentViewModel vm)
-        {
-            this.ViewModel = vm;
-        }
-
         // ==========================================================================================================
         // Field
 
@@ -34,7 +26,7 @@ namespace Dance.Art.Timeline
         /// <summary>
         /// 视图模型
         /// </summary>
-        public TimelineDocumentViewModel ViewModel { get; private set; }
+        public TimelineDocumentViewModel ViewModel { get; private set; } = vm;
 
         // ==========================================================================================================
         // Public

@@ -15,7 +15,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 文档文件分组信息集合
         /// </summary>
-        public List<DocumentFileGroupInfo> DocumentFileGroupInfos { get; private set; } = new();
+        public List<DocumentFileGroupInfo> DocumentFileGroupInfos { get; private set; } = [];
 
         /// <summary>
         /// 构建

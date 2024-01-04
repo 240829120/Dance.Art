@@ -16,7 +16,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 缓存
         /// </summary>
-        private readonly Dictionary<string, List<ResourceInfoGroupModel>> Cache = new();
+        private readonly Dictionary<string, List<ResourceInfoGroupModel>> Cache = [];
 
         /// <summary>
         /// 根据文件路径获取资源集合
@@ -33,13 +33,13 @@ namespace Dance.Art.Domain
                 ResourceDocumentPluginInfo? pluginInfo = ArtDomain.Current.GetPluginCollection<ResourceDocumentPluginInfo>().FirstOrDefault(p => p.FileInfos.Any(p => string.Equals(p.Extension, extension, StringComparison.OrdinalIgnoreCase)));
                 if (pluginInfo == null)
                 {
-                    groups = new();
+                    groups = [];
                     this.Cache.Add(extension, groups);
 
                     return groups;
                 }
 
-                groups = new();
+                groups = [];
 
                 var plugins = ArtDomain.Current.GetPluginCollection<ResourcePluginInfo>();
                 foreach (var plugin in plugins)

@@ -113,7 +113,7 @@ namespace Dance.Art.Timeline
             if (ArtDomain.Current.ProjectDomain == null || string.IsNullOrWhiteSpace(this.DeviceNames) || string.IsNullOrWhiteSpace(this.BeginCommand))
                 return;
 
-            List<string> devices = this.DeviceNames.Split(DeviceChooseEditor.SEPARATOR, StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> devices = [.. this.DeviceNames.Split(DeviceChooseEditor.SEPARATOR, StringSplitOptions.RemoveEmptyEntries)];
             if (devices.Count == 0)
                 return;
 
@@ -151,7 +151,7 @@ namespace Dance.Art.Timeline
             if (ArtDomain.Current.ProjectDomain == null || string.IsNullOrWhiteSpace(this.DeviceNames) || string.IsNullOrWhiteSpace(this.EndCommand))
                 return;
 
-            List<string> devices = this.DeviceNames.Split(DeviceChooseEditor.SEPARATOR, StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> devices = [.. this.DeviceNames.Split(DeviceChooseEditor.SEPARATOR, StringSplitOptions.RemoveEmptyEntries)];
             if (devices.Count == 0)
                 return;
 

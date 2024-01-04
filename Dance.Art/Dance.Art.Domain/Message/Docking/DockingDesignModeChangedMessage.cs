@@ -9,20 +9,12 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 设计模式改变消息
     /// </summary>
-    public class DockingDesignModeChangedMessage
+    /// <param name="isDesignMode">是否是设计模式</param>
+    public class DockingDesignModeChangedMessage(bool isDesignMode)
     {
-        /// <summary>
-        /// 设计模式改变消息
-        /// </summary>
-        /// <param name="isDesignMode">是否是设计模式</param>
-        public DockingDesignModeChangedMessage(bool isDesignMode)
-        {
-            this.IsDesignMode = isDesignMode;
-        }
-
         /// <summary>
         /// 是否是设计模式
         /// </summary>
-        public bool IsDesignMode { get; private set; }
+        public bool IsDesignMode { get; private set; } = isDesignMode;
     }
 }

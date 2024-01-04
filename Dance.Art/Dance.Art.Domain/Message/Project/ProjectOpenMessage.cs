@@ -9,20 +9,12 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 项目打开消息
     /// </summary>
-    public class ProjectOpenMessage
+    /// <param name="projectDomain">项目</param>
+    public class ProjectOpenMessage(ProjectDomain projectDomain)
     {
-        /// <summary>
-        /// 项目打开消息
-        /// </summary>
-        /// <param name="projectDomain">项目</param>
-        public ProjectOpenMessage(ProjectDomain projectDomain)
-        {
-            this.ProjectDomain = projectDomain;
-        }
-
         /// <summary>
         /// 项目
         /// </summary>
-        public ProjectDomain ProjectDomain { get; private set; }
+        public ProjectDomain ProjectDomain { get; private set; } = projectDomain;
     }
 }

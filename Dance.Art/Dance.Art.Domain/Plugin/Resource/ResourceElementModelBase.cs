@@ -14,17 +14,9 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 资源元素项模型基类
     /// </summary>
-    public abstract class ResourceElementModelBase : ResourceItemModelBase, IResourceElementModel
+    /// <param name="dataTemplate">模板</param>
+    public abstract class ResourceElementModelBase(Type dataTemplate) : ResourceItemModelBase(dataTemplate), IResourceElementModel
     {
-        /// <summary>
-        /// 资源元素项模型基类
-        /// </summary>
-        /// <param name="dataTemplate">模板</param>
-        public ResourceElementModelBase(Type dataTemplate) : base(dataTemplate)
-        {
-
-        }
-
         #region ForegroundColor -- 前景色
 
         private Color foregroundColor = Colors.Black;

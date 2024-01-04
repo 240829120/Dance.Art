@@ -31,7 +31,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 子项集合
         /// </summary>
-        public ObservableCollection<DeviceModel> Items { get; } = new();
+        public ObservableCollection<DeviceModel> Items { get; } = [];
 
         #endregion
     }

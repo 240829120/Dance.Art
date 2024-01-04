@@ -38,12 +38,12 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 设备分组集合
         /// </summary>
-        public ObservableCollection<DeviceGroupModel> DeviceGroups { get; } = new();
+        public ObservableCollection<DeviceGroupModel> DeviceGroups { get; } = [];
 
         /// <summary>
         /// 数据源分组集合
         /// </summary>
-        public ObservableCollection<DataSourceGroupModel> DataSourceGroups { get; } = new();
+        public ObservableCollection<DataSourceGroupModel> DataSourceGroups { get; } = [];
 
         #region Name -- 名称
 

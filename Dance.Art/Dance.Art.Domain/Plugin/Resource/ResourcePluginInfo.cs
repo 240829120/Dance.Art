@@ -25,6 +25,6 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 资源
         /// </summary>
-        public List<IResourceSource> Resources { get; } = new();
+        public List<IResourceSource> Resources { get; } = [];
     }
 }

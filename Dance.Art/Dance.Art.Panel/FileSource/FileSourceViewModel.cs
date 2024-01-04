@@ -62,7 +62,7 @@ namespace Dance.Art.Panel
         /// <summary>
         /// 等待剪切的文件集合
         /// </summary>
-        private readonly List<FileModel> WaitForCutFiles = new();
+        private readonly List<FileModel> WaitForCutFiles = [];
 
         // ==================================================================================
         // Property
@@ -364,8 +364,7 @@ namespace Dance.Art.Panel
                 if (files.Count == 0)
                     return;
 
-                StringCollection fileDropList = new();
-                fileDropList.AddRange(files.Select(p => p.Path).ToArray());
+                StringCollection fileDropList = [.. files.Select(p => p.Path).ToArray()];
 
                 Clipboard.SetFileDropList(fileDropList);
             }
@@ -419,8 +418,7 @@ namespace Dance.Art.Panel
                 this.WaitForCutFiles.AddRange(files);
                 this.WaitForCutFiles.ForEach(p => p.IsWaitForCut = true);
 
-                StringCollection fileDropList = new();
-                fileDropList.AddRange(files.Select(p => p.Path).ToArray());
+                StringCollection fileDropList = [.. files.Select(p => p.Path).ToArray()];
 
                 Clipboard.SetFileDropList(fileDropList);
             }
@@ -476,7 +474,7 @@ namespace Dance.Art.Panel
                 if (string.IsNullOrWhiteSpace(dst))
                     return;
 
-                List<string> sources = new();
+                List<string> sources = [];
                 foreach (string? source in fileDropList)
                 {
                     if (string.IsNullOrWhiteSpace(source))

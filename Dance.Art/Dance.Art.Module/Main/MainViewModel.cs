@@ -853,7 +853,7 @@ namespace Dance.Art.Module
             if (this.Documents == null)
                 return;
 
-            List<IPanelViewModel> unSaveDocuments = new();
+            List<IPanelViewModel> unSaveDocuments = [];
             foreach (DocumentPluginModel document in this.Documents)
             {
                 if (document.View is FrameworkElement view && view.DataContext is IPanelViewModel panel && panel.IsModify)

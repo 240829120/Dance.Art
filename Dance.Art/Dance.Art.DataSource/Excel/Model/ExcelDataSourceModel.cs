@@ -47,7 +47,7 @@ namespace Dance.Art.DataSource
         /// <summary>
         /// 数据集集合
         /// </summary>
-        public DanceWrapperCollection<DataSetModel> DataSourceSets { get; } = new();
+        public DanceWrapperCollection<DataSetModel> DataSourceSets { get; } = [];
 
         #region Path -- 文件路径
 
@@ -150,7 +150,7 @@ namespace Dance.Art.DataSource
                         default: return;
                     }
 
-                    List<DataSetModel> dataSets = new();
+                    List<DataSetModel> dataSets = [];
                     foreach (ISheet sheet in workBook)
                     {
                         if (sheet == null)

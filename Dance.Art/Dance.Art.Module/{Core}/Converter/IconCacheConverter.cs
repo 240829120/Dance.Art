@@ -27,7 +27,7 @@ namespace Dance.Art.Module
         /// <summary>
         /// 缓存
         /// </summary>
-        private static readonly Dictionary<string, ImageSource> CACHE = new();
+        private static readonly Dictionary<string, ImageSource> CACHE = [];
 
         /// <summary>
         /// 转化器

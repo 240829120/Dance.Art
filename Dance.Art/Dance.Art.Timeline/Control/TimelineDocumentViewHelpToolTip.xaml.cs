@@ -24,10 +24,5 @@ namespace Dance.Art.Timeline
         {
             InitializeComponent();
         }
-
-        private void RowDefinition_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
-        }
     }
 }

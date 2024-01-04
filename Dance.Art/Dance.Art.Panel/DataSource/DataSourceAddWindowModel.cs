@@ -151,13 +151,13 @@ namespace Dance.Art.Panel
         private void Loaded()
         {
             IReadOnlyList<DataSourcePluginInfo> query = ArtDomain.Current.GetPluginCollection<DataSourcePluginInfo>();
-            List<DataSourceCategoryModel> categorys = new();
+            List<DataSourceCategoryModel> categorys = [];
             foreach (var group in query.GroupBy(p => p.Category))
             {
                 DataSourceCategoryModel category = new()
                 {
                     Category = group.Key,
-                    Items = group.ToList()
+                    Items = [.. group]
                 };
 
                 categorys.Add(category);

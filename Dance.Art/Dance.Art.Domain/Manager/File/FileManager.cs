@@ -24,11 +24,11 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 跳过文件
         /// </summary>
-        private readonly List<string> PASS_FILES = new()
-        {
+        private readonly List<string> PASS_FILES =
+        [
             FileSuffixCategory.PROJECT,
             FileSuffixCategory.PROJECT_CACHE
-        };
+        ];
 
         // ===============================================================================================
         // Field
@@ -50,6 +50,11 @@ namespace Dance.Art.Domain
         /// 项目文件根路径
         /// </summary>
         public FileModel? Root { get; private set; }
+
+        /// <summary>
+        /// 分隔符
+        /// </summary>
+        private static readonly char[] SEPARATOR = ['\\', '/'];
 
         // ===============================================================================================
         // Public Function
@@ -109,13 +114,13 @@ namespace Dance.Art.Domain
         /// <param name="ancestor">祖先节点</param>
         /// <param name="path">路径</param>
         /// <returns>文件模型</returns>
-        public FileModel? FindFileModel(FileModel ancestor, string path)
+        public static FileModel? FindFileModel(FileModel ancestor, string path)
         {
             if (string.Equals(ancestor.Path, path, StringComparison.OrdinalIgnoreCase))
                 return ancestor;
 
             string relativePath = Path.GetRelativePath(ancestor.Path, path);
-            string? name = relativePath.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+            string? name = relativePath.Split(SEPARATOR, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
             if (string.IsNullOrWhiteSpace(name))
                 return null;
 
@@ -133,7 +138,7 @@ namespace Dance.Art.Domain
         /// <returns>过滤后的文件模型</returns>
         public List<FileModel> FilterFileModelForOperate(List<FileModel> files)
         {
-            List<FileModel> result = files.ToList();
+            List<FileModel> result = [.. files];
 
             foreach (var file in files)
             {
@@ -334,7 +339,7 @@ namespace Dance.Art.Domain
             if (string.IsNullOrWhiteSpace(parentPath))
                 return;
 
-            FileModel? parent = this.FindFileModel(this.Root, parentPath);
+            FileModel? parent = FindFileModel(this.Root, parentPath);
             if (parent == null)
                 return;
 
@@ -369,7 +374,7 @@ namespace Dance.Art.Domain
             if (string.IsNullOrWhiteSpace(parentPath))
                 return;
 
-            FileModel? parent = this.FindFileModel(this.Root, parentPath);
+            FileModel? parent = FindFileModel(this.Root, parentPath);
             if (parent == null)
                 return;
 
@@ -385,7 +390,7 @@ namespace Dance.Art.Domain
         /// </summary>
         /// <param name="files">文件集合</param>
         /// <param name="folder">文件夹</param>
-        private void RemoveChildrenItemsForOperate(List<FileModel> files, FileModel folder)
+        private static void RemoveChildrenItemsForOperate(List<FileModel> files, FileModel folder)
         {
             foreach (FileModel file in folder.Items)
             {
@@ -394,10 +399,7 @@ namespace Dance.Art.Domain
                     RemoveChildrenItemsForOperate(files, file);
                 }
 
-                if (files.Contains(file))
-                {
-                    files.Remove(file);
-                }
+                files.Remove(file);
             }
         }
 

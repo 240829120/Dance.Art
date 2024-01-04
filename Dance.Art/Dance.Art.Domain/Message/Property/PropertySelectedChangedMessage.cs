@@ -9,34 +9,24 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 属性选择改变消息
     /// </summary>
-    public class PropertySelectedChangedMessage
+    /// <param name="source">源</param>
+    /// <param name="data">数据</param>
+    /// <param name="selectedObject">选中对象</param>
+    public class PropertySelectedChangedMessage(object? source, object? data, object? selectedObject)
     {
-        /// <summary>
-        /// 属性选择改变消息
-        /// </summary>
-        /// <param name="source">源</param>
-        /// <param name="data">数据</param>
-        /// <param name="selectedObject">选中对象</param>
-        public PropertySelectedChangedMessage(object? source, object? data, object? selectedObject)
-        {
-            this.Source = source;
-            this.Data = data;
-            this.SelectedObject = selectedObject;
-        }
-
         /// <summary>
         /// 源
         /// </summary>
-        public object? Source { get; }
+        public object? Source { get; } = source;
 
         /// <summary>
         /// 数据
         /// </summary>
-        public object? Data { get; }
+        public object? Data { get; } = data;
 
         /// <summary>
         /// 选中对象
         /// </summary>
-        public object? SelectedObject { get; }
+        public object? SelectedObject { get; } = selectedObject;
     }
 }

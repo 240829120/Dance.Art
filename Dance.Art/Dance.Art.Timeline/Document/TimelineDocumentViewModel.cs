@@ -539,7 +539,7 @@ namespace Dance.Art.Timeline
             TimelineStorage storage = new()
             {
                 TimelineModel = this.TimelineModel,
-                Tracks = this.Tracks.ToList()
+                Tracks = [.. this.Tracks]
             };
 
             this.FileManager.SaveFile(document.File, () =>

@@ -19,7 +19,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 项目领域构建器
         /// </summary>
-        public List<IProjectDomainBuilder> ProjectDomainBuilders { get; private set; } = new();
+        public List<IProjectDomainBuilder> ProjectDomainBuilders { get; private set; } = [];
 
         /// <summary>
         /// 当前Art领域
@@ -29,12 +29,12 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 插件程序集前缀集合
         /// </summary>
-        public List<string> PluginAssemblyPrefixes { get; } = new();
+        public List<string> PluginAssemblyPrefixes { get; } = [];
 
         /// <summary>
         /// 插件集合
         /// </summary>
-        public List<IDancePluginInfo> Plugins { get; private set; } = new();
+        public List<IDancePluginInfo> Plugins { get; private set; } = [];
 
         // ----------------------------------------------------------------------------------------------------
         // Views
@@ -42,12 +42,12 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 面板集合
         /// </summary>
-        public ObservableCollection<PanelPluginModel> Panels { get; } = new();
+        public ObservableCollection<PanelPluginModel> Panels { get; } = [];
 
         /// <summary>
         /// 文档集合
         /// </summary>
-        public ObservableCollection<DocumentPluginModel> Documents { get; } = new();
+        public ObservableCollection<DocumentPluginModel> Documents { get; } = [];
 
         /// <summary>
         /// 当前激活的内容

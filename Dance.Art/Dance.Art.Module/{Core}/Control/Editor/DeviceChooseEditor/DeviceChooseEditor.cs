@@ -76,8 +76,8 @@ namespace Dance.Art.Module
             if (ArtDomain.Current.ProjectDomain == null)
                 return;
 
-            List<string> devices = string.IsNullOrWhiteSpace(this.EditValue) ? new() : this.EditValue.Split(SEPARATOR).ToList();
-            List<DeviceChooseModel> list = new();
+            List<string> devices = string.IsNullOrWhiteSpace(this.EditValue) ? [] : [.. this.EditValue.Split(SEPARATOR)];
+            List<DeviceChooseModel> list = [];
 
             foreach (DeviceGroupModel group in ArtDomain.Current.ProjectDomain.DeviceGroups)
             {

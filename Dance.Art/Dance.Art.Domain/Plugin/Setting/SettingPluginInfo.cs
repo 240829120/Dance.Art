@@ -9,16 +9,10 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 设置插件信息
     /// </summary>
-    public class SettingPluginInfo : ViewPluginInfoBase
+    /// <param name="id">编号</param>
+    /// <param name="name">名称</param>
+    /// <param name="viewType">视图类型</param>
+    public class SettingPluginInfo(string id, string name, Type viewType) : ViewPluginInfoBase(id, name, viewType)
     {
-        /// <summary>
-        /// 设置插件信息
-        /// </summary>
-        /// <param name="id">编号</param>
-        /// <param name="name">名称</param>
-        /// <param name="viewType">视图类型</param>
-        public SettingPluginInfo(string id, string name, Type viewType) : base(id, name, viewType)
-        {
-        }
     }
 }

@@ -340,7 +340,7 @@ namespace Dance.Art.ControlGrid
             ControlGridStorage storage = new()
             {
                 ControlGridModel = this.ControlGridModel,
-                Items = this.Items.ToList()
+                Items = [.. this.Items]
             };
 
             this.FileManager.SaveFile(document.File, () =>

@@ -19,14 +19,14 @@ namespace Dance.Art.Domain
         /// <param name="assemblyPrefix">程序集前缀</param>
         public void LoadPlugin(string assemblyPrefix)
         {
-            List<string> files = new();
-            List<Assembly> assemblies = new();
+            List<string> files = [];
+            List<Assembly> assemblies = [];
 
             files.AddRange(Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll").Where(p => Path.GetFileName(p).StartsWith(assemblyPrefix)));
 
             assemblies.AddRange(files.Select(p => Assembly.Load(AssemblyName.GetAssemblyName(p))));
 
-            LoadAssembly(assemblies.ToArray());
+            LoadAssembly([.. assemblies]);
         }
 
         /// <summary>

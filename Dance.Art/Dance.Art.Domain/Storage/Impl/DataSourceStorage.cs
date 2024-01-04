@@ -22,7 +22,7 @@ namespace Dance.Art.Domain
             var plugins = ArtDomain.Current.GetPluginCollection<DataSourcePluginInfo>();
             var collection = projectDomain.CacheContext.Database.GetCollection<DataSourceGroupEntity>();
 
-            List<DataSourceGroupModel> groupModels = new();
+            List<DataSourceGroupModel> groupModels = [];
             foreach (var group in collection.FindAll())
             {
                 DataSourceGroupModel groupModel = new()
@@ -63,7 +63,7 @@ namespace Dance.Art.Domain
         /// <param name="projectDomain">项目领域</param>
         public void SaveDataSourceGroups(ProjectDomain projectDomain)
         {
-            List<DataSourceGroupEntity> groups = new();
+            List<DataSourceGroupEntity> groups = [];
 
             foreach (var groupModel in projectDomain.DataSourceGroups)
             {
@@ -126,7 +126,7 @@ namespace Dance.Art.Domain
             DataSetEntity entity = new()
             {
                 Name = model.Name,
-                Cells = new()
+                Cells = []
             };
 
             foreach (DataSetCellModel cellModel in model.Cells)

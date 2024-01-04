@@ -9,21 +9,13 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 项目关闭前消息
     /// </summary>
-    public class ProjectClosingMessage
+    /// <param name="projectDomain">项目</param>
+    public class ProjectClosingMessage(ProjectDomain projectDomain)
     {
-        /// <summary>
-        /// 项目关闭前消息
-        /// </summary>
-        /// <param name="projectDomain">项目</param>
-        public ProjectClosingMessage(ProjectDomain projectDomain)
-        {
-            this.ProjectDomain = projectDomain;
-        }
-
         /// <summary>
         /// 项目
         /// </summary>
-        public ProjectDomain ProjectDomain { get; private set; }
+        public ProjectDomain ProjectDomain { get; private set; } = projectDomain;
 
         /// <summary>
         /// 是否取消

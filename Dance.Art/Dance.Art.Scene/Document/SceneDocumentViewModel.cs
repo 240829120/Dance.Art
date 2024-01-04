@@ -153,12 +153,12 @@ namespace Dance.Art.Scene
             this.SelectedItem = null;
         }
 
-        private Element3D? TryFindTag(SceneNode node)
+        private static Element3D? TryFindTag(SceneNode node)
         {
             if (node.Tag is Element3D element)
                 return element;
 
-            return this.TryFindTag(node.Parent);
+            return TryFindTag(node.Parent);
         }
 
         #endregion
@@ -272,7 +272,7 @@ namespace Dance.Art.Scene
             SceneStorage storage = new()
             {
                 SceneModel = this.SceneModel,
-                Items = this.Items.ToList()
+                Items = [.. this.Items]
             };
 
             this.FileManager.SaveFile(document.File, () =>

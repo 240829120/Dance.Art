@@ -9,20 +9,12 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 文件状态改变消息
     /// </summary>
-    public class FileStatusChangeMessage
+    /// <param name="path">路径</param>
+    public class FileStatusChangeMessage(string path)
     {
-        /// <summary>
-        /// 文件状态改变消息
-        /// </summary>
-        /// <param name="path">路径</param>
-        public FileStatusChangeMessage(string path)
-        {
-            this.Path = path;
-        }
-
         /// <summary>
         /// 文件路径
         /// </summary>
-        public string Path { get; private set; }
+        public string Path { get; private set; } = path;
     }
 }

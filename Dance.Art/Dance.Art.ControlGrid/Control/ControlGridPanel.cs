@@ -238,7 +238,6 @@ namespace Dance.Art.ControlGrid
                 return;
 
             ResourceInfoItemModel? resource = e.Data.GetData(typeof(ResourceInfoItemModel)) as ResourceInfoItemModel;
-            ControlGridItem? item = e.Data.GetData(typeof(ControlGridItem)) as ControlGridItem;
 
             ControlGridItemModelBase? model = null;
 
@@ -247,7 +246,7 @@ namespace Dance.Art.ControlGrid
                 model = resource.Source?.CreateInstance(ArtDomain.Current.ProjectDomain) as ControlGridItemModelBase;
             }
 
-            if (item != null)
+            if (e.Data.GetData(typeof(ControlGridItem)) is ControlGridItem item)
             {
                 model = item.DataContext as ControlGridItemModelBase;
             }

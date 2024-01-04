@@ -68,7 +68,7 @@ namespace Dance.Art.Timeline
 
         #region Items -- 子项集合
 
-        private DocumentWrapperCollection<TimelineElementModelBase> items = new();
+        private DocumentWrapperCollection<TimelineElementModelBase> items = [];
         /// <summary>
         /// 子项集合
         /// </summary>

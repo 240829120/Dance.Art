@@ -29,13 +29,13 @@ namespace Dance.Art.Timeline
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            List<IResourceSource> resources = new()
-            {
+            List<IResourceSource> resources =
+            [
                 new ScriptElementSource(),
                 new CommandElementSource(),
-            };
+            ];
 
-            return new ResourcePluginInfo(ID, NAME, resources.ToArray());
+            return new ResourcePluginInfo(ID, NAME, [.. resources]);
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace Dance.Art.Domain
             var plugins = ArtDomain.Current.GetPluginCollection<DevicePluginInfo>();
             var collection = projectDomain.CacheContext.Database.GetCollection<DeviceGroupEntity>();
 
-            List<DeviceGroupModel> groupModels = new();
+            List<DeviceGroupModel> groupModels = [];
             foreach (var group in collection.FindAll())
             {
                 DeviceGroupModel groupModel = new()
@@ -63,7 +63,7 @@ namespace Dance.Art.Domain
         /// <param name="projectDomain">项目领域</param>
         public void SaveDeviceGroups(ProjectDomain projectDomain)
         {
-            List<DeviceGroupEntity> groups = new();
+            List<DeviceGroupEntity> groups = [];
 
             foreach (var groupModel in projectDomain.DeviceGroups)
             {

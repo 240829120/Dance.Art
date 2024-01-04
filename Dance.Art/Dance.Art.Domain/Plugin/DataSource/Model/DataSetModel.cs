@@ -18,7 +18,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 单元格缓存
         /// </summary>
-        private readonly Dictionary<string, DataSetCellModel> Dic = new();
+        private readonly Dictionary<string, DataSetCellModel> Dic = [];
 
         // ====================================================================================
         // Property
@@ -92,7 +92,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 单元格集合
         /// </summary>
-        public DanceWrapperCollection<DataSetCellModel> Cells { get; } = new();
+        public DanceWrapperCollection<DataSetCellModel> Cells { get; } = [];
 
         // ====================================================================================
         // Public Function

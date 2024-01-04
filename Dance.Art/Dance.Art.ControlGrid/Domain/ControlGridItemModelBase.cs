@@ -14,17 +14,9 @@ namespace Dance.Art.ControlGrid
     /// <summary>
     /// 控制面板项模型
     /// </summary>
-    public abstract class ControlGridItemModelBase : ResourceElementModelBase, IControlGridItemModel
+    /// <param name="dataTemplate">模板</param>
+    public abstract class ControlGridItemModelBase(Type dataTemplate) : ResourceElementModelBase(dataTemplate), IControlGridItemModel
     {
-        /// <summary>
-        /// 控制面板项模型
-        /// </summary>
-        /// <param name="dataTemplate">模板</param>
-        public ControlGridItemModelBase(Type dataTemplate) : base(dataTemplate)
-        {
-
-        }
-
         #region Row -- 行
 
         private int row;

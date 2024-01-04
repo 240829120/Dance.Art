@@ -29,15 +29,15 @@ namespace Dance.Art.Scene
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            List<IResourceSource> resources = new()
-            {
+            List<IResourceSource> resources =
+            [
                 new DirectionalLightSource(),
                 new PointLightSource(),
                 new BoxSource(),
                 new ModelSource(),
-            };
+            ];
 
-            return new ResourcePluginInfo(ID, NAME, resources.ToArray());
+            return new ResourcePluginInfo(ID, NAME, [.. resources]);
         }
 
         /// <summary>

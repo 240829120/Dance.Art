@@ -71,7 +71,7 @@ namespace Dance.Art.ControlGrid
 
         #region Items -- 项集合
 
-        private DocumentWrapperCollection<string> items = new();
+        private DocumentWrapperCollection<string> items = [];
         /// <summary>
         /// 项集合
         /// </summary>

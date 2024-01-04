@@ -151,13 +151,13 @@ namespace Dance.Art.Panel
         private void Loaded()
         {
             IReadOnlyList<DevicePluginInfo> query = ArtDomain.Current.GetPluginCollection<DevicePluginInfo>();
-            List<DeviceCategoryModel> categorys = new();
+            List<DeviceCategoryModel> categorys = [];
             foreach (var group in query.GroupBy(p => p.Category))
             {
                 DeviceCategoryModel category = new()
                 {
                     Category = group.Key,
-                    Items = group.ToList()
+                    Items = [.. group]
                 };
 
                 categorys.Add(category);

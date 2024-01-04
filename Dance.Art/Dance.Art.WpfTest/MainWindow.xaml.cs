@@ -41,7 +41,7 @@ namespace Dance.Art.WpfTest
     public partial class MainWindow : Window
     {
 
-        private readonly List<ISceneItemModel> Items = new();
+        private readonly List<ISceneItemModel> Items = [];
 
         public MainWindow()
         {
@@ -110,12 +110,12 @@ namespace Dance.Art.WpfTest
             this.manipulator.Target = null;
         }
 
-        private Element3D? TryFindTag(SceneNode node)
+        private static Element3D? TryFindTag(SceneNode node)
         {
             if (node.Tag is Element3D element)
                 return element;
 
-            return this.TryFindTag(node.Parent);
+            return TryFindTag(node.Parent);
         }
 
         /// <summary>

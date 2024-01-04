@@ -87,7 +87,7 @@ namespace Dance.Art.Scene
 
         #region BillboardImage -- 广告牌
 
-        private BillboardImage3D billboardImage;
+        private readonly BillboardImage3D billboardImage;
 
         /// <summary>
         /// 广告牌

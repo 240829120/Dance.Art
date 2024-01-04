@@ -9,20 +9,12 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 激活内容改变消息
     /// </summary>
-    public class DockingActiveContentChangedMessage
+    /// <param name="content">内容</param>
+    public class DockingActiveContentChangedMessage(object? content)
     {
-        /// <summary>
-        /// 激活内容改变消息
-        /// </summary>
-        /// <param name="content">内容</param>
-        public DockingActiveContentChangedMessage(object? content)
-        {
-            this.Content = content;
-        }
-
         /// <summary>
         /// 内容
         /// </summary>
-        public object? Content { get; private set; }
+        public object? Content { get; private set; } = content;
     }
 }

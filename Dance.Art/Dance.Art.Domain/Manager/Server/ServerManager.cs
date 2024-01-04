@@ -36,8 +36,8 @@ namespace Dance.Art.Domain
             this.Server = new();
             this.Server.Urls.Add(URL);
 
-            List<string> files = new();
-            List<Assembly> assemblies = new();
+            List<string> files = [];
+            List<Assembly> assemblies = [];
             foreach (string assemblyPrefix in assemblyPrefixes)
             {
                 files.AddRange(Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll").Where(p => Path.GetFileName(p).StartsWith(assemblyPrefix)));

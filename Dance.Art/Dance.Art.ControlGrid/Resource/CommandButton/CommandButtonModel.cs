@@ -106,7 +106,7 @@ namespace Dance.Art.ControlGrid
             if (ArtDomain.Current.ProjectDomain == null || string.IsNullOrWhiteSpace(this.DeviceNames) || string.IsNullOrWhiteSpace(this.Command))
                 return;
 
-            List<string> devices = this.DeviceNames.Split(DeviceChooseEditor.SEPARATOR, StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> devices = [.. this.DeviceNames.Split(DeviceChooseEditor.SEPARATOR, StringSplitOptions.RemoveEmptyEntries)];
             if (devices.Count == 0)
                 return;
 

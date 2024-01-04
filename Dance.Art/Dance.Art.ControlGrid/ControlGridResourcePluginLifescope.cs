@@ -29,17 +29,17 @@ namespace Dance.Art.ControlGrid
         /// <returns>插件信息</returns>
         public IDancePluginInfo Register()
         {
-            List<IResourceSource> resources = new()
-            {
+            List<IResourceSource> resources =
+            [
                 new LabelSource(),
                 new CommandButtonSource(),
                 new ScriptButtonSource(),
                 new CheckBoxSource(),
                 new ComboBoxSource(),
                 new TextBoxSource(),
-            };
+            ];
 
-            return new ResourcePluginInfo(ID, NAME, resources.ToArray());
+            return new ResourcePluginInfo(ID, NAME, [.. resources]);
         }
 
         /// <summary>

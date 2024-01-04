@@ -9,29 +9,20 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 设备接收二进制数据事件参数
     /// </summary>
-    public class DeviceReceiveBufferDataEventArgs : DeviceReceiveDataEventArgsBase
+    /// <param name="source">源</param>
+    /// <param name="buffer">二进制数据</param>
+    /// <param name="length">数据长度</param>
+    public class DeviceReceiveBufferDataEventArgs(IDeviceSource source, byte[] buffer, int length) : DeviceReceiveDataEventArgsBase(source)
     {
-        /// <summary>
-        /// 设备接收数据事件参数
-        /// </summary>
-        /// <param name="source">源</param>
-        /// <param name="buffer">二进制数据</param>
-        /// <param name="length">数据长度</param>
-        public DeviceReceiveBufferDataEventArgs(IDeviceSource source, byte[] buffer, int length) : base(source)
-        {
-            this.Buffer = buffer;
-            this.Length = length;
-        }
-
         /// <summary>
         /// 二进制数据
         /// </summary>
-        public byte[] Buffer { get; private set; }
+        public byte[] Buffer { get; private set; } = buffer;
 
         /// <summary>
         /// 数据长度
         /// </summary>
-        public int Length { get; private set; }
+        public int Length { get; private set; } = length;
 
         /// <summary>
         /// 获取字符数据

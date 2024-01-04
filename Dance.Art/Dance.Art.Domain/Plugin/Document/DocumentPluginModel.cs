@@ -10,23 +10,15 @@ namespace Dance.Art.Domain
     /// <summary>
     /// 文档插件模型
     /// </summary>
-    public class DocumentPluginModel : ViewPluginModelBase
+    /// <param name="id">编号</param>
+    /// <param name="name">名称</param>
+    /// <param name="pluginInfo">插件信息</param>
+    /// <param name="file">文件</param>
+    public class DocumentPluginModel(string id, string name, DocumentPluginInfo pluginInfo, string file) : ViewPluginModelBase(id, name, pluginInfo)
     {
-        /// <summary>
-        /// 文档插件模型
-        /// </summary>
-        /// <param name="id">编号</param>
-        /// <param name="name">名称</param>
-        /// <param name="pluginInfo">插件信息</param>
-        /// <param name="file">文件</param>
-        public DocumentPluginModel(string id, string name, DocumentPluginInfo pluginInfo, string file) : base(id, name, pluginInfo)
-        {
-            this.file = file;
-        }
-
         #region File -- 文件路径
 
-        private string file;
+        private string file = file;
         /// <summary>
         /// 文件路径
         /// </summary>

@@ -30,7 +30,7 @@ namespace Dance.Art.Domain
         /// <summary>
         /// 项集合
         /// </summary>
-        public List<ResourceInfoItemModel> Items { get; } = new();
+        public List<ResourceInfoItemModel> Items { get; } = [];
 
         #endregion
 

@@ -58,7 +58,7 @@ namespace Dance.Art.Domain
         /// <returns>设备模型</returns>
         public static List<DeviceModel> GetDeviceModel(this ProjectDomain? projectDomain, List<string> names)
         {
-            List<DeviceModel> list = new();
+            List<DeviceModel> list = [];
 
             if (projectDomain == null || names == null || names.Count == 0)
                 return list;
@@ -84,7 +84,7 @@ namespace Dance.Art.Domain
             catch (Exception ex)
             {
                 log.Error(ex);
-                return new();
+                return [];
             }
         }
 

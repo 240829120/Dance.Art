@@ -10,17 +10,9 @@ namespace Dance.Art.Module
     /// <summary>
     /// 设备选择模型
     /// </summary>
-    public class DeviceChooseModel : DanceModel
+    /// <param name="device">设备</param>
+    public class DeviceChooseModel(DeviceModel device) : DanceModel
     {
-        /// <summary>
-        /// 设备选择模型
-        /// </summary>
-        /// <param name="device">设备</param>
-        public DeviceChooseModel(DeviceModel device)
-        {
-            this.device = device;
-        }
-
         #region IsSelected -- 是否被选中
 
         private bool isSelected;
@@ -37,7 +29,7 @@ namespace Dance.Art.Module
 
         #region Device -- 设备
 
-        private DeviceModel device;
+        private DeviceModel device = device;
         /// <summary>
         /// 设备
         /// </summary>
